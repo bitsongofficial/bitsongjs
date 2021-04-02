@@ -1,7 +1,6 @@
 import { fromHex } from "@bitsongjs/encoding";
 
-import { EnglishMnemonic } from "./index";
-import { Bip39 } from "./index";
+import { Bip39, EnglishMnemonic } from "./index";
 import bip39Vectors from "./testdata/bip39.json";
 
 describe("Bip39", () => {
