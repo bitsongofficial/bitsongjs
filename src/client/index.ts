@@ -1,3 +1,4 @@
-import { Client } from './Client';
+import { SigningBitsongClient } from './SigningClient';
+import { BitsongClient } from './Client';
 
-export { Client };
+export { SigningBitsongClient, BitsongClient };

@@ -9,7 +9,7 @@ export const protobufPackage = 'bitsong.fantoken';
 /** FanToken defines a standard for the fungible token */
 export interface FanToken {
     name: string;
-    maxSupply: Uint8Array;
+    maxSupply: string;
     mintable: boolean;
     owner: string;
     metaData?: Metadata;
@@ -20,15 +20,15 @@ export interface Params {
     issuePrice?: Coin;
 }
 
-const baseFanToken: object = { name: '', mintable: false, owner: '' };
+const baseFanToken: object = { name: '', maxSupply: '', mintable: false, owner: '' };
 
 export const FanToken = {
     encode(message: FanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.name !== '') {
             writer.uint32(10).string(message.name);
         }
-        if (message.maxSupply.length !== 0) {
-            writer.uint32(18).bytes(message.maxSupply);
+        if (message.maxSupply !== '') {
+            writer.uint32(18).string(message.maxSupply);
         }
         if (message.mintable === true) {
             writer.uint32(24).bool(message.mintable);
@@ -46,7 +46,6 @@ export const FanToken = {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseFanToken } as FanToken;
-        message.maxSupply = new Uint8Array();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -54,7 +53,7 @@ export const FanToken = {
                     message.name = reader.string();
                     break;
                 case 2:
-                    message.maxSupply = reader.bytes();
+                    message.maxSupply = reader.string();
                     break;
                 case 3:
                     message.mintable = reader.bool();
@@ -75,14 +74,15 @@ export const FanToken = {
 
     fromJSON(object: any): FanToken {
         const message = { ...baseFanToken } as FanToken;
-        message.maxSupply = new Uint8Array();
         if (object.name !== undefined && object.name !== null) {
             message.name = String(object.name);
         } else {
             message.name = '';
         }
         if (object.maxSupply !== undefined && object.maxSupply !== null) {
-            message.maxSupply = bytesFromBase64(object.maxSupply);
+            message.maxSupply = String(object.maxSupply);
+        } else {
+            message.maxSupply = '';
         }
         if (object.mintable !== undefined && object.mintable !== null) {
             message.mintable = Boolean(object.mintable);
@@ -105,7 +105,7 @@ export const FanToken = {
     toJSON(message: FanToken): unknown {
         const obj: any = {};
         message.name !== undefined && (obj.name = message.name);
-        message.maxSupply !== undefined && (obj.maxSupply = base64FromBytes(message.maxSupply !== undefined ? message.maxSupply : new Uint8Array()));
+        message.maxSupply !== undefined && (obj.maxSupply = message.maxSupply);
         message.mintable !== undefined && (obj.mintable = message.mintable);
         message.owner !== undefined && (obj.owner = message.owner);
         message.metaData !== undefined && (obj.metaData = message.metaData ? Metadata.toJSON(message.metaData) : undefined);
@@ -122,7 +122,7 @@ export const FanToken = {
         if (object.maxSupply !== undefined && object.maxSupply !== null) {
             message.maxSupply = object.maxSupply;
         } else {
-            message.maxSupply = new Uint8Array();
+            message.maxSupply = '';
         }
         if (object.mintable !== undefined && object.mintable !== null) {
             message.mintable = object.mintable;
@@ -197,35 +197,6 @@ export const Params = {
         return message;
     },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-var globalThis: any = (() => {
-    if (typeof globalThis !== 'undefined') return globalThis;
-    if (typeof self !== 'undefined') return self;
-    if (typeof window !== 'undefined') return window;
-    if (typeof global !== 'undefined') return global;
-    throw 'Unable to locate global object';
-})();
-
-const atob: (b64: string) => string = globalThis.atob || ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
-function bytesFromBase64(b64: string): Uint8Array {
-    const bin = atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-        arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-}
-
-const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
-function base64FromBytes(arr: Uint8Array): string {
-    const bin: string[] = [];
-    for (const byte of arr) {
-        bin.push(String.fromCharCode(byte));
-    }
-    return btoa(bin.join(''));
-}
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
 export type DeepPartial<T> = T extends Builtin

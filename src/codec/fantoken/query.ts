@@ -1,9 +1,8 @@
 /* eslint-disable */
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Any } from '../google/protobuf/any';
+import { FanToken, Params } from '../fantoken/fantoken';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
-import { Params } from '../fantoken/fantoken';
 import { Coin } from '../cosmos/base/v1beta1/coin';
 
 export const protobufPackage = 'bitsong.fantoken';
@@ -15,7 +14,7 @@ export interface QueryFanTokenRequest {
 
 /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
 export interface QueryFanTokenResponse {
-    FanToken?: Any;
+    token?: FanToken;
 }
 
 /** QueryFanTokensRequest is request type for the Query/FanTokens RPC method */
@@ -27,7 +26,7 @@ export interface QueryFanTokensRequest {
 
 /** QueryFanTokensResponse is response type for the Query/FanTokens RPC method */
 export interface QueryFanTokensResponse {
-    FanTokens: Any[];
+    tokens: FanToken[];
     pagination?: PageResponse;
 }
 
@@ -107,8 +106,8 @@ const baseQueryFanTokenResponse: object = {};
 
 export const QueryFanTokenResponse = {
     encode(message: QueryFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.FanToken !== undefined) {
-            Any.encode(message.FanToken, writer.uint32(10).fork()).ldelim();
+        if (message.token !== undefined) {
+            FanToken.encode(message.token, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -121,7 +120,7 @@ export const QueryFanTokenResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.FanToken = Any.decode(reader, reader.uint32());
+                    message.token = FanToken.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -133,26 +132,26 @@ export const QueryFanTokenResponse = {
 
     fromJSON(object: any): QueryFanTokenResponse {
         const message = { ...baseQueryFanTokenResponse } as QueryFanTokenResponse;
-        if (object.FanToken !== undefined && object.FanToken !== null) {
-            message.FanToken = Any.fromJSON(object.FanToken);
+        if (object.token !== undefined && object.token !== null) {
+            message.token = FanToken.fromJSON(object.token);
         } else {
-            message.FanToken = undefined;
+            message.token = undefined;
         }
         return message;
     },
 
     toJSON(message: QueryFanTokenResponse): unknown {
         const obj: any = {};
-        message.FanToken !== undefined && (obj.FanToken = message.FanToken ? Any.toJSON(message.FanToken) : undefined);
+        message.token !== undefined && (obj.token = message.token ? FanToken.toJSON(message.token) : undefined);
         return obj;
     },
 
     fromPartial(object: DeepPartial<QueryFanTokenResponse>): QueryFanTokenResponse {
         const message = { ...baseQueryFanTokenResponse } as QueryFanTokenResponse;
-        if (object.FanToken !== undefined && object.FanToken !== null) {
-            message.FanToken = Any.fromPartial(object.FanToken);
+        if (object.token !== undefined && object.token !== null) {
+            message.token = FanToken.fromPartial(object.token);
         } else {
-            message.FanToken = undefined;
+            message.token = undefined;
         }
         return message;
     },
@@ -234,8 +233,8 @@ const baseQueryFanTokensResponse: object = {};
 
 export const QueryFanTokensResponse = {
     encode(message: QueryFanTokensResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        for (const v of message.FanTokens) {
-            Any.encode(v!, writer.uint32(10).fork()).ldelim();
+        for (const v of message.tokens) {
+            FanToken.encode(v!, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
             PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -247,12 +246,12 @@ export const QueryFanTokensResponse = {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryFanTokensResponse } as QueryFanTokensResponse;
-        message.FanTokens = [];
+        message.tokens = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.FanTokens.push(Any.decode(reader, reader.uint32()));
+                    message.tokens.push(FanToken.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -267,10 +266,10 @@ export const QueryFanTokensResponse = {
 
     fromJSON(object: any): QueryFanTokensResponse {
         const message = { ...baseQueryFanTokensResponse } as QueryFanTokensResponse;
-        message.FanTokens = [];
-        if (object.FanTokens !== undefined && object.FanTokens !== null) {
-            for (const e of object.FanTokens) {
-                message.FanTokens.push(Any.fromJSON(e));
+        message.tokens = [];
+        if (object.tokens !== undefined && object.tokens !== null) {
+            for (const e of object.tokens) {
+                message.tokens.push(FanToken.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
@@ -283,10 +282,10 @@ export const QueryFanTokensResponse = {
 
     toJSON(message: QueryFanTokensResponse): unknown {
         const obj: any = {};
-        if (message.FanTokens) {
-            obj.FanTokens = message.FanTokens.map((e) => (e ? Any.toJSON(e) : undefined));
+        if (message.tokens) {
+            obj.tokens = message.tokens.map((e) => (e ? FanToken.toJSON(e) : undefined));
         } else {
-            obj.FanTokens = [];
+            obj.tokens = [];
         }
         message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
         return obj;
@@ -294,10 +293,10 @@ export const QueryFanTokensResponse = {
 
     fromPartial(object: DeepPartial<QueryFanTokensResponse>): QueryFanTokensResponse {
         const message = { ...baseQueryFanTokensResponse } as QueryFanTokensResponse;
-        message.FanTokens = [];
-        if (object.FanTokens !== undefined && object.FanTokens !== null) {
-            for (const e of object.FanTokens) {
-                message.FanTokens.push(Any.fromPartial(e));
+        message.tokens = [];
+        if (object.tokens !== undefined && object.tokens !== null) {
+            for (const e of object.tokens) {
+                message.tokens.push(FanToken.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {

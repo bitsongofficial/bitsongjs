@@ -2,16 +2,15 @@ import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate';
 
 import { assert } from '@cosmjs/utils';
 
-import { Params } from '../codec/fantoken/fantoken';
+import { FanToken, Params } from '../codec/fantoken/fantoken';
 import { QueryClientImpl } from '../codec/fantoken/query';
-import { Any } from '../codec/google/protobuf/any';
 
 import { Coin } from '../codec/cosmos/base/v1beta1/coin';
 
 export interface FantokenExtension {
     readonly fantoken: {
-        readonly fantoken: (denom: string) => Promise<Any>;
-        readonly fantokens: (owner: string) => Promise<Any[]>;
+        readonly token: (denom: string) => Promise<FanToken>;
+        readonly tokens: (owner: string) => Promise<FanToken[]>;
         readonly params: () => Promise<Params>;
         readonly totalBurn: () => Promise<Coin[]>;
     };
@@ -24,15 +23,15 @@ export const setupFantokenExtension = (base: QueryClient): FantokenExtension => 
     // TODO: fix chainmodules/proto/fantoken/query.proto and complete it
     return {
         fantoken: {
-            fantoken: async (denom: string) => {
-                const { FanToken } = await queryService.FanToken({ denom });
-                assert(FanToken);
-                return FanToken;
+            token: async (denom: string) => {
+                const { token } = await queryService.FanToken({ denom });
+                assert(token);
+                return token;
             },
-            fantokens: async (owner: string) => {
-                const { FanTokens } = await queryService.FanTokens({ owner });
-                assert(FanTokens);
-                return FanTokens;
+            tokens: async (owner: string) => {
+                const { tokens } = await queryService.FanTokens({ owner });
+                assert(tokens);
+                return tokens;
             },
             params: async () => {
                 const { params } = await queryService.Params({});

@@ -9,7 +9,7 @@ export const protobufPackage = 'bitsong.fantoken';
 export interface MsgIssueFanToken {
     symbol: string;
     name: string;
-    maxSupply: Uint8Array;
+    maxSupply: string;
     description: string;
     owner: string;
     issueFee?: Coin;
@@ -42,7 +42,7 @@ export interface MsgEditFanTokenResponse {}
 export interface MsgMintFanToken {
     recipient: string;
     denom: string;
-    amount: Uint8Array;
+    amount: string;
     owner: string;
 }
 
@@ -52,14 +52,14 @@ export interface MsgMintFanTokenResponse {}
 /** MsgBurnFanToken defines an SDK message for burning some fan tokens */
 export interface MsgBurnFanToken {
     denom: string;
-    amount: Uint8Array;
+    amount: string;
     sender: string;
 }
 
 /** MsgBurnFanTokenResponse defines the Msg/BurnFanToken response type */
 export interface MsgBurnFanTokenResponse {}
 
-const baseMsgIssueFanToken: object = { symbol: '', name: '', description: '', owner: '' };
+const baseMsgIssueFanToken: object = { symbol: '', name: '', maxSupply: '', description: '', owner: '' };
 
 export const MsgIssueFanToken = {
     encode(message: MsgIssueFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -69,8 +69,8 @@ export const MsgIssueFanToken = {
         if (message.name !== '') {
             writer.uint32(18).string(message.name);
         }
-        if (message.maxSupply.length !== 0) {
-            writer.uint32(26).bytes(message.maxSupply);
+        if (message.maxSupply !== '') {
+            writer.uint32(26).string(message.maxSupply);
         }
         if (message.description !== '') {
             writer.uint32(34).string(message.description);
@@ -88,7 +88,6 @@ export const MsgIssueFanToken = {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgIssueFanToken } as MsgIssueFanToken;
-        message.maxSupply = new Uint8Array();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -99,7 +98,7 @@ export const MsgIssueFanToken = {
                     message.name = reader.string();
                     break;
                 case 3:
-                    message.maxSupply = reader.bytes();
+                    message.maxSupply = reader.string();
                     break;
                 case 4:
                     message.description = reader.string();
@@ -120,7 +119,6 @@ export const MsgIssueFanToken = {
 
     fromJSON(object: any): MsgIssueFanToken {
         const message = { ...baseMsgIssueFanToken } as MsgIssueFanToken;
-        message.maxSupply = new Uint8Array();
         if (object.symbol !== undefined && object.symbol !== null) {
             message.symbol = String(object.symbol);
         } else {
@@ -132,7 +130,9 @@ export const MsgIssueFanToken = {
             message.name = '';
         }
         if (object.maxSupply !== undefined && object.maxSupply !== null) {
-            message.maxSupply = bytesFromBase64(object.maxSupply);
+            message.maxSupply = String(object.maxSupply);
+        } else {
+            message.maxSupply = '';
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = String(object.description);
@@ -156,7 +156,7 @@ export const MsgIssueFanToken = {
         const obj: any = {};
         message.symbol !== undefined && (obj.symbol = message.symbol);
         message.name !== undefined && (obj.name = message.name);
-        message.maxSupply !== undefined && (obj.maxSupply = base64FromBytes(message.maxSupply !== undefined ? message.maxSupply : new Uint8Array()));
+        message.maxSupply !== undefined && (obj.maxSupply = message.maxSupply);
         message.description !== undefined && (obj.description = message.description);
         message.owner !== undefined && (obj.owner = message.owner);
         message.issueFee !== undefined && (obj.issueFee = message.issueFee ? Coin.toJSON(message.issueFee) : undefined);
@@ -178,7 +178,7 @@ export const MsgIssueFanToken = {
         if (object.maxSupply !== undefined && object.maxSupply !== null) {
             message.maxSupply = object.maxSupply;
         } else {
-            message.maxSupply = new Uint8Array();
+            message.maxSupply = '';
         }
         if (object.description !== undefined && object.description !== null) {
             message.description = object.description;
@@ -491,7 +491,7 @@ export const MsgEditFanTokenResponse = {
     },
 };
 
-const baseMsgMintFanToken: object = { recipient: '', denom: '', owner: '' };
+const baseMsgMintFanToken: object = { recipient: '', denom: '', amount: '', owner: '' };
 
 export const MsgMintFanToken = {
     encode(message: MsgMintFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -501,8 +501,8 @@ export const MsgMintFanToken = {
         if (message.denom !== '') {
             writer.uint32(18).string(message.denom);
         }
-        if (message.amount.length !== 0) {
-            writer.uint32(26).bytes(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(26).string(message.amount);
         }
         if (message.owner !== '') {
             writer.uint32(34).string(message.owner);
@@ -514,7 +514,6 @@ export const MsgMintFanToken = {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgMintFanToken } as MsgMintFanToken;
-        message.amount = new Uint8Array();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -525,7 +524,7 @@ export const MsgMintFanToken = {
                     message.denom = reader.string();
                     break;
                 case 3:
-                    message.amount = reader.bytes();
+                    message.amount = reader.string();
                     break;
                 case 4:
                     message.owner = reader.string();
@@ -540,7 +539,6 @@ export const MsgMintFanToken = {
 
     fromJSON(object: any): MsgMintFanToken {
         const message = { ...baseMsgMintFanToken } as MsgMintFanToken;
-        message.amount = new Uint8Array();
         if (object.recipient !== undefined && object.recipient !== null) {
             message.recipient = String(object.recipient);
         } else {
@@ -552,7 +550,9 @@ export const MsgMintFanToken = {
             message.denom = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = bytesFromBase64(object.amount);
+            message.amount = String(object.amount);
+        } else {
+            message.amount = '';
         }
         if (object.owner !== undefined && object.owner !== null) {
             message.owner = String(object.owner);
@@ -566,7 +566,7 @@ export const MsgMintFanToken = {
         const obj: any = {};
         message.recipient !== undefined && (obj.recipient = message.recipient);
         message.denom !== undefined && (obj.denom = message.denom);
-        message.amount !== undefined && (obj.amount = base64FromBytes(message.amount !== undefined ? message.amount : new Uint8Array()));
+        message.amount !== undefined && (obj.amount = message.amount);
         message.owner !== undefined && (obj.owner = message.owner);
         return obj;
     },
@@ -586,7 +586,7 @@ export const MsgMintFanToken = {
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = object.amount;
         } else {
-            message.amount = new Uint8Array();
+            message.amount = '';
         }
         if (object.owner !== undefined && object.owner !== null) {
             message.owner = object.owner;
@@ -635,15 +635,15 @@ export const MsgMintFanTokenResponse = {
     },
 };
 
-const baseMsgBurnFanToken: object = { denom: '', sender: '' };
+const baseMsgBurnFanToken: object = { denom: '', amount: '', sender: '' };
 
 export const MsgBurnFanToken = {
     encode(message: MsgBurnFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.denom !== '') {
             writer.uint32(10).string(message.denom);
         }
-        if (message.amount.length !== 0) {
-            writer.uint32(18).bytes(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(18).string(message.amount);
         }
         if (message.sender !== '') {
             writer.uint32(26).string(message.sender);
@@ -655,7 +655,6 @@ export const MsgBurnFanToken = {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgBurnFanToken } as MsgBurnFanToken;
-        message.amount = new Uint8Array();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -663,7 +662,7 @@ export const MsgBurnFanToken = {
                     message.denom = reader.string();
                     break;
                 case 2:
-                    message.amount = reader.bytes();
+                    message.amount = reader.string();
                     break;
                 case 3:
                     message.sender = reader.string();
@@ -678,14 +677,15 @@ export const MsgBurnFanToken = {
 
     fromJSON(object: any): MsgBurnFanToken {
         const message = { ...baseMsgBurnFanToken } as MsgBurnFanToken;
-        message.amount = new Uint8Array();
         if (object.denom !== undefined && object.denom !== null) {
             message.denom = String(object.denom);
         } else {
             message.denom = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = bytesFromBase64(object.amount);
+            message.amount = String(object.amount);
+        } else {
+            message.amount = '';
         }
         if (object.sender !== undefined && object.sender !== null) {
             message.sender = String(object.sender);
@@ -698,7 +698,7 @@ export const MsgBurnFanToken = {
     toJSON(message: MsgBurnFanToken): unknown {
         const obj: any = {};
         message.denom !== undefined && (obj.denom = message.denom);
-        message.amount !== undefined && (obj.amount = base64FromBytes(message.amount !== undefined ? message.amount : new Uint8Array()));
+        message.amount !== undefined && (obj.amount = message.amount);
         message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
@@ -713,7 +713,7 @@ export const MsgBurnFanToken = {
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = object.amount;
         } else {
-            message.amount = new Uint8Array();
+            message.amount = '';
         }
         if (object.sender !== undefined && object.sender !== null) {
             message.sender = object.sender;
@@ -819,35 +819,6 @@ export class MsgClientImpl implements Msg {
 
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-var globalThis: any = (() => {
-    if (typeof globalThis !== 'undefined') return globalThis;
-    if (typeof self !== 'undefined') return self;
-    if (typeof window !== 'undefined') return window;
-    if (typeof global !== 'undefined') return global;
-    throw 'Unable to locate global object';
-})();
-
-const atob: (b64: string) => string = globalThis.atob || ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
-function bytesFromBase64(b64: string): Uint8Array {
-    const bin = atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-        arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-}
-
-const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
-function base64FromBytes(arr: Uint8Array): string {
-    const bin: string[] = [];
-    for (const byte of arr) {
-        bin.push(String.fromCharCode(byte));
-    }
-    return btoa(bin.join(''));
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
