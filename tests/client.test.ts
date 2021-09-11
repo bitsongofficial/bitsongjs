@@ -32,112 +32,112 @@ describe('Client', () => {
         expect(await bitsong.getChainId()).toEqual('localnet');
     });
 
-    // it('Should generate a valid account', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(acc1.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const accounts = await wallet.getAccounts();
+    it('Should generate a valid account', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(acc1.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const accounts = await wallet.getAccounts();
 
-    //     expect(Utils.isAddressValid(accounts[0].address)).toBe(true);
-    //     expect(Utils.isAddressValid(accounts[0].address, Constants.Bech32PrefixAccAddr)).toBe(true);
-    //     expect(Utils.isAddressValid(accounts[0].address, undefined)).toBe(true);
-    //     expect(Utils.isAddressValid(accounts[0].address, 'cosmos')).toBe(false);
+        expect(Utils.isAddressValid(accounts[0].address)).toBe(true);
+        expect(Utils.isAddressValid(accounts[0].address, Constants.Bech32PrefixAccAddr)).toBe(true);
+        expect(Utils.isAddressValid(accounts[0].address, undefined)).toBe(true);
+        expect(Utils.isAddressValid(accounts[0].address, 'cosmos')).toBe(false);
 
-    //     expect(accounts[0].address).toEqual(acc1.address);
-    // });
+        expect(accounts[0].address).toEqual(acc1.address);
+    });
 
-    // it('Should send coins', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const [account] = await wallet.getAccounts();
+    it('Should send coins', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const [account] = await wallet.getAccounts();
 
-    //     const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
 
-    //     const recipient = account.address;
-    //     const amount = {
-    //         denom: Constants.MicroDenom,
-    //         amount: '1000000',
-    //     };
+        const recipient = account.address;
+        const amount = {
+            denom: Constants.MicroDenom,
+            amount: '10000000',
+        };
 
-    //     const result = await bitsong.sendTokens(account.address, recipient, [amount], defaultFee, 'Have fun!');
-    //     assertIsBroadcastTxSuccess(result);
+        const result = await bitsong.sendTokens(account.address, recipient, [amount], defaultFee, 'Have fun!');
+        assertIsBroadcastTxSuccess(result);
 
-    //     expect(result.height).toBeGreaterThan(0);
-    //     expect(result.gasUsed).toBeGreaterThan(0);
-    // });
+        expect(result.height).toBeGreaterThan(0);
+        expect(result.gasUsed).toBeGreaterThan(0);
+    });
 
-    // it('Should issue a new fantoken denom', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const [account] = await wallet.getAccounts();
+    it('Should issue a new fantoken denom', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const [account] = await wallet.getAccounts();
 
-    //     const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
 
-    //     const symbol = 'aaaa' + Math.floor(Math.random() * 1000);
-    //     const name = 'Test token';
-    //     const description = 'Test description fantoken';
-    //     const maxSupply = toUtf8('10000');
-    //     const issueFee = {
-    //         denom: Constants.MicroDenom,
-    //         amount: '1000000',
-    //     };
+        const symbol = 'aaaa' + Math.floor(Math.random() * 1000);
+        const name = 'Test token';
+        const description = 'Test description fantoken';
+        const maxSupply = '10000';
+        const issueFee = {
+            denom: Constants.MicroDenom,
+            amount: '1000000',
+        };
 
-    //     const result = await bitsong.issueFanToken(symbol, name, maxSupply, description, account.address, issueFee, defaultFee, 'my first fantoken');
-    //     assertIsBroadcastTxSuccess(result);
+        const result = await bitsong.issueFanToken(symbol, name, maxSupply, description, account.address, issueFee, defaultFee, 'my first fantoken');
+        assertIsBroadcastTxSuccess(result);
 
-    //     expect(result.height).toBeGreaterThan(0);
-    //     expect(result.gasUsed).toBeGreaterThan(0);
-    // });
+        expect(result.height).toBeGreaterThan(0);
+        expect(result.gasUsed).toBeGreaterThan(0);
+    });
 
-    // it('Should mint a new fantoken', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const [account] = await wallet.getAccounts();
+    it('Should mint a new fantoken', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const [account] = await wallet.getAccounts();
 
-    //     const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
 
-    //     const recipient = account.address;
-    //     const denom = 'uaaaa';
-    //     const amount = toUtf8('10');
+        const recipient = account.address;
+        const denom = 'uaaaa';
+        const amount = '10';
 
-    //     const result = await bitsong.mintFanToken(recipient, denom, amount, account.address, defaultFee);
-    //     assertIsBroadcastTxSuccess(result);
+        const result = await bitsong.mintFanToken(recipient, denom, amount, account.address, defaultFee);
+        assertIsBroadcastTxSuccess(result);
 
-    //     expect(result.height).toBeGreaterThan(0);
-    //     expect(result.gasUsed).toBeGreaterThan(0);
-    // });
+        expect(result.height).toBeGreaterThan(0);
+        expect(result.gasUsed).toBeGreaterThan(0);
+    });
 
-    // it('Should burn a fantoken', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const [account] = await wallet.getAccounts();
+    it('Should burn a fantoken', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const [account] = await wallet.getAccounts();
 
-    //     const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
 
-    //     const sender = account.address;
-    //     const denom = 'uaaaa';
-    //     const amount = toUtf8('10');
+        const sender = account.address;
+        const denom = 'uaaaa';
+        const amount = '10';
 
-    //     const result = await bitsong.burnFanToken(denom, amount, sender, defaultFee);
-    //     assertIsBroadcastTxSuccess(result);
+        const result = await bitsong.burnFanToken(denom, amount, sender, defaultFee);
+        assertIsBroadcastTxSuccess(result);
 
-    //     expect(result.height).toBeGreaterThan(0);
-    //     expect(result.gasUsed).toBeGreaterThan(0);
-    // });
+        expect(result.height).toBeGreaterThan(0);
+        expect(result.gasUsed).toBeGreaterThan(0);
+    });
 
-    // it('Should query my balances', async () => {
-    //     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-    //     const [account] = await wallet.getAccounts();
+    it('Should query my balances', async () => {
+        const wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        const [account] = await wallet.getAccounts();
 
-    //     const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        const bitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
 
-    //     const balances = await bitsong.getAllBalances(account.address);
-    //     console.log(balances);
-    // });
+        const balances = await bitsong.getAllBalances(account.address);
+        console.log(balances);
+    });
 
     it('Should query a fantoken by denom', async () => {
         const bitsong = await BitsongClient.connect(rpcUrl);
-        const response = await bitsong.getFanToken('anote');
+        const response = await bitsong.getFanToken('aaaa');
         console.log(response);
     });
 
     it('Should query all fantokens by owner', async () => {
         const bitsong = await BitsongClient.connect(rpcUrl);
         const response = await bitsong.getAllFanTokensByOwner(faucet.address);
-        //console.log(response.FanTokens);
+        console.log(response.tokens);
     });
 });

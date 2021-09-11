@@ -59,7 +59,7 @@ export class SigningBitsongClient extends SigningStargateClient {
      * Issue a new fantoken denom
      * @param
      */
-    public issueFanToken(symbol: string, name: string, maxSupply: Uint8Array, description: string, owner: string, issueFee: Coin, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public issueFanToken(symbol: string, name: string, maxSupply: string, description: string, owner: string, issueFee: Coin, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
         const msg: MsgIssueFanTokenEncodeObject = {
             typeUrl: '/bitsong.fantoken.MsgIssueFanToken',
             value: MsgIssueFanToken.fromPartial({
@@ -96,7 +96,7 @@ export class SigningBitsongClient extends SigningStargateClient {
      * Mint a fantoken to a recipient
      * @param
      */
-    public mintFanToken(recipient: string, denom: string, amount: Uint8Array, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public mintFanToken(recipient: string, denom: string, amount: string, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
         const msg: MsgMintFanTokenEncodeObject = {
             typeUrl: '/bitsong.fantoken.MsgMintFanToken',
             value: MsgMintFanToken.fromPartial({
@@ -114,7 +114,7 @@ export class SigningBitsongClient extends SigningStargateClient {
      * Burn a fantoken
      * @param
      */
-    public burnFanToken(denom: string, amount: Uint8Array, sender: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public burnFanToken(denom: string, amount: string, sender: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
         const msg: MsgBurnFanTokenEncodeObject = {
             typeUrl: '/bitsong.fantoken.MsgBurnFanToken',
             value: MsgBurnFanToken.fromPartial({
