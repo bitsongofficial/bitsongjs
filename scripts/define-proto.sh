@@ -9,6 +9,10 @@ THIRD_PARTY_PROTO_DIR="$ROOT_PROTO_DIR/third_party/proto"
 ROOT_BITSONG_PROTO_DIR="./proto/bitsong/chainmodules"
 BITSONG_PROTO_DIR="$ROOT_BITSONG_PROTO_DIR/proto"
 
+ROOT_LIQUIDITY_PROTO_DIR="./proto/liquidity/liquidity"
+LIQUIDITY_PROTO_DIR="$ROOT_LIQUIDITY_PROTO_DIR/proto"
+THIRD_PARTY_LIQUIDITY_PROTO_DIR="$ROOT_LIQUIDITY_PROTO_DIR/third_party/proto"
+
 OUT_DIR="./src/codec/"
 
 mkdir -p "$OUT_DIR"
@@ -18,6 +22,7 @@ protoc \
     --ts_proto_out="$OUT_DIR" \
     --proto_path="$COSMOS_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_PROTO_DIR" \
+    --proto_path="$THIRD_PARTY_LIQUIDITY_PROTO_DIR" \
     --proto_path="$BITSONG_PROTO_DIR" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
     "$COSMOS_PROTO_DIR/cosmos/auth/v1beta1/auth.proto" \
@@ -63,11 +68,21 @@ protoc \
     "$THIRD_PARTY_PROTO_DIR/tendermint/types/types.proto" \
     "$THIRD_PARTY_PROTO_DIR/tendermint/types/validator.proto" \
     "$THIRD_PARTY_PROTO_DIR/tendermint/version/types.proto" \
+    "$THIRD_PARTY_PROTO_DIR/tendermint/version/types.proto" \
     "$BITSONG_PROTO_DIR/fantoken/fantoken.proto" \
     "$BITSONG_PROTO_DIR/fantoken/query.proto" \
     "$BITSONG_PROTO_DIR/fantoken/tx.proto"
 
-# Remove unnecessary codec files
+protoc \
+    --plugin="$(yarn bin protoc-gen-ts_proto)" \
+    --ts_proto_out="$OUT_DIR" \
+    --proto_path="$LIQUIDITY_PROTO_DIR" \
+    --proto_path="$THIRD_PARTY_LIQUIDITY_PROTO_DIR" \
+    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+    "$LIQUIDITY_PROTO_DIR/tendermint/liquidity/v1beta1/liquidity.proto"
+
+
+# Remove unnecessary codec files (TODO: IMPROVE!)
 rm -rf \
     src/codec/cosmos_proto/ \
     src/codec/gogoproto/ \
