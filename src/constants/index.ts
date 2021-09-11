@@ -65,16 +65,3 @@ export const getHdPath = (accountIndex = 0, walletIndex = 0): string => {
  * Private Key length
  */
 export const PrivateKeyLength = 32;
-
-/**
- * Signing version of the lib
- */
-export const WalletSigningVersion = '1';
-
-/**
- * Signing wallets
- */
-export enum MessageSigner {
-    PAPER = 'bitsongjs/paper',
-    LEDGER = 'bitsongjs/ledger',
-}

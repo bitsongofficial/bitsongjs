@@ -2,10 +2,8 @@ import { Coin, OfflineSigner } from '@cosmjs/proto-signing';
 import { BroadcastTxResponse, createProtobufRpcClient, SigningStargateClient, SigningStargateClientOptions, StdFee } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import { Constants } from '..';
-import { FanToken } from '../codec/fantoken/fantoken';
 import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/fantoken/tx';
 import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject } from '../messages';
-import { FantokenExtension, setupFantokenExtension } from '../queries';
 import { bitsongRegistry } from '../registry';
 import { QueryClientImpl as FtQueryClientImpl, QueryFanTokensResponse } from '../codec/fantoken/query';
 
