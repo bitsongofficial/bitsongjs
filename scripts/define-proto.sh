@@ -84,7 +84,7 @@ protoc \
 
 # Remove unnecessary codec files (TODO: IMPROVE!)
 rm -rf \
-    src/codec/cosmos_proto/ \
     src/codec/gogoproto/ \
     src/codec/google/api/ \
     src/codec/google/protobuf/descriptor.ts
+#src/codec/cosmos_proto/ \
