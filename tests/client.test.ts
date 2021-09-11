@@ -32,7 +32,7 @@ describe('Client', () => {
 
     beforeAll(async () => {
         bitsong = await BitsongClient.connect(rpcUrl);
-        wallet = await DirectSecp256k1HdWallet.fromMnemonic(acc1.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
+        wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
         signingBitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
     });
 
@@ -48,7 +48,7 @@ describe('Client', () => {
         expect(Utils.isAddressValid(accounts[0].address, undefined)).toBe(true);
         expect(Utils.isAddressValid(accounts[0].address, 'cosmos')).toBe(false);
 
-        expect(accounts[0].address).toEqual(acc1.address);
+        expect(accounts[0].address).toEqual(faucet.address);
     });
 
     it('Should send coins', async () => {
