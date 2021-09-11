@@ -79,7 +79,9 @@ protoc \
     --proto_path="$LIQUIDITY_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_LIQUIDITY_PROTO_DIR" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
-    "$LIQUIDITY_PROTO_DIR/tendermint/liquidity/v1beta1/liquidity.proto"
+    "$LIQUIDITY_PROTO_DIR/tendermint/liquidity/v1beta1/liquidity.proto" \
+    "$LIQUIDITY_PROTO_DIR/tendermint/liquidity/v1beta1/tx.proto" \
+    "$LIQUIDITY_PROTO_DIR/tendermint/liquidity/v1beta1/query.proto"
 
 
 # Remove unnecessary codec files (TODO: IMPROVE!)

@@ -198,29 +198,39 @@ describe('Client', () => {
     //     console.log(result);
     // });
 
-    it('Should swap 2 tokens', async () => {
-        const [account] = await wallet.getAccounts();
+    // it('Should swap 2 tokens', async () => {
+    //     const [account] = await wallet.getAccounts();
 
-        const requester = account.address;
-        const poolId = 1;
-        const offerCoin = parseCoins('10000000ubtsg')[0]; // offer sdk.coin for the swap request, must match the denom in the pool.
-        const offerCoinFee = parseCoins('15000ubtsg')[0]; // half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
-        const demandCoinDenom = 'utest'; // denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
-        const orderPrice = '2'; // limit order price for the order, the price is the exchange ratio of X/Y where X is the amount of the first coin and Y is the amount of the second coin when their denoms are sorted alphabetically.
+    //     const requester = account.address;
+    //     const poolId = 1;
+    //     const offerCoin = parseCoins('10000000ubtsg')[0]; // offer sdk.coin for the swap request, must match the denom in the pool.
+    //     const offerCoinFee = parseCoins('15000ubtsg')[0]; // half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+    //     const demandCoinDenom = 'utest'; // denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
+    //     const orderPrice = '2'; // limit order price for the order, the price is the exchange ratio of X/Y where X is the amount of the first coin and Y is the amount of the second coin when their denoms are sorted alphabetically.
 
-        const gasFee = {
-            amount: [
-                {
-                    denom: Constants.MicroDenom,
-                    amount: '2000',
-                },
-            ],
-            gas: '200000', // 200k
-        };
+    //     const gasFee = {
+    //         amount: [
+    //             {
+    //                 denom: Constants.MicroDenom,
+    //                 amount: '2000',
+    //             },
+    //         ],
+    //         gas: '200000', // 200k
+    //     };
 
-        const result = await signingBitsong.swapTokens(requester, poolId, demandCoinDenom, offerCoin, offerCoinFee, orderPrice, gasFee);
-        assertIsBroadcastTxSuccess(result);
+    //     const result = await signingBitsong.swapTokens(requester, poolId, demandCoinDenom, offerCoin, offerCoinFee, orderPrice, gasFee);
+    //     assertIsBroadcastTxSuccess(result);
 
-        console.log(result);
+    //     console.log(result);
+    // });
+
+    it('Should query all liquidity pools', async () => {
+        const response = await bitsong.getLiquidityPools();
+        console.log(response);
+    });
+
+    it('Should query a liquidity pool', async () => {
+        const response = await bitsong.getLiquidityPool(1);
+        console.log(response);
     });
 });

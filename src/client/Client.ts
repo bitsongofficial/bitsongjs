@@ -2,7 +2,9 @@ import { createProtobufRpcClient, StargateClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import { FanToken } from '../codec/fantoken/fantoken';
 import { QueryClientImpl as FtQueryClientImpl, QueryFanTokensResponse } from '../codec/fantoken/query';
+import { QueryClientImpl as LiQueryClientImpl, QueryLiquidityPoolResponse, QueryLiquidityPoolsResponse } from '../codec/tendermint/liquidity/v1beta1/query';
 import { Any } from '../codec/google/protobuf/any';
+import Long from 'long';
 
 const rpcErrMsgNotFound = /rpc error: code = NotFound/i;
 
@@ -37,5 +39,17 @@ export class BitsongClient extends StargateClient {
         const queryService = new FtQueryClientImpl(createProtobufRpcClient(this.forceGetQueryClient()));
 
         return await queryService.FanTokens({ owner: owner });
+    }
+
+    public async getLiquidityPools(): Promise<QueryLiquidityPoolsResponse> {
+        const queryService = new LiQueryClientImpl(createProtobufRpcClient(this.forceGetQueryClient()));
+
+        return await queryService.LiquidityPools({});
+    }
+
+    public async getLiquidityPool(poolId: number): Promise<QueryLiquidityPoolResponse> {
+        const queryService = new LiQueryClientImpl(createProtobufRpcClient(this.forceGetQueryClient()));
+
+        return await queryService.LiquidityPool({ poolId: Long.fromNumber(poolId, true) });
     }
 }
