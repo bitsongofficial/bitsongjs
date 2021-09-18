@@ -26,5 +26,5 @@
         "out": "docs",
         "exclude": []
     },
-    "exclude": ["build", "node_modules", "**/*.spec.ts", "tests/**"]
+    "exclude": ["build", "node_modules", "**/*.spec.ts", "tests/**", "examples"]
 }
