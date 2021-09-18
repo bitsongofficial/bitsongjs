@@ -1,7 +1,7 @@
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { stringToPath } from '@cosmjs/crypto';
 // eslint-disable-next-line node/no-unpublished-import
-import { Constants } from '../../build/build';
+import { Constants } from '../../build';
 
 const createWallet = async () => {
     return await DirectSecp256k1HdWallet.generate(12, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });

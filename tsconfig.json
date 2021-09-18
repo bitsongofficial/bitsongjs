@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "rootDir": "./src",
-        "outDir": "build/build",
+        "outDir": "build",
         "resolveJsonModule": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,

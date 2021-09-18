@@ -1,7 +1,7 @@
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { stringToPath } from '@cosmjs/crypto';
 // eslint-disable-next-line node/no-unpublished-import
-import { Constants, BitsongClient, SigningBitsongClient } from '../../build/build';
+import { Constants, BitsongClient, SigningBitsongClient } from '../../build';
 import { assertIsBroadcastTxSuccess } from '@cosmjs/stargate';
 
 const rpcUrl = 'http://49.12.198.197:26657';

@@ -39,7 +39,7 @@ exports.__esModule = true;
 var proto_signing_1 = require("@cosmjs/proto-signing");
 var crypto_1 = require("@cosmjs/crypto");
 // eslint-disable-next-line node/no-unpublished-import
-var build_1 = require("../../build/build");
+var build_1 = require("../../build");
 var createWallet = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {

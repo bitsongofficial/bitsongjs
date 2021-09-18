@@ -39,7 +39,7 @@ exports.__esModule = true;
 var proto_signing_1 = require("@cosmjs/proto-signing");
 var crypto_1 = require("@cosmjs/crypto");
 // eslint-disable-next-line node/no-unpublished-import
-var build_1 = require("../../build/build");
+var build_1 = require("../../build");
 var stargate_1 = require("@cosmjs/stargate");
 var rpcUrl = 'http://49.12.198.197:26657';
 var faucet = {
