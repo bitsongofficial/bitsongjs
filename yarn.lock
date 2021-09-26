@@ -947,6 +947,30 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bitsongjs/sdk@workspace:packages/sdk":
+  version "1.0.0-dev-7"
+  resolved "https://registry.yarnpkg.com/@bitsongjs/sdk/-/sdk-1.0.0-dev-7.tgz#a6e2c6824557fedc72b9391361887d3f19d6d360"
+  integrity sha512-TMr92vKOnoVX4vGDpD4V++JSwcWhJjJXDPOjr+/cYTYAo0xF5IoyzhoNfJvLBMenlxsAEP/5Z6qOztA0NiISEw==
+  dependencies:
+    "@cosmjs/crypto" "^0.26.0"
+    "@cosmjs/encoding" "^0.26.0"
+    "@cosmjs/math" "^0.26.0"
+    "@cosmjs/proto-signing" "^0.26.0"
+    "@cosmjs/stargate" "^0.26.0"
+    "@cosmjs/tendermint-rpc" "^0.26.0"
+    "@cosmjs/utils" "^0.26.0"
+    "@ledgerhq/hw-app-cosmos" "^5.46.0"
+    "@ledgerhq/hw-transport" "^5.46.0"
+    "@types/crypto-js" "^4.0.1"
+    "@types/ledgerhq__hw-transport" "^4.21.3"
+    "@types/uuid" "^8.3.0"
+    crypto-browserify "^3.12.0"
+    crypto-js "^4.0.0"
+    ledger-bitsong-js "^0.0.0"
+    long "^4.0.0"
+    semver "^7.3.5"
+    uuid "^8.3.2"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -4491,6 +4515,16 @@ ledger-bitsong-js@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/ledger-bitsong-js/-/ledger-bitsong-js-0.0.0.tgz#2e18468b5857b54cc94d0cb666bada3a4bd4910a"
   integrity sha512-QbNGx7qsv9jOlmFzo2cYS5U2rGxtOsQHtlMFa5JLxK9aciGS65X09SOGF7o0q7YQfGuSVyeB7WFoycwkCwucOw==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    "@ledgerhq/hw-transport" "^5.25.0"
+    bech32 "^1.1.4"
+    ripemd160 "^2.0.2"
+
+ledger-bitsong-js@^0.1.0-dev-1:
+  version "0.1.0-dev-1"
+  resolved "https://registry.yarnpkg.com/ledger-bitsong-js/-/ledger-bitsong-js-0.1.0-dev-1.tgz#7b90deb2f76c187ad64e59ac5b665893b9352c4b"
+  integrity sha512-g2mZRvOxjDpADCBsjlnfTQrZ8y7zurrib5vn57NfFO3gJuFHirQxdEwYYv/AsPK2MvgQp/ofiVfh/H+t9dhIwQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ledgerhq/hw-transport" "^5.25.0"

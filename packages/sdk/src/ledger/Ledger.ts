@@ -10,7 +10,7 @@ import BitsongApp, {
   VersionResponse,
 } from "ledger-bitsong-js";
 import semver from "semver";
-import { Constants } from "src";
+import { Constants } from "../";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface LedgerAppErrorResponse {

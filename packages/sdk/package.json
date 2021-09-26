@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/sdk",
-  "version": "v1.0.0-dev-6",
+  "version": "v1.0.0-dev-8",
   "license": "Apache-2.0",
   "description": "Javascript SDK library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
   "main": "build/index.js",
@@ -54,7 +54,7 @@
     "@types/uuid": "^8.3.0",
     "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.0.0",
-    "ledger-bitsong-js": "^0.0.0",
+    "ledger-bitsong-js": "^0.1.0-dev-1",
     "long": "^4.0.0",
     "semver": "^7.3.5",
     "uuid": "^8.3.2"
