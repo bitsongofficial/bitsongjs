@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/sdk",
-  "version": "v1.0.0-dev-5",
+  "version": "v1.0.0-dev-6",
   "license": "Apache-2.0",
   "description": "Javascript SDK library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
   "main": "build/index.js",
