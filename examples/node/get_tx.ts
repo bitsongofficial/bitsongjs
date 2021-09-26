@@ -1,4 +1,4 @@
-import { BitsongClient } from '../../build';
+import { BitsongClient } from '../../packages/sdk/build';
 
 const rpcUrl = 'http://49.12.198.197:26657';
 
