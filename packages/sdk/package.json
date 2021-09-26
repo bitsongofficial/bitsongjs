@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/sdk",
-  "version": "v1.0.0-dev-3",
+  "version": "v1.0.0-dev-4",
   "license": "Apache-2.0",
   "description": "Javascript SDK library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
   "main": "build/index.js",
@@ -14,7 +14,7 @@
   "author": "Angelo Recca <angelorc@users.noreply.github.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitsongofficial/bitsongjs/tree/main/packages/sdk"
+    "url": "https://github.com/bitsongofficial/bitsongjs/tree/dev/packages/sdk"
   },
   "publishConfig": {
     "access": "public",
