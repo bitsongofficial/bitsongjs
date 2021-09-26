@@ -54,7 +54,9 @@
     "@types/uuid": "^8.3.0",
     "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.0.0",
+    "ledger-bitsong-js": "^0.0.0",
     "long": "^4.0.0",
+    "semver": "^7.3.5",
     "uuid": "^8.3.2"
   },
   "optionalDependencies": {},
@@ -67,6 +69,7 @@
     "@babel/preset-typescript": "^7.8.3",
     "@types/jest": "^26.0.20",
     "@types/ledgerhq__hw-transport-node-hid": "^4.22.2",
+    "@types/semver": "^7.3.8",
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
