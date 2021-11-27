@@ -27,12 +27,11 @@ import { FanToken } from '../codec/fantoken/fantoken';
 import { toHex } from '@cosmjs/encoding';
 import { Uint53 } from '@cosmjs/math';
 import { sleep } from '@cosmjs/utils';
-import { FantokenExtension, LiquidityExtension, setupFantokenExtension, setupLiquidityExtension } from '../queries';
-import { Pool } from '../codec/tendermint/liquidity/v1beta1/liquidity';
+import { FantokenExtension, setupFantokenExtension } from '../queries';
 
 export class BitsongClient {
     private readonly tmClient: Tendermint34Client | undefined;
-    private readonly queryClient: (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & LiquidityExtension) | undefined;
+    private readonly queryClient: (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension) | undefined;
     private chainId: string | undefined;
 
     public static async connect(endpoint: string): Promise<BitsongClient> {
@@ -43,7 +42,7 @@ export class BitsongClient {
     protected constructor(tmClient: Tendermint34Client | undefined) {
         if (tmClient) {
             this.tmClient = tmClient;
-            this.queryClient = QueryClient.withExtensions(tmClient, setupAuthExtension, setupBankExtension, setupStakingExtension, setupGovExtension, setupFantokenExtension, setupLiquidityExtension);
+            this.queryClient = QueryClient.withExtensions(tmClient, setupAuthExtension, setupBankExtension, setupStakingExtension, setupGovExtension, setupFantokenExtension);
         }
     }
 
@@ -58,11 +57,11 @@ export class BitsongClient {
         return this.tmClient;
     }
 
-    protected getQueryClient(): (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & LiquidityExtension) | undefined {
+    protected getQueryClient(): (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension) | undefined {
         return this.queryClient;
     }
 
-    protected forceGetQueryClient(): QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & LiquidityExtension {
+    protected forceGetQueryClient(): QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension {
         if (!this.queryClient) {
             throw new Error('Query client not available. You cannot use online functionality in offline mode.');
         }
@@ -273,13 +272,5 @@ export class BitsongClient {
 
     public async getAllFanTokensByOwner(owner: string): Promise<FanToken[]> {
         return this.forceGetQueryClient().fantoken.tokens(owner);
-    }
-
-    public async getLiquidityPools(): Promise<Pool[]> {
-        return this.forceGetQueryClient().liquidity.pools();
-    }
-
-    public async getLiquidityPool(poolId: number): Promise<Pool> {
-        return this.forceGetQueryClient().liquidity.pool(poolId);
     }
 }

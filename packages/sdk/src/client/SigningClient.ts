@@ -16,8 +16,6 @@ import { Constants } from '..';
 import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/fantoken/tx';
 import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject } from '../messages';
 import { bitsongRegistry } from '../registry';
-import { MsgCreatePoolEncodeObject, MsgDepositWithinBatchEncodeObject, MsgSwapWithinBatchEncodeObject, MsgWithdrawWithinBatchEncodeObject } from '../messages/Liquidity';
-import { MsgCreatePool, MsgDepositWithinBatch, MsgSwapWithinBatch, MsgWithdrawWithinBatch } from '../codec/tendermint/liquidity/v1beta1/tx';
 import Long from 'long';
 import { Int53, Uint53 } from '@cosmjs/math';
 import { BitsongClient } from './Client';
@@ -322,73 +320,5 @@ export class SigningBitsongClient extends BitsongClient {
         };
 
         return this.signAndBroadcast(sender, [msg], fee, memo);
-    }
-
-    /**
-     * Create a new pool
-     */
-    public createLiquidityPool(depositCoins: Coin[], creator: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgCreatePoolEncodeObject = {
-            typeUrl: '/tendermint.liquidity.v1beta1.MsgCreatePool',
-            value: MsgCreatePool.fromPartial({
-                poolCreatorAddress: creator,
-                poolTypeId: 1,
-                depositCoins: depositCoins,
-            }),
-        };
-
-        return this.signAndBroadcast(creator, [msg], fee, memo);
-    }
-
-    /**
-     * Deposit in a pool
-     */
-    public depositLiquidityPool(poolId: number, depositCoins: Coin[], depositor: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgDepositWithinBatchEncodeObject = {
-            typeUrl: '/tendermint.liquidity.v1beta1.MsgDepositWithinBatch',
-            value: MsgDepositWithinBatch.fromPartial({
-                depositorAddress: depositor,
-                poolId: Long.fromString(new Uint53(poolId).toString()),
-                depositCoins: depositCoins,
-            }),
-        };
-
-        return this.signAndBroadcast(depositor, [msg], fee, memo);
-    }
-
-    /**
-     * Withdraw liquidity from a pool
-     */
-    public withdrawFromLiquidityPool(poolId: number, poolCoin: Coin, withdrawer: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgWithdrawWithinBatchEncodeObject = {
-            typeUrl: '/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch',
-            value: MsgWithdrawWithinBatch.fromPartial({
-                withdrawerAddress: withdrawer,
-                poolId: Long.fromString(new Uint53(poolId).toString()),
-                poolCoin: poolCoin,
-            }),
-        };
-
-        return this.signAndBroadcast(withdrawer, [msg], fee, memo);
-    }
-
-    /**
-     * Swap tokens
-     */
-    public swapTokens(requester: string, poolId: number, demandCoinDenom: string, offerCoin: Coin, offerCoinFee: Coin, orderPrice: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgSwapWithinBatchEncodeObject = {
-            typeUrl: '/tendermint.liquidity.v1beta1.MsgSwapWithinBatch',
-            value: MsgSwapWithinBatch.fromPartial({
-                swapRequesterAddress: requester,
-                poolId: Long.fromString(new Uint53(poolId).toString()),
-                swapTypeId: 1,
-                demandCoinDenom: demandCoinDenom,
-                offerCoin: offerCoin,
-                offerCoinFee: offerCoinFee,
-                orderPrice: orderPrice,
-            }),
-        };
-
-        return this.signAndBroadcast(requester, [msg], fee, memo);
     }
 }
