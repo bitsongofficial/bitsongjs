@@ -20,7 +20,9 @@ export interface Params {
     issuePrice?: Coin;
 }
 
-const baseFanToken: object = { name: '', maxSupply: '', mintable: false, owner: '' };
+function createBaseFanToken(): FanToken {
+    return { name: '', maxSupply: '', mintable: false, owner: '', metaData: undefined };
+}
 
 export const FanToken = {
     encode(message: FanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -45,7 +47,7 @@ export const FanToken = {
     decode(input: _m0.Reader | Uint8Array, length?: number): FanToken {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseFanToken } as FanToken;
+        const message = createBaseFanToken();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -73,33 +75,13 @@ export const FanToken = {
     },
 
     fromJSON(object: any): FanToken {
-        const message = { ...baseFanToken } as FanToken;
-        if (object.name !== undefined && object.name !== null) {
-            message.name = String(object.name);
-        } else {
-            message.name = '';
-        }
-        if (object.maxSupply !== undefined && object.maxSupply !== null) {
-            message.maxSupply = String(object.maxSupply);
-        } else {
-            message.maxSupply = '';
-        }
-        if (object.mintable !== undefined && object.mintable !== null) {
-            message.mintable = Boolean(object.mintable);
-        } else {
-            message.mintable = false;
-        }
-        if (object.owner !== undefined && object.owner !== null) {
-            message.owner = String(object.owner);
-        } else {
-            message.owner = '';
-        }
-        if (object.metaData !== undefined && object.metaData !== null) {
-            message.metaData = Metadata.fromJSON(object.metaData);
-        } else {
-            message.metaData = undefined;
-        }
-        return message;
+        return {
+            name: isSet(object.name) ? String(object.name) : '',
+            maxSupply: isSet(object.maxSupply) ? String(object.maxSupply) : '',
+            mintable: isSet(object.mintable) ? Boolean(object.mintable) : false,
+            owner: isSet(object.owner) ? String(object.owner) : '',
+            metaData: isSet(object.metaData) ? Metadata.fromJSON(object.metaData) : undefined,
+        };
     },
 
     toJSON(message: FanToken): unknown {
@@ -112,43 +94,25 @@ export const FanToken = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<FanToken>): FanToken {
-        const message = { ...baseFanToken } as FanToken;
-        if (object.name !== undefined && object.name !== null) {
-            message.name = object.name;
-        } else {
-            message.name = '';
-        }
-        if (object.maxSupply !== undefined && object.maxSupply !== null) {
-            message.maxSupply = object.maxSupply;
-        } else {
-            message.maxSupply = '';
-        }
-        if (object.mintable !== undefined && object.mintable !== null) {
-            message.mintable = object.mintable;
-        } else {
-            message.mintable = false;
-        }
-        if (object.owner !== undefined && object.owner !== null) {
-            message.owner = object.owner;
-        } else {
-            message.owner = '';
-        }
-        if (object.metaData !== undefined && object.metaData !== null) {
-            message.metaData = Metadata.fromPartial(object.metaData);
-        } else {
-            message.metaData = undefined;
-        }
+    fromPartial<I extends Exact<DeepPartial<FanToken>, I>>(object: I): FanToken {
+        const message = createBaseFanToken();
+        message.name = object.name ?? '';
+        message.maxSupply = object.maxSupply ?? '';
+        message.mintable = object.mintable ?? false;
+        message.owner = object.owner ?? '';
+        message.metaData = object.metaData !== undefined && object.metaData !== null ? Metadata.fromPartial(object.metaData) : undefined;
         return message;
     },
 };
 
-const baseParams: object = {};
+function createBaseParams(): Params {
+    return { issuePrice: undefined };
+}
 
 export const Params = {
     encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.issuePrice !== undefined) {
-            Coin.encode(message.issuePrice, writer.uint32(18).fork()).ldelim();
+            Coin.encode(message.issuePrice, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -156,11 +120,11 @@ export const Params = {
     decode(input: _m0.Reader | Uint8Array, length?: number): Params {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseParams } as Params;
+        const message = createBaseParams();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                case 2:
+                case 1:
                     message.issuePrice = Coin.decode(reader, reader.uint32());
                     break;
                 default:
@@ -172,13 +136,9 @@ export const Params = {
     },
 
     fromJSON(object: any): Params {
-        const message = { ...baseParams } as Params;
-        if (object.issuePrice !== undefined && object.issuePrice !== null) {
-            message.issuePrice = Coin.fromJSON(object.issuePrice);
-        } else {
-            message.issuePrice = undefined;
-        }
-        return message;
+        return {
+            issuePrice: isSet(object.issuePrice) ? Coin.fromJSON(object.issuePrice) : undefined,
+        };
     },
 
     toJSON(message: Params): unknown {
@@ -187,20 +147,19 @@ export const Params = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<Params>): Params {
-        const message = { ...baseParams } as Params;
-        if (object.issuePrice !== undefined && object.issuePrice !== null) {
-            message.issuePrice = Coin.fromPartial(object.issuePrice);
-        } else {
-            message.issuePrice = undefined;
-        }
+    fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+        const message = createBaseParams();
+        message.issuePrice = object.issuePrice !== undefined && object.issuePrice !== null ? Coin.fromPartial(object.issuePrice) : undefined;
         return message;
     },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
     ? T
+    : T extends Long
+    ? string | number | Long
     : T extends Array<infer U>
     ? Array<DeepPartial<U>>
     : T extends ReadonlyArray<infer U>
@@ -209,7 +168,14 @@ export type DeepPartial<T> = T extends Builtin
     ? { [K in keyof T]?: DeepPartial<T[K]> }
     : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+
 if (_m0.util.Long !== Long) {
     _m0.util.Long = Long as any;
     _m0.configure();
+}
+
+function isSet(value: any): boolean {
+    return value !== null && value !== undefined;
 }

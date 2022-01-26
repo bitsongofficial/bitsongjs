@@ -23,7 +23,7 @@ import {
     TimeoutError,
 } from '@cosmjs/stargate';
 import { Tendermint34Client, toRfc3339WithNanoseconds } from '@cosmjs/tendermint-rpc';
-import { FanToken } from '../codec/fantoken/fantoken';
+import { FanToken } from '../codec/bitsong/fantoken/v1beta1/fantoken';
 import { toHex } from '@cosmjs/encoding';
 import { Uint53 } from '@cosmjs/math';
 import { sleep } from '@cosmjs/utils';
@@ -267,10 +267,10 @@ export class BitsongClient {
     }
 
     public async getFanToken(denom: string): Promise<FanToken | null> {
-        return this.forceGetQueryClient().fantoken.token(denom);
+        return this.forceGetQueryClient().fantoken.fantoken(denom);
     }
 
     public async getAllFanTokensByOwner(owner: string): Promise<FanToken[]> {
-        return this.forceGetQueryClient().fantoken.tokens(owner);
+        return this.forceGetQueryClient().fantoken.fantokens(owner);
     }
 }

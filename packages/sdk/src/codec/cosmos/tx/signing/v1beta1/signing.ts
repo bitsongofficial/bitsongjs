@@ -116,7 +116,9 @@ export interface SignatureDescriptor_Data_Multi {
     signatures: SignatureDescriptor_Data[];
 }
 
-const baseSignatureDescriptors: object = {};
+function createBaseSignatureDescriptors(): SignatureDescriptors {
+    return { signatures: [] };
+}
 
 export const SignatureDescriptors = {
     encode(message: SignatureDescriptors, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -129,8 +131,7 @@ export const SignatureDescriptors = {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptors {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseSignatureDescriptors } as SignatureDescriptors;
-        message.signatures = [];
+        const message = createBaseSignatureDescriptors();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -146,14 +147,9 @@ export const SignatureDescriptors = {
     },
 
     fromJSON(object: any): SignatureDescriptors {
-        const message = { ...baseSignatureDescriptors } as SignatureDescriptors;
-        message.signatures = [];
-        if (object.signatures !== undefined && object.signatures !== null) {
-            for (const e of object.signatures) {
-                message.signatures.push(SignatureDescriptor.fromJSON(e));
-            }
-        }
-        return message;
+        return {
+            signatures: Array.isArray(object?.signatures) ? object.signatures.map((e: any) => SignatureDescriptor.fromJSON(e)) : [],
+        };
     },
 
     toJSON(message: SignatureDescriptors): unknown {
@@ -166,19 +162,16 @@ export const SignatureDescriptors = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<SignatureDescriptors>): SignatureDescriptors {
-        const message = { ...baseSignatureDescriptors } as SignatureDescriptors;
-        message.signatures = [];
-        if (object.signatures !== undefined && object.signatures !== null) {
-            for (const e of object.signatures) {
-                message.signatures.push(SignatureDescriptor.fromPartial(e));
-            }
-        }
+    fromPartial<I extends Exact<DeepPartial<SignatureDescriptors>, I>>(object: I): SignatureDescriptors {
+        const message = createBaseSignatureDescriptors();
+        message.signatures = object.signatures?.map((e) => SignatureDescriptor.fromPartial(e)) || [];
         return message;
     },
 };
 
-const baseSignatureDescriptor: object = { sequence: Long.UZERO };
+function createBaseSignatureDescriptor(): SignatureDescriptor {
+    return { publicKey: undefined, data: undefined, sequence: Long.UZERO };
+}
 
 export const SignatureDescriptor = {
     encode(message: SignatureDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -197,7 +190,7 @@ export const SignatureDescriptor = {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseSignatureDescriptor } as SignatureDescriptor;
+        const message = createBaseSignatureDescriptor();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -219,23 +212,11 @@ export const SignatureDescriptor = {
     },
 
     fromJSON(object: any): SignatureDescriptor {
-        const message = { ...baseSignatureDescriptor } as SignatureDescriptor;
-        if (object.publicKey !== undefined && object.publicKey !== null) {
-            message.publicKey = Any.fromJSON(object.publicKey);
-        } else {
-            message.publicKey = undefined;
-        }
-        if (object.data !== undefined && object.data !== null) {
-            message.data = SignatureDescriptor_Data.fromJSON(object.data);
-        } else {
-            message.data = undefined;
-        }
-        if (object.sequence !== undefined && object.sequence !== null) {
-            message.sequence = Long.fromString(object.sequence);
-        } else {
-            message.sequence = Long.UZERO;
-        }
-        return message;
+        return {
+            publicKey: isSet(object.publicKey) ? Any.fromJSON(object.publicKey) : undefined,
+            data: isSet(object.data) ? SignatureDescriptor_Data.fromJSON(object.data) : undefined,
+            sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+        };
     },
 
     toJSON(message: SignatureDescriptor): unknown {
@@ -246,28 +227,18 @@ export const SignatureDescriptor = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<SignatureDescriptor>): SignatureDescriptor {
-        const message = { ...baseSignatureDescriptor } as SignatureDescriptor;
-        if (object.publicKey !== undefined && object.publicKey !== null) {
-            message.publicKey = Any.fromPartial(object.publicKey);
-        } else {
-            message.publicKey = undefined;
-        }
-        if (object.data !== undefined && object.data !== null) {
-            message.data = SignatureDescriptor_Data.fromPartial(object.data);
-        } else {
-            message.data = undefined;
-        }
-        if (object.sequence !== undefined && object.sequence !== null) {
-            message.sequence = object.sequence as Long;
-        } else {
-            message.sequence = Long.UZERO;
-        }
+    fromPartial<I extends Exact<DeepPartial<SignatureDescriptor>, I>>(object: I): SignatureDescriptor {
+        const message = createBaseSignatureDescriptor();
+        message.publicKey = object.publicKey !== undefined && object.publicKey !== null ? Any.fromPartial(object.publicKey) : undefined;
+        message.data = object.data !== undefined && object.data !== null ? SignatureDescriptor_Data.fromPartial(object.data) : undefined;
+        message.sequence = object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : Long.UZERO;
         return message;
     },
 };
 
-const baseSignatureDescriptor_Data: object = {};
+function createBaseSignatureDescriptor_Data(): SignatureDescriptor_Data {
+    return { single: undefined, multi: undefined };
+}
 
 export const SignatureDescriptor_Data = {
     encode(message: SignatureDescriptor_Data, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -283,7 +254,7 @@ export const SignatureDescriptor_Data = {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseSignatureDescriptor_Data } as SignatureDescriptor_Data;
+        const message = createBaseSignatureDescriptor_Data();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -302,18 +273,10 @@ export const SignatureDescriptor_Data = {
     },
 
     fromJSON(object: any): SignatureDescriptor_Data {
-        const message = { ...baseSignatureDescriptor_Data } as SignatureDescriptor_Data;
-        if (object.single !== undefined && object.single !== null) {
-            message.single = SignatureDescriptor_Data_Single.fromJSON(object.single);
-        } else {
-            message.single = undefined;
-        }
-        if (object.multi !== undefined && object.multi !== null) {
-            message.multi = SignatureDescriptor_Data_Multi.fromJSON(object.multi);
-        } else {
-            message.multi = undefined;
-        }
-        return message;
+        return {
+            single: isSet(object.single) ? SignatureDescriptor_Data_Single.fromJSON(object.single) : undefined,
+            multi: isSet(object.multi) ? SignatureDescriptor_Data_Multi.fromJSON(object.multi) : undefined,
+        };
     },
 
     toJSON(message: SignatureDescriptor_Data): unknown {
@@ -323,23 +286,17 @@ export const SignatureDescriptor_Data = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<SignatureDescriptor_Data>): SignatureDescriptor_Data {
-        const message = { ...baseSignatureDescriptor_Data } as SignatureDescriptor_Data;
-        if (object.single !== undefined && object.single !== null) {
-            message.single = SignatureDescriptor_Data_Single.fromPartial(object.single);
-        } else {
-            message.single = undefined;
-        }
-        if (object.multi !== undefined && object.multi !== null) {
-            message.multi = SignatureDescriptor_Data_Multi.fromPartial(object.multi);
-        } else {
-            message.multi = undefined;
-        }
+    fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data>, I>>(object: I): SignatureDescriptor_Data {
+        const message = createBaseSignatureDescriptor_Data();
+        message.single = object.single !== undefined && object.single !== null ? SignatureDescriptor_Data_Single.fromPartial(object.single) : undefined;
+        message.multi = object.multi !== undefined && object.multi !== null ? SignatureDescriptor_Data_Multi.fromPartial(object.multi) : undefined;
         return message;
     },
 };
 
-const baseSignatureDescriptor_Data_Single: object = { mode: 0 };
+function createBaseSignatureDescriptor_Data_Single(): SignatureDescriptor_Data_Single {
+    return { mode: 0, signature: new Uint8Array() };
+}
 
 export const SignatureDescriptor_Data_Single = {
     encode(message: SignatureDescriptor_Data_Single, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -355,8 +312,7 @@ export const SignatureDescriptor_Data_Single = {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data_Single {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseSignatureDescriptor_Data_Single } as SignatureDescriptor_Data_Single;
-        message.signature = new Uint8Array();
+        const message = createBaseSignatureDescriptor_Data_Single();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -375,17 +331,10 @@ export const SignatureDescriptor_Data_Single = {
     },
 
     fromJSON(object: any): SignatureDescriptor_Data_Single {
-        const message = { ...baseSignatureDescriptor_Data_Single } as SignatureDescriptor_Data_Single;
-        message.signature = new Uint8Array();
-        if (object.mode !== undefined && object.mode !== null) {
-            message.mode = signModeFromJSON(object.mode);
-        } else {
-            message.mode = 0;
-        }
-        if (object.signature !== undefined && object.signature !== null) {
-            message.signature = bytesFromBase64(object.signature);
-        }
-        return message;
+        return {
+            mode: isSet(object.mode) ? signModeFromJSON(object.mode) : 0,
+            signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
+        };
     },
 
     toJSON(message: SignatureDescriptor_Data_Single): unknown {
@@ -395,23 +344,17 @@ export const SignatureDescriptor_Data_Single = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<SignatureDescriptor_Data_Single>): SignatureDescriptor_Data_Single {
-        const message = { ...baseSignatureDescriptor_Data_Single } as SignatureDescriptor_Data_Single;
-        if (object.mode !== undefined && object.mode !== null) {
-            message.mode = object.mode;
-        } else {
-            message.mode = 0;
-        }
-        if (object.signature !== undefined && object.signature !== null) {
-            message.signature = object.signature;
-        } else {
-            message.signature = new Uint8Array();
-        }
+    fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Single>, I>>(object: I): SignatureDescriptor_Data_Single {
+        const message = createBaseSignatureDescriptor_Data_Single();
+        message.mode = object.mode ?? 0;
+        message.signature = object.signature ?? new Uint8Array();
         return message;
     },
 };
 
-const baseSignatureDescriptor_Data_Multi: object = {};
+function createBaseSignatureDescriptor_Data_Multi(): SignatureDescriptor_Data_Multi {
+    return { bitarray: undefined, signatures: [] };
+}
 
 export const SignatureDescriptor_Data_Multi = {
     encode(message: SignatureDescriptor_Data_Multi, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -427,8 +370,7 @@ export const SignatureDescriptor_Data_Multi = {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data_Multi {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseSignatureDescriptor_Data_Multi } as SignatureDescriptor_Data_Multi;
-        message.signatures = [];
+        const message = createBaseSignatureDescriptor_Data_Multi();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -447,19 +389,10 @@ export const SignatureDescriptor_Data_Multi = {
     },
 
     fromJSON(object: any): SignatureDescriptor_Data_Multi {
-        const message = { ...baseSignatureDescriptor_Data_Multi } as SignatureDescriptor_Data_Multi;
-        message.signatures = [];
-        if (object.bitarray !== undefined && object.bitarray !== null) {
-            message.bitarray = CompactBitArray.fromJSON(object.bitarray);
-        } else {
-            message.bitarray = undefined;
-        }
-        if (object.signatures !== undefined && object.signatures !== null) {
-            for (const e of object.signatures) {
-                message.signatures.push(SignatureDescriptor_Data.fromJSON(e));
-            }
-        }
-        return message;
+        return {
+            bitarray: isSet(object.bitarray) ? CompactBitArray.fromJSON(object.bitarray) : undefined,
+            signatures: Array.isArray(object?.signatures) ? object.signatures.map((e: any) => SignatureDescriptor_Data.fromJSON(e)) : [],
+        };
     },
 
     toJSON(message: SignatureDescriptor_Data_Multi): unknown {
@@ -473,19 +406,10 @@ export const SignatureDescriptor_Data_Multi = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<SignatureDescriptor_Data_Multi>): SignatureDescriptor_Data_Multi {
-        const message = { ...baseSignatureDescriptor_Data_Multi } as SignatureDescriptor_Data_Multi;
-        message.signatures = [];
-        if (object.bitarray !== undefined && object.bitarray !== null) {
-            message.bitarray = CompactBitArray.fromPartial(object.bitarray);
-        } else {
-            message.bitarray = undefined;
-        }
-        if (object.signatures !== undefined && object.signatures !== null) {
-            for (const e of object.signatures) {
-                message.signatures.push(SignatureDescriptor_Data.fromPartial(e));
-            }
-        }
+    fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Multi>, I>>(object: I): SignatureDescriptor_Data_Multi {
+        const message = createBaseSignatureDescriptor_Data_Multi();
+        message.bitarray = object.bitarray !== undefined && object.bitarray !== null ? CompactBitArray.fromPartial(object.bitarray) : undefined;
+        message.signatures = object.signatures?.map((e) => SignatureDescriptor_Data.fromPartial(e)) || [];
         return message;
     },
 };
@@ -520,9 +444,12 @@ function base64FromBytes(arr: Uint8Array): string {
     return btoa(bin.join(''));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
     ? T
+    : T extends Long
+    ? string | number | Long
     : T extends Array<infer U>
     ? Array<DeepPartial<U>>
     : T extends ReadonlyArray<infer U>
@@ -531,7 +458,14 @@ export type DeepPartial<T> = T extends Builtin
     ? { [K in keyof T]?: DeepPartial<T[K]> }
     : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+
 if (_m0.util.Long !== Long) {
     _m0.util.Long = Long as any;
     _m0.configure();
+}
+
+function isSet(value: any): boolean {
+    return value !== null && value !== undefined;
 }

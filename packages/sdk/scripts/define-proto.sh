@@ -9,6 +9,9 @@ THIRD_PARTY_PROTO_DIR="$ROOT_PROTO_DIR/third_party/proto"
 ROOT_BITSONG_PROTO_DIR="./proto/bitsong/go-bitsong"
 BITSONG_PROTO_DIR="$ROOT_BITSONG_PROTO_DIR/proto"
 
+ROOT_IBC_PROTO_DIR="./proto/ibc/ibc-go"
+IBC_PROTO_DIR="$ROOT_IBC_PROTO_DIR/proto"
+
 OUT_DIR="./src/codec/"
 
 mkdir -p "$OUT_DIR"
@@ -19,6 +22,7 @@ protoc \
     --proto_path="$COSMOS_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_PROTO_DIR" \
     --proto_path="$BITSONG_PROTO_DIR" \
+    --proto_path="$IBC_PROTO_DIR" \
     --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
     "$COSMOS_PROTO_DIR/cosmos/auth/v1beta1/auth.proto" \
     "$COSMOS_PROTO_DIR/cosmos/auth/v1beta1/query.proto" \
@@ -42,18 +46,20 @@ protoc \
     "$COSMOS_PROTO_DIR/cosmos/tx/signing/v1beta1/signing.proto" \
     "$COSMOS_PROTO_DIR/cosmos/tx/v1beta1/tx.proto" \
     "$COSMOS_PROTO_DIR/cosmos/vesting/v1beta1/vesting.proto" \
-    "$COSMOS_PROTO_DIR/ibc/applications/transfer/v1/tx.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/channel/v1/channel.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/channel/v1/query.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/channel/v1/tx.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/client/v1/client.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/client/v1/query.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/client/v1/tx.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/commitment/v1/commitment.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/connection/v1/connection.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/connection/v1/query.proto" \
-    "$COSMOS_PROTO_DIR/ibc/core/connection/v1/tx.proto" \
-    "$COSMOS_PROTO_DIR/ibc/lightclients/tendermint/v1/tendermint.proto" \
+    "$IBC_PROTO_DIR/ibc/applications/transfer/v1/query.proto" \
+    "$IBC_PROTO_DIR/ibc/applications/transfer/v1/transfer.proto" \
+    "$IBC_PROTO_DIR/ibc/applications/transfer/v1/tx.proto" \
+    "$IBC_PROTO_DIR/ibc/core/channel/v1/channel.proto" \
+    "$IBC_PROTO_DIR/ibc/core/channel/v1/query.proto" \
+    "$IBC_PROTO_DIR/ibc/core/channel/v1/tx.proto" \
+    "$IBC_PROTO_DIR/ibc/core/client/v1/client.proto" \
+    "$IBC_PROTO_DIR/ibc/core/client/v1/query.proto" \
+    "$IBC_PROTO_DIR/ibc/core/client/v1/tx.proto" \
+    "$IBC_PROTO_DIR/ibc/core/commitment/v1/commitment.proto" \
+    "$IBC_PROTO_DIR/ibc/core/connection/v1/connection.proto" \
+    "$IBC_PROTO_DIR/ibc/core/connection/v1/query.proto" \
+    "$IBC_PROTO_DIR/ibc/core/connection/v1/tx.proto" \
+    "$IBC_PROTO_DIR/ibc/lightclients/tendermint/v1/tendermint.proto" \
     "$THIRD_PARTY_PROTO_DIR/confio/proofs.proto" \
     "$THIRD_PARTY_PROTO_DIR/tendermint/abci/types.proto" \
     "$THIRD_PARTY_PROTO_DIR/tendermint/crypto/keys.proto" \
@@ -71,7 +77,7 @@ protoc \
 
 # Remove unnecessary codec files (TODO: IMPROVE!)
 rm -rf \
+    src/codec/cosmos_proto/ \
     src/codec/gogoproto/ \
     src/codec/google/api/ \
     src/codec/google/protobuf/descriptor.ts
-#src/codec/cosmos_proto/ \

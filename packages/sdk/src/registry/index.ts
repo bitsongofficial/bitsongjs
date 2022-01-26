@@ -1,7 +1,7 @@
 import { Registry, GeneratedType } from '@cosmjs/proto-signing';
 import { defaultRegistryTypes } from '@cosmjs/stargate';
 
-import { MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgEditFanToken } from '../codec/fantoken/tx';
+import { MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgEditFanToken } from '../codec/bitsong/fantoken/v1beta1/tx';
 
 export const bitsongRegistry = (): Registry => {
     return new Registry([

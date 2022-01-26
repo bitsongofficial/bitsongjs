@@ -20,7 +20,9 @@ export interface PrivKey {
     key: Uint8Array;
 }
 
-const basePubKey: object = {};
+function createBasePubKey(): PubKey {
+    return { key: new Uint8Array() };
+}
 
 export const PubKey = {
     encode(message: PubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -33,8 +35,7 @@ export const PubKey = {
     decode(input: _m0.Reader | Uint8Array, length?: number): PubKey {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePubKey } as PubKey;
-        message.key = new Uint8Array();
+        const message = createBasePubKey();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -50,12 +51,9 @@ export const PubKey = {
     },
 
     fromJSON(object: any): PubKey {
-        const message = { ...basePubKey } as PubKey;
-        message.key = new Uint8Array();
-        if (object.key !== undefined && object.key !== null) {
-            message.key = bytesFromBase64(object.key);
-        }
-        return message;
+        return {
+            key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+        };
     },
 
     toJSON(message: PubKey): unknown {
@@ -64,18 +62,16 @@ export const PubKey = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<PubKey>): PubKey {
-        const message = { ...basePubKey } as PubKey;
-        if (object.key !== undefined && object.key !== null) {
-            message.key = object.key;
-        } else {
-            message.key = new Uint8Array();
-        }
+    fromPartial<I extends Exact<DeepPartial<PubKey>, I>>(object: I): PubKey {
+        const message = createBasePubKey();
+        message.key = object.key ?? new Uint8Array();
         return message;
     },
 };
 
-const basePrivKey: object = {};
+function createBasePrivKey(): PrivKey {
+    return { key: new Uint8Array() };
+}
 
 export const PrivKey = {
     encode(message: PrivKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -88,8 +84,7 @@ export const PrivKey = {
     decode(input: _m0.Reader | Uint8Array, length?: number): PrivKey {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePrivKey } as PrivKey;
-        message.key = new Uint8Array();
+        const message = createBasePrivKey();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -105,12 +100,9 @@ export const PrivKey = {
     },
 
     fromJSON(object: any): PrivKey {
-        const message = { ...basePrivKey } as PrivKey;
-        message.key = new Uint8Array();
-        if (object.key !== undefined && object.key !== null) {
-            message.key = bytesFromBase64(object.key);
-        }
-        return message;
+        return {
+            key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+        };
     },
 
     toJSON(message: PrivKey): unknown {
@@ -119,13 +111,9 @@ export const PrivKey = {
         return obj;
     },
 
-    fromPartial(object: DeepPartial<PrivKey>): PrivKey {
-        const message = { ...basePrivKey } as PrivKey;
-        if (object.key !== undefined && object.key !== null) {
-            message.key = object.key;
-        } else {
-            message.key = new Uint8Array();
-        }
+    fromPartial<I extends Exact<DeepPartial<PrivKey>, I>>(object: I): PrivKey {
+        const message = createBasePrivKey();
+        message.key = object.key ?? new Uint8Array();
         return message;
     },
 };
@@ -160,9 +148,12 @@ function base64FromBytes(arr: Uint8Array): string {
     return btoa(bin.join(''));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
     ? T
+    : T extends Long
+    ? string | number | Long
     : T extends Array<infer U>
     ? Array<DeepPartial<U>>
     : T extends ReadonlyArray<infer U>
@@ -171,7 +162,14 @@ export type DeepPartial<T> = T extends Builtin
     ? { [K in keyof T]?: DeepPartial<T[K]> }
     : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+
 if (_m0.util.Long !== Long) {
     _m0.util.Long = Long as any;
     _m0.configure();
+}
+
+function isSet(value: any): boolean {
+    return value !== null && value !== undefined;
 }

@@ -12,6 +12,10 @@ BITSONG_DIR="$PROTO_DIR/bitsong"
 BITSONG_SDK_DIR="$BITSONG_DIR/go-bitsong"
 ZIP_BITSONG_FILE="$BITSONG_DIR/tmp.zip"
 
+IBC_DIR="$PROTO_DIR/ibc"
+IBC_SDK_DIR="$IBC_DIR/ibc-go"
+IBC_ZIP_FILE="$IBC_DIR/tmp.zip"
+
 CREF=${CREF:-"master"}
 CSUFFIX=${CREF}
 [[ $CSUFFIX =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]] && CSUFFIX=${CSUFFIX#v}
@@ -19,6 +23,10 @@ CSUFFIX=${CREF}
 BREF=${BREF:-"master"}
 BSUFFIX=${BREF}
 [[ $BSUFFIX =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]] && BSUFFIX=${BSUFFIX#v}
+
+IBCREF=${IBCREF:-"main"}
+IBCSUFFIX=${IBCREF}
+[[ $IBCSUFFIX =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]] && IBCSUFFIX=${IBCSUFFIX#v}
 
 # Create the cosmos dir
 mkdir -p "$COSMOS_DIR"
@@ -37,3 +45,12 @@ wget -qO "$ZIP_BITSONG_FILE" "https://github.com/bitsongofficial/go-bitsong/arch
 unzip "$ZIP_BITSONG_FILE" "*.proto" -d "$BITSONG_DIR"
 mv "$BITSONG_SDK_DIR-$BSUFFIX" "$BITSONG_SDK_DIR"
 rm "$ZIP_BITSONG_FILE"
+
+# Create the ibc proto dir
+mkdir -p "$IBC_DIR"
+
+# Download the archive
+wget -qO "$IBC_ZIP_FILE" "https://github.com/cosmos/ibc-go/archive/$IBCREF.zip"
+unzip "$IBC_ZIP_FILE" "*.proto" -d "$IBC_DIR"
+mv "$IBC_SDK_DIR-$IBCSUFFIX" "$IBC_SDK_DIR"
+rm "$IBC_ZIP_FILE"

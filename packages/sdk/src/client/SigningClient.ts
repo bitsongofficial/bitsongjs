@@ -13,7 +13,7 @@ import {
 } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import { Constants } from '..';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/fantoken/tx';
+import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/bitsong/fantoken/v1beta1/tx';
 import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject } from '../messages';
 import { bitsongRegistry } from '../registry';
 import Long from 'long';
@@ -274,11 +274,11 @@ export class SigningBitsongClient extends BitsongClient {
      * Edit a fantoken
      * @param
      */
-    public editFanToken(symbol: string, mintable: boolean, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public editFanToken(denom: string, mintable: boolean, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
         const msg: MsgEditFanTokenEncodeObject = {
             typeUrl: '/bitsong.fantoken.MsgEditFanToken',
             value: MsgEditFanToken.fromPartial({
-                symbol: symbol,
+                denom: denom,
                 mintable: mintable,
                 owner: owner,
             }),

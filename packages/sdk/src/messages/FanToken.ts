@@ -1,5 +1,5 @@
 import { EncodeObject } from '@cosmjs/proto-signing';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/fantoken/tx';
+import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/bitsong/fantoken/v1beta1/tx';
 
 export interface MsgIssueFanTokenEncodeObject extends EncodeObject {
     readonly typeUrl: '/bitsong.fantoken.MsgIssueFanToken';
