@@ -13,6 +13,11 @@ const acc1 = {
     address: 'bitsong132fuyjqzew4kw87atymc66d03dta243avhh9ty',
 };
 
+// const acc2 = {
+//     mnemonic: '',
+//     address: '',
+// }
+
 const rpcUrl: string = 'http://localhost:26657';
 
 const defaultFee = {
@@ -30,12 +35,14 @@ describe('Client', () => {
     let signingBitsong: SigningBitsongClient;
     let wallet: DirectSecp256k1HdWallet;
     let wallet2: DirectSecp256k1HdWallet;
+    // let wallet3: DirectSecp256k1HdWallet;
 
     beforeAll(async () => {
         bitsong = await BitsongClient.connect(rpcUrl);
         wallet = await DirectSecp256k1HdWallet.fromMnemonic(faucet.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
         wallet2 = await DirectSecp256k1HdWallet.fromMnemonic(acc1.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
-        signingBitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet);
+        signingBitsong = await SigningBitsongClient.connectWithSigner(rpcUrl, wallet2);
+        // wallet3 = await DirectSecp256k1HdWallet.fromMnemonic(acc2.mnemonic, { prefix: Constants.Bech32PrefixAccAddr, hdPaths: [stringToPath(Constants.getHdPath())] });
     });
 
     // it('Should connect without a signer', async () => {
@@ -70,12 +77,12 @@ describe('Client', () => {
     // });
 
     // it('Should issue a new fantoken denom', async () => {
-    //     const [account] = await wallet.getAccounts();
+    //     const [account] = await wallet2.getAccounts();
 
     //     const symbol = 'test';
     //     const name = 'Test token';
     //     const description = 'Test description fantoken';
-    //     const maxSupply = '100000000000'; // 100k
+    //     const maxSupply = ''+((100 * 1000) * 1000000); // 100k
     //     const issueFee = {
     //         denom: Constants.MicroDenom,
     //         amount: '1000000',
@@ -89,11 +96,11 @@ describe('Client', () => {
     // });
 
     // it('Should mint a new fantoken', async () => {
-    //     const [account] = await wallet.getAccounts();
+    //     const [account] = await wallet2.getAccounts();
 
     //     const recipient = account.address;
     //     const denom = 'utest';
-    //     const amount = '200000000';
+    //     const amount = ''+((200) * 1000000);
 
     //     const result = await signingBitsong.mintFanToken(recipient, denom, amount, account.address, defaultFee);
     //     assertIsBroadcastTxSuccess(result);
@@ -103,11 +110,11 @@ describe('Client', () => {
     // });
 
     // it('Should burn a fantoken', async () => {
-    //     const [account] = await wallet.getAccounts();
+    //     const [account] = await wallet2.getAccounts();
 
     //     const sender = account.address;
     //     const denom = 'uaaaa';
-    //     const amount = '10';
+    //     const amount = ''+((1)*1000000);
 
     //     const result = await signingBitsong.burnFanToken(denom, amount, sender, defaultFee);
     //     assertIsBroadcastTxSuccess(result);
@@ -116,12 +123,26 @@ describe('Client', () => {
     //     expect(result.gasUsed).toBeGreaterThan(0);
     // });
 
-    it('Should query my balances', async () => {
-        const [account] = await wallet.getAccounts();
+    // it('Should transfer a fantoken', async () => {
+    //     const [account] = await wallet2.getAccounts();
 
-        const balances = await bitsong.getAllBalances(account.address);
-        console.log(balances);
-    });
+    //     const sender = account.address;
+    //     const denom = 'uaaaa';
+    //     const receiver = acc2.address;
+
+    //     const result = await signingBitsong.transferFanTokenOwner(denom, sender, receiver, defaultFee);
+    //     assertIsBroadcastTxSuccess(result);
+
+    //     expect(result.height).toBeGreaterThan(0);
+    //     expect(result.gasUsed).toBeGreaterThan(0);
+    // });
+
+    // it('Should query my balances', async () => {
+    //     const [account] = await wallet2.getAccounts();
+
+    //     const balances = await bitsong.getAllBalances(account.address);
+    //     console.log(balances);
+    // });
 
     // it('Should query a fantoken by denom', async () => {
     //     const response = await bitsong.getFanToken('aaaa');
@@ -129,7 +150,7 @@ describe('Client', () => {
     // });
 
     // it('Should query all fantokens by owner', async () => {
-    //     const response = await bitsong.getAllFanTokensByOwner(faucet.address);
-    //     console.log(response.tokens);
+    //     const response = await bitsong.getAllFanTokensByOwner(acc2.address);
+    //     console.log(response);
     // });
 });
