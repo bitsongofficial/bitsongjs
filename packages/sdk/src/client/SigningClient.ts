@@ -13,8 +13,8 @@ import {
 } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import { Constants } from '..';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/bitsong/fantoken/v1beta1/tx';
-import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject } from '../messages';
+import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgTransferFanTokenOwner } from '../codec/bitsong/fantoken/v1beta1/tx';
+import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject, MsgTransferFanTokenOwnerEncodeObject } from '../messages';
 import { bitsongRegistry } from '../registry';
 import Long from 'long';
 import { Int53, Uint53 } from '@cosmjs/math';
@@ -320,5 +320,22 @@ export class SigningBitsongClient extends BitsongClient {
         };
 
         return this.signAndBroadcast(sender, [msg], fee, memo);
+    }
+
+    /**
+     * Transfer a fantoken
+     * @param
+     */
+    public transferFanTokenOwner(denom: string, srcOwner: string, dstOwner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+        const msg: MsgTransferFanTokenOwnerEncodeObject = {
+            typeUrl: '/bitsong.fantoken.MsgTransferFanTokenOwner',
+            value: MsgTransferFanTokenOwner.fromPartial({
+                denom: denom,
+                srcOwner: srcOwner,
+                dstOwner: dstOwner,
+            }),
+        };
+
+        return this.signAndBroadcast(srcOwner, [msg], fee, memo);
     }
 }

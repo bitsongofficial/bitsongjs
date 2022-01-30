@@ -1,5 +1,5 @@
 import { EncodeObject } from '@cosmjs/proto-signing';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken } from '../codec/bitsong/fantoken/v1beta1/tx';
+import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgTransferFanTokenOwner } from '../codec/bitsong/fantoken/v1beta1/tx';
 
 export interface MsgIssueFanTokenEncodeObject extends EncodeObject {
     readonly typeUrl: '/bitsong.fantoken.MsgIssueFanToken';
@@ -19,4 +19,9 @@ export interface MsgMintFanTokenEncodeObject extends EncodeObject {
 export interface MsgBurnFanTokenEncodeObject extends EncodeObject {
     readonly typeUrl: '/bitsong.fantoken.MsgBurnFanToken';
     readonly value: MsgBurnFanToken;
+}
+
+export interface MsgTransferFanTokenOwnerEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgTransferFanTokenOwner';
+    readonly value: MsgTransferFanTokenOwner;
 }
