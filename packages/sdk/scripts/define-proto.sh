@@ -15,7 +15,8 @@ IBC_PROTO_DIR="$ROOT_IBC_PROTO_DIR/proto"
 OUT_DIR="./src/codec/"
 
 mkdir -p "$OUT_DIR"
-# echo $(find ${COSMOS_PROTO_DIR} ${THIRD_PARTY_PROTO_DIR} ${BITSONG_PROTO_DIR} ${IBC_PROTO_DIR} -path -prune -o -name '*.proto' -print0 | xargs -0) 
+#echo $(find ${COSMOS_PROTO_DIR} ${THIRD_PARTY_PROTO_DIR} ${BITSONG_PROTO_DIR} ${IBC_PROTO_DIR} -path -prune -o -name '*.proto' -print0 | xargs -0)
+
 protoc \
     --plugin="$(yarn bin protoc-gen-ts_proto)" \
     --ts_proto_out="$OUT_DIR" \
@@ -23,9 +24,8 @@ protoc \
     --proto_path="$COSMOS_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_PROTO_DIR" \
     --proto_path="$BITSONG_PROTO_DIR" \
-    --proto_path="$IBC_PROTO_DIR" \   
-    $(find ${COSMOS_PROTO_DIR} ${THIRD_PARTY_PROTO_DIR} ${BITSONG_PROTO_DIR} ${IBC_PROTO_DIR} -path -prune -o -name '*.proto' -print0 | xargs -0) 
-
+    --proto_path="$IBC_PROTO_DIR" \
+    $(find ${COSMOS_PROTO_DIR} ${THIRD_PARTY_PROTO_DIR} ${BITSONG_PROTO_DIR} ${IBC_PROTO_DIR} -path -prune -o -name '*.proto' -print0 | xargs -0)
 
 # Remove unnecessary codec files (TODO: IMPROVE!)
 #rm -rf \

@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { FanToken, Params } from '../../../bitsong/fantoken/v1beta1/fantoken';
+import { FanToken } from '../../../bitsong/fantoken/v1beta1/fantoken';
 import { PageRequest, PageResponse } from '../../../cosmos/base/query/v1beta1/pagination';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
+import { Params } from '../../../bitsong/fantoken/v1beta1/params';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
@@ -14,19 +14,19 @@ export interface QueryFanTokenRequest {
 
 /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
 export interface QueryFanTokenResponse {
-    token?: FanToken;
+    fantoken?: FanToken;
 }
 
 /** QueryFanTokensRequest is request type for the Query/FanTokens RPC method */
 export interface QueryFanTokensRequest {
-    owner: string;
+    authority: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequest;
 }
 
 /** QueryFanTokensResponse is response type for the Query/FanTokens RPC method */
 export interface QueryFanTokensResponse {
-    tokens: FanToken[];
+    fantokens: FanToken[];
     pagination?: PageResponse;
 }
 
@@ -36,14 +36,6 @@ export interface QueryParamsRequest {}
 /** QueryParametersResponse is response type for the Query/Parameters RPC method */
 export interface QueryParamsResponse {
     params?: Params;
-}
-
-/** QueryTotalBurnRequest is request type for the Query/TotalBurn RPC method */
-export interface QueryTotalBurnRequest {}
-
-/** QueryTotalBurnResponse is response type for the Query/TotalBurn RPC method */
-export interface QueryTotalBurnResponse {
-    burnedCoins: Coin[];
 }
 
 function createBaseQueryFanTokenRequest(): QueryFanTokenRequest {
@@ -96,13 +88,13 @@ export const QueryFanTokenRequest = {
 };
 
 function createBaseQueryFanTokenResponse(): QueryFanTokenResponse {
-    return { token: undefined };
+    return { fantoken: undefined };
 }
 
 export const QueryFanTokenResponse = {
     encode(message: QueryFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.token !== undefined) {
-            FanToken.encode(message.token, writer.uint32(10).fork()).ldelim();
+        if (message.fantoken !== undefined) {
+            FanToken.encode(message.fantoken, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -115,7 +107,7 @@ export const QueryFanTokenResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.token = FanToken.decode(reader, reader.uint32());
+                    message.fantoken = FanToken.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -127,31 +119,31 @@ export const QueryFanTokenResponse = {
 
     fromJSON(object: any): QueryFanTokenResponse {
         return {
-            token: isSet(object.token) ? FanToken.fromJSON(object.token) : undefined,
+            fantoken: isSet(object.fantoken) ? FanToken.fromJSON(object.fantoken) : undefined,
         };
     },
 
     toJSON(message: QueryFanTokenResponse): unknown {
         const obj: any = {};
-        message.token !== undefined && (obj.token = message.token ? FanToken.toJSON(message.token) : undefined);
+        message.fantoken !== undefined && (obj.fantoken = message.fantoken ? FanToken.toJSON(message.fantoken) : undefined);
         return obj;
     },
 
     fromPartial<I extends Exact<DeepPartial<QueryFanTokenResponse>, I>>(object: I): QueryFanTokenResponse {
         const message = createBaseQueryFanTokenResponse();
-        message.token = object.token !== undefined && object.token !== null ? FanToken.fromPartial(object.token) : undefined;
+        message.fantoken = object.fantoken !== undefined && object.fantoken !== null ? FanToken.fromPartial(object.fantoken) : undefined;
         return message;
     },
 };
 
 function createBaseQueryFanTokensRequest(): QueryFanTokensRequest {
-    return { owner: '', pagination: undefined };
+    return { authority: '', pagination: undefined };
 }
 
 export const QueryFanTokensRequest = {
     encode(message: QueryFanTokensRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.owner !== '') {
-            writer.uint32(10).string(message.owner);
+        if (message.authority !== '') {
+            writer.uint32(10).string(message.authority);
         }
         if (message.pagination !== undefined) {
             PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -167,7 +159,7 @@ export const QueryFanTokensRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.owner = reader.string();
+                    message.authority = reader.string();
                     break;
                 case 2:
                     message.pagination = PageRequest.decode(reader, reader.uint32());
@@ -182,33 +174,33 @@ export const QueryFanTokensRequest = {
 
     fromJSON(object: any): QueryFanTokensRequest {
         return {
-            owner: isSet(object.owner) ? String(object.owner) : '',
+            authority: isSet(object.authority) ? String(object.authority) : '',
             pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
         };
     },
 
     toJSON(message: QueryFanTokensRequest): unknown {
         const obj: any = {};
-        message.owner !== undefined && (obj.owner = message.owner);
+        message.authority !== undefined && (obj.authority = message.authority);
         message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
         return obj;
     },
 
     fromPartial<I extends Exact<DeepPartial<QueryFanTokensRequest>, I>>(object: I): QueryFanTokensRequest {
         const message = createBaseQueryFanTokensRequest();
-        message.owner = object.owner ?? '';
+        message.authority = object.authority ?? '';
         message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
         return message;
     },
 };
 
 function createBaseQueryFanTokensResponse(): QueryFanTokensResponse {
-    return { tokens: [], pagination: undefined };
+    return { fantokens: [], pagination: undefined };
 }
 
 export const QueryFanTokensResponse = {
     encode(message: QueryFanTokensResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        for (const v of message.tokens) {
+        for (const v of message.fantokens) {
             FanToken.encode(v!, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
@@ -225,7 +217,7 @@ export const QueryFanTokensResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.tokens.push(FanToken.decode(reader, reader.uint32()));
+                    message.fantokens.push(FanToken.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -240,17 +232,17 @@ export const QueryFanTokensResponse = {
 
     fromJSON(object: any): QueryFanTokensResponse {
         return {
-            tokens: Array.isArray(object?.tokens) ? object.tokens.map((e: any) => FanToken.fromJSON(e)) : [],
+            fantokens: Array.isArray(object?.fantokens) ? object.fantokens.map((e: any) => FanToken.fromJSON(e)) : [],
             pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
         };
     },
 
     toJSON(message: QueryFanTokensResponse): unknown {
         const obj: any = {};
-        if (message.tokens) {
-            obj.tokens = message.tokens.map((e) => (e ? FanToken.toJSON(e) : undefined));
+        if (message.fantokens) {
+            obj.fantokens = message.fantokens.map((e) => (e ? FanToken.toJSON(e) : undefined));
         } else {
-            obj.tokens = [];
+            obj.fantokens = [];
         }
         message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
         return obj;
@@ -258,7 +250,7 @@ export const QueryFanTokensResponse = {
 
     fromPartial<I extends Exact<DeepPartial<QueryFanTokensResponse>, I>>(object: I): QueryFanTokensResponse {
         const message = createBaseQueryFanTokensResponse();
-        message.tokens = object.tokens?.map((e) => FanToken.fromPartial(e)) || [];
+        message.fantokens = object.fantokens?.map((e) => FanToken.fromPartial(e)) || [];
         message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
         return message;
     },
@@ -352,98 +344,6 @@ export const QueryParamsResponse = {
     },
 };
 
-function createBaseQueryTotalBurnRequest(): QueryTotalBurnRequest {
-    return {};
-}
-
-export const QueryTotalBurnRequest = {
-    encode(_: QueryTotalBurnRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        return writer;
-    },
-
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalBurnRequest {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTotalBurnRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-
-    fromJSON(_: any): QueryTotalBurnRequest {
-        return {};
-    },
-
-    toJSON(_: QueryTotalBurnRequest): unknown {
-        const obj: any = {};
-        return obj;
-    },
-
-    fromPartial<I extends Exact<DeepPartial<QueryTotalBurnRequest>, I>>(_: I): QueryTotalBurnRequest {
-        const message = createBaseQueryTotalBurnRequest();
-        return message;
-    },
-};
-
-function createBaseQueryTotalBurnResponse(): QueryTotalBurnResponse {
-    return { burnedCoins: [] };
-}
-
-export const QueryTotalBurnResponse = {
-    encode(message: QueryTotalBurnResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        for (const v of message.burnedCoins) {
-            Coin.encode(v!, writer.uint32(10).fork()).ldelim();
-        }
-        return writer;
-    },
-
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalBurnResponse {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTotalBurnResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.burnedCoins.push(Coin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-
-    fromJSON(object: any): QueryTotalBurnResponse {
-        return {
-            burnedCoins: Array.isArray(object?.burnedCoins) ? object.burnedCoins.map((e: any) => Coin.fromJSON(e)) : [],
-        };
-    },
-
-    toJSON(message: QueryTotalBurnResponse): unknown {
-        const obj: any = {};
-        if (message.burnedCoins) {
-            obj.burnedCoins = message.burnedCoins.map((e) => (e ? Coin.toJSON(e) : undefined));
-        } else {
-            obj.burnedCoins = [];
-        }
-        return obj;
-    },
-
-    fromPartial<I extends Exact<DeepPartial<QueryTotalBurnResponse>, I>>(object: I): QueryTotalBurnResponse {
-        const message = createBaseQueryTotalBurnResponse();
-        message.burnedCoins = object.burnedCoins?.map((e) => Coin.fromPartial(e)) || [];
-        return message;
-    },
-};
-
 /** Query creates service with fantoken as RPC */
 export interface Query {
     /** FanToken returns fantoken with fantoken name */
@@ -452,8 +352,6 @@ export interface Query {
     FanTokens(request: QueryFanTokensRequest): Promise<QueryFanTokensResponse>;
     /** Params queries the fantoken parameters */
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    /** TotalBurn queries all the burnt coins */
-    TotalBurn(request: QueryTotalBurnRequest): Promise<QueryTotalBurnResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -463,7 +361,6 @@ export class QueryClientImpl implements Query {
         this.FanToken = this.FanToken.bind(this);
         this.FanTokens = this.FanTokens.bind(this);
         this.Params = this.Params.bind(this);
-        this.TotalBurn = this.TotalBurn.bind(this);
     }
     FanToken(request: QueryFanTokenRequest): Promise<QueryFanTokenResponse> {
         const data = QueryFanTokenRequest.encode(request).finish();
@@ -481,12 +378,6 @@ export class QueryClientImpl implements Query {
         const data = QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request('bitsong.fantoken.v1beta1.Query', 'Params', data);
         return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
-    }
-
-    TotalBurn(request: QueryTotalBurnRequest): Promise<QueryTotalBurnResponse> {
-        const data = QueryTotalBurnRequest.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.v1beta1.Query', 'TotalBurn', data);
-        return promise.then((data) => QueryTotalBurnResponse.decode(new _m0.Reader(data)));
     }
 }
 

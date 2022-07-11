@@ -5,72 +5,95 @@ import { Coin } from '../../../cosmos/base/v1beta1/coin';
 
 export const protobufPackage = 'bitsong.fantoken';
 
-/** MsgIssueFanToken defines an SDK message for issuing a new fan token */
-export interface MsgIssueFanToken {
+/** MsgIssue defines a message for issuing a new fan token */
+export interface MsgIssue {
+    /** symbol which corresponds to the symbol of the fan token. It is a string and cannot change for the whole life of the fan token */
     symbol: string;
+    /** name which corresponds to the name of the fan token. It is a string and cannot change for the whole life of the fan token */
     name: string;
+    /** max_supply that represents the maximum number of possible mintable tokens. It is an integer number, expressed in micro unit 10^6 */
     maxSupply: string;
-    description: string;
-    owner: string;
-    issueFee?: Coin;
+    /** authority which is who can set a new uri metadata */
+    authority: string;
+    /** minter who is who can mint new fantoken and disable the minter process, the minter key also pay the gas fee */
+    minter: string;
+    /** URI which is the current uri of the fan token. It is a string can change during the fan token lifecycle thanks to the MsgEdit */
+    uri: string;
 }
 
-/** MsgIssueFanTokenResponse defines the Msg/IssueFanToken response type */
-export interface MsgIssueFanTokenResponse {}
+/** MsgIssueResponse defines the MsgIssue response type */
+export interface MsgIssueResponse {}
 
-/**
- * MsgTransferFanTokenOwner defines an SDK message for transferring the token
- * owner
- */
-export interface MsgTransferFanTokenOwner {
+/** MsgDisableMint defines a message for disable the mint function */
+export interface MsgDisableMint {
     denom: string;
-    srcOwner: string;
-    dstOwner: string;
+    minter: string;
 }
 
-/**
- * MsgTransferFanTokenOwnerResponse defines the Msg/TransferFanTokenOwner
- * response type
- */
-export interface MsgTransferFanTokenOwnerResponse {}
+/** MsgDisableMintResponse defines the MsgDisableMint response type */
+export interface MsgDisableMintResponse {}
 
-/** MsgEditFanToken defines an SDK message for editing a fan token */
-export interface MsgEditFanToken {
-    denom: string;
-    mintable: boolean;
-    owner: string;
-}
-
-/** MsgEditFanTokenResponse defines the Msg/EditFanToken response type */
-export interface MsgEditFanTokenResponse {}
-
-/** MsgMintFanToken defines an SDK message for minting a new fan token */
-export interface MsgMintFanToken {
+/** MsgMint defines a message for minting a new fan token */
+export interface MsgMint {
     recipient: string;
-    denom: string;
-    amount: string;
-    owner: string;
+    /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
+    coin?: Coin;
+    minter: string;
 }
 
-/** MsgMintFanTokenResponse defines the Msg/MintFanToken response type */
-export interface MsgMintFanTokenResponse {}
+/** MsgMintResponse defines the MsgMint response type */
+export interface MsgMintResponse {}
 
-/** MsgBurnFanToken defines an SDK message for burning some fan tokens */
-export interface MsgBurnFanToken {
-    denom: string;
-    amount: string;
+/** MsgBurn defines a message for burning some fan tokens */
+export interface MsgBurn {
+    /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
+    coin?: Coin;
     sender: string;
 }
 
-/** MsgBurnFanTokenResponse defines the Msg/BurnFanToken response type */
-export interface MsgBurnFanTokenResponse {}
+/** MsgBurnResponse defines the MsgBurn response type */
+export interface MsgBurnResponse {}
 
-function createBaseMsgIssueFanToken(): MsgIssueFanToken {
-    return { symbol: '', name: '', maxSupply: '', description: '', owner: '', issueFee: undefined };
+/** MsgSetMinter defines a message for changing the fan token minter address */
+export interface MsgSetMinter {
+    /** denom the fan token denom */
+    denom: string;
+    /** old_minter, the actual minter */
+    oldMinter: string;
+    /** new_minter, the new fan token minter */
+    newMinter: string;
 }
 
-export const MsgIssueFanToken = {
-    encode(message: MsgIssueFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+/** MsgSetMinterResponse defines the MsgTransferAuthority response type */
+export interface MsgSetMinterResponse {}
+
+/** MsgSetAuthority defines a message for changing the fan token minter address */
+export interface MsgSetAuthority {
+    /** denom the fan token denom */
+    denom: string;
+    /** old_authority, the actual metadata authority */
+    oldAuthority: string;
+    /** new_authority, the new fan token metadata authority */
+    newAuthority: string;
+}
+
+/** MsgSetAuthorityResponse defines the MsgTransferAuthority response type */
+export interface MsgSetAuthorityResponse {}
+
+export interface MsgSetUri {
+    authority: string;
+    denom: string;
+    uri: string;
+}
+
+export interface MsgSetUriResponse {}
+
+function createBaseMsgIssue(): MsgIssue {
+    return { symbol: '', name: '', maxSupply: '', authority: '', minter: '', uri: '' };
+}
+
+export const MsgIssue = {
+    encode(message: MsgIssue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.symbol !== '') {
             writer.uint32(10).string(message.symbol);
         }
@@ -80,22 +103,22 @@ export const MsgIssueFanToken = {
         if (message.maxSupply !== '') {
             writer.uint32(26).string(message.maxSupply);
         }
-        if (message.description !== '') {
-            writer.uint32(34).string(message.description);
+        if (message.authority !== '') {
+            writer.uint32(34).string(message.authority);
         }
-        if (message.owner !== '') {
-            writer.uint32(42).string(message.owner);
+        if (message.minter !== '') {
+            writer.uint32(42).string(message.minter);
         }
-        if (message.issueFee !== undefined) {
-            Coin.encode(message.issueFee, writer.uint32(50).fork()).ldelim();
+        if (message.uri !== '') {
+            writer.uint32(50).string(message.uri);
         }
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgIssueFanToken {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgIssue {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgIssueFanToken();
+        const message = createBaseMsgIssue();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -109,13 +132,13 @@ export const MsgIssueFanToken = {
                     message.maxSupply = reader.string();
                     break;
                 case 4:
-                    message.description = reader.string();
+                    message.authority = reader.string();
                     break;
                 case 5:
-                    message.owner = reader.string();
+                    message.minter = reader.string();
                     break;
                 case 6:
-                    message.issueFee = Coin.decode(reader, reader.uint32());
+                    message.uri = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -125,53 +148,53 @@ export const MsgIssueFanToken = {
         return message;
     },
 
-    fromJSON(object: any): MsgIssueFanToken {
+    fromJSON(object: any): MsgIssue {
         return {
             symbol: isSet(object.symbol) ? String(object.symbol) : '',
             name: isSet(object.name) ? String(object.name) : '',
             maxSupply: isSet(object.maxSupply) ? String(object.maxSupply) : '',
-            description: isSet(object.description) ? String(object.description) : '',
-            owner: isSet(object.owner) ? String(object.owner) : '',
-            issueFee: isSet(object.issueFee) ? Coin.fromJSON(object.issueFee) : undefined,
+            authority: isSet(object.authority) ? String(object.authority) : '',
+            minter: isSet(object.minter) ? String(object.minter) : '',
+            uri: isSet(object.uri) ? String(object.uri) : '',
         };
     },
 
-    toJSON(message: MsgIssueFanToken): unknown {
+    toJSON(message: MsgIssue): unknown {
         const obj: any = {};
         message.symbol !== undefined && (obj.symbol = message.symbol);
         message.name !== undefined && (obj.name = message.name);
         message.maxSupply !== undefined && (obj.maxSupply = message.maxSupply);
-        message.description !== undefined && (obj.description = message.description);
-        message.owner !== undefined && (obj.owner = message.owner);
-        message.issueFee !== undefined && (obj.issueFee = message.issueFee ? Coin.toJSON(message.issueFee) : undefined);
+        message.authority !== undefined && (obj.authority = message.authority);
+        message.minter !== undefined && (obj.minter = message.minter);
+        message.uri !== undefined && (obj.uri = message.uri);
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgIssueFanToken>, I>>(object: I): MsgIssueFanToken {
-        const message = createBaseMsgIssueFanToken();
+    fromPartial<I extends Exact<DeepPartial<MsgIssue>, I>>(object: I): MsgIssue {
+        const message = createBaseMsgIssue();
         message.symbol = object.symbol ?? '';
         message.name = object.name ?? '';
         message.maxSupply = object.maxSupply ?? '';
-        message.description = object.description ?? '';
-        message.owner = object.owner ?? '';
-        message.issueFee = object.issueFee !== undefined && object.issueFee !== null ? Coin.fromPartial(object.issueFee) : undefined;
+        message.authority = object.authority ?? '';
+        message.minter = object.minter ?? '';
+        message.uri = object.uri ?? '';
         return message;
     },
 };
 
-function createBaseMsgIssueFanTokenResponse(): MsgIssueFanTokenResponse {
+function createBaseMsgIssueResponse(): MsgIssueResponse {
     return {};
 }
 
-export const MsgIssueFanTokenResponse = {
-    encode(_: MsgIssueFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgIssueResponse = {
+    encode(_: MsgIssueResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgIssueFanTokenResponse {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgIssueResponse {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgIssueFanTokenResponse();
+        const message = createBaseMsgIssueResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -183,43 +206,40 @@ export const MsgIssueFanTokenResponse = {
         return message;
     },
 
-    fromJSON(_: any): MsgIssueFanTokenResponse {
+    fromJSON(_: any): MsgIssueResponse {
         return {};
     },
 
-    toJSON(_: MsgIssueFanTokenResponse): unknown {
+    toJSON(_: MsgIssueResponse): unknown {
         const obj: any = {};
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgIssueFanTokenResponse>, I>>(_: I): MsgIssueFanTokenResponse {
-        const message = createBaseMsgIssueFanTokenResponse();
+    fromPartial<I extends Exact<DeepPartial<MsgIssueResponse>, I>>(_: I): MsgIssueResponse {
+        const message = createBaseMsgIssueResponse();
         return message;
     },
 };
 
-function createBaseMsgTransferFanTokenOwner(): MsgTransferFanTokenOwner {
-    return { denom: '', srcOwner: '', dstOwner: '' };
+function createBaseMsgDisableMint(): MsgDisableMint {
+    return { denom: '', minter: '' };
 }
 
-export const MsgTransferFanTokenOwner = {
-    encode(message: MsgTransferFanTokenOwner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgDisableMint = {
+    encode(message: MsgDisableMint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.denom !== '') {
             writer.uint32(10).string(message.denom);
         }
-        if (message.srcOwner !== '') {
-            writer.uint32(18).string(message.srcOwner);
-        }
-        if (message.dstOwner !== '') {
-            writer.uint32(26).string(message.dstOwner);
+        if (message.minter !== '') {
+            writer.uint32(18).string(message.minter);
         }
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferFanTokenOwner {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDisableMint {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgTransferFanTokenOwner();
+        const message = createBaseMsgDisableMint();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -227,10 +247,7 @@ export const MsgTransferFanTokenOwner = {
                     message.denom = reader.string();
                     break;
                 case 2:
-                    message.srcOwner = reader.string();
-                    break;
-                case 3:
-                    message.dstOwner = reader.string();
+                    message.minter = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -240,44 +257,41 @@ export const MsgTransferFanTokenOwner = {
         return message;
     },
 
-    fromJSON(object: any): MsgTransferFanTokenOwner {
+    fromJSON(object: any): MsgDisableMint {
         return {
             denom: isSet(object.denom) ? String(object.denom) : '',
-            srcOwner: isSet(object.srcOwner) ? String(object.srcOwner) : '',
-            dstOwner: isSet(object.dstOwner) ? String(object.dstOwner) : '',
+            minter: isSet(object.minter) ? String(object.minter) : '',
         };
     },
 
-    toJSON(message: MsgTransferFanTokenOwner): unknown {
+    toJSON(message: MsgDisableMint): unknown {
         const obj: any = {};
         message.denom !== undefined && (obj.denom = message.denom);
-        message.srcOwner !== undefined && (obj.srcOwner = message.srcOwner);
-        message.dstOwner !== undefined && (obj.dstOwner = message.dstOwner);
+        message.minter !== undefined && (obj.minter = message.minter);
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgTransferFanTokenOwner>, I>>(object: I): MsgTransferFanTokenOwner {
-        const message = createBaseMsgTransferFanTokenOwner();
+    fromPartial<I extends Exact<DeepPartial<MsgDisableMint>, I>>(object: I): MsgDisableMint {
+        const message = createBaseMsgDisableMint();
         message.denom = object.denom ?? '';
-        message.srcOwner = object.srcOwner ?? '';
-        message.dstOwner = object.dstOwner ?? '';
+        message.minter = object.minter ?? '';
         return message;
     },
 };
 
-function createBaseMsgTransferFanTokenOwnerResponse(): MsgTransferFanTokenOwnerResponse {
+function createBaseMsgDisableMintResponse(): MsgDisableMintResponse {
     return {};
 }
 
-export const MsgTransferFanTokenOwnerResponse = {
-    encode(_: MsgTransferFanTokenOwnerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgDisableMintResponse = {
+    encode(_: MsgDisableMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferFanTokenOwnerResponse {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDisableMintResponse {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgTransferFanTokenOwnerResponse();
+        const message = createBaseMsgDisableMintResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -289,152 +303,43 @@ export const MsgTransferFanTokenOwnerResponse = {
         return message;
     },
 
-    fromJSON(_: any): MsgTransferFanTokenOwnerResponse {
+    fromJSON(_: any): MsgDisableMintResponse {
         return {};
     },
 
-    toJSON(_: MsgTransferFanTokenOwnerResponse): unknown {
+    toJSON(_: MsgDisableMintResponse): unknown {
         const obj: any = {};
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgTransferFanTokenOwnerResponse>, I>>(_: I): MsgTransferFanTokenOwnerResponse {
-        const message = createBaseMsgTransferFanTokenOwnerResponse();
+    fromPartial<I extends Exact<DeepPartial<MsgDisableMintResponse>, I>>(_: I): MsgDisableMintResponse {
+        const message = createBaseMsgDisableMintResponse();
         return message;
     },
 };
 
-function createBaseMsgEditFanToken(): MsgEditFanToken {
-    return { denom: '', mintable: false, owner: '' };
+function createBaseMsgMint(): MsgMint {
+    return { recipient: '', coin: undefined, minter: '' };
 }
 
-export const MsgEditFanToken = {
-    encode(message: MsgEditFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.denom !== '') {
-            writer.uint32(10).string(message.denom);
-        }
-        if (message.mintable === true) {
-            writer.uint32(16).bool(message.mintable);
-        }
-        if (message.owner !== '') {
-            writer.uint32(26).string(message.owner);
-        }
-        return writer;
-    },
-
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditFanToken {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgEditFanToken();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.denom = reader.string();
-                    break;
-                case 2:
-                    message.mintable = reader.bool();
-                    break;
-                case 3:
-                    message.owner = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-
-    fromJSON(object: any): MsgEditFanToken {
-        return {
-            denom: isSet(object.denom) ? String(object.denom) : '',
-            mintable: isSet(object.mintable) ? Boolean(object.mintable) : false,
-            owner: isSet(object.owner) ? String(object.owner) : '',
-        };
-    },
-
-    toJSON(message: MsgEditFanToken): unknown {
-        const obj: any = {};
-        message.denom !== undefined && (obj.denom = message.denom);
-        message.mintable !== undefined && (obj.mintable = message.mintable);
-        message.owner !== undefined && (obj.owner = message.owner);
-        return obj;
-    },
-
-    fromPartial<I extends Exact<DeepPartial<MsgEditFanToken>, I>>(object: I): MsgEditFanToken {
-        const message = createBaseMsgEditFanToken();
-        message.denom = object.denom ?? '';
-        message.mintable = object.mintable ?? false;
-        message.owner = object.owner ?? '';
-        return message;
-    },
-};
-
-function createBaseMsgEditFanTokenResponse(): MsgEditFanTokenResponse {
-    return {};
-}
-
-export const MsgEditFanTokenResponse = {
-    encode(_: MsgEditFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        return writer;
-    },
-
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditFanTokenResponse {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgEditFanTokenResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-
-    fromJSON(_: any): MsgEditFanTokenResponse {
-        return {};
-    },
-
-    toJSON(_: MsgEditFanTokenResponse): unknown {
-        const obj: any = {};
-        return obj;
-    },
-
-    fromPartial<I extends Exact<DeepPartial<MsgEditFanTokenResponse>, I>>(_: I): MsgEditFanTokenResponse {
-        const message = createBaseMsgEditFanTokenResponse();
-        return message;
-    },
-};
-
-function createBaseMsgMintFanToken(): MsgMintFanToken {
-    return { recipient: '', denom: '', amount: '', owner: '' };
-}
-
-export const MsgMintFanToken = {
-    encode(message: MsgMintFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMint = {
+    encode(message: MsgMint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.recipient !== '') {
             writer.uint32(10).string(message.recipient);
         }
-        if (message.denom !== '') {
-            writer.uint32(18).string(message.denom);
+        if (message.coin !== undefined) {
+            Coin.encode(message.coin, writer.uint32(18).fork()).ldelim();
         }
-        if (message.amount !== '') {
-            writer.uint32(26).string(message.amount);
-        }
-        if (message.owner !== '') {
-            writer.uint32(34).string(message.owner);
+        if (message.minter !== '') {
+            writer.uint32(26).string(message.minter);
         }
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintFanToken {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMint {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgMintFanToken();
+        const message = createBaseMsgMint();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -442,13 +347,10 @@ export const MsgMintFanToken = {
                     message.recipient = reader.string();
                     break;
                 case 2:
-                    message.denom = reader.string();
+                    message.coin = Coin.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.amount = reader.string();
-                    break;
-                case 4:
-                    message.owner = reader.string();
+                    message.minter = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -458,47 +360,44 @@ export const MsgMintFanToken = {
         return message;
     },
 
-    fromJSON(object: any): MsgMintFanToken {
+    fromJSON(object: any): MsgMint {
         return {
             recipient: isSet(object.recipient) ? String(object.recipient) : '',
-            denom: isSet(object.denom) ? String(object.denom) : '',
-            amount: isSet(object.amount) ? String(object.amount) : '',
-            owner: isSet(object.owner) ? String(object.owner) : '',
+            coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
+            minter: isSet(object.minter) ? String(object.minter) : '',
         };
     },
 
-    toJSON(message: MsgMintFanToken): unknown {
+    toJSON(message: MsgMint): unknown {
         const obj: any = {};
         message.recipient !== undefined && (obj.recipient = message.recipient);
-        message.denom !== undefined && (obj.denom = message.denom);
-        message.amount !== undefined && (obj.amount = message.amount);
-        message.owner !== undefined && (obj.owner = message.owner);
+        message.coin !== undefined && (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
+        message.minter !== undefined && (obj.minter = message.minter);
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgMintFanToken>, I>>(object: I): MsgMintFanToken {
-        const message = createBaseMsgMintFanToken();
+    fromPartial<I extends Exact<DeepPartial<MsgMint>, I>>(object: I): MsgMint {
+        const message = createBaseMsgMint();
         message.recipient = object.recipient ?? '';
-        message.denom = object.denom ?? '';
-        message.amount = object.amount ?? '';
-        message.owner = object.owner ?? '';
+        message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
+        message.minter = object.minter ?? '';
         return message;
     },
 };
 
-function createBaseMsgMintFanTokenResponse(): MsgMintFanTokenResponse {
+function createBaseMsgMintResponse(): MsgMintResponse {
     return {};
 }
 
-export const MsgMintFanTokenResponse = {
-    encode(_: MsgMintFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgMintResponse = {
+    encode(_: MsgMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintFanTokenResponse {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintResponse {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgMintFanTokenResponse();
+        const message = createBaseMsgMintResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -510,53 +409,47 @@ export const MsgMintFanTokenResponse = {
         return message;
     },
 
-    fromJSON(_: any): MsgMintFanTokenResponse {
+    fromJSON(_: any): MsgMintResponse {
         return {};
     },
 
-    toJSON(_: MsgMintFanTokenResponse): unknown {
+    toJSON(_: MsgMintResponse): unknown {
         const obj: any = {};
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgMintFanTokenResponse>, I>>(_: I): MsgMintFanTokenResponse {
-        const message = createBaseMsgMintFanTokenResponse();
+    fromPartial<I extends Exact<DeepPartial<MsgMintResponse>, I>>(_: I): MsgMintResponse {
+        const message = createBaseMsgMintResponse();
         return message;
     },
 };
 
-function createBaseMsgBurnFanToken(): MsgBurnFanToken {
-    return { denom: '', amount: '', sender: '' };
+function createBaseMsgBurn(): MsgBurn {
+    return { coin: undefined, sender: '' };
 }
 
-export const MsgBurnFanToken = {
-    encode(message: MsgBurnFanToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.denom !== '') {
-            writer.uint32(10).string(message.denom);
-        }
-        if (message.amount !== '') {
-            writer.uint32(18).string(message.amount);
+export const MsgBurn = {
+    encode(message: MsgBurn, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        if (message.coin !== undefined) {
+            Coin.encode(message.coin, writer.uint32(10).fork()).ldelim();
         }
         if (message.sender !== '') {
-            writer.uint32(26).string(message.sender);
+            writer.uint32(18).string(message.sender);
         }
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnFanToken {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurn {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgBurnFanToken();
+        const message = createBaseMsgBurn();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.denom = reader.string();
+                    message.coin = Coin.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.amount = reader.string();
-                    break;
-                case 3:
                     message.sender = reader.string();
                     break;
                 default:
@@ -567,44 +460,41 @@ export const MsgBurnFanToken = {
         return message;
     },
 
-    fromJSON(object: any): MsgBurnFanToken {
+    fromJSON(object: any): MsgBurn {
         return {
-            denom: isSet(object.denom) ? String(object.denom) : '',
-            amount: isSet(object.amount) ? String(object.amount) : '',
+            coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
             sender: isSet(object.sender) ? String(object.sender) : '',
         };
     },
 
-    toJSON(message: MsgBurnFanToken): unknown {
+    toJSON(message: MsgBurn): unknown {
         const obj: any = {};
-        message.denom !== undefined && (obj.denom = message.denom);
-        message.amount !== undefined && (obj.amount = message.amount);
+        message.coin !== undefined && (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
         message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgBurnFanToken>, I>>(object: I): MsgBurnFanToken {
-        const message = createBaseMsgBurnFanToken();
-        message.denom = object.denom ?? '';
-        message.amount = object.amount ?? '';
+    fromPartial<I extends Exact<DeepPartial<MsgBurn>, I>>(object: I): MsgBurn {
+        const message = createBaseMsgBurn();
+        message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
         message.sender = object.sender ?? '';
         return message;
     },
 };
 
-function createBaseMsgBurnFanTokenResponse(): MsgBurnFanTokenResponse {
+function createBaseMsgBurnResponse(): MsgBurnResponse {
     return {};
 }
 
-export const MsgBurnFanTokenResponse = {
-    encode(_: MsgBurnFanTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgBurnResponse = {
+    encode(_: MsgBurnResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         return writer;
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnFanTokenResponse {
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBurnResponse {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgBurnFanTokenResponse();
+        const message = createBaseMsgBurnResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -616,73 +506,406 @@ export const MsgBurnFanTokenResponse = {
         return message;
     },
 
-    fromJSON(_: any): MsgBurnFanTokenResponse {
+    fromJSON(_: any): MsgBurnResponse {
         return {};
     },
 
-    toJSON(_: MsgBurnFanTokenResponse): unknown {
+    toJSON(_: MsgBurnResponse): unknown {
         const obj: any = {};
         return obj;
     },
 
-    fromPartial<I extends Exact<DeepPartial<MsgBurnFanTokenResponse>, I>>(_: I): MsgBurnFanTokenResponse {
-        const message = createBaseMsgBurnFanTokenResponse();
+    fromPartial<I extends Exact<DeepPartial<MsgBurnResponse>, I>>(_: I): MsgBurnResponse {
+        const message = createBaseMsgBurnResponse();
+        return message;
+    },
+};
+
+function createBaseMsgSetMinter(): MsgSetMinter {
+    return { denom: '', oldMinter: '', newMinter: '' };
+}
+
+export const MsgSetMinter = {
+    encode(message: MsgSetMinter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        if (message.denom !== '') {
+            writer.uint32(10).string(message.denom);
+        }
+        if (message.oldMinter !== '') {
+            writer.uint32(18).string(message.oldMinter);
+        }
+        if (message.newMinter !== '') {
+            writer.uint32(26).string(message.newMinter);
+        }
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetMinter {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetMinter();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.denom = reader.string();
+                    break;
+                case 2:
+                    message.oldMinter = reader.string();
+                    break;
+                case 3:
+                    message.newMinter = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(object: any): MsgSetMinter {
+        return {
+            denom: isSet(object.denom) ? String(object.denom) : '',
+            oldMinter: isSet(object.oldMinter) ? String(object.oldMinter) : '',
+            newMinter: isSet(object.newMinter) ? String(object.newMinter) : '',
+        };
+    },
+
+    toJSON(message: MsgSetMinter): unknown {
+        const obj: any = {};
+        message.denom !== undefined && (obj.denom = message.denom);
+        message.oldMinter !== undefined && (obj.oldMinter = message.oldMinter);
+        message.newMinter !== undefined && (obj.newMinter = message.newMinter);
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetMinter>, I>>(object: I): MsgSetMinter {
+        const message = createBaseMsgSetMinter();
+        message.denom = object.denom ?? '';
+        message.oldMinter = object.oldMinter ?? '';
+        message.newMinter = object.newMinter ?? '';
+        return message;
+    },
+};
+
+function createBaseMsgSetMinterResponse(): MsgSetMinterResponse {
+    return {};
+}
+
+export const MsgSetMinterResponse = {
+    encode(_: MsgSetMinterResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetMinterResponse {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetMinterResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(_: any): MsgSetMinterResponse {
+        return {};
+    },
+
+    toJSON(_: MsgSetMinterResponse): unknown {
+        const obj: any = {};
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetMinterResponse>, I>>(_: I): MsgSetMinterResponse {
+        const message = createBaseMsgSetMinterResponse();
+        return message;
+    },
+};
+
+function createBaseMsgSetAuthority(): MsgSetAuthority {
+    return { denom: '', oldAuthority: '', newAuthority: '' };
+}
+
+export const MsgSetAuthority = {
+    encode(message: MsgSetAuthority, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        if (message.denom !== '') {
+            writer.uint32(10).string(message.denom);
+        }
+        if (message.oldAuthority !== '') {
+            writer.uint32(18).string(message.oldAuthority);
+        }
+        if (message.newAuthority !== '') {
+            writer.uint32(26).string(message.newAuthority);
+        }
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetAuthority {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetAuthority();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.denom = reader.string();
+                    break;
+                case 2:
+                    message.oldAuthority = reader.string();
+                    break;
+                case 3:
+                    message.newAuthority = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(object: any): MsgSetAuthority {
+        return {
+            denom: isSet(object.denom) ? String(object.denom) : '',
+            oldAuthority: isSet(object.oldAuthority) ? String(object.oldAuthority) : '',
+            newAuthority: isSet(object.newAuthority) ? String(object.newAuthority) : '',
+        };
+    },
+
+    toJSON(message: MsgSetAuthority): unknown {
+        const obj: any = {};
+        message.denom !== undefined && (obj.denom = message.denom);
+        message.oldAuthority !== undefined && (obj.oldAuthority = message.oldAuthority);
+        message.newAuthority !== undefined && (obj.newAuthority = message.newAuthority);
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetAuthority>, I>>(object: I): MsgSetAuthority {
+        const message = createBaseMsgSetAuthority();
+        message.denom = object.denom ?? '';
+        message.oldAuthority = object.oldAuthority ?? '';
+        message.newAuthority = object.newAuthority ?? '';
+        return message;
+    },
+};
+
+function createBaseMsgSetAuthorityResponse(): MsgSetAuthorityResponse {
+    return {};
+}
+
+export const MsgSetAuthorityResponse = {
+    encode(_: MsgSetAuthorityResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetAuthorityResponse {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetAuthorityResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(_: any): MsgSetAuthorityResponse {
+        return {};
+    },
+
+    toJSON(_: MsgSetAuthorityResponse): unknown {
+        const obj: any = {};
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetAuthorityResponse>, I>>(_: I): MsgSetAuthorityResponse {
+        const message = createBaseMsgSetAuthorityResponse();
+        return message;
+    },
+};
+
+function createBaseMsgSetUri(): MsgSetUri {
+    return { authority: '', denom: '', uri: '' };
+}
+
+export const MsgSetUri = {
+    encode(message: MsgSetUri, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        if (message.authority !== '') {
+            writer.uint32(10).string(message.authority);
+        }
+        if (message.denom !== '') {
+            writer.uint32(18).string(message.denom);
+        }
+        if (message.uri !== '') {
+            writer.uint32(26).string(message.uri);
+        }
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetUri {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetUri();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.authority = reader.string();
+                    break;
+                case 2:
+                    message.denom = reader.string();
+                    break;
+                case 3:
+                    message.uri = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(object: any): MsgSetUri {
+        return {
+            authority: isSet(object.authority) ? String(object.authority) : '',
+            denom: isSet(object.denom) ? String(object.denom) : '',
+            uri: isSet(object.uri) ? String(object.uri) : '',
+        };
+    },
+
+    toJSON(message: MsgSetUri): unknown {
+        const obj: any = {};
+        message.authority !== undefined && (obj.authority = message.authority);
+        message.denom !== undefined && (obj.denom = message.denom);
+        message.uri !== undefined && (obj.uri = message.uri);
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetUri>, I>>(object: I): MsgSetUri {
+        const message = createBaseMsgSetUri();
+        message.authority = object.authority ?? '';
+        message.denom = object.denom ?? '';
+        message.uri = object.uri ?? '';
+        return message;
+    },
+};
+
+function createBaseMsgSetUriResponse(): MsgSetUriResponse {
+    return {};
+}
+
+export const MsgSetUriResponse = {
+    encode(_: MsgSetUriResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+        return writer;
+    },
+
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetUriResponse {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgSetUriResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+
+    fromJSON(_: any): MsgSetUriResponse {
+        return {};
+    },
+
+    toJSON(_: MsgSetUriResponse): unknown {
+        const obj: any = {};
+        return obj;
+    },
+
+    fromPartial<I extends Exact<DeepPartial<MsgSetUriResponse>, I>>(_: I): MsgSetUriResponse {
+        const message = createBaseMsgSetUriResponse();
         return message;
     },
 };
 
 /** Msg defines the oracle Msg service */
 export interface Msg {
-    /** IssueFanToken defines a method for issuing a new fan token */
-    IssueFanToken(request: MsgIssueFanToken): Promise<MsgIssueFanTokenResponse>;
-    /** EditFanToken defines a method for editing a fantoken */
-    EditFanToken(request: MsgEditFanToken): Promise<MsgEditFanTokenResponse>;
-    /** MintFanToken defines a method for minting some fan tokens */
-    MintFanToken(request: MsgMintFanToken): Promise<MsgMintFanTokenResponse>;
-    /** BurnFanToken defines a method for burning some fan tokens */
-    BurnFanToken(request: MsgBurnFanToken): Promise<MsgBurnFanTokenResponse>;
-    /** TransferFanTokenOwner defines a method for minting some fan tokens */
-    TransferFanTokenOwner(request: MsgTransferFanTokenOwner): Promise<MsgTransferFanTokenOwnerResponse>;
+    /** Issue defines a method for issuing a new fan token */
+    Issue(request: MsgIssue): Promise<MsgIssueResponse>;
+    /** Mint defines a method for minting some fan tokens */
+    Mint(request: MsgMint): Promise<MsgMintResponse>;
+    /** Burn defines a method for burning some fan tokens */
+    Burn(request: MsgBurn): Promise<MsgBurnResponse>;
+    /** DisableMint defines a method for disable the mint function */
+    DisableMint(request: MsgDisableMint): Promise<MsgDisableMintResponse>;
+    SetMinter(request: MsgSetMinter): Promise<MsgSetMinterResponse>;
+    SetAuthority(request: MsgSetAuthority): Promise<MsgSetAuthorityResponse>;
+    SetUri(request: MsgSetUri): Promise<MsgSetUriResponse>;
 }
 
 export class MsgClientImpl implements Msg {
     private readonly rpc: Rpc;
     constructor(rpc: Rpc) {
         this.rpc = rpc;
-        this.IssueFanToken = this.IssueFanToken.bind(this);
-        this.EditFanToken = this.EditFanToken.bind(this);
-        this.MintFanToken = this.MintFanToken.bind(this);
-        this.BurnFanToken = this.BurnFanToken.bind(this);
-        this.TransferFanTokenOwner = this.TransferFanTokenOwner.bind(this);
+        this.Issue = this.Issue.bind(this);
+        this.Mint = this.Mint.bind(this);
+        this.Burn = this.Burn.bind(this);
+        this.DisableMint = this.DisableMint.bind(this);
+        this.SetMinter = this.SetMinter.bind(this);
+        this.SetAuthority = this.SetAuthority.bind(this);
+        this.SetUri = this.SetUri.bind(this);
     }
-    IssueFanToken(request: MsgIssueFanToken): Promise<MsgIssueFanTokenResponse> {
-        const data = MsgIssueFanToken.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.Msg', 'IssueFanToken', data);
-        return promise.then((data) => MsgIssueFanTokenResponse.decode(new _m0.Reader(data)));
-    }
-
-    EditFanToken(request: MsgEditFanToken): Promise<MsgEditFanTokenResponse> {
-        const data = MsgEditFanToken.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.Msg', 'EditFanToken', data);
-        return promise.then((data) => MsgEditFanTokenResponse.decode(new _m0.Reader(data)));
+    Issue(request: MsgIssue): Promise<MsgIssueResponse> {
+        const data = MsgIssue.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'Issue', data);
+        return promise.then((data) => MsgIssueResponse.decode(new _m0.Reader(data)));
     }
 
-    MintFanToken(request: MsgMintFanToken): Promise<MsgMintFanTokenResponse> {
-        const data = MsgMintFanToken.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.Msg', 'MintFanToken', data);
-        return promise.then((data) => MsgMintFanTokenResponse.decode(new _m0.Reader(data)));
+    Mint(request: MsgMint): Promise<MsgMintResponse> {
+        const data = MsgMint.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'Mint', data);
+        return promise.then((data) => MsgMintResponse.decode(new _m0.Reader(data)));
     }
 
-    BurnFanToken(request: MsgBurnFanToken): Promise<MsgBurnFanTokenResponse> {
-        const data = MsgBurnFanToken.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.Msg', 'BurnFanToken', data);
-        return promise.then((data) => MsgBurnFanTokenResponse.decode(new _m0.Reader(data)));
+    Burn(request: MsgBurn): Promise<MsgBurnResponse> {
+        const data = MsgBurn.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'Burn', data);
+        return promise.then((data) => MsgBurnResponse.decode(new _m0.Reader(data)));
     }
 
-    TransferFanTokenOwner(request: MsgTransferFanTokenOwner): Promise<MsgTransferFanTokenOwnerResponse> {
-        const data = MsgTransferFanTokenOwner.encode(request).finish();
-        const promise = this.rpc.request('bitsong.fantoken.Msg', 'TransferFanTokenOwner', data);
-        return promise.then((data) => MsgTransferFanTokenOwnerResponse.decode(new _m0.Reader(data)));
+    DisableMint(request: MsgDisableMint): Promise<MsgDisableMintResponse> {
+        const data = MsgDisableMint.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'DisableMint', data);
+        return promise.then((data) => MsgDisableMintResponse.decode(new _m0.Reader(data)));
+    }
+
+    SetMinter(request: MsgSetMinter): Promise<MsgSetMinterResponse> {
+        const data = MsgSetMinter.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'SetMinter', data);
+        return promise.then((data) => MsgSetMinterResponse.decode(new _m0.Reader(data)));
+    }
+
+    SetAuthority(request: MsgSetAuthority): Promise<MsgSetAuthorityResponse> {
+        const data = MsgSetAuthority.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'SetAuthority', data);
+        return promise.then((data) => MsgSetAuthorityResponse.decode(new _m0.Reader(data)));
+    }
+
+    SetUri(request: MsgSetUri): Promise<MsgSetUriResponse> {
+        const data = MsgSetUri.encode(request).finish();
+        const promise = this.rpc.request('bitsong.fantoken.Msg', 'SetUri', data);
+        return promise.then((data) => MsgSetUriResponse.decode(new _m0.Reader(data)));
     }
 }
 
