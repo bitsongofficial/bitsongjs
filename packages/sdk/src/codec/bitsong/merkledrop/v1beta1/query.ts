@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Merkledrop } from './merkledrop';
+import { Params } from './params';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Merkledrop } from '../../../bitsong/merkledrop/v1beta1/merkledrop';
-import { Params } from '../../../bitsong/merkledrop/v1beta1/params';
 
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
@@ -63,7 +63,7 @@ export const QueryMerkledropRequest = {
 
     fromJSON(object: any): QueryMerkledropRequest {
         return {
-            id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+            id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
         };
     },
 
@@ -167,8 +167,8 @@ export const QueryIndexClaimedRequest = {
 
     fromJSON(object: any): QueryIndexClaimedRequest {
         return {
-            id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-            index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+            id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+            index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
         };
     },
 

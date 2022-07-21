@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Params } from './params';
 import Long from 'long';
+import { Merkledrop } from './merkledrop';
 import _m0 from 'protobufjs/minimal';
-import { Params } from '../../../bitsong/merkledrop/v1beta1/params';
-import { Merkledrop } from '../../../bitsong/merkledrop/v1beta1/merkledrop';
 
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
@@ -65,8 +65,8 @@ export const Indexes = {
 
     fromJSON(object: any): Indexes {
         return {
-            merkledropId: isSet(object.merkledropId) ? Long.fromString(object.merkledropId) : Long.UZERO,
-            index: Array.isArray(object?.index) ? object.index.map((e: any) => Long.fromString(e)) : [],
+            merkledropId: isSet(object.merkledropId) ? Long.fromValue(object.merkledropId) : Long.UZERO,
+            index: Array.isArray(object?.index) ? object.index.map((e: any) => Long.fromValue(e)) : [],
         };
     },
 
@@ -139,7 +139,7 @@ export const GenesisState = {
 
     fromJSON(object: any): GenesisState {
         return {
-            lastMerkledropId: isSet(object.lastMerkledropId) ? Long.fromString(object.lastMerkledropId) : Long.UZERO,
+            lastMerkledropId: isSet(object.lastMerkledropId) ? Long.fromValue(object.lastMerkledropId) : Long.UZERO,
             merkledrops: Array.isArray(object?.merkledrops) ? object.merkledrops.map((e: any) => Merkledrop.fromJSON(e)) : [],
             indexes: Array.isArray(object?.indexes) ? object.indexes.map((e: any) => Indexes.fromJSON(e)) : [],
             params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,

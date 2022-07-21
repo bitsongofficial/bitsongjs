@@ -4,7 +4,7 @@ import {
     AuthExtension,
     BankExtension,
     Block,
-    BroadcastTxResponse,
+    DeliverTxResponse,
     Coin,
     GovExtension,
     IndexedTx,
@@ -21,17 +21,21 @@ import {
     setupStakingExtension,
     StakingExtension,
     TimeoutError,
+    setupTxExtension,
+    TxExtension,
 } from '@cosmjs/stargate';
 import { Tendermint34Client, toRfc3339WithNanoseconds } from '@cosmjs/tendermint-rpc';
-import { FanToken } from '../codec/bitsong/fantoken/v1beta1/fantoken';
 import { toHex } from '@cosmjs/encoding';
 import { Uint53 } from '@cosmjs/math';
 import { sleep } from '@cosmjs/utils';
-import { FantokenExtension, setupFantokenExtension } from '../queries';
+import { FantokenExtension, setupFantokenExtension, MerkledropExtension, setupMerkledropExtension } from '../queries';
+import { QueryFanTokenResponse, QueryFanTokensResponse } from 'src/codec/bitsong/fantoken/v1beta1/query';
+import { PageRequest } from 'src/codec/cosmos/base/query/v1beta1/pagination';
+import { QueryIndexClaimedResponse, QueryMerkledropResponse } from 'src/codec/bitsong/merkledrop/v1beta1/query';
 
 export class BitsongClient {
     private readonly tmClient: Tendermint34Client | undefined;
-    private readonly queryClient: (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension) | undefined;
+    private readonly queryClient: (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & MerkledropExtension & TxExtension) | undefined;
     private chainId: string | undefined;
 
     public static async connect(endpoint: string): Promise<BitsongClient> {
@@ -42,7 +46,16 @@ export class BitsongClient {
     protected constructor(tmClient: Tendermint34Client | undefined) {
         if (tmClient) {
             this.tmClient = tmClient;
-            this.queryClient = QueryClient.withExtensions(tmClient, setupAuthExtension, setupBankExtension, setupStakingExtension, setupGovExtension, setupFantokenExtension);
+            this.queryClient = QueryClient.withExtensions(
+                tmClient,
+                setupAuthExtension,
+                setupBankExtension,
+                setupStakingExtension,
+                setupGovExtension,
+                setupFantokenExtension,
+                setupMerkledropExtension,
+                setupTxExtension,
+            );
         }
     }
 
@@ -57,11 +70,11 @@ export class BitsongClient {
         return this.tmClient;
     }
 
-    protected getQueryClient(): (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension) | undefined {
+    protected getQueryClient(): (QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & MerkledropExtension) | undefined {
         return this.queryClient;
     }
 
-    protected forceGetQueryClient(): QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension {
+    protected forceGetQueryClient(): QueryClient & AuthExtension & BankExtension & StakingExtension & GovExtension & FantokenExtension & MerkledropExtension & TxExtension {
         if (!this.queryClient) {
             throw new Error('Query client not available. You cannot use online functionality in offline mode.');
         }
@@ -88,17 +101,13 @@ export class BitsongClient {
         try {
             const account = await this.forceGetQueryClient().auth.account(searchAddress);
             return account ? accountFromAny(account) : null;
-        } catch (error) {
-            if (/rpc error: code = NotFound/i.test(error)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (/rpc error: code = NotFound/i.test(error.toString())) {
                 return null;
             }
             throw error;
         }
-    }
-
-    public async getAccountVerified(searchAddress: string): Promise<Account | null> {
-        const account = await this.forceGetQueryClient().auth.verified.account(searchAddress);
-        return account ? accountFromAny(account) : null;
     }
 
     public async getSequence(address: string): Promise<SequenceResponse> {
@@ -147,7 +156,7 @@ export class BitsongClient {
         let delegatedAmount: Coin | undefined;
         try {
             delegatedAmount = (await this.forceGetQueryClient().staking.delegation(delegatorAddress, validatorAddress)).delegationResponse?.balance;
-        } catch (e) {
+        } catch (e: any) {
             if (e.toString().includes('key not found')) {
                 // ignore, `delegatedAmount` remains undefined
             } else {
@@ -205,18 +214,21 @@ export class BitsongClient {
      *
      * If the transaction is not included in a block before the provided timeout, this errors with a `TimeoutError`.
      *
-     * If the transaction is included in a block, a `BroadcastTxResponse` is returned. The caller then
+     * If the transaction is included in a block, a `DeliverTxResponse` is returned. The caller then
      * usually needs to check for execution success or failure.
      */
-    public async broadcastTx(tx: Uint8Array, timeoutMs = 60_000, pollIntervalMs = 3_000): Promise<BroadcastTxResponse> {
+    public async broadcastTx(tx: Uint8Array, timeoutMs = 60_000, pollIntervalMs = 3_000): Promise<DeliverTxResponse> {
         let timedOut = false;
         const txPollTimeout = setTimeout(() => {
             timedOut = true;
         }, timeoutMs);
 
-        const pollForTx = async (txId: string): Promise<BroadcastTxResponse> => {
+        const pollForTx = async (txId: string): Promise<DeliverTxResponse> => {
             if (timedOut) {
-                throw new TimeoutError(`Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later.`, txId);
+                throw new TimeoutError(
+                    `Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later. There was a wait of ${timeoutMs / 1000} seconds.`,
+                    txId,
+                );
             }
             await sleep(pollIntervalMs);
             const result = await this.getTx(txId);
@@ -234,7 +246,7 @@ export class BitsongClient {
 
         const broadcasted = await this.forceGetTmClient().broadcastTxSync({ tx });
         if (broadcasted.code) {
-            throw new Error(`Broadcasting transaction failed with code ${broadcasted.code} (codespace: ${broadcasted.codeSpace}). Log: ${broadcasted.log}`);
+            return Promise.reject(new Error(`Broadcasting transaction failed with code ${broadcasted.code} (codespace: ${broadcasted.codeSpace}). Log: ${broadcasted.log}`));
         }
         const transactionId = toHex(broadcasted.hash).toUpperCase();
         return new Promise((resolve, reject) =>
@@ -266,11 +278,19 @@ export class BitsongClient {
         });
     }
 
-    public async getFanToken(denom: string): Promise<FanToken | null> {
+    public async getFanToken(denom: string): Promise<QueryFanTokenResponse> {
         return this.forceGetQueryClient().fantoken.fantoken(denom);
     }
 
-    public async getAllFanTokensByOwner(owner: string): Promise<FanToken[]> {
-        return this.forceGetQueryClient().fantoken.fantokens(owner);
+    public async getFanTokensByAuthority(authority: string, pagination?: PageRequest): Promise<QueryFanTokensResponse> {
+        return this.forceGetQueryClient().fantoken.fantokens(authority, pagination);
+    }
+
+    public async getMerkledrop(id: Long): Promise<QueryMerkledropResponse> {
+        return this.forceGetQueryClient().merkledrop.merkledrop(id);
+    }
+
+    public async getMerkledropIndexClaimed(id: Long, index: Long): Promise<QueryIndexClaimedResponse> {
+        return this.forceGetQueryClient().merkledrop.index_claimed(id, index);
     }
 }

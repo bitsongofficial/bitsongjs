@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Coin } from '../../../../cosmos/base/v1beta1/coin';
+import { Height } from '../../../core/client/v1/client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Coin } from '../../../../cosmos/base/v1beta1/coin';
-import { Height } from '../../../../ibc/core/client/v1/client';
 
 export const protobufPackage = 'ibc.applications.transfer.v1';
 
@@ -111,7 +111,7 @@ export const MsgTransfer = {
             sender: isSet(object.sender) ? String(object.sender) : '',
             receiver: isSet(object.receiver) ? String(object.receiver) : '',
             timeoutHeight: isSet(object.timeoutHeight) ? Height.fromJSON(object.timeoutHeight) : undefined,
-            timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromString(object.timeoutTimestamp) : Long.UZERO,
+            timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromValue(object.timeoutTimestamp) : Long.UZERO,
         };
     },
 

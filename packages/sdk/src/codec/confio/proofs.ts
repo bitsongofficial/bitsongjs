@@ -57,8 +57,9 @@ export function hashOpToJSON(object: HashOp): string {
             return 'RIPEMD160';
         case HashOp.BITCOIN:
             return 'BITCOIN';
+        case HashOp.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -146,8 +147,9 @@ export function lengthOpToJSON(object: LengthOp): string {
             return 'REQUIRE_32_BYTES';
         case LengthOp.REQUIRE_64_BYTES:
             return 'REQUIRE_64_BYTES';
+        case LengthOp.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -1311,9 +1313,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

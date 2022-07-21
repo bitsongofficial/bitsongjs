@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
 
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
@@ -95,8 +95,8 @@ export const MsgCreate = {
         return {
             owner: isSet(object.owner) ? String(object.owner) : '',
             merkleRoot: isSet(object.merkleRoot) ? String(object.merkleRoot) : '',
-            startHeight: isSet(object.startHeight) ? Long.fromString(object.startHeight) : Long.ZERO,
-            endHeight: isSet(object.endHeight) ? Long.fromString(object.endHeight) : Long.ZERO,
+            startHeight: isSet(object.startHeight) ? Long.fromValue(object.startHeight) : Long.ZERO,
+            endHeight: isSet(object.endHeight) ? Long.fromValue(object.endHeight) : Long.ZERO,
             coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
         };
     },
@@ -161,7 +161,7 @@ export const MsgCreateResponse = {
     fromJSON(object: any): MsgCreateResponse {
         return {
             owner: isSet(object.owner) ? String(object.owner) : '',
-            id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+            id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
         };
     },
 
@@ -237,8 +237,8 @@ export const MsgClaim = {
     fromJSON(object: any): MsgClaim {
         return {
             sender: isSet(object.sender) ? String(object.sender) : '',
-            merkledropId: isSet(object.merkledropId) ? Long.fromString(object.merkledropId) : Long.UZERO,
-            index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+            merkledropId: isSet(object.merkledropId) ? Long.fromValue(object.merkledropId) : Long.UZERO,
+            index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : '',
             proofs: Array.isArray(object?.proofs) ? object.proofs.map((e: any) => String(e)) : [],
         };
@@ -313,8 +313,8 @@ export const MsgClaimResponse = {
 
     fromJSON(object: any): MsgClaimResponse {
         return {
-            id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-            index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+            id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+            index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : '',
         };
     },

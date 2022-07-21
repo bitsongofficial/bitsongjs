@@ -1,7 +1,8 @@
+/* eslint-disable node/no-extraneous-import */
 import { Coin, EncodeObject, encodePubkey, isOfflineDirectSigner, makeAuthInfoBytes, makeSignDoc, OfflineSigner, Registry, TxBodyEncodeObject } from '@cosmjs/proto-signing';
 import {
     AminoTypes,
-    BroadcastTxResponse,
+    DeliverTxResponse,
     SigningStargateClientOptions,
     StdFee,
     SignerData,
@@ -10,16 +11,35 @@ import {
     MsgUndelegateEncodeObject,
     MsgWithdrawDelegatorRewardEncodeObject,
     MsgTransferEncodeObject,
+    AminoConverters,
+    createAuthzAminoConverters,
+    createBankAminoConverters,
+    createDistributionAminoConverters,
+    createGovAminoConverters,
+    createStakingAminoConverters,
+    createIbcAminoConverters,
+    createFreegrantAminoConverters,
+    GasPrice,
+    calculateFee,
 } from '@cosmjs/stargate';
-import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
-import { Constants } from '..';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgTransferFanTokenOwner } from '../codec/bitsong/fantoken/v1beta1/tx';
-import { MsgIssueFanTokenEncodeObject, MsgEditFanTokenEncodeObject, MsgMintFanTokenEncodeObject, MsgBurnFanTokenEncodeObject, MsgTransferFanTokenOwnerEncodeObject } from '../messages';
+import { HttpEndpoint, Tendermint34Client } from '@cosmjs/tendermint-rpc';
+import { MsgIssue, MsgDisableMint, MsgBurn, MsgSetMinter, MsgSetAuthority, MsgSetUri } from '../codec/bitsong/fantoken/v1beta1/tx';
+import {
+    MsgIssueEncodeObject,
+    MsgBurnEncodeObject,
+    MsgDisableMintEncodeObject,
+    MsgSetAuthorityEncodeObject,
+    MsgSetMinterEncodeObject,
+    MsgSetUriEncodeObject,
+    MsgClaimEncodeObject,
+    MsgCreateEncodeObject,
+} from '../messages';
+import { MsgCreate, MsgClaim } from '../codec/bitsong/merkledrop/v1beta1/tx';
 import { bitsongRegistry } from '../registry';
 import Long from 'long';
 import { Int53, Uint53 } from '@cosmjs/math';
 import { BitsongClient } from './Client';
-import { assert } from '@cosmjs/utils';
+import { assert, assertDefined } from '@cosmjs/utils';
 import { encodeSecp256k1Pubkey, makeSignDoc as makeSignDocAmino } from '@cosmjs/amino';
 import { fromBase64 } from '@cosmjs/encoding';
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
@@ -28,6 +48,23 @@ import { MsgDelegate, MsgUndelegate } from 'cosmjs-types/cosmos/staking/v1beta1/
 import { Height } from 'cosmjs-types/ibc/core/client/v1/client';
 import { MsgTransfer } from 'cosmjs-types/ibc/applications/transfer/v1/tx';
 import { MsgWithdrawDelegatorReward } from 'cosmjs-types/cosmos/distribution/v1beta1/tx';
+import { createVestingAminoConverters } from '@cosmjs/stargate/build/modules';
+import { createFantokenAminoConverters, createMerkledropAminoConverters } from './AminoMsgs';
+
+function createDefaultTypes(prefix: string): AminoConverters {
+    return {
+        ...createAuthzAminoConverters(),
+        ...createBankAminoConverters(),
+        ...createDistributionAminoConverters(),
+        ...createGovAminoConverters(),
+        ...createStakingAminoConverters(prefix),
+        ...createIbcAminoConverters(),
+        ...createFreegrantAminoConverters(),
+        ...createVestingAminoConverters(),
+        ...createFantokenAminoConverters(),
+        ...createMerkledropAminoConverters(),
+    };
+}
 
 export class SigningBitsongClient extends BitsongClient {
     public readonly registry: Registry;
@@ -36,6 +73,7 @@ export class SigningBitsongClient extends BitsongClient {
 
     private readonly signer: OfflineSigner;
     private readonly aminoTypes: AminoTypes;
+    private readonly gasPrice: GasPrice | undefined;
 
     /**
      * Create a Client instance using a tendermint RPC client
@@ -47,12 +85,14 @@ export class SigningBitsongClient extends BitsongClient {
     constructor(tmClient: Tendermint34Client | undefined, signer: OfflineSigner, opts: SigningStargateClientOptions) {
         super(tmClient);
 
-        const { registry = bitsongRegistry(), aminoTypes = new AminoTypes({ prefix: opts.prefix }) } = opts;
+        const prefix = opts.prefix ?? 'cosmos';
+        const { registry = bitsongRegistry(), aminoTypes = new AminoTypes(createDefaultTypes(prefix)) } = opts;
         this.registry = registry;
         this.aminoTypes = aminoTypes;
         this.signer = signer;
         this.broadcastTimeoutMs = opts.broadcastTimeoutMs;
         this.broadcastPollIntervalMs = opts.broadcastPollIntervalMs;
+        this.gasPrice = opts.gasPrice;
     }
 
     /**
@@ -62,16 +102,10 @@ export class SigningBitsongClient extends BitsongClient {
      * @param endpoint Blockchain node RPC url
      * @param signer OfflineSigner '@cosmjs/proto-sign'
      */
-    public static connectWithSigner = async (endpoint: string, signer: OfflineSigner): Promise<SigningBitsongClient> => {
+    public static async connectWithSigner(endpoint: string | HttpEndpoint, signer: OfflineSigner, options: SigningStargateClientOptions = {}): Promise<SigningBitsongClient> {
         const tmClient = await Tendermint34Client.connect(endpoint);
-
-        const opts: SigningStargateClientOptions = {
-            prefix: Constants.Bech32PrefixAccAddr,
-            registry: bitsongRegistry(),
-        };
-
-        return new SigningBitsongClient(tmClient, signer, opts);
-    };
+        return new SigningBitsongClient(tmClient, signer, options);
+    }
 
     /**
      * Creates a client in offline mode.
@@ -146,6 +180,8 @@ export class SigningBitsongClient extends BitsongClient {
     private async signDirect(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee, memo: string, { accountNumber, sequence, chainId }: SignerData): Promise<TxRaw> {
         assert(isOfflineDirectSigner(this.signer));
         const accountFromSigner = (await this.signer.getAccounts()).find((account) => account.address === signerAddress);
+        console.log(await this.signer.getAccounts());
+        console.log(signerAddress);
         if (!accountFromSigner) {
             throw new Error('Failed to retrieve account from signer');
         }
@@ -169,13 +205,35 @@ export class SigningBitsongClient extends BitsongClient {
         });
     }
 
-    public async signAndBroadcast(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const txRaw = await this.sign(signerAddress, messages, fee, memo);
+    public async simulate(signerAddress: string, messages: readonly EncodeObject[], memo: string | undefined): Promise<number> {
+        const anyMsgs = messages.map((m) => this.registry.encodeAsAny(m));
+        const accountFromSigner = (await this.signer.getAccounts()).find((account) => account.address === signerAddress);
+        if (!accountFromSigner) {
+            throw new Error('Failed to retrieve account from signer');
+        }
+        const pubkey = encodeSecp256k1Pubkey(accountFromSigner.pubkey);
+        const { sequence } = await this.getSequence(signerAddress);
+        const { gasInfo } = await this.forceGetQueryClient().tx.simulate(anyMsgs, memo, pubkey, sequence);
+        assertDefined(gasInfo);
+        return Uint53.fromString(gasInfo.gasUsed.toString()).toNumber();
+    }
+
+    public async signAndBroadcast(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee | 'auto' | number, memo = ''): Promise<DeliverTxResponse> {
+        let usedFee: StdFee;
+        if (fee === 'auto' || typeof fee === 'number') {
+            assertDefined(this.gasPrice, 'Gas price must be set in the client options when auto gas is used.');
+            const gasEstimation = await this.simulate(signerAddress, messages, memo);
+            const multiplier = typeof fee === 'number' ? fee : 1.3;
+            usedFee = calculateFee(Math.round(gasEstimation * multiplier), this.gasPrice);
+        } else {
+            usedFee = fee;
+        }
+        const txRaw = await this.sign(signerAddress, messages, usedFee, memo);
         const txBytes = TxRaw.encode(txRaw).finish();
         return this.broadcastTx(txBytes, this.broadcastTimeoutMs, this.broadcastPollIntervalMs);
     }
 
-    public async sendTokens(senderAddress: string, recipientAddress: string, amount: readonly Coin[], fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public async sendTokens(senderAddress: string, recipientAddress: string, amount: readonly Coin[], fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
         const sendMsg: MsgSendEncodeObject = {
             typeUrl: '/cosmos.bank.v1beta1.MsgSend',
             value: {
@@ -187,7 +245,7 @@ export class SigningBitsongClient extends BitsongClient {
         return this.signAndBroadcast(senderAddress, [sendMsg], fee, memo);
     }
 
-    public async delegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public async delegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
         const delegateMsg: MsgDelegateEncodeObject = {
             typeUrl: '/cosmos.staking.v1beta1.MsgDelegate',
             value: MsgDelegate.fromPartial({
@@ -199,7 +257,7 @@ export class SigningBitsongClient extends BitsongClient {
         return this.signAndBroadcast(delegatorAddress, [delegateMsg], fee, memo);
     }
 
-    public async undelegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public async undelegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
         const undelegateMsg: MsgUndelegateEncodeObject = {
             typeUrl: '/cosmos.staking.v1beta1.MsgUndelegate',
             value: MsgUndelegate.fromPartial({
@@ -211,7 +269,7 @@ export class SigningBitsongClient extends BitsongClient {
         return this.signAndBroadcast(delegatorAddress, [undelegateMsg], fee, memo);
     }
 
-    public async withdrawRewards(delegatorAddress: string, validatorAddress: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
+    public async withdrawRewards(delegatorAddress: string, validatorAddress: string, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
         const withdrawMsg: MsgWithdrawDelegatorRewardEncodeObject = {
             typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
             value: MsgWithdrawDelegatorReward.fromPartial({
@@ -231,9 +289,9 @@ export class SigningBitsongClient extends BitsongClient {
         timeoutHeight: Height | undefined,
         /** timeout in seconds */
         timeoutTimestamp: number | undefined,
-        fee: StdFee,
+        fee: StdFee | 'auto' | number,
         memo = '',
-    ): Promise<BroadcastTxResponse> {
+    ): Promise<DeliverTxResponse> {
         const timeoutTimestampNanoseconds = timeoutTimestamp ? Long.fromNumber(timeoutTimestamp).multiply(1_000_000_000) : undefined;
         const transferMsg: MsgTransferEncodeObject = {
             typeUrl: '/ibc.applications.transfer.v1.MsgTransfer',
@@ -254,88 +312,50 @@ export class SigningBitsongClient extends BitsongClient {
      * Issue a new fantoken denom
      * @param
      */
-    public issueFanToken(symbol: string, name: string, maxSupply: string, description: string, owner: string, issueFee: Coin, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgIssueFanTokenEncodeObject = {
-            typeUrl: '/bitsong.fantoken.MsgIssueFanToken',
-            value: MsgIssueFanToken.fromPartial({
-                symbol: symbol,
-                name: name,
+    public issueFanToken(symbol: string, name: string, uri: string, maxSupply: string, authority: string, minter: string, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
+        const msg: MsgIssueEncodeObject = {
+            typeUrl: '/bitsong.fantoken.MsgIssue',
+            value: MsgIssue.fromPartial({
+                authority: authority,
                 maxSupply: maxSupply,
-                description: description,
-                owner: owner,
-                issueFee: issueFee,
+                minter: minter,
+                name: name,
+                symbol: symbol,
+                uri: uri,
             }),
         };
 
-        return this.signAndBroadcast(owner, [msg], fee, memo);
+        return this.signAndBroadcast(authority, [msg], fee, memo);
     }
 
     /**
-     * Edit a fantoken
+     * Disable the mint of a fantoken
      * @param
      */
-    public editFanToken(denom: string, mintable: boolean, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgEditFanTokenEncodeObject = {
-            typeUrl: '/bitsong.fantoken.MsgEditFanToken',
-            value: MsgEditFanToken.fromPartial({
+    public disableMintFanToken(denom: string, minter: string, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
+        const msg: MsgDisableMintEncodeObject = {
+            typeUrl: '/bitsong.fantoken.MsgDisableMint',
+            value: MsgDisableMint.fromPartial({
                 denom: denom,
-                mintable: mintable,
-                owner: owner,
+                minter: minter,
             }),
         };
 
-        return this.signAndBroadcast(owner, [msg], fee, memo);
+        return this.signAndBroadcast(minter, [msg], fee, memo);
     }
 
-    /**
-     * Mint a fantoken to a recipient
-     * @param
-     */
-    public mintFanToken(recipient: string, denom: string, amount: string, owner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgMintFanTokenEncodeObject = {
-            typeUrl: '/bitsong.fantoken.MsgMintFanToken',
-            value: MsgMintFanToken.fromPartial({
-                recipient: recipient,
-                denom: denom,
+    public claimMerkledrop(merkledropId: string, index: string, amount: string, proofs: string[], sender: string, fee: StdFee, memo = ''): Promise<DeliverTxResponse> {
+        const msg: MsgClaimEncodeObject = {
+            typeUrl: '/bitsong.merkledrop.v1beta1.MsgClaim',
+            value: MsgClaim.fromPartial({
+                merkledropId: Long.fromString(merkledropId),
                 amount: amount,
-                owner: owner,
-            }),
-        };
-
-        return this.signAndBroadcast(owner, [msg], fee, memo);
-    }
-
-    /**
-     * Burn a fantoken
-     * @param
-     */
-    public burnFanToken(denom: string, amount: string, sender: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgBurnFanTokenEncodeObject = {
-            typeUrl: '/bitsong.fantoken.MsgBurnFanToken',
-            value: MsgBurnFanToken.fromPartial({
-                denom: denom,
-                amount: amount,
+                index: Long.fromString(index),
+                proofs: proofs,
                 sender: sender,
             }),
         };
 
         return this.signAndBroadcast(sender, [msg], fee, memo);
-    }
-
-    /**
-     * Transfer a fantoken
-     * @param
-     */
-    public transferFanTokenOwner(denom: string, srcOwner: string, dstOwner: string, fee: StdFee, memo = ''): Promise<BroadcastTxResponse> {
-        const msg: MsgTransferFanTokenOwnerEncodeObject = {
-            typeUrl: '/bitsong.fantoken.MsgTransferFanTokenOwner',
-            value: MsgTransferFanTokenOwner.fromPartial({
-                denom: denom,
-                srcOwner: srcOwner,
-                dstOwner: dstOwner,
-            }),
-        };
-
-        return this.signAndBroadcast(srcOwner, [msg], fee, memo);
     }
 }

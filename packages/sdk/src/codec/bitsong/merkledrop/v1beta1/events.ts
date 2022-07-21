@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
 
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
@@ -60,7 +60,7 @@ export const EventCreate = {
     fromJSON(object: any): EventCreate {
         return {
             owner: isSet(object.owner) ? String(object.owner) : '',
-            merkledropId: isSet(object.merkledropId) ? Long.fromString(object.merkledropId) : Long.UZERO,
+            merkledropId: isSet(object.merkledropId) ? Long.fromValue(object.merkledropId) : Long.UZERO,
         };
     },
 
@@ -123,8 +123,8 @@ export const EventClaim = {
 
     fromJSON(object: any): EventClaim {
         return {
-            merkledropId: isSet(object.merkledropId) ? Long.fromString(object.merkledropId) : Long.UZERO,
-            index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+            merkledropId: isSet(object.merkledropId) ? Long.fromValue(object.merkledropId) : Long.UZERO,
+            index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
             coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
         };
     },
@@ -184,7 +184,7 @@ export const EventWithdraw = {
 
     fromJSON(object: any): EventWithdraw {
         return {
-            merkledropId: isSet(object.merkledropId) ? Long.fromString(object.merkledropId) : Long.UZERO,
+            merkledropId: isSet(object.merkledropId) ? Long.fromValue(object.merkledropId) : Long.UZERO,
             coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
         };
     },

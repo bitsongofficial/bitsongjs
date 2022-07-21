@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Height } from '../../client/v1/client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Height } from '../../../../ibc/core/client/v1/client';
 
 export const protobufPackage = 'ibc.core.channel.v1';
 
@@ -65,8 +65,9 @@ export function stateToJSON(object: State): string {
             return 'STATE_OPEN';
         case State.STATE_CLOSED:
             return 'STATE_CLOSED';
+        case State.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -110,8 +111,9 @@ export function orderToJSON(object: Order): string {
             return 'ORDER_UNORDERED';
         case Order.ORDER_ORDERED:
             return 'ORDER_ORDERED';
+        case Order.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -551,14 +553,14 @@ export const Packet = {
 
     fromJSON(object: any): Packet {
         return {
-            sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+            sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
             sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : '',
             sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : '',
             destinationPort: isSet(object.destinationPort) ? String(object.destinationPort) : '',
             destinationChannel: isSet(object.destinationChannel) ? String(object.destinationChannel) : '',
             data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
             timeoutHeight: isSet(object.timeoutHeight) ? Height.fromJSON(object.timeoutHeight) : undefined,
-            timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromString(object.timeoutTimestamp) : Long.UZERO,
+            timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromValue(object.timeoutTimestamp) : Long.UZERO,
         };
     },
 
@@ -641,7 +643,7 @@ export const PacketState = {
         return {
             portId: isSet(object.portId) ? String(object.portId) : '',
             channelId: isSet(object.channelId) ? String(object.channelId) : '',
-            sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+            sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
             data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
         };
     },
@@ -747,9 +749,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

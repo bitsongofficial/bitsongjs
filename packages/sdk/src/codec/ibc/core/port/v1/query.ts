@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Order, Counterparty, orderFromJSON, orderToJSON } from '../../channel/v1/channel';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Order, Counterparty, orderFromJSON, orderToJSON } from '../../../../ibc/core/channel/v1/channel';
 
 export const protobufPackage = 'ibc.core.port.v1';
 

@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Timestamp } from '../../../google/protobuf/timestamp';
+import { Any } from '../../../google/protobuf/any';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Any } from '../../../google/protobuf/any';
-import { Timestamp } from '../../../google/protobuf/timestamp';
 
 export const protobufPackage = 'cosmos.upgrade.v1beta1';
 
@@ -25,7 +25,7 @@ export interface Plan {
      *
      * @deprecated
      */
-    time?: Date;
+    time?: Timestamp;
     /**
      * The height at which the upgrade must be performed.
      * Only used if Time is not set.
@@ -49,6 +49,10 @@ export interface Plan {
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
+ *
+ * @deprecated
  */
 export interface SoftwareUpgradeProposal {
     title: string;
@@ -59,6 +63,10 @@ export interface SoftwareUpgradeProposal {
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
+ *
+ * @deprecated
  */
 export interface CancelSoftwareUpgradeProposal {
     title: string;
@@ -87,7 +95,7 @@ export const Plan = {
             writer.uint32(10).string(message.name);
         }
         if (message.time !== undefined) {
-            Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim();
+            Timestamp.encode(message.time, writer.uint32(18).fork()).ldelim();
         }
         if (!message.height.isZero()) {
             writer.uint32(24).int64(message.height);
@@ -112,7 +120,7 @@ export const Plan = {
                     message.name = reader.string();
                     break;
                 case 2:
-                    message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.time = Timestamp.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.height = reader.int64() as Long;
@@ -135,7 +143,7 @@ export const Plan = {
         return {
             name: isSet(object.name) ? String(object.name) : '',
             time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-            height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+            height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
             info: isSet(object.info) ? String(object.info) : '',
             upgradedClientState: isSet(object.upgradedClientState) ? Any.fromJSON(object.upgradedClientState) : undefined,
         };
@@ -144,7 +152,7 @@ export const Plan = {
     toJSON(message: Plan): unknown {
         const obj: any = {};
         message.name !== undefined && (obj.name = message.name);
-        message.time !== undefined && (obj.time = message.time.toISOString());
+        message.time !== undefined && (obj.time = fromTimestamp(message.time).toISOString());
         message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
         message.info !== undefined && (obj.info = message.info);
         message.upgradedClientState !== undefined && (obj.upgradedClientState = message.upgradedClientState ? Any.toJSON(message.upgradedClientState) : undefined);
@@ -154,7 +162,7 @@ export const Plan = {
     fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
         const message = createBasePlan();
         message.name = object.name ?? '';
-        message.time = object.time ?? undefined;
+        message.time = object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
         message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
         message.info = object.info ?? '';
         message.upgradedClientState = object.upgradedClientState !== undefined && object.upgradedClientState !== null ? Any.fromPartial(object.upgradedClientState) : undefined;
@@ -326,7 +334,7 @@ export const ModuleVersion = {
     fromJSON(object: any): ModuleVersion {
         return {
             name: isSet(object.name) ? String(object.name) : '',
-            version: isSet(object.version) ? Long.fromString(object.version) : Long.UZERO,
+            version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO,
         };
     },
 
@@ -374,13 +382,13 @@ function fromTimestamp(t: Timestamp): Date {
     return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
     if (o instanceof Date) {
-        return o;
+        return toTimestamp(o);
     } else if (typeof o === 'string') {
-        return new Date(o);
+        return toTimestamp(new Date(o));
     } else {
-        return fromTimestamp(Timestamp.fromJSON(o));
+        return Timestamp.fromJSON(o);
     }
 }
 

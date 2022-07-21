@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Params, IdentifiedConnection, ConnectionPaths } from './connection';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Params, IdentifiedConnection, ConnectionPaths } from '../../../../ibc/core/connection/v1/connection';
 
 export const protobufPackage = 'ibc.core.connection.v1';
 
@@ -66,7 +66,7 @@ export const GenesisState = {
         return {
             connections: Array.isArray(object?.connections) ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e)) : [],
             clientConnectionPaths: Array.isArray(object?.clientConnectionPaths) ? object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e)) : [],
-            nextConnectionSequence: isSet(object.nextConnectionSequence) ? Long.fromString(object.nextConnectionSequence) : Long.UZERO,
+            nextConnectionSequence: isSet(object.nextConnectionSequence) ? Long.fromValue(object.nextConnectionSequence) : Long.UZERO,
             params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
         };
     },

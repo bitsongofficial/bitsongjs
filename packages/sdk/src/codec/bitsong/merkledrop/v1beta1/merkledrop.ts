@@ -97,10 +97,10 @@ export const Merkledrop = {
 
     fromJSON(object: any): Merkledrop {
         return {
-            id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+            id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
             merkleRoot: isSet(object.merkleRoot) ? String(object.merkleRoot) : '',
-            startHeight: isSet(object.startHeight) ? Long.fromString(object.startHeight) : Long.ZERO,
-            endHeight: isSet(object.endHeight) ? Long.fromString(object.endHeight) : Long.ZERO,
+            startHeight: isSet(object.startHeight) ? Long.fromValue(object.startHeight) : Long.ZERO,
+            endHeight: isSet(object.endHeight) ? Long.fromValue(object.endHeight) : Long.ZERO,
             denom: isSet(object.denom) ? String(object.denom) : '',
             amount: isSet(object.amount) ? String(object.amount) : '',
             claimed: isSet(object.claimed) ? String(object.claimed) : '',

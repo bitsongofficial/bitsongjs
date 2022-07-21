@@ -1,9 +1,9 @@
 /* eslint-disable */
+import { Counterparty, Version } from './connection';
+import { Any } from '../../../../google/protobuf/any';
+import { Height } from '../../client/v1/client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Counterparty, Version } from '../../../../ibc/core/connection/v1/connection';
-import { Any } from '../../../../google/protobuf/any';
-import { Height } from '../../../../ibc/core/client/v1/client';
 
 export const protobufPackage = 'ibc.core.connection.v1';
 
@@ -160,7 +160,7 @@ export const MsgConnectionOpenInit = {
             clientId: isSet(object.clientId) ? String(object.clientId) : '',
             counterparty: isSet(object.counterparty) ? Counterparty.fromJSON(object.counterparty) : undefined,
             version: isSet(object.version) ? Version.fromJSON(object.version) : undefined,
-            delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : Long.UZERO,
+            delayPeriod: isSet(object.delayPeriod) ? Long.fromValue(object.delayPeriod) : Long.UZERO,
             signer: isSet(object.signer) ? String(object.signer) : '',
         };
     },
@@ -340,7 +340,7 @@ export const MsgConnectionOpenTry = {
             previousConnectionId: isSet(object.previousConnectionId) ? String(object.previousConnectionId) : '',
             clientState: isSet(object.clientState) ? Any.fromJSON(object.clientState) : undefined,
             counterparty: isSet(object.counterparty) ? Counterparty.fromJSON(object.counterparty) : undefined,
-            delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : Long.UZERO,
+            delayPeriod: isSet(object.delayPeriod) ? Long.fromValue(object.delayPeriod) : Long.UZERO,
             counterpartyVersions: Array.isArray(object?.counterpartyVersions) ? object.counterpartyVersions.map((e: any) => Version.fromJSON(e)) : [],
             proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
             proofInit: isSet(object.proofInit) ? bytesFromBase64(object.proofInit) : new Uint8Array(),
@@ -801,9 +801,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

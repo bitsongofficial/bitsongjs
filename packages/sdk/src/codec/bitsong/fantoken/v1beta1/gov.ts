@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 

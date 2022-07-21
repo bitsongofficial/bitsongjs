@@ -26,11 +26,5 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "test": "yarn workspaces run test"
-  },
-  "devDependencies": {
-    "@bitsongjs/sdk": "workspace:packages/sdk",
-    "eslint": "^7.5",
-    "prettier": "^2.3.2",
-    "typescript": "~4.3"
   }
 }

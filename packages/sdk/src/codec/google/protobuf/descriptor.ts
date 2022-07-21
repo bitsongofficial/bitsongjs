@@ -66,7 +66,9 @@ export interface DescriptorProto {
 }
 
 export interface DescriptorProto_ExtensionRange {
+    /** Inclusive. */
     start: number;
+    /** Exclusive. */
     end: number;
     options?: ExtensionRangeOptions;
 }
@@ -279,8 +281,9 @@ export function fieldDescriptorProto_TypeToJSON(object: FieldDescriptorProto_Typ
             return 'TYPE_SINT32';
         case FieldDescriptorProto_Type.TYPE_SINT64:
             return 'TYPE_SINT64';
+        case FieldDescriptorProto_Type.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -318,8 +321,9 @@ export function fieldDescriptorProto_LabelToJSON(object: FieldDescriptorProto_La
             return 'LABEL_REQUIRED';
         case FieldDescriptorProto_Label.LABEL_REPEATED:
             return 'LABEL_REPEATED';
+        case FieldDescriptorProto_Label.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -496,8 +500,8 @@ export interface FileOptions {
     phpNamespace: string;
     /**
      * Use this option to change the namespace of php generated metadata classes.
-     * Default is empty. When this option is empty, the proto file name will be used
-     * for determining the namespace.
+     * Default is empty. When this option is empty, the proto file name will be
+     * used for determining the namespace.
      */
     phpMetadataNamespace: string;
     /**
@@ -550,8 +554,9 @@ export function fileOptions_OptimizeModeToJSON(object: FileOptions_OptimizeMode)
             return 'CODE_SIZE';
         case FileOptions_OptimizeMode.LITE_RUNTIME:
             return 'LITE_RUNTIME';
+        case FileOptions_OptimizeMode.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -606,7 +611,7 @@ export interface MessageOptions {
      *
      * Implementations may choose not to generate the map_entry=true message, but
      * use a native map in the target language to hold the keys and values.
-     * The reflection APIs in such implementions still need to work as
+     * The reflection APIs in such implementations still need to work as
      * if the field is a repeated message field.
      *
      * NOTE: Do not set the option in .proto files. Always use the maps syntax
@@ -726,8 +731,9 @@ export function fieldOptions_CTypeToJSON(object: FieldOptions_CType): string {
             return 'CORD';
         case FieldOptions_CType.STRING_PIECE:
             return 'STRING_PIECE';
+        case FieldOptions_CType.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -767,8 +773,9 @@ export function fieldOptions_JSTypeToJSON(object: FieldOptions_JSType): string {
             return 'JS_STRING';
         case FieldOptions_JSType.JS_NUMBER:
             return 'JS_NUMBER';
+        case FieldOptions_JSType.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -871,8 +878,9 @@ export function methodOptions_IdempotencyLevelToJSON(object: MethodOptions_Idemp
             return 'NO_SIDE_EFFECTS';
         case MethodOptions_IdempotencyLevel.IDEMPOTENT:
             return 'IDEMPOTENT';
+        case MethodOptions_IdempotencyLevel.UNRECOGNIZED:
         default:
-            return 'UNKNOWN';
+            return 'UNRECOGNIZED';
     }
 }
 
@@ -953,7 +961,7 @@ export interface SourceCodeInfo {
      *   beginning of the "extend" block and is shared by all extensions within
      *   the block.
      * - Just because a location's span is a subset of some other location's span
-     *   does not mean that it is a descendent.  For example, a "group" defines
+     *   does not mean that it is a descendant.  For example, a "group" defines
      *   both a type and a field in a single declaration.  Thus, the locations
      *   corresponding to the type and field and their components will overlap.
      * - Code which tries to interpret locations should probably be designed to
@@ -3101,8 +3109,8 @@ export const UninterpretedOption = {
         return {
             name: Array.isArray(object?.name) ? object.name.map((e: any) => UninterpretedOption_NamePart.fromJSON(e)) : [],
             identifierValue: isSet(object.identifierValue) ? String(object.identifierValue) : '',
-            positiveIntValue: isSet(object.positiveIntValue) ? Long.fromString(object.positiveIntValue) : Long.UZERO,
-            negativeIntValue: isSet(object.negativeIntValue) ? Long.fromString(object.negativeIntValue) : Long.ZERO,
+            positiveIntValue: isSet(object.positiveIntValue) ? Long.fromValue(object.positiveIntValue) : Long.UZERO,
+            negativeIntValue: isSet(object.negativeIntValue) ? Long.fromValue(object.negativeIntValue) : Long.ZERO,
             doubleValue: isSet(object.doubleValue) ? Number(object.doubleValue) : 0,
             stringValue: isSet(object.stringValue) ? bytesFromBase64(object.stringValue) : new Uint8Array(),
             aggregateValue: isSet(object.aggregateValue) ? String(object.aggregateValue) : '',
@@ -3530,9 +3538,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

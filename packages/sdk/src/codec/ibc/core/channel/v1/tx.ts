@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Channel, Packet } from './channel';
+import { Height } from '../../client/v1/client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { Channel, Packet } from '../../../../ibc/core/channel/v1/channel';
-import { Height } from '../../../../ibc/core/client/v1/client';
 
 export const protobufPackage = 'ibc.core.channel.v1';
 
@@ -1072,7 +1072,7 @@ export const MsgTimeout = {
             packet: isSet(object.packet) ? Packet.fromJSON(object.packet) : undefined,
             proofUnreceived: isSet(object.proofUnreceived) ? bytesFromBase64(object.proofUnreceived) : new Uint8Array(),
             proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-            nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromString(object.nextSequenceRecv) : Long.UZERO,
+            nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromValue(object.nextSequenceRecv) : Long.UZERO,
             signer: isSet(object.signer) ? String(object.signer) : '',
         };
     },
@@ -1203,7 +1203,7 @@ export const MsgTimeoutOnClose = {
             proofUnreceived: isSet(object.proofUnreceived) ? bytesFromBase64(object.proofUnreceived) : new Uint8Array(),
             proofClose: isSet(object.proofClose) ? bytesFromBase64(object.proofClose) : new Uint8Array(),
             proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-            nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromString(object.nextSequenceRecv) : Long.UZERO,
+            nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromValue(object.nextSequenceRecv) : Long.UZERO,
             signer: isSet(object.signer) ? String(object.signer) : '',
         };
     },
@@ -1525,9 +1525,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

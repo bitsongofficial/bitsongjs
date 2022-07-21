@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { Params } from './params';
 import Long from 'long';
+import { FanToken } from './fantoken';
 import _m0 from 'protobufjs/minimal';
-import { Params } from '../../../bitsong/fantoken/v1beta1/params';
-import { FanToken } from '../../../bitsong/fantoken/v1beta1/fantoken';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 

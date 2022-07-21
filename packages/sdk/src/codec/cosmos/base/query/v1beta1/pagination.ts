@@ -58,7 +58,8 @@ export interface PageRequest {
 export interface PageResponse {
     /**
      * next_key is the key to be passed to PageRequest.key to
-     * query the next page most efficiently
+     * query the next page most efficiently. It will be empty if
+     * there are no more results.
      */
     nextKey: Uint8Array;
     /**
@@ -125,8 +126,8 @@ export const PageRequest = {
     fromJSON(object: any): PageRequest {
         return {
             key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-            offset: isSet(object.offset) ? Long.fromString(object.offset) : Long.UZERO,
-            limit: isSet(object.limit) ? Long.fromString(object.limit) : Long.UZERO,
+            offset: isSet(object.offset) ? Long.fromValue(object.offset) : Long.UZERO,
+            limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.UZERO,
             countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false,
             reverse: isSet(object.reverse) ? Boolean(object.reverse) : false,
         };
@@ -192,7 +193,7 @@ export const PageResponse = {
     fromJSON(object: any): PageResponse {
         return {
             nextKey: isSet(object.nextKey) ? bytesFromBase64(object.nextKey) : new Uint8Array(),
-            total: isSet(object.total) ? Long.fromString(object.total) : Long.UZERO,
+            total: isSet(object.total) ? Long.fromValue(object.total) : Long.UZERO,
         };
     },
 
@@ -235,9 +236,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 

@@ -1,9 +1,9 @@
 /* eslint-disable */
+import { FanToken } from './fantoken';
+import { PageRequest, PageResponse } from '../../../cosmos/base/query/v1beta1/pagination';
+import { Params } from './params';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
-import { FanToken } from '../../../bitsong/fantoken/v1beta1/fantoken';
-import { PageRequest, PageResponse } from '../../../cosmos/base/query/v1beta1/pagination';
-import { Params } from '../../../bitsong/fantoken/v1beta1/params';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 

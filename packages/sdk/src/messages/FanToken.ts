@@ -1,27 +1,32 @@
 import { EncodeObject } from '@cosmjs/proto-signing';
-import { MsgEditFanToken, MsgIssueFanToken, MsgMintFanToken, MsgBurnFanToken, MsgTransferFanTokenOwner } from '../codec/bitsong/fantoken/v1beta1/tx';
+import { MsgIssue, MsgDisableMint, MsgBurn, MsgSetMinter, MsgSetAuthority, MsgSetUri } from '../codec/bitsong/fantoken/v1beta1/tx';
 
-export interface MsgIssueFanTokenEncodeObject extends EncodeObject {
-    readonly typeUrl: '/bitsong.fantoken.MsgIssueFanToken';
-    readonly value: MsgIssueFanToken;
+export interface MsgIssueEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgIssue';
+    readonly value: MsgIssue;
 }
 
-export interface MsgEditFanTokenEncodeObject extends EncodeObject {
-    readonly typeUrl: '/bitsong.fantoken.MsgEditFanToken';
-    readonly value: MsgEditFanToken;
+export interface MsgDisableMintEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgDisableMint';
+    readonly value: MsgDisableMint;
 }
 
-export interface MsgMintFanTokenEncodeObject extends EncodeObject {
-    readonly typeUrl: '/bitsong.fantoken.MsgMintFanToken';
-    readonly value: MsgMintFanToken;
+export interface MsgBurnEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgBurn';
+    readonly value: MsgBurn;
 }
 
-export interface MsgBurnFanTokenEncodeObject extends EncodeObject {
-    readonly typeUrl: '/bitsong.fantoken.MsgBurnFanToken';
-    readonly value: MsgBurnFanToken;
+export interface MsgSetMinterEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgSetMinter';
+    readonly value: MsgSetMinter;
 }
 
-export interface MsgTransferFanTokenOwnerEncodeObject extends EncodeObject {
-    readonly typeUrl: '/bitsong.fantoken.MsgTransferFanTokenOwner';
-    readonly value: MsgTransferFanTokenOwner;
+export interface MsgSetAuthorityEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgSetAuthority';
+    readonly value: MsgSetAuthority;
+}
+
+export interface MsgSetUriEncodeObject extends EncodeObject {
+    readonly typeUrl: '/bitsong.fantoken.MsgSetUri';
+    readonly value: MsgSetUri;
 }

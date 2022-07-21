@@ -90,8 +90,8 @@ export const Proof = {
 
     fromJSON(object: any): Proof {
         return {
-            total: isSet(object.total) ? Long.fromString(object.total) : Long.ZERO,
-            index: isSet(object.index) ? Long.fromString(object.index) : Long.ZERO,
+            total: isSet(object.total) ? Long.fromValue(object.total) : Long.ZERO,
+            index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
             leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array(),
             aunts: Array.isArray(object?.aunts) ? object.aunts.map((e: any) => bytesFromBase64(e)) : [],
         };
@@ -389,9 +389,9 @@ function bytesFromBase64(b64: string): Uint8Array {
 const btoa: (bin: string) => string = globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
     const bin: string[] = [];
-    for (const byte of arr) {
+    arr.forEach((byte) => {
         bin.push(String.fromCharCode(byte));
-    }
+    });
     return btoa(bin.join(''));
 }
 
