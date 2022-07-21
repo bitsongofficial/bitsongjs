@@ -1,0 +1,52 @@
+{
+  "name": "@bitsongjs/proto",
+  "description": "Proto helpers for bitsongjs",
+  "version": "2.0.0-alpha.0",
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "browser": "dist/browser.js",
+  "files": [
+    "build/",
+    "*.md",
+    "!*.spec.*",
+    "!**/testdata/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs/tree/main/packages/proto"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "get-proto": "./scripts/get-proto.sh",
+    "gen-proto": "cross-env NODE_ENV=development babel-node scripts/gen-proto.js",
+    "test": "yarn build-or-skip && yarn test-node"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/node": "^7.18.9",
+    "@osmonauts/telescope": "^0.7.0",
+    "cross-env": "^7.0.3",
+    "protobufjs": "^7.0.0",
+    "ts-node": "^10.9.1",
+    "ts-proto": "^1.118.0"
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
