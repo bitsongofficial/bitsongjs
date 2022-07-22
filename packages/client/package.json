@@ -1,0 +1,54 @@
+{
+  "name": "@bitsongjs/client",
+  "description": "Client helpers for bitsongjs",
+  "version": "2.0.0-alpha.0",
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "browser": "dist/browser.js",
+  "files": [
+    "build/",
+    "*.md",
+    "!*.spec.*",
+    "!**/testdata/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs/tree/main/packages/client"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "test": "yarn build-or-skip && yarn test-node"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/node": "^7.18.9",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.1",
+    "ts-proto": "^1.118.0"
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@bitsongjs/wallet": "file:../wallet",
+    "@cosmjs/encoding": "^0.28.11",
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.15.0"
+  }
+}

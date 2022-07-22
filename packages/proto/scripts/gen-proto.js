@@ -5,7 +5,7 @@ const telescope = require("@osmonauts/telescope").default;
 
 telescope({
   protoDirs: [join(__dirname, "/../proto")],
-  outPath: join(__dirname, "/../src/dan"),
+  outPath: join(__dirname, "/../src"),
   options: {
     includeAminos: true,
     includeLCDClient: false,

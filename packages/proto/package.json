@@ -21,14 +21,16 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "get-proto": "./scripts/get-proto.sh",
+    "get-proto": "CREF=v0.45.6 BREF=v0.11.0 ./scripts/get-proto.sh",
     "gen-proto": "cross-env NODE_ENV=development babel-node scripts/gen-proto.js",
+    "gen-query": "cross-env NODE_ENV=development babel-node scripts/gen-query.js",
     "test": "yarn build-or-skip && yarn test-node"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.9",
     "@babel/core": "^7.18.9",
     "@babel/node": "^7.18.9",
+    "@osmonauts/helpers": "^0.3.10",
     "@osmonauts/telescope": "^0.7.0",
     "cross-env": "^7.0.3",
     "protobufjs": "^7.0.0",
@@ -48,5 +50,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "browser-headers": "^0.4.1"
   }
 }
