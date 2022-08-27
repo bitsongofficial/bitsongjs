@@ -12,6 +12,9 @@
 	"dependencies": {
 		"@cosmjs/stargate": "^0.27.0"
 	},
+	"devDependencies": {
+		"@regen-network/ts-proto": "1.105.2-1"
+	},
 	"scripts": {
 		"preget-proto": "rimraf proto",
 		"get-proto": "CREF=v0.45.6 IBCREF=v2.0.0 BREF=v0.11.0 ./scripts/get-proto.sh",
