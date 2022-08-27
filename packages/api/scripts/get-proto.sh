@@ -16,11 +16,11 @@ IBC_DIR="$PROTO_DIR/ibc"
 IBC_SDK_DIR="$IBC_DIR/ibc-go"
 IBC_ZIP_FILE="$IBC_DIR/tmp.zip"
 
-CREF=${CREF:-"master"}
+CREF=${CREF:-"main"}
 CSUFFIX=${CREF}
 [[ $CSUFFIX =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]] && CSUFFIX=${CSUFFIX#v}
 
-BREF=${BREF:-"master"}
+BREF=${BREF:-"main"}
 BSUFFIX=${BREF}
 [[ $BSUFFIX =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]] && BSUFFIX=${BSUFFIX#v}
 

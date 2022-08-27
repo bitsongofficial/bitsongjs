@@ -13,7 +13,7 @@
 		"@cosmjs/stargate": "^0.27.0"
 	},
 	"scripts": {
-		"preget-proto": "rm -r proto",
+		"preget-proto": "rimraf proto",
 		"get-proto": "CREF=v0.45.6 IBCREF=v2.0.0 BREF=v0.11.0 ./scripts/get-proto.sh",
 		"define-proto": "./scripts/define-proto.sh",
 		"postdefine-proto": "prettier --write \"src/codec/**/*.ts\"",
