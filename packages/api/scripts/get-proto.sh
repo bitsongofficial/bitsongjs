@@ -3,6 +3,7 @@ set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
 PROTO_DIR="./proto"
+PROTO_MERGED_DIR="./proto/merged"
 
 COSMOS_DIR="$PROTO_DIR/cosmos"
 COSMOS_SDK_DIR="$COSMOS_DIR/cosmos-sdk"
@@ -54,3 +55,21 @@ wget -qO "$IBC_ZIP_FILE" "https://github.com/cosmos/ibc-go/archive/$IBCREF.zip"
 unzip "$IBC_ZIP_FILE" "*.proto" -d "$IBC_DIR"
 mv "$IBC_SDK_DIR-$IBCSUFFIX" "$IBC_SDK_DIR"
 rm "$IBC_ZIP_FILE"
+
+
+mv $COSMOS_SDK_DIR/proto $PROTO_MERGED_DIR
+mv $COSMOS_SDK_DIR/third_party/proto/* $PROTO_MERGED_DIR
+mv $BITSONG_SDK_DIR/proto/bitsong $PROTO_MERGED_DIR
+mv $IBC_SDK_DIR/proto/ibc $PROTO_MERGED_DIR
+
+rm -rf $COSMOS_DIR
+rm -rf $BITSONG_DIR
+rm -rf $IBC_DIR
+#rm -rf $PROTO_MERGED_DIR/cosmos
+#rm -rf $PROTO_MERGED_DIR/gogoproto
+#rm -rf $PROTO_MERGED_DIR/tendermint
+#rm -rf $PROTO_MERGED_DIR/google
+
+
+#mv $IBC_SDK_DIR/proto/ibc $PROTO_MERGED_DIR
+#mv $IBC_SDK_DIR/third_party/proto/* $PROTO_MERGED_DIR
