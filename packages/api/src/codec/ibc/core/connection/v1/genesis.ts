@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Params, IdentifiedConnection, ConnectionPaths } from './connection';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'ibc.core.connection.v1';
 
 /** GenesisState defines the ibc connection submodule's genesis state. */
 export interface GenesisState {
+  $type: 'ibc.core.connection.v1.GenesisState';
   connections: IdentifiedConnection[];
   clientConnectionPaths: ConnectionPaths[];
   /** the sequence for the next generated connection identifier */
@@ -16,6 +18,7 @@ export interface GenesisState {
 
 function createBaseGenesisState(): GenesisState {
   return {
+    $type: 'ibc.core.connection.v1.GenesisState',
     connections: [],
     clientConnectionPaths: [],
     nextConnectionSequence: Long.UZERO,
@@ -24,6 +27,8 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
+  $type: 'ibc.core.connection.v1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -76,6 +81,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       connections: Array.isArray(object?.connections)
         ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e))
         : [],
@@ -138,6 +144,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 type Builtin =
   | Date
   | Function
@@ -156,14 +164,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

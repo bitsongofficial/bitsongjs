@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Any } from '../../../google/protobuf/any';
 import {
   SignMode,
@@ -14,6 +15,7 @@ export const protobufPackage = 'cosmos.tx.v1beta1';
 
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
+  $type: 'cosmos.tx.v1beta1.Tx';
   /** body is the processable content of the transaction */
   body?: TxBody;
   /**
@@ -37,6 +39,7 @@ export interface Tx {
  * as the transaction ID.
  */
 export interface TxRaw {
+  $type: 'cosmos.tx.v1beta1.TxRaw';
   /**
    * body_bytes is a protobuf serialization of a TxBody that matches the
    * representation in SignDoc.
@@ -57,6 +60,7 @@ export interface TxRaw {
 
 /** SignDoc is the type used for generating sign bytes for SIGN_MODE_DIRECT. */
 export interface SignDoc {
+  $type: 'cosmos.tx.v1beta1.SignDoc';
   /**
    * body_bytes is protobuf serialization of a TxBody that matches the
    * representation in TxRaw.
@@ -79,6 +83,7 @@ export interface SignDoc {
 
 /** TxBody is the body of a transaction that all signers sign over. */
 export interface TxBody {
+  $type: 'cosmos.tx.v1beta1.TxBody';
   /**
    * messages is a list of messages to be executed. The required signers of
    * those messages define the number and order of elements in AuthInfo's
@@ -119,6 +124,7 @@ export interface TxBody {
  * transaction.
  */
 export interface AuthInfo {
+  $type: 'cosmos.tx.v1beta1.AuthInfo';
   /**
    * signer_infos defines the signing modes for the required signers. The number
    * and order of elements must match the required signers from TxBody's
@@ -140,6 +146,7 @@ export interface AuthInfo {
  * signer.
  */
 export interface SignerInfo {
+  $type: 'cosmos.tx.v1beta1.SignerInfo';
   /**
    * public_key is the public key of the signer. It is optional for accounts
    * that already exist in state. If unset, the verifier can use the required \
@@ -161,6 +168,7 @@ export interface SignerInfo {
 
 /** ModeInfo describes the signing mode of a single or nested multisig signer. */
 export interface ModeInfo {
+  $type: 'cosmos.tx.v1beta1.ModeInfo';
   /** single represents a single signer */
   single?: ModeInfo_Single | undefined;
   /** multi represents a nested multisig signer */
@@ -173,12 +181,14 @@ export interface ModeInfo {
  * future
  */
 export interface ModeInfo_Single {
+  $type: 'cosmos.tx.v1beta1.ModeInfo.Single';
   /** mode is the signing mode of the single signer */
   mode: SignMode;
 }
 
 /** Multi is the mode info for a multisig public key */
 export interface ModeInfo_Multi {
+  $type: 'cosmos.tx.v1beta1.ModeInfo.Multi';
   /** bitarray specifies which keys within the multisig are signing */
   bitarray?: CompactBitArray;
   /**
@@ -194,6 +204,7 @@ export interface ModeInfo_Multi {
  * which must be above some miminum to be accepted into the mempool.
  */
 export interface Fee {
+  $type: 'cosmos.tx.v1beta1.Fee';
   /** amount is the amount of coins to be paid as a fee */
   amount: Coin[];
   /**
@@ -216,10 +227,17 @@ export interface Fee {
 }
 
 function createBaseTx(): Tx {
-  return { body: undefined, authInfo: undefined, signatures: [] };
+  return {
+    $type: 'cosmos.tx.v1beta1.Tx',
+    body: undefined,
+    authInfo: undefined,
+    signatures: [],
+  };
 }
 
 export const Tx = {
+  $type: 'cosmos.tx.v1beta1.Tx' as const,
+
   encode(message: Tx, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.body !== undefined) {
       TxBody.encode(message.body, writer.uint32(10).fork()).ldelim();
@@ -259,6 +277,7 @@ export const Tx = {
 
   fromJSON(object: any): Tx {
     return {
+      $type: Tx.$type,
       body: isSet(object.body) ? TxBody.fromJSON(object.body) : undefined,
       authInfo: isSet(object.authInfo)
         ? AuthInfo.fromJSON(object.authInfo)
@@ -302,8 +321,11 @@ export const Tx = {
   },
 };
 
+messageTypeRegistry.set(Tx.$type, Tx);
+
 function createBaseTxRaw(): TxRaw {
   return {
+    $type: 'cosmos.tx.v1beta1.TxRaw',
     bodyBytes: new Uint8Array(),
     authInfoBytes: new Uint8Array(),
     signatures: [],
@@ -311,6 +333,8 @@ function createBaseTxRaw(): TxRaw {
 }
 
 export const TxRaw = {
+  $type: 'cosmos.tx.v1beta1.TxRaw' as const,
+
   encode(message: TxRaw, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.bodyBytes.length !== 0) {
       writer.uint32(10).bytes(message.bodyBytes);
@@ -350,6 +374,7 @@ export const TxRaw = {
 
   fromJSON(object: any): TxRaw {
     return {
+      $type: TxRaw.$type,
       bodyBytes: isSet(object.bodyBytes)
         ? bytesFromBase64(object.bodyBytes)
         : new Uint8Array(),
@@ -393,8 +418,11 @@ export const TxRaw = {
   },
 };
 
+messageTypeRegistry.set(TxRaw.$type, TxRaw);
+
 function createBaseSignDoc(): SignDoc {
   return {
+    $type: 'cosmos.tx.v1beta1.SignDoc',
     bodyBytes: new Uint8Array(),
     authInfoBytes: new Uint8Array(),
     chainId: '',
@@ -403,6 +431,8 @@ function createBaseSignDoc(): SignDoc {
 }
 
 export const SignDoc = {
+  $type: 'cosmos.tx.v1beta1.SignDoc' as const,
+
   encode(
     message: SignDoc,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -451,6 +481,7 @@ export const SignDoc = {
 
   fromJSON(object: any): SignDoc {
     return {
+      $type: SignDoc.$type,
       bodyBytes: isSet(object.bodyBytes)
         ? bytesFromBase64(object.bodyBytes)
         : new Uint8Array(),
@@ -495,8 +526,11 @@ export const SignDoc = {
   },
 };
 
+messageTypeRegistry.set(SignDoc.$type, SignDoc);
+
 function createBaseTxBody(): TxBody {
   return {
+    $type: 'cosmos.tx.v1beta1.TxBody',
     messages: [],
     memo: '',
     timeoutHeight: Long.UZERO,
@@ -506,6 +540,8 @@ function createBaseTxBody(): TxBody {
 }
 
 export const TxBody = {
+  $type: 'cosmos.tx.v1beta1.TxBody' as const,
+
   encode(
     message: TxBody,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -562,6 +598,7 @@ export const TxBody = {
 
   fromJSON(object: any): TxBody {
     return {
+      $type: TxBody.$type,
       messages: Array.isArray(object?.messages)
         ? object.messages.map((e: any) => Any.fromJSON(e))
         : [],
@@ -623,11 +660,19 @@ export const TxBody = {
   },
 };
 
+messageTypeRegistry.set(TxBody.$type, TxBody);
+
 function createBaseAuthInfo(): AuthInfo {
-  return { signerInfos: [], fee: undefined };
+  return {
+    $type: 'cosmos.tx.v1beta1.AuthInfo',
+    signerInfos: [],
+    fee: undefined,
+  };
 }
 
 export const AuthInfo = {
+  $type: 'cosmos.tx.v1beta1.AuthInfo' as const,
+
   encode(
     message: AuthInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -664,6 +709,7 @@ export const AuthInfo = {
 
   fromJSON(object: any): AuthInfo {
     return {
+      $type: AuthInfo.$type,
       signerInfos: Array.isArray(object?.signerInfos)
         ? object.signerInfos.map((e: any) => SignerInfo.fromJSON(e))
         : [],
@@ -697,11 +743,20 @@ export const AuthInfo = {
   },
 };
 
+messageTypeRegistry.set(AuthInfo.$type, AuthInfo);
+
 function createBaseSignerInfo(): SignerInfo {
-  return { publicKey: undefined, modeInfo: undefined, sequence: Long.UZERO };
+  return {
+    $type: 'cosmos.tx.v1beta1.SignerInfo',
+    publicKey: undefined,
+    modeInfo: undefined,
+    sequence: Long.UZERO,
+  };
 }
 
 export const SignerInfo = {
+  $type: 'cosmos.tx.v1beta1.SignerInfo' as const,
+
   encode(
     message: SignerInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -744,6 +799,7 @@ export const SignerInfo = {
 
   fromJSON(object: any): SignerInfo {
     return {
+      $type: SignerInfo.$type,
       publicKey: isSet(object.publicKey)
         ? Any.fromJSON(object.publicKey)
         : undefined,
@@ -791,11 +847,19 @@ export const SignerInfo = {
   },
 };
 
+messageTypeRegistry.set(SignerInfo.$type, SignerInfo);
+
 function createBaseModeInfo(): ModeInfo {
-  return { single: undefined, multi: undefined };
+  return {
+    $type: 'cosmos.tx.v1beta1.ModeInfo',
+    single: undefined,
+    multi: undefined,
+  };
 }
 
 export const ModeInfo = {
+  $type: 'cosmos.tx.v1beta1.ModeInfo' as const,
+
   encode(
     message: ModeInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -832,6 +896,7 @@ export const ModeInfo = {
 
   fromJSON(object: any): ModeInfo {
     return {
+      $type: ModeInfo.$type,
       single: isSet(object.single)
         ? ModeInfo_Single.fromJSON(object.single)
         : undefined,
@@ -868,11 +933,15 @@ export const ModeInfo = {
   },
 };
 
+messageTypeRegistry.set(ModeInfo.$type, ModeInfo);
+
 function createBaseModeInfo_Single(): ModeInfo_Single {
-  return { mode: 0 };
+  return { $type: 'cosmos.tx.v1beta1.ModeInfo.Single', mode: 0 };
 }
 
 export const ModeInfo_Single = {
+  $type: 'cosmos.tx.v1beta1.ModeInfo.Single' as const,
+
   encode(
     message: ModeInfo_Single,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -903,6 +972,7 @@ export const ModeInfo_Single = {
 
   fromJSON(object: any): ModeInfo_Single {
     return {
+      $type: ModeInfo_Single.$type,
       mode: isSet(object.mode) ? signModeFromJSON(object.mode) : 0,
     };
   },
@@ -922,11 +992,19 @@ export const ModeInfo_Single = {
   },
 };
 
+messageTypeRegistry.set(ModeInfo_Single.$type, ModeInfo_Single);
+
 function createBaseModeInfo_Multi(): ModeInfo_Multi {
-  return { bitarray: undefined, modeInfos: [] };
+  return {
+    $type: 'cosmos.tx.v1beta1.ModeInfo.Multi',
+    bitarray: undefined,
+    modeInfos: [],
+  };
 }
 
 export const ModeInfo_Multi = {
+  $type: 'cosmos.tx.v1beta1.ModeInfo.Multi' as const,
+
   encode(
     message: ModeInfo_Multi,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -966,6 +1044,7 @@ export const ModeInfo_Multi = {
 
   fromJSON(object: any): ModeInfo_Multi {
     return {
+      $type: ModeInfo_Multi.$type,
       bitarray: isSet(object.bitarray)
         ? CompactBitArray.fromJSON(object.bitarray)
         : undefined,
@@ -1005,11 +1084,21 @@ export const ModeInfo_Multi = {
   },
 };
 
+messageTypeRegistry.set(ModeInfo_Multi.$type, ModeInfo_Multi);
+
 function createBaseFee(): Fee {
-  return { amount: [], gasLimit: Long.UZERO, payer: '', granter: '' };
+  return {
+    $type: 'cosmos.tx.v1beta1.Fee',
+    amount: [],
+    gasLimit: Long.UZERO,
+    payer: '',
+    granter: '',
+  };
 }
 
 export const Fee = {
+  $type: 'cosmos.tx.v1beta1.Fee' as const,
+
   encode(message: Fee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1055,6 +1144,7 @@ export const Fee = {
 
   fromJSON(object: any): Fee {
     return {
+      $type: Fee.$type,
       amount: Array.isArray(object?.amount)
         ? object.amount.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -1092,6 +1182,8 @@ export const Fee = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Fee.$type, Fee);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -1147,14 +1239,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

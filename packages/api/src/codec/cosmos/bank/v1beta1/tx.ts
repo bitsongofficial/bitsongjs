@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
 import { Input, Output } from './bank';
@@ -8,28 +9,41 @@ export const protobufPackage = 'cosmos.bank.v1beta1';
 
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
+  $type: 'cosmos.bank.v1beta1.MsgSend';
   fromAddress: string;
   toAddress: string;
   amount: Coin[];
 }
 
 /** MsgSendResponse defines the Msg/Send response type. */
-export interface MsgSendResponse {}
+export interface MsgSendResponse {
+  $type: 'cosmos.bank.v1beta1.MsgSendResponse';
+}
 
 /** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
 export interface MsgMultiSend {
+  $type: 'cosmos.bank.v1beta1.MsgMultiSend';
   inputs: Input[];
   outputs: Output[];
 }
 
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
-export interface MsgMultiSendResponse {}
+export interface MsgMultiSendResponse {
+  $type: 'cosmos.bank.v1beta1.MsgMultiSendResponse';
+}
 
 function createBaseMsgSend(): MsgSend {
-  return { fromAddress: '', toAddress: '', amount: [] };
+  return {
+    $type: 'cosmos.bank.v1beta1.MsgSend',
+    fromAddress: '',
+    toAddress: '',
+    amount: [],
+  };
 }
 
 export const MsgSend = {
+  $type: 'cosmos.bank.v1beta1.MsgSend' as const,
+
   encode(
     message: MsgSend,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -72,6 +86,7 @@ export const MsgSend = {
 
   fromJSON(object: any): MsgSend {
     return {
+      $type: MsgSend.$type,
       fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : '',
       toAddress: isSet(object.toAddress) ? String(object.toAddress) : '',
       amount: Array.isArray(object?.amount)
@@ -102,11 +117,15 @@ export const MsgSend = {
   },
 };
 
+messageTypeRegistry.set(MsgSend.$type, MsgSend);
+
 function createBaseMsgSendResponse(): MsgSendResponse {
-  return {};
+  return { $type: 'cosmos.bank.v1beta1.MsgSendResponse' };
 }
 
 export const MsgSendResponse = {
+  $type: 'cosmos.bank.v1beta1.MsgSendResponse' as const,
+
   encode(
     _: MsgSendResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -130,7 +149,9 @@ export const MsgSendResponse = {
   },
 
   fromJSON(_: any): MsgSendResponse {
-    return {};
+    return {
+      $type: MsgSendResponse.$type,
+    };
   },
 
   toJSON(_: MsgSendResponse): unknown {
@@ -146,11 +167,15 @@ export const MsgSendResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgSendResponse.$type, MsgSendResponse);
+
 function createBaseMsgMultiSend(): MsgMultiSend {
-  return { inputs: [], outputs: [] };
+  return { $type: 'cosmos.bank.v1beta1.MsgMultiSend', inputs: [], outputs: [] };
 }
 
 export const MsgMultiSend = {
+  $type: 'cosmos.bank.v1beta1.MsgMultiSend' as const,
+
   encode(
     message: MsgMultiSend,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -187,6 +212,7 @@ export const MsgMultiSend = {
 
   fromJSON(object: any): MsgMultiSend {
     return {
+      $type: MsgMultiSend.$type,
       inputs: Array.isArray(object?.inputs)
         ? object.inputs.map((e: any) => Input.fromJSON(e))
         : [],
@@ -223,11 +249,15 @@ export const MsgMultiSend = {
   },
 };
 
+messageTypeRegistry.set(MsgMultiSend.$type, MsgMultiSend);
+
 function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
-  return {};
+  return { $type: 'cosmos.bank.v1beta1.MsgMultiSendResponse' };
 }
 
 export const MsgMultiSendResponse = {
+  $type: 'cosmos.bank.v1beta1.MsgMultiSendResponse' as const,
+
   encode(
     _: MsgMultiSendResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -254,7 +284,9 @@ export const MsgMultiSendResponse = {
   },
 
   fromJSON(_: any): MsgMultiSendResponse {
-    return {};
+    return {
+      $type: MsgMultiSendResponse.$type,
+    };
   },
 
   toJSON(_: MsgMultiSendResponse): unknown {
@@ -269,6 +301,8 @@ export const MsgMultiSendResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(MsgMultiSendResponse.$type, MsgMultiSendResponse);
 
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -330,14 +364,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

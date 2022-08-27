@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -9,11 +10,13 @@ export const protobufPackage = 'google.protobuf';
  * files it parses.
  */
 export interface FileDescriptorSet {
+  $type: 'google.protobuf.FileDescriptorSet';
   file: FileDescriptorProto[];
 }
 
 /** Describes a complete .proto file. */
 export interface FileDescriptorProto {
+  $type: 'google.protobuf.FileDescriptorProto';
   /** file name, relative to root of source tree */
   name: string;
   /** e.g. "foo", "foo.bar", etc. */
@@ -49,6 +52,7 @@ export interface FileDescriptorProto {
 
 /** Describes a message type. */
 export interface DescriptorProto {
+  $type: 'google.protobuf.DescriptorProto';
   name: string;
   field: FieldDescriptorProto[];
   extension: FieldDescriptorProto[];
@@ -66,6 +70,7 @@ export interface DescriptorProto {
 }
 
 export interface DescriptorProto_ExtensionRange {
+  $type: 'google.protobuf.DescriptorProto.ExtensionRange';
   /** Inclusive. */
   start: number;
   /** Exclusive. */
@@ -79,6 +84,7 @@ export interface DescriptorProto_ExtensionRange {
  * not overlap.
  */
 export interface DescriptorProto_ReservedRange {
+  $type: 'google.protobuf.DescriptorProto.ReservedRange';
   /** Inclusive. */
   start: number;
   /** Exclusive. */
@@ -86,12 +92,14 @@ export interface DescriptorProto_ReservedRange {
 }
 
 export interface ExtensionRangeOptions {
+  $type: 'google.protobuf.ExtensionRangeOptions';
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
 
 /** Describes a field within a message. */
 export interface FieldDescriptorProto {
+  $type: 'google.protobuf.FieldDescriptorProto';
   name: string;
   number: number;
   label: FieldDescriptorProto_Label;
@@ -361,12 +369,14 @@ export function fieldDescriptorProto_LabelToJSON(
 
 /** Describes a oneof. */
 export interface OneofDescriptorProto {
+  $type: 'google.protobuf.OneofDescriptorProto';
   name: string;
   options?: OneofOptions;
 }
 
 /** Describes an enum type. */
 export interface EnumDescriptorProto {
+  $type: 'google.protobuf.EnumDescriptorProto';
   name: string;
   value: EnumValueDescriptorProto[];
   options?: EnumOptions;
@@ -392,6 +402,7 @@ export interface EnumDescriptorProto {
  * domain.
  */
 export interface EnumDescriptorProto_EnumReservedRange {
+  $type: 'google.protobuf.EnumDescriptorProto.EnumReservedRange';
   /** Inclusive. */
   start: number;
   /** Inclusive. */
@@ -400,6 +411,7 @@ export interface EnumDescriptorProto_EnumReservedRange {
 
 /** Describes a value within an enum. */
 export interface EnumValueDescriptorProto {
+  $type: 'google.protobuf.EnumValueDescriptorProto';
   name: string;
   number: number;
   options?: EnumValueOptions;
@@ -407,6 +419,7 @@ export interface EnumValueDescriptorProto {
 
 /** Describes a service. */
 export interface ServiceDescriptorProto {
+  $type: 'google.protobuf.ServiceDescriptorProto';
   name: string;
   method: MethodDescriptorProto[];
   options?: ServiceOptions;
@@ -414,6 +427,7 @@ export interface ServiceDescriptorProto {
 
 /** Describes a method of a service. */
 export interface MethodDescriptorProto {
+  $type: 'google.protobuf.MethodDescriptorProto';
   name: string;
   /**
    * Input and output type names.  These are resolved in the same way as
@@ -429,6 +443,7 @@ export interface MethodDescriptorProto {
 }
 
 export interface FileOptions {
+  $type: 'google.protobuf.FileOptions';
   /**
    * Sets the Java package where classes generated from this .proto will be
    * placed.  By default, the proto package is used, but this is often
@@ -597,6 +612,7 @@ export function fileOptions_OptimizeModeToJSON(
 }
 
 export interface MessageOptions {
+  $type: 'google.protobuf.MessageOptions';
   /**
    * Set true to use the old proto1 MessageSet wire format for extensions.
    * This is provided for backwards-compatibility with the MessageSet wire
@@ -660,6 +676,7 @@ export interface MessageOptions {
 }
 
 export interface FieldOptions {
+  $type: 'google.protobuf.FieldOptions';
   /**
    * The ctype option instructs the C++ code generator to use a different
    * representation of the field than it normally would.  See the specific
@@ -816,11 +833,13 @@ export function fieldOptions_JSTypeToJSON(object: FieldOptions_JSType): string {
 }
 
 export interface OneofOptions {
+  $type: 'google.protobuf.OneofOptions';
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
 
 export interface EnumOptions {
+  $type: 'google.protobuf.EnumOptions';
   /**
    * Set this option to true to allow mapping different tag names to the same
    * value.
@@ -838,6 +857,7 @@ export interface EnumOptions {
 }
 
 export interface EnumValueOptions {
+  $type: 'google.protobuf.EnumValueOptions';
   /**
    * Is this enum value deprecated?
    * Depending on the target platform, this can emit Deprecated annotations
@@ -850,6 +870,7 @@ export interface EnumValueOptions {
 }
 
 export interface ServiceOptions {
+  $type: 'google.protobuf.ServiceOptions';
   /**
    * Is this service deprecated?
    * Depending on the target platform, this can emit Deprecated annotations
@@ -862,6 +883,7 @@ export interface ServiceOptions {
 }
 
 export interface MethodOptions {
+  $type: 'google.protobuf.MethodOptions';
   /**
    * Is this method deprecated?
    * Depending on the target platform, this can emit Deprecated annotations
@@ -933,6 +955,7 @@ export function methodOptions_IdempotencyLevelToJSON(
  * in them.
  */
 export interface UninterpretedOption {
+  $type: 'google.protobuf.UninterpretedOption';
   name: UninterpretedOption_NamePart[];
   /**
    * The value of the uninterpreted option, in whatever type the tokenizer
@@ -954,6 +977,7 @@ export interface UninterpretedOption {
  * "foo.(bar.baz).qux".
  */
 export interface UninterpretedOption_NamePart {
+  $type: 'google.protobuf.UninterpretedOption.NamePart';
   namePart: string;
   isExtension: boolean;
 }
@@ -963,6 +987,7 @@ export interface UninterpretedOption_NamePart {
  * FileDescriptorProto was generated.
  */
 export interface SourceCodeInfo {
+  $type: 'google.protobuf.SourceCodeInfo';
   /**
    * A Location identifies a piece of source code in a .proto file which
    * corresponds to a particular definition.  This information is intended
@@ -1012,6 +1037,7 @@ export interface SourceCodeInfo {
 }
 
 export interface SourceCodeInfo_Location {
+  $type: 'google.protobuf.SourceCodeInfo.Location';
   /**
    * Identifies which part of the FileDescriptorProto was defined at this
    * location.
@@ -1106,6 +1132,7 @@ export interface SourceCodeInfo_Location {
  * source file, but may contain references to different source .proto files.
  */
 export interface GeneratedCodeInfo {
+  $type: 'google.protobuf.GeneratedCodeInfo';
   /**
    * An Annotation connects some span of text in generated code to an element
    * of its generating .proto file.
@@ -1114,6 +1141,7 @@ export interface GeneratedCodeInfo {
 }
 
 export interface GeneratedCodeInfo_Annotation {
+  $type: 'google.protobuf.GeneratedCodeInfo.Annotation';
   /**
    * Identifies the element in the original source .proto file. This field
    * is formatted the same as SourceCodeInfo.Location.path.
@@ -1135,10 +1163,12 @@ export interface GeneratedCodeInfo_Annotation {
 }
 
 function createBaseFileDescriptorSet(): FileDescriptorSet {
-  return { file: [] };
+  return { $type: 'google.protobuf.FileDescriptorSet', file: [] };
 }
 
 export const FileDescriptorSet = {
+  $type: 'google.protobuf.FileDescriptorSet' as const,
+
   encode(
     message: FileDescriptorSet,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1171,6 +1201,7 @@ export const FileDescriptorSet = {
 
   fromJSON(object: any): FileDescriptorSet {
     return {
+      $type: FileDescriptorSet.$type,
       file: Array.isArray(object?.file)
         ? object.file.map((e: any) => FileDescriptorProto.fromJSON(e))
         : [],
@@ -1199,8 +1230,11 @@ export const FileDescriptorSet = {
   },
 };
 
+messageTypeRegistry.set(FileDescriptorSet.$type, FileDescriptorSet);
+
 function createBaseFileDescriptorProto(): FileDescriptorProto {
   return {
+    $type: 'google.protobuf.FileDescriptorProto',
     name: '',
     package: '',
     dependency: [],
@@ -1217,6 +1251,8 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
 }
 
 export const FileDescriptorProto = {
+  $type: 'google.protobuf.FileDescriptorProto' as const,
+
   encode(
     message: FileDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1345,6 +1381,7 @@ export const FileDescriptorProto = {
 
   fromJSON(object: any): FileDescriptorProto {
     return {
+      $type: FileDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       package: isSet(object.package) ? String(object.package) : '',
       dependency: Array.isArray(object?.dependency)
@@ -1467,8 +1504,11 @@ export const FileDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(FileDescriptorProto.$type, FileDescriptorProto);
+
 function createBaseDescriptorProto(): DescriptorProto {
   return {
+    $type: 'google.protobuf.DescriptorProto',
     name: '',
     field: [],
     extension: [],
@@ -1483,6 +1523,8 @@ function createBaseDescriptorProto(): DescriptorProto {
 }
 
 export const DescriptorProto = {
+  $type: 'google.protobuf.DescriptorProto' as const,
+
   encode(
     message: DescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1587,6 +1629,7 @@ export const DescriptorProto = {
 
   fromJSON(object: any): DescriptorProto {
     return {
+      $type: DescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       field: Array.isArray(object?.field)
         ? object.field.map((e: any) => FieldDescriptorProto.fromJSON(e))
@@ -1718,11 +1761,20 @@ export const DescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(DescriptorProto.$type, DescriptorProto);
+
 function createBaseDescriptorProto_ExtensionRange(): DescriptorProto_ExtensionRange {
-  return { start: 0, end: 0, options: undefined };
+  return {
+    $type: 'google.protobuf.DescriptorProto.ExtensionRange',
+    start: 0,
+    end: 0,
+    options: undefined,
+  };
 }
 
 export const DescriptorProto_ExtensionRange = {
+  $type: 'google.protobuf.DescriptorProto.ExtensionRange' as const,
+
   encode(
     message: DescriptorProto_ExtensionRange,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1774,6 +1826,7 @@ export const DescriptorProto_ExtensionRange = {
 
   fromJSON(object: any): DescriptorProto_ExtensionRange {
     return {
+      $type: DescriptorProto_ExtensionRange.$type,
       start: isSet(object.start) ? Number(object.start) : 0,
       end: isSet(object.end) ? Number(object.end) : 0,
       options: isSet(object.options)
@@ -1807,11 +1860,22 @@ export const DescriptorProto_ExtensionRange = {
   },
 };
 
+messageTypeRegistry.set(
+  DescriptorProto_ExtensionRange.$type,
+  DescriptorProto_ExtensionRange,
+);
+
 function createBaseDescriptorProto_ReservedRange(): DescriptorProto_ReservedRange {
-  return { start: 0, end: 0 };
+  return {
+    $type: 'google.protobuf.DescriptorProto.ReservedRange',
+    start: 0,
+    end: 0,
+  };
 }
 
 export const DescriptorProto_ReservedRange = {
+  $type: 'google.protobuf.DescriptorProto.ReservedRange' as const,
+
   encode(
     message: DescriptorProto_ReservedRange,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1851,6 +1915,7 @@ export const DescriptorProto_ReservedRange = {
 
   fromJSON(object: any): DescriptorProto_ReservedRange {
     return {
+      $type: DescriptorProto_ReservedRange.$type,
       start: isSet(object.start) ? Number(object.start) : 0,
       end: isSet(object.end) ? Number(object.end) : 0,
     };
@@ -1873,11 +1938,21 @@ export const DescriptorProto_ReservedRange = {
   },
 };
 
+messageTypeRegistry.set(
+  DescriptorProto_ReservedRange.$type,
+  DescriptorProto_ReservedRange,
+);
+
 function createBaseExtensionRangeOptions(): ExtensionRangeOptions {
-  return { uninterpretedOption: [] };
+  return {
+    $type: 'google.protobuf.ExtensionRangeOptions',
+    uninterpretedOption: [],
+  };
 }
 
 export const ExtensionRangeOptions = {
+  $type: 'google.protobuf.ExtensionRangeOptions' as const,
+
   encode(
     message: ExtensionRangeOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1913,6 +1988,7 @@ export const ExtensionRangeOptions = {
 
   fromJSON(object: any): ExtensionRangeOptions {
     return {
+      $type: ExtensionRangeOptions.$type,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) =>
             UninterpretedOption.fromJSON(e),
@@ -1945,8 +2021,11 @@ export const ExtensionRangeOptions = {
   },
 };
 
+messageTypeRegistry.set(ExtensionRangeOptions.$type, ExtensionRangeOptions);
+
 function createBaseFieldDescriptorProto(): FieldDescriptorProto {
   return {
+    $type: 'google.protobuf.FieldDescriptorProto',
     name: '',
     number: 0,
     label: 1,
@@ -1962,6 +2041,8 @@ function createBaseFieldDescriptorProto(): FieldDescriptorProto {
 }
 
 export const FieldDescriptorProto = {
+  $type: 'google.protobuf.FieldDescriptorProto' as const,
+
   encode(
     message: FieldDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2055,6 +2136,7 @@ export const FieldDescriptorProto = {
 
   fromJSON(object: any): FieldDescriptorProto {
     return {
+      $type: FieldDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       number: isSet(object.number) ? Number(object.number) : 0,
       label: isSet(object.label)
@@ -2125,11 +2207,19 @@ export const FieldDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(FieldDescriptorProto.$type, FieldDescriptorProto);
+
 function createBaseOneofDescriptorProto(): OneofDescriptorProto {
-  return { name: '', options: undefined };
+  return {
+    $type: 'google.protobuf.OneofDescriptorProto',
+    name: '',
+    options: undefined,
+  };
 }
 
 export const OneofDescriptorProto = {
+  $type: 'google.protobuf.OneofDescriptorProto' as const,
+
   encode(
     message: OneofDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2169,6 +2259,7 @@ export const OneofDescriptorProto = {
 
   fromJSON(object: any): OneofDescriptorProto {
     return {
+      $type: OneofDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       options: isSet(object.options)
         ? OneofOptions.fromJSON(object.options)
@@ -2199,8 +2290,11 @@ export const OneofDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(OneofDescriptorProto.$type, OneofDescriptorProto);
+
 function createBaseEnumDescriptorProto(): EnumDescriptorProto {
   return {
+    $type: 'google.protobuf.EnumDescriptorProto',
     name: '',
     value: [],
     options: undefined,
@@ -2210,6 +2304,8 @@ function createBaseEnumDescriptorProto(): EnumDescriptorProto {
 }
 
 export const EnumDescriptorProto = {
+  $type: 'google.protobuf.EnumDescriptorProto' as const,
+
   encode(
     message: EnumDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2274,6 +2370,7 @@ export const EnumDescriptorProto = {
 
   fromJSON(object: any): EnumDescriptorProto {
     return {
+      $type: EnumDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       value: Array.isArray(object?.value)
         ? object.value.map((e: any) => EnumValueDescriptorProto.fromJSON(e))
@@ -2341,11 +2438,19 @@ export const EnumDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(EnumDescriptorProto.$type, EnumDescriptorProto);
+
 function createBaseEnumDescriptorProto_EnumReservedRange(): EnumDescriptorProto_EnumReservedRange {
-  return { start: 0, end: 0 };
+  return {
+    $type: 'google.protobuf.EnumDescriptorProto.EnumReservedRange',
+    start: 0,
+    end: 0,
+  };
 }
 
 export const EnumDescriptorProto_EnumReservedRange = {
+  $type: 'google.protobuf.EnumDescriptorProto.EnumReservedRange' as const,
+
   encode(
     message: EnumDescriptorProto_EnumReservedRange,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2385,6 +2490,7 @@ export const EnumDescriptorProto_EnumReservedRange = {
 
   fromJSON(object: any): EnumDescriptorProto_EnumReservedRange {
     return {
+      $type: EnumDescriptorProto_EnumReservedRange.$type,
       start: isSet(object.start) ? Number(object.start) : 0,
       end: isSet(object.end) ? Number(object.end) : 0,
     };
@@ -2407,11 +2513,23 @@ export const EnumDescriptorProto_EnumReservedRange = {
   },
 };
 
+messageTypeRegistry.set(
+  EnumDescriptorProto_EnumReservedRange.$type,
+  EnumDescriptorProto_EnumReservedRange,
+);
+
 function createBaseEnumValueDescriptorProto(): EnumValueDescriptorProto {
-  return { name: '', number: 0, options: undefined };
+  return {
+    $type: 'google.protobuf.EnumValueDescriptorProto',
+    name: '',
+    number: 0,
+    options: undefined,
+  };
 }
 
 export const EnumValueDescriptorProto = {
+  $type: 'google.protobuf.EnumValueDescriptorProto' as const,
+
   encode(
     message: EnumValueDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2460,6 +2578,7 @@ export const EnumValueDescriptorProto = {
 
   fromJSON(object: any): EnumValueDescriptorProto {
     return {
+      $type: EnumValueDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       number: isSet(object.number) ? Number(object.number) : 0,
       options: isSet(object.options)
@@ -2493,11 +2612,23 @@ export const EnumValueDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(
+  EnumValueDescriptorProto.$type,
+  EnumValueDescriptorProto,
+);
+
 function createBaseServiceDescriptorProto(): ServiceDescriptorProto {
-  return { name: '', method: [], options: undefined };
+  return {
+    $type: 'google.protobuf.ServiceDescriptorProto',
+    name: '',
+    method: [],
+    options: undefined,
+  };
 }
 
 export const ServiceDescriptorProto = {
+  $type: 'google.protobuf.ServiceDescriptorProto' as const,
+
   encode(
     message: ServiceDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2545,6 +2676,7 @@ export const ServiceDescriptorProto = {
 
   fromJSON(object: any): ServiceDescriptorProto {
     return {
+      $type: ServiceDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       method: Array.isArray(object?.method)
         ? object.method.map((e: any) => MethodDescriptorProto.fromJSON(e))
@@ -2587,8 +2719,11 @@ export const ServiceDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(ServiceDescriptorProto.$type, ServiceDescriptorProto);
+
 function createBaseMethodDescriptorProto(): MethodDescriptorProto {
   return {
+    $type: 'google.protobuf.MethodDescriptorProto',
     name: '',
     inputType: '',
     outputType: '',
@@ -2599,6 +2734,8 @@ function createBaseMethodDescriptorProto(): MethodDescriptorProto {
 }
 
 export const MethodDescriptorProto = {
+  $type: 'google.protobuf.MethodDescriptorProto' as const,
+
   encode(
     message: MethodDescriptorProto,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2662,6 +2799,7 @@ export const MethodDescriptorProto = {
 
   fromJSON(object: any): MethodDescriptorProto {
     return {
+      $type: MethodDescriptorProto.$type,
       name: isSet(object.name) ? String(object.name) : '',
       inputType: isSet(object.inputType) ? String(object.inputType) : '',
       outputType: isSet(object.outputType) ? String(object.outputType) : '',
@@ -2710,8 +2848,11 @@ export const MethodDescriptorProto = {
   },
 };
 
+messageTypeRegistry.set(MethodDescriptorProto.$type, MethodDescriptorProto);
+
 function createBaseFileOptions(): FileOptions {
   return {
+    $type: 'google.protobuf.FileOptions',
     javaPackage: '',
     javaOuterClassname: '',
     javaMultipleFiles: false,
@@ -2737,6 +2878,8 @@ function createBaseFileOptions(): FileOptions {
 }
 
 export const FileOptions = {
+  $type: 'google.protobuf.FileOptions' as const,
+
   encode(
     message: FileOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2889,6 +3032,7 @@ export const FileOptions = {
 
   fromJSON(object: any): FileOptions {
     return {
+      $type: FileOptions.$type,
       javaPackage: isSet(object.javaPackage) ? String(object.javaPackage) : '',
       javaOuterClassname: isSet(object.javaOuterClassname)
         ? String(object.javaOuterClassname)
@@ -3030,8 +3174,11 @@ export const FileOptions = {
   },
 };
 
+messageTypeRegistry.set(FileOptions.$type, FileOptions);
+
 function createBaseMessageOptions(): MessageOptions {
   return {
+    $type: 'google.protobuf.MessageOptions',
     messageSetWireFormat: false,
     noStandardDescriptorAccessor: false,
     deprecated: false,
@@ -3041,6 +3188,8 @@ function createBaseMessageOptions(): MessageOptions {
 }
 
 export const MessageOptions = {
+  $type: 'google.protobuf.MessageOptions' as const,
+
   encode(
     message: MessageOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3097,6 +3246,7 @@ export const MessageOptions = {
 
   fromJSON(object: any): MessageOptions {
     return {
+      $type: MessageOptions.$type,
       messageSetWireFormat: isSet(object.messageSetWireFormat)
         ? Boolean(object.messageSetWireFormat)
         : false,
@@ -3148,8 +3298,11 @@ export const MessageOptions = {
   },
 };
 
+messageTypeRegistry.set(MessageOptions.$type, MessageOptions);
+
 function createBaseFieldOptions(): FieldOptions {
   return {
+    $type: 'google.protobuf.FieldOptions',
     ctype: 0,
     packed: false,
     jstype: 0,
@@ -3161,6 +3314,8 @@ function createBaseFieldOptions(): FieldOptions {
 }
 
 export const FieldOptions = {
+  $type: 'google.protobuf.FieldOptions' as const,
+
   encode(
     message: FieldOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3229,6 +3384,7 @@ export const FieldOptions = {
 
   fromJSON(object: any): FieldOptions {
     return {
+      $type: FieldOptions.$type,
       ctype: isSet(object.ctype) ? fieldOptions_CTypeFromJSON(object.ctype) : 0,
       packed: isSet(object.packed) ? Boolean(object.packed) : false,
       jstype: isSet(object.jstype)
@@ -3283,11 +3439,15 @@ export const FieldOptions = {
   },
 };
 
+messageTypeRegistry.set(FieldOptions.$type, FieldOptions);
+
 function createBaseOneofOptions(): OneofOptions {
-  return { uninterpretedOption: [] };
+  return { $type: 'google.protobuf.OneofOptions', uninterpretedOption: [] };
 }
 
 export const OneofOptions = {
+  $type: 'google.protobuf.OneofOptions' as const,
+
   encode(
     message: OneofOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3320,6 +3480,7 @@ export const OneofOptions = {
 
   fromJSON(object: any): OneofOptions {
     return {
+      $type: OneofOptions.$type,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) =>
             UninterpretedOption.fromJSON(e),
@@ -3352,11 +3513,20 @@ export const OneofOptions = {
   },
 };
 
+messageTypeRegistry.set(OneofOptions.$type, OneofOptions);
+
 function createBaseEnumOptions(): EnumOptions {
-  return { allowAlias: false, deprecated: false, uninterpretedOption: [] };
+  return {
+    $type: 'google.protobuf.EnumOptions',
+    allowAlias: false,
+    deprecated: false,
+    uninterpretedOption: [],
+  };
 }
 
 export const EnumOptions = {
+  $type: 'google.protobuf.EnumOptions' as const,
+
   encode(
     message: EnumOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3401,6 +3571,7 @@ export const EnumOptions = {
 
   fromJSON(object: any): EnumOptions {
     return {
+      $type: EnumOptions.$type,
       allowAlias: isSet(object.allowAlias) ? Boolean(object.allowAlias) : false,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
@@ -3439,11 +3610,19 @@ export const EnumOptions = {
   },
 };
 
+messageTypeRegistry.set(EnumOptions.$type, EnumOptions);
+
 function createBaseEnumValueOptions(): EnumValueOptions {
-  return { deprecated: false, uninterpretedOption: [] };
+  return {
+    $type: 'google.protobuf.EnumValueOptions',
+    deprecated: false,
+    uninterpretedOption: [],
+  };
 }
 
 export const EnumValueOptions = {
+  $type: 'google.protobuf.EnumValueOptions' as const,
+
   encode(
     message: EnumValueOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3482,6 +3661,7 @@ export const EnumValueOptions = {
 
   fromJSON(object: any): EnumValueOptions {
     return {
+      $type: EnumValueOptions.$type,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) =>
@@ -3517,11 +3697,19 @@ export const EnumValueOptions = {
   },
 };
 
+messageTypeRegistry.set(EnumValueOptions.$type, EnumValueOptions);
+
 function createBaseServiceOptions(): ServiceOptions {
-  return { deprecated: false, uninterpretedOption: [] };
+  return {
+    $type: 'google.protobuf.ServiceOptions',
+    deprecated: false,
+    uninterpretedOption: [],
+  };
 }
 
 export const ServiceOptions = {
+  $type: 'google.protobuf.ServiceOptions' as const,
+
   encode(
     message: ServiceOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3560,6 +3748,7 @@ export const ServiceOptions = {
 
   fromJSON(object: any): ServiceOptions {
     return {
+      $type: ServiceOptions.$type,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       uninterpretedOption: Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) =>
@@ -3595,11 +3784,20 @@ export const ServiceOptions = {
   },
 };
 
+messageTypeRegistry.set(ServiceOptions.$type, ServiceOptions);
+
 function createBaseMethodOptions(): MethodOptions {
-  return { deprecated: false, idempotencyLevel: 0, uninterpretedOption: [] };
+  return {
+    $type: 'google.protobuf.MethodOptions',
+    deprecated: false,
+    idempotencyLevel: 0,
+    uninterpretedOption: [],
+  };
 }
 
 export const MethodOptions = {
+  $type: 'google.protobuf.MethodOptions' as const,
+
   encode(
     message: MethodOptions,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3644,6 +3842,7 @@ export const MethodOptions = {
 
   fromJSON(object: any): MethodOptions {
     return {
+      $type: MethodOptions.$type,
       deprecated: isSet(object.deprecated) ? Boolean(object.deprecated) : false,
       idempotencyLevel: isSet(object.idempotencyLevel)
         ? methodOptions_IdempotencyLevelFromJSON(object.idempotencyLevel)
@@ -3687,8 +3886,11 @@ export const MethodOptions = {
   },
 };
 
+messageTypeRegistry.set(MethodOptions.$type, MethodOptions);
+
 function createBaseUninterpretedOption(): UninterpretedOption {
   return {
+    $type: 'google.protobuf.UninterpretedOption',
     name: [],
     identifierValue: '',
     positiveIntValue: Long.UZERO,
@@ -3700,6 +3902,8 @@ function createBaseUninterpretedOption(): UninterpretedOption {
 }
 
 export const UninterpretedOption = {
+  $type: 'google.protobuf.UninterpretedOption' as const,
+
   encode(
     message: UninterpretedOption,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3771,6 +3975,7 @@ export const UninterpretedOption = {
 
   fromJSON(object: any): UninterpretedOption {
     return {
+      $type: UninterpretedOption.$type,
       name: Array.isArray(object?.name)
         ? object.name.map((e: any) => UninterpretedOption_NamePart.fromJSON(e))
         : [],
@@ -3847,11 +4052,19 @@ export const UninterpretedOption = {
   },
 };
 
+messageTypeRegistry.set(UninterpretedOption.$type, UninterpretedOption);
+
 function createBaseUninterpretedOption_NamePart(): UninterpretedOption_NamePart {
-  return { namePart: '', isExtension: false };
+  return {
+    $type: 'google.protobuf.UninterpretedOption.NamePart',
+    namePart: '',
+    isExtension: false,
+  };
 }
 
 export const UninterpretedOption_NamePart = {
+  $type: 'google.protobuf.UninterpretedOption.NamePart' as const,
+
   encode(
     message: UninterpretedOption_NamePart,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3891,6 +4104,7 @@ export const UninterpretedOption_NamePart = {
 
   fromJSON(object: any): UninterpretedOption_NamePart {
     return {
+      $type: UninterpretedOption_NamePart.$type,
       namePart: isSet(object.namePart) ? String(object.namePart) : '',
       isExtension: isSet(object.isExtension)
         ? Boolean(object.isExtension)
@@ -3916,11 +4130,18 @@ export const UninterpretedOption_NamePart = {
   },
 };
 
+messageTypeRegistry.set(
+  UninterpretedOption_NamePart.$type,
+  UninterpretedOption_NamePart,
+);
+
 function createBaseSourceCodeInfo(): SourceCodeInfo {
-  return { location: [] };
+  return { $type: 'google.protobuf.SourceCodeInfo', location: [] };
 }
 
 export const SourceCodeInfo = {
+  $type: 'google.protobuf.SourceCodeInfo' as const,
+
   encode(
     message: SourceCodeInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -3953,6 +4174,7 @@ export const SourceCodeInfo = {
 
   fromJSON(object: any): SourceCodeInfo {
     return {
+      $type: SourceCodeInfo.$type,
       location: Array.isArray(object?.location)
         ? object.location.map((e: any) => SourceCodeInfo_Location.fromJSON(e))
         : [],
@@ -3981,8 +4203,11 @@ export const SourceCodeInfo = {
   },
 };
 
+messageTypeRegistry.set(SourceCodeInfo.$type, SourceCodeInfo);
+
 function createBaseSourceCodeInfo_Location(): SourceCodeInfo_Location {
   return {
+    $type: 'google.protobuf.SourceCodeInfo.Location',
     path: [],
     span: [],
     leadingComments: '',
@@ -3992,6 +4217,8 @@ function createBaseSourceCodeInfo_Location(): SourceCodeInfo_Location {
 }
 
 export const SourceCodeInfo_Location = {
+  $type: 'google.protobuf.SourceCodeInfo.Location' as const,
+
   encode(
     message: SourceCodeInfo_Location,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -4067,6 +4294,7 @@ export const SourceCodeInfo_Location = {
 
   fromJSON(object: any): SourceCodeInfo_Location {
     return {
+      $type: SourceCodeInfo_Location.$type,
       path: Array.isArray(object?.path)
         ? object.path.map((e: any) => Number(e))
         : [],
@@ -4123,11 +4351,15 @@ export const SourceCodeInfo_Location = {
   },
 };
 
+messageTypeRegistry.set(SourceCodeInfo_Location.$type, SourceCodeInfo_Location);
+
 function createBaseGeneratedCodeInfo(): GeneratedCodeInfo {
-  return { annotation: [] };
+  return { $type: 'google.protobuf.GeneratedCodeInfo', annotation: [] };
 }
 
 export const GeneratedCodeInfo = {
+  $type: 'google.protobuf.GeneratedCodeInfo' as const,
+
   encode(
     message: GeneratedCodeInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -4163,6 +4395,7 @@ export const GeneratedCodeInfo = {
 
   fromJSON(object: any): GeneratedCodeInfo {
     return {
+      $type: GeneratedCodeInfo.$type,
       annotation: Array.isArray(object?.annotation)
         ? object.annotation.map((e: any) =>
             GeneratedCodeInfo_Annotation.fromJSON(e),
@@ -4195,11 +4428,21 @@ export const GeneratedCodeInfo = {
   },
 };
 
+messageTypeRegistry.set(GeneratedCodeInfo.$type, GeneratedCodeInfo);
+
 function createBaseGeneratedCodeInfo_Annotation(): GeneratedCodeInfo_Annotation {
-  return { path: [], sourceFile: '', begin: 0, end: 0 };
+  return {
+    $type: 'google.protobuf.GeneratedCodeInfo.Annotation',
+    path: [],
+    sourceFile: '',
+    begin: 0,
+    end: 0,
+  };
 }
 
 export const GeneratedCodeInfo_Annotation = {
+  $type: 'google.protobuf.GeneratedCodeInfo.Annotation' as const,
+
   encode(
     message: GeneratedCodeInfo_Annotation,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -4260,6 +4503,7 @@ export const GeneratedCodeInfo_Annotation = {
 
   fromJSON(object: any): GeneratedCodeInfo_Annotation {
     return {
+      $type: GeneratedCodeInfo_Annotation.$type,
       path: Array.isArray(object?.path)
         ? object.path.map((e: any) => Number(e))
         : [],
@@ -4293,6 +4537,11 @@ export const GeneratedCodeInfo_Annotation = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  GeneratedCodeInfo_Annotation.$type,
+  GeneratedCodeInfo_Annotation,
+);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -4348,14 +4597,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

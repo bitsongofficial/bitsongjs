@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import { Header, Data, Commit } from './types';
 import { EvidenceList } from './evidence';
 import Long from 'long';
@@ -7,6 +8,7 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'tendermint.types';
 
 export interface Block {
+  $type: 'tendermint.types.Block';
   header?: Header;
   data?: Data;
   evidence?: EvidenceList;
@@ -15,6 +17,7 @@ export interface Block {
 
 function createBaseBlock(): Block {
   return {
+    $type: 'tendermint.types.Block',
     header: undefined,
     data: undefined,
     evidence: undefined,
@@ -23,6 +26,8 @@ function createBaseBlock(): Block {
 }
 
 export const Block = {
+  $type: 'tendermint.types.Block' as const,
+
   encode(message: Block, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(10).fork()).ldelim();
@@ -68,6 +73,7 @@ export const Block = {
 
   fromJSON(object: any): Block {
     return {
+      $type: Block.$type,
       header: isSet(object.header) ? Header.fromJSON(object.header) : undefined,
       data: isSet(object.data) ? Data.fromJSON(object.data) : undefined,
       evidence: isSet(object.evidence)
@@ -118,6 +124,8 @@ export const Block = {
   },
 };
 
+messageTypeRegistry.set(Block.$type, Block);
+
 type Builtin =
   | Date
   | Function
@@ -136,14 +144,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

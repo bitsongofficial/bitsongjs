@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'bitsong.fantoken';
 
 /** MsgIssue defines a message for issuing a new fan token */
 export interface MsgIssue {
+  $type: 'bitsong.fantoken.MsgIssue';
   /** symbol which corresponds to the symbol of the fan token. It is a string and cannot change for the whole life of the fan token */
   symbol: string;
   /** name which corresponds to the name of the fan token. It is a string and cannot change for the whole life of the fan token */
@@ -22,19 +24,25 @@ export interface MsgIssue {
 }
 
 /** MsgIssueResponse defines the MsgIssue response type */
-export interface MsgIssueResponse {}
+export interface MsgIssueResponse {
+  $type: 'bitsong.fantoken.MsgIssueResponse';
+}
 
 /** MsgDisableMint defines a message for disable the mint function */
 export interface MsgDisableMint {
+  $type: 'bitsong.fantoken.MsgDisableMint';
   denom: string;
   minter: string;
 }
 
 /** MsgDisableMintResponse defines the MsgDisableMint response type */
-export interface MsgDisableMintResponse {}
+export interface MsgDisableMintResponse {
+  $type: 'bitsong.fantoken.MsgDisableMintResponse';
+}
 
 /** MsgMint defines a message for minting a new fan token */
 export interface MsgMint {
+  $type: 'bitsong.fantoken.MsgMint';
   recipient: string;
   /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
   coin?: Coin;
@@ -42,20 +50,26 @@ export interface MsgMint {
 }
 
 /** MsgMintResponse defines the MsgMint response type */
-export interface MsgMintResponse {}
+export interface MsgMintResponse {
+  $type: 'bitsong.fantoken.MsgMintResponse';
+}
 
 /** MsgBurn defines a message for burning some fan tokens */
 export interface MsgBurn {
+  $type: 'bitsong.fantoken.MsgBurn';
   /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
   coin?: Coin;
   sender: string;
 }
 
 /** MsgBurnResponse defines the MsgBurn response type */
-export interface MsgBurnResponse {}
+export interface MsgBurnResponse {
+  $type: 'bitsong.fantoken.MsgBurnResponse';
+}
 
 /** MsgSetMinter defines a message for changing the fan token minter address */
 export interface MsgSetMinter {
+  $type: 'bitsong.fantoken.MsgSetMinter';
   /** denom the fan token denom */
   denom: string;
   /** old_minter, the actual minter */
@@ -65,10 +79,13 @@ export interface MsgSetMinter {
 }
 
 /** MsgSetMinterResponse defines the MsgTransferAuthority response type */
-export interface MsgSetMinterResponse {}
+export interface MsgSetMinterResponse {
+  $type: 'bitsong.fantoken.MsgSetMinterResponse';
+}
 
 /** MsgSetAuthority defines a message for changing the fan token minter address */
 export interface MsgSetAuthority {
+  $type: 'bitsong.fantoken.MsgSetAuthority';
   /** denom the fan token denom */
   denom: string;
   /** old_authority, the actual metadata authority */
@@ -78,18 +95,24 @@ export interface MsgSetAuthority {
 }
 
 /** MsgSetAuthorityResponse defines the MsgTransferAuthority response type */
-export interface MsgSetAuthorityResponse {}
+export interface MsgSetAuthorityResponse {
+  $type: 'bitsong.fantoken.MsgSetAuthorityResponse';
+}
 
 export interface MsgSetUri {
+  $type: 'bitsong.fantoken.MsgSetUri';
   authority: string;
   denom: string;
   uri: string;
 }
 
-export interface MsgSetUriResponse {}
+export interface MsgSetUriResponse {
+  $type: 'bitsong.fantoken.MsgSetUriResponse';
+}
 
 function createBaseMsgIssue(): MsgIssue {
   return {
+    $type: 'bitsong.fantoken.MsgIssue',
     symbol: '',
     name: '',
     maxSupply: '',
@@ -100,6 +123,8 @@ function createBaseMsgIssue(): MsgIssue {
 }
 
 export const MsgIssue = {
+  $type: 'bitsong.fantoken.MsgIssue' as const,
+
   encode(
     message: MsgIssue,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -160,6 +185,7 @@ export const MsgIssue = {
 
   fromJSON(object: any): MsgIssue {
     return {
+      $type: MsgIssue.$type,
       symbol: isSet(object.symbol) ? String(object.symbol) : '',
       name: isSet(object.name) ? String(object.name) : '',
       maxSupply: isSet(object.maxSupply) ? String(object.maxSupply) : '',
@@ -192,11 +218,15 @@ export const MsgIssue = {
   },
 };
 
+messageTypeRegistry.set(MsgIssue.$type, MsgIssue);
+
 function createBaseMsgIssueResponse(): MsgIssueResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgIssueResponse' };
 }
 
 export const MsgIssueResponse = {
+  $type: 'bitsong.fantoken.MsgIssueResponse' as const,
+
   encode(
     _: MsgIssueResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -220,7 +250,9 @@ export const MsgIssueResponse = {
   },
 
   fromJSON(_: any): MsgIssueResponse {
-    return {};
+    return {
+      $type: MsgIssueResponse.$type,
+    };
   },
 
   toJSON(_: MsgIssueResponse): unknown {
@@ -236,11 +268,15 @@ export const MsgIssueResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgIssueResponse.$type, MsgIssueResponse);
+
 function createBaseMsgDisableMint(): MsgDisableMint {
-  return { denom: '', minter: '' };
+  return { $type: 'bitsong.fantoken.MsgDisableMint', denom: '', minter: '' };
 }
 
 export const MsgDisableMint = {
+  $type: 'bitsong.fantoken.MsgDisableMint' as const,
+
   encode(
     message: MsgDisableMint,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -277,6 +313,7 @@ export const MsgDisableMint = {
 
   fromJSON(object: any): MsgDisableMint {
     return {
+      $type: MsgDisableMint.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       minter: isSet(object.minter) ? String(object.minter) : '',
     };
@@ -299,11 +336,15 @@ export const MsgDisableMint = {
   },
 };
 
+messageTypeRegistry.set(MsgDisableMint.$type, MsgDisableMint);
+
 function createBaseMsgDisableMintResponse(): MsgDisableMintResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgDisableMintResponse' };
 }
 
 export const MsgDisableMintResponse = {
+  $type: 'bitsong.fantoken.MsgDisableMintResponse' as const,
+
   encode(
     _: MsgDisableMintResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -330,7 +371,9 @@ export const MsgDisableMintResponse = {
   },
 
   fromJSON(_: any): MsgDisableMintResponse {
-    return {};
+    return {
+      $type: MsgDisableMintResponse.$type,
+    };
   },
 
   toJSON(_: MsgDisableMintResponse): unknown {
@@ -346,11 +389,20 @@ export const MsgDisableMintResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgDisableMintResponse.$type, MsgDisableMintResponse);
+
 function createBaseMsgMint(): MsgMint {
-  return { recipient: '', coin: undefined, minter: '' };
+  return {
+    $type: 'bitsong.fantoken.MsgMint',
+    recipient: '',
+    coin: undefined,
+    minter: '',
+  };
 }
 
 export const MsgMint = {
+  $type: 'bitsong.fantoken.MsgMint' as const,
+
   encode(
     message: MsgMint,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -393,6 +445,7 @@ export const MsgMint = {
 
   fromJSON(object: any): MsgMint {
     return {
+      $type: MsgMint.$type,
       recipient: isSet(object.recipient) ? String(object.recipient) : '',
       coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
       minter: isSet(object.minter) ? String(object.minter) : '',
@@ -420,11 +473,15 @@ export const MsgMint = {
   },
 };
 
+messageTypeRegistry.set(MsgMint.$type, MsgMint);
+
 function createBaseMsgMintResponse(): MsgMintResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgMintResponse' };
 }
 
 export const MsgMintResponse = {
+  $type: 'bitsong.fantoken.MsgMintResponse' as const,
+
   encode(
     _: MsgMintResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -448,7 +505,9 @@ export const MsgMintResponse = {
   },
 
   fromJSON(_: any): MsgMintResponse {
-    return {};
+    return {
+      $type: MsgMintResponse.$type,
+    };
   },
 
   toJSON(_: MsgMintResponse): unknown {
@@ -464,11 +523,15 @@ export const MsgMintResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgMintResponse.$type, MsgMintResponse);
+
 function createBaseMsgBurn(): MsgBurn {
-  return { coin: undefined, sender: '' };
+  return { $type: 'bitsong.fantoken.MsgBurn', coin: undefined, sender: '' };
 }
 
 export const MsgBurn = {
+  $type: 'bitsong.fantoken.MsgBurn' as const,
+
   encode(
     message: MsgBurn,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -505,6 +568,7 @@ export const MsgBurn = {
 
   fromJSON(object: any): MsgBurn {
     return {
+      $type: MsgBurn.$type,
       coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
       sender: isSet(object.sender) ? String(object.sender) : '',
     };
@@ -529,11 +593,15 @@ export const MsgBurn = {
   },
 };
 
+messageTypeRegistry.set(MsgBurn.$type, MsgBurn);
+
 function createBaseMsgBurnResponse(): MsgBurnResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgBurnResponse' };
 }
 
 export const MsgBurnResponse = {
+  $type: 'bitsong.fantoken.MsgBurnResponse' as const,
+
   encode(
     _: MsgBurnResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -557,7 +625,9 @@ export const MsgBurnResponse = {
   },
 
   fromJSON(_: any): MsgBurnResponse {
-    return {};
+    return {
+      $type: MsgBurnResponse.$type,
+    };
   },
 
   toJSON(_: MsgBurnResponse): unknown {
@@ -573,11 +643,20 @@ export const MsgBurnResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgBurnResponse.$type, MsgBurnResponse);
+
 function createBaseMsgSetMinter(): MsgSetMinter {
-  return { denom: '', oldMinter: '', newMinter: '' };
+  return {
+    $type: 'bitsong.fantoken.MsgSetMinter',
+    denom: '',
+    oldMinter: '',
+    newMinter: '',
+  };
 }
 
 export const MsgSetMinter = {
+  $type: 'bitsong.fantoken.MsgSetMinter' as const,
+
   encode(
     message: MsgSetMinter,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -620,6 +699,7 @@ export const MsgSetMinter = {
 
   fromJSON(object: any): MsgSetMinter {
     return {
+      $type: MsgSetMinter.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       oldMinter: isSet(object.oldMinter) ? String(object.oldMinter) : '',
       newMinter: isSet(object.newMinter) ? String(object.newMinter) : '',
@@ -645,11 +725,15 @@ export const MsgSetMinter = {
   },
 };
 
+messageTypeRegistry.set(MsgSetMinter.$type, MsgSetMinter);
+
 function createBaseMsgSetMinterResponse(): MsgSetMinterResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgSetMinterResponse' };
 }
 
 export const MsgSetMinterResponse = {
+  $type: 'bitsong.fantoken.MsgSetMinterResponse' as const,
+
   encode(
     _: MsgSetMinterResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -676,7 +760,9 @@ export const MsgSetMinterResponse = {
   },
 
   fromJSON(_: any): MsgSetMinterResponse {
-    return {};
+    return {
+      $type: MsgSetMinterResponse.$type,
+    };
   },
 
   toJSON(_: MsgSetMinterResponse): unknown {
@@ -692,11 +778,20 @@ export const MsgSetMinterResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgSetMinterResponse.$type, MsgSetMinterResponse);
+
 function createBaseMsgSetAuthority(): MsgSetAuthority {
-  return { denom: '', oldAuthority: '', newAuthority: '' };
+  return {
+    $type: 'bitsong.fantoken.MsgSetAuthority',
+    denom: '',
+    oldAuthority: '',
+    newAuthority: '',
+  };
 }
 
 export const MsgSetAuthority = {
+  $type: 'bitsong.fantoken.MsgSetAuthority' as const,
+
   encode(
     message: MsgSetAuthority,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -739,6 +834,7 @@ export const MsgSetAuthority = {
 
   fromJSON(object: any): MsgSetAuthority {
     return {
+      $type: MsgSetAuthority.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       oldAuthority: isSet(object.oldAuthority)
         ? String(object.oldAuthority)
@@ -770,11 +866,15 @@ export const MsgSetAuthority = {
   },
 };
 
+messageTypeRegistry.set(MsgSetAuthority.$type, MsgSetAuthority);
+
 function createBaseMsgSetAuthorityResponse(): MsgSetAuthorityResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgSetAuthorityResponse' };
 }
 
 export const MsgSetAuthorityResponse = {
+  $type: 'bitsong.fantoken.MsgSetAuthorityResponse' as const,
+
   encode(
     _: MsgSetAuthorityResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -801,7 +901,9 @@ export const MsgSetAuthorityResponse = {
   },
 
   fromJSON(_: any): MsgSetAuthorityResponse {
-    return {};
+    return {
+      $type: MsgSetAuthorityResponse.$type,
+    };
   },
 
   toJSON(_: MsgSetAuthorityResponse): unknown {
@@ -817,11 +919,20 @@ export const MsgSetAuthorityResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgSetAuthorityResponse.$type, MsgSetAuthorityResponse);
+
 function createBaseMsgSetUri(): MsgSetUri {
-  return { authority: '', denom: '', uri: '' };
+  return {
+    $type: 'bitsong.fantoken.MsgSetUri',
+    authority: '',
+    denom: '',
+    uri: '',
+  };
 }
 
 export const MsgSetUri = {
+  $type: 'bitsong.fantoken.MsgSetUri' as const,
+
   encode(
     message: MsgSetUri,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -864,6 +975,7 @@ export const MsgSetUri = {
 
   fromJSON(object: any): MsgSetUri {
     return {
+      $type: MsgSetUri.$type,
       authority: isSet(object.authority) ? String(object.authority) : '',
       denom: isSet(object.denom) ? String(object.denom) : '',
       uri: isSet(object.uri) ? String(object.uri) : '',
@@ -889,11 +1001,15 @@ export const MsgSetUri = {
   },
 };
 
+messageTypeRegistry.set(MsgSetUri.$type, MsgSetUri);
+
 function createBaseMsgSetUriResponse(): MsgSetUriResponse {
-  return {};
+  return { $type: 'bitsong.fantoken.MsgSetUriResponse' };
 }
 
 export const MsgSetUriResponse = {
+  $type: 'bitsong.fantoken.MsgSetUriResponse' as const,
+
   encode(
     _: MsgSetUriResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -917,7 +1033,9 @@ export const MsgSetUriResponse = {
   },
 
   fromJSON(_: any): MsgSetUriResponse {
-    return {};
+    return {
+      $type: MsgSetUriResponse.$type,
+    };
   },
 
   toJSON(_: MsgSetUriResponse): unknown {
@@ -932,6 +1050,8 @@ export const MsgSetUriResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(MsgSetUriResponse.$type, MsgSetUriResponse);
 
 /** Msg defines the oracle Msg service */
 export interface Msg {
@@ -1043,14 +1163,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

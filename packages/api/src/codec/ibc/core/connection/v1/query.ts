@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { ConnectionEnd, IdentifiedConnection } from './connection';
 import { Height, IdentifiedClientState } from '../../client/v1/client';
 import {
@@ -16,6 +17,7 @@ export const protobufPackage = 'ibc.core.connection.v1';
  * method
  */
 export interface QueryConnectionRequest {
+  $type: 'ibc.core.connection.v1.QueryConnectionRequest';
   /** connection unique identifier */
   connectionId: string;
 }
@@ -26,6 +28,7 @@ export interface QueryConnectionRequest {
  * which the proof was retrieved.
  */
 export interface QueryConnectionResponse {
+  $type: 'ibc.core.connection.v1.QueryConnectionResponse';
   /** connection associated with the request identifier */
   connection?: ConnectionEnd;
   /** merkle proof of existence */
@@ -39,6 +42,7 @@ export interface QueryConnectionResponse {
  * method
  */
 export interface QueryConnectionsRequest {
+  $type: 'ibc.core.connection.v1.QueryConnectionsRequest';
   pagination?: PageRequest;
 }
 
@@ -47,6 +51,7 @@ export interface QueryConnectionsRequest {
  * method.
  */
 export interface QueryConnectionsResponse {
+  $type: 'ibc.core.connection.v1.QueryConnectionsResponse';
   /** list of stored connections of the chain. */
   connections: IdentifiedConnection[];
   /** pagination response */
@@ -60,6 +65,7 @@ export interface QueryConnectionsResponse {
  * Query/ClientConnections RPC method
  */
 export interface QueryClientConnectionsRequest {
+  $type: 'ibc.core.connection.v1.QueryClientConnectionsRequest';
   /** client identifier associated with a connection */
   clientId: string;
 }
@@ -69,6 +75,7 @@ export interface QueryClientConnectionsRequest {
  * Query/ClientConnections RPC method
  */
 export interface QueryClientConnectionsResponse {
+  $type: 'ibc.core.connection.v1.QueryClientConnectionsResponse';
   /** slice of all the connection paths associated with a client. */
   connectionPaths: string[];
   /** merkle proof of existence */
@@ -82,6 +89,7 @@ export interface QueryClientConnectionsResponse {
  * Query/ConnectionClientState RPC method
  */
 export interface QueryConnectionClientStateRequest {
+  $type: 'ibc.core.connection.v1.QueryConnectionClientStateRequest';
   /** connection identifier */
   connectionId: string;
 }
@@ -91,6 +99,7 @@ export interface QueryConnectionClientStateRequest {
  * Query/ConnectionClientState RPC method
  */
 export interface QueryConnectionClientStateResponse {
+  $type: 'ibc.core.connection.v1.QueryConnectionClientStateResponse';
   /** client state associated with the channel */
   identifiedClientState?: IdentifiedClientState;
   /** merkle proof of existence */
@@ -104,6 +113,7 @@ export interface QueryConnectionClientStateResponse {
  * Query/ConnectionConsensusState RPC method
  */
 export interface QueryConnectionConsensusStateRequest {
+  $type: 'ibc.core.connection.v1.QueryConnectionConsensusStateRequest';
   /** connection identifier */
   connectionId: string;
   revisionNumber: Long;
@@ -115,6 +125,7 @@ export interface QueryConnectionConsensusStateRequest {
  * Query/ConnectionConsensusState RPC method
  */
 export interface QueryConnectionConsensusStateResponse {
+  $type: 'ibc.core.connection.v1.QueryConnectionConsensusStateResponse';
   /** consensus state associated with the channel */
   consensusState?: Any;
   /** client ID associated with the consensus state */
@@ -126,10 +137,15 @@ export interface QueryConnectionConsensusStateResponse {
 }
 
 function createBaseQueryConnectionRequest(): QueryConnectionRequest {
-  return { connectionId: '' };
+  return {
+    $type: 'ibc.core.connection.v1.QueryConnectionRequest',
+    connectionId: '',
+  };
 }
 
 export const QueryConnectionRequest = {
+  $type: 'ibc.core.connection.v1.QueryConnectionRequest' as const,
+
   encode(
     message: QueryConnectionRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -163,6 +179,7 @@ export const QueryConnectionRequest = {
 
   fromJSON(object: any): QueryConnectionRequest {
     return {
+      $type: QueryConnectionRequest.$type,
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
         : '',
@@ -185,8 +202,11 @@ export const QueryConnectionRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryConnectionRequest.$type, QueryConnectionRequest);
+
 function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   return {
+    $type: 'ibc.core.connection.v1.QueryConnectionResponse',
     connection: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -194,6 +214,8 @@ function createBaseQueryConnectionResponse(): QueryConnectionResponse {
 }
 
 export const QueryConnectionResponse = {
+  $type: 'ibc.core.connection.v1.QueryConnectionResponse' as const,
+
   encode(
     message: QueryConnectionResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -242,6 +264,7 @@ export const QueryConnectionResponse = {
 
   fromJSON(object: any): QueryConnectionResponse {
     return {
+      $type: QueryConnectionResponse.$type,
       connection: isSet(object.connection)
         ? ConnectionEnd.fromJSON(object.connection)
         : undefined,
@@ -288,11 +311,18 @@ export const QueryConnectionResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryConnectionResponse.$type, QueryConnectionResponse);
+
 function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
-  return { pagination: undefined };
+  return {
+    $type: 'ibc.core.connection.v1.QueryConnectionsRequest',
+    pagination: undefined,
+  };
 }
 
 export const QueryConnectionsRequest = {
+  $type: 'ibc.core.connection.v1.QueryConnectionsRequest' as const,
+
   encode(
     message: QueryConnectionsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -326,6 +356,7 @@ export const QueryConnectionsRequest = {
 
   fromJSON(object: any): QueryConnectionsRequest {
     return {
+      $type: QueryConnectionsRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -353,11 +384,20 @@ export const QueryConnectionsRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryConnectionsRequest.$type, QueryConnectionsRequest);
+
 function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
-  return { connections: [], pagination: undefined, height: undefined };
+  return {
+    $type: 'ibc.core.connection.v1.QueryConnectionsResponse',
+    connections: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryConnectionsResponse = {
+  $type: 'ibc.core.connection.v1.QueryConnectionsResponse' as const,
+
   encode(
     message: QueryConnectionsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -408,6 +448,7 @@ export const QueryConnectionsResponse = {
 
   fromJSON(object: any): QueryConnectionsResponse {
     return {
+      $type: QueryConnectionsResponse.$type,
       connections: Array.isArray(object?.connections)
         ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e))
         : [],
@@ -454,11 +495,21 @@ export const QueryConnectionsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionsResponse.$type,
+  QueryConnectionsResponse,
+);
+
 function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsRequest {
-  return { clientId: '' };
+  return {
+    $type: 'ibc.core.connection.v1.QueryClientConnectionsRequest',
+    clientId: '',
+  };
 }
 
 export const QueryClientConnectionsRequest = {
+  $type: 'ibc.core.connection.v1.QueryClientConnectionsRequest' as const,
+
   encode(
     message: QueryClientConnectionsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -492,6 +543,7 @@ export const QueryClientConnectionsRequest = {
 
   fromJSON(object: any): QueryClientConnectionsRequest {
     return {
+      $type: QueryClientConnectionsRequest.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
     };
   },
@@ -511,8 +563,14 @@ export const QueryClientConnectionsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientConnectionsRequest.$type,
+  QueryClientConnectionsRequest,
+);
+
 function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsResponse {
   return {
+    $type: 'ibc.core.connection.v1.QueryClientConnectionsResponse',
     connectionPaths: [],
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -520,6 +578,8 @@ function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsRespo
 }
 
 export const QueryClientConnectionsResponse = {
+  $type: 'ibc.core.connection.v1.QueryClientConnectionsResponse' as const,
+
   encode(
     message: QueryClientConnectionsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -565,6 +625,7 @@ export const QueryClientConnectionsResponse = {
 
   fromJSON(object: any): QueryClientConnectionsResponse {
     return {
+      $type: QueryClientConnectionsResponse.$type,
       connectionPaths: Array.isArray(object?.connectionPaths)
         ? object.connectionPaths.map((e: any) => String(e))
         : [],
@@ -609,11 +670,21 @@ export const QueryClientConnectionsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientConnectionsResponse.$type,
+  QueryClientConnectionsResponse,
+);
+
 function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientStateRequest {
-  return { connectionId: '' };
+  return {
+    $type: 'ibc.core.connection.v1.QueryConnectionClientStateRequest',
+    connectionId: '',
+  };
 }
 
 export const QueryConnectionClientStateRequest = {
+  $type: 'ibc.core.connection.v1.QueryConnectionClientStateRequest' as const,
+
   encode(
     message: QueryConnectionClientStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -647,6 +718,7 @@ export const QueryConnectionClientStateRequest = {
 
   fromJSON(object: any): QueryConnectionClientStateRequest {
     return {
+      $type: QueryConnectionClientStateRequest.$type,
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
         : '',
@@ -669,8 +741,14 @@ export const QueryConnectionClientStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionClientStateRequest.$type,
+  QueryConnectionClientStateRequest,
+);
+
 function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientStateResponse {
   return {
+    $type: 'ibc.core.connection.v1.QueryConnectionClientStateResponse',
     identifiedClientState: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -678,6 +756,8 @@ function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientSt
 }
 
 export const QueryConnectionClientStateResponse = {
+  $type: 'ibc.core.connection.v1.QueryConnectionClientStateResponse' as const,
+
   encode(
     message: QueryConnectionClientStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -729,6 +809,7 @@ export const QueryConnectionClientStateResponse = {
 
   fromJSON(object: any): QueryConnectionClientStateResponse {
     return {
+      $type: QueryConnectionClientStateResponse.$type,
       identifiedClientState: isSet(object.identifiedClientState)
         ? IdentifiedClientState.fromJSON(object.identifiedClientState)
         : undefined,
@@ -776,8 +857,14 @@ export const QueryConnectionClientStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionClientStateResponse.$type,
+  QueryConnectionClientStateResponse,
+);
+
 function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsensusStateRequest {
   return {
+    $type: 'ibc.core.connection.v1.QueryConnectionConsensusStateRequest',
     connectionId: '',
     revisionNumber: Long.UZERO,
     revisionHeight: Long.UZERO,
@@ -785,6 +872,8 @@ function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsen
 }
 
 export const QueryConnectionConsensusStateRequest = {
+  $type: 'ibc.core.connection.v1.QueryConnectionConsensusStateRequest' as const,
+
   encode(
     message: QueryConnectionConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -830,6 +919,7 @@ export const QueryConnectionConsensusStateRequest = {
 
   fromJSON(object: any): QueryConnectionConsensusStateRequest {
     return {
+      $type: QueryConnectionConsensusStateRequest.$type,
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
         : '',
@@ -870,8 +960,14 @@ export const QueryConnectionConsensusStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionConsensusStateRequest.$type,
+  QueryConnectionConsensusStateRequest,
+);
+
 function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConsensusStateResponse {
   return {
+    $type: 'ibc.core.connection.v1.QueryConnectionConsensusStateResponse',
     consensusState: undefined,
     clientId: '',
     proof: new Uint8Array(),
@@ -880,6 +976,9 @@ function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConse
 }
 
 export const QueryConnectionConsensusStateResponse = {
+  $type:
+    'ibc.core.connection.v1.QueryConnectionConsensusStateResponse' as const,
+
   encode(
     message: QueryConnectionConsensusStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -931,6 +1030,7 @@ export const QueryConnectionConsensusStateResponse = {
 
   fromJSON(object: any): QueryConnectionConsensusStateResponse {
     return {
+      $type: QueryConnectionConsensusStateResponse.$type,
       consensusState: isSet(object.consensusState)
         ? Any.fromJSON(object.consensusState)
         : undefined,
@@ -979,6 +1079,11 @@ export const QueryConnectionConsensusStateResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  QueryConnectionConsensusStateResponse.$type,
+  QueryConnectionConsensusStateResponse,
+);
 
 /** Query provides defines the gRPC querier service */
 export interface Query {
@@ -1154,14 +1259,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

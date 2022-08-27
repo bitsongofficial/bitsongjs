@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -65,6 +66,7 @@ export const protobufPackage = 'google.protobuf';
  * microsecond should be expressed in JSON format as "3.000001s".
  */
 export interface Duration {
+  $type: 'google.protobuf.Duration';
   /**
    * Signed seconds of the span of time. Must be from -315,576,000,000
    * to +315,576,000,000 inclusive. Note: these bounds are computed from:
@@ -83,10 +85,12 @@ export interface Duration {
 }
 
 function createBaseDuration(): Duration {
-  return { seconds: Long.ZERO, nanos: 0 };
+  return { $type: 'google.protobuf.Duration', seconds: Long.ZERO, nanos: 0 };
 }
 
 export const Duration = {
+  $type: 'google.protobuf.Duration' as const,
+
   encode(
     message: Duration,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -123,6 +127,7 @@ export const Duration = {
 
   fromJSON(object: any): Duration {
     return {
+      $type: Duration.$type,
       seconds: isSet(object.seconds)
         ? Long.fromValue(object.seconds)
         : Long.ZERO,
@@ -149,6 +154,8 @@ export const Duration = {
   },
 };
 
+messageTypeRegistry.set(Duration.$type, Duration);
+
 type Builtin =
   | Date
   | Function
@@ -167,14 +174,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

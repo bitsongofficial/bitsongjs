@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Duration } from '../../../../google/protobuf/duration';
 import { Height } from '../../../core/client/v1/client';
 import { Timestamp } from '../../../../google/protobuf/timestamp';
@@ -16,6 +17,7 @@ export const protobufPackage = 'ibc.lightclients.tendermint.v1';
  * and a possible frozen height.
  */
 export interface ClientState {
+  $type: 'ibc.lightclients.tendermint.v1.ClientState';
   chainId: string;
   trustLevel?: Fraction;
   /**
@@ -57,6 +59,7 @@ export interface ClientState {
 
 /** ConsensusState defines the consensus state from Tendermint. */
 export interface ConsensusState {
+  $type: 'ibc.lightclients.tendermint.v1.ConsensusState';
   /**
    * timestamp that corresponds to the block height in which the ConsensusState
    * was stored.
@@ -72,6 +75,7 @@ export interface ConsensusState {
  * that implements Misbehaviour interface expected by ICS-02
  */
 export interface Misbehaviour {
+  $type: 'ibc.lightclients.tendermint.v1.Misbehaviour';
   clientId: string;
   header1?: Header;
   header2?: Header;
@@ -92,6 +96,7 @@ export interface Misbehaviour {
  * trusted validator set at the TrustedHeight.
  */
 export interface Header {
+  $type: 'ibc.lightclients.tendermint.v1.Header';
   signedHeader?: SignedHeader;
   validatorSet?: ValidatorSet;
   trustedHeight?: Height;
@@ -103,12 +108,14 @@ export interface Header {
  * supports positive values.
  */
 export interface Fraction {
+  $type: 'ibc.lightclients.tendermint.v1.Fraction';
   numerator: Long;
   denominator: Long;
 }
 
 function createBaseClientState(): ClientState {
   return {
+    $type: 'ibc.lightclients.tendermint.v1.ClientState',
     chainId: '',
     trustLevel: undefined,
     trustingPeriod: undefined,
@@ -124,6 +131,8 @@ function createBaseClientState(): ClientState {
 }
 
 export const ClientState = {
+  $type: 'ibc.lightclients.tendermint.v1.ClientState' as const,
+
   encode(
     message: ClientState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -220,6 +229,7 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     return {
+      $type: ClientState.$type,
       chainId: isSet(object.chainId) ? String(object.chainId) : '',
       trustLevel: isSet(object.trustLevel)
         ? Fraction.fromJSON(object.trustLevel)
@@ -339,8 +349,11 @@ export const ClientState = {
   },
 };
 
+messageTypeRegistry.set(ClientState.$type, ClientState);
+
 function createBaseConsensusState(): ConsensusState {
   return {
+    $type: 'ibc.lightclients.tendermint.v1.ConsensusState',
     timestamp: undefined,
     root: undefined,
     nextValidatorsHash: new Uint8Array(),
@@ -348,6 +361,8 @@ function createBaseConsensusState(): ConsensusState {
 }
 
 export const ConsensusState = {
+  $type: 'ibc.lightclients.tendermint.v1.ConsensusState' as const,
+
   encode(
     message: ConsensusState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -390,6 +405,7 @@ export const ConsensusState = {
 
   fromJSON(object: any): ConsensusState {
     return {
+      $type: ConsensusState.$type,
       timestamp: isSet(object.timestamp)
         ? fromJsonTimestamp(object.timestamp)
         : undefined,
@@ -432,11 +448,20 @@ export const ConsensusState = {
   },
 };
 
+messageTypeRegistry.set(ConsensusState.$type, ConsensusState);
+
 function createBaseMisbehaviour(): Misbehaviour {
-  return { clientId: '', header1: undefined, header2: undefined };
+  return {
+    $type: 'ibc.lightclients.tendermint.v1.Misbehaviour',
+    clientId: '',
+    header1: undefined,
+    header2: undefined,
+  };
 }
 
 export const Misbehaviour = {
+  $type: 'ibc.lightclients.tendermint.v1.Misbehaviour' as const,
+
   encode(
     message: Misbehaviour,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -479,6 +504,7 @@ export const Misbehaviour = {
 
   fromJSON(object: any): Misbehaviour {
     return {
+      $type: Misbehaviour.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       header1: isSet(object.header1)
         ? Header.fromJSON(object.header1)
@@ -520,8 +546,11 @@ export const Misbehaviour = {
   },
 };
 
+messageTypeRegistry.set(Misbehaviour.$type, Misbehaviour);
+
 function createBaseHeader(): Header {
   return {
+    $type: 'ibc.lightclients.tendermint.v1.Header',
     signedHeader: undefined,
     validatorSet: undefined,
     trustedHeight: undefined,
@@ -530,6 +559,8 @@ function createBaseHeader(): Header {
 }
 
 export const Header = {
+  $type: 'ibc.lightclients.tendermint.v1.Header' as const,
+
   encode(
     message: Header,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -590,6 +621,7 @@ export const Header = {
 
   fromJSON(object: any): Header {
     return {
+      $type: Header.$type,
       signedHeader: isSet(object.signedHeader)
         ? SignedHeader.fromJSON(object.signedHeader)
         : undefined,
@@ -649,11 +681,19 @@ export const Header = {
   },
 };
 
+messageTypeRegistry.set(Header.$type, Header);
+
 function createBaseFraction(): Fraction {
-  return { numerator: Long.UZERO, denominator: Long.UZERO };
+  return {
+    $type: 'ibc.lightclients.tendermint.v1.Fraction',
+    numerator: Long.UZERO,
+    denominator: Long.UZERO,
+  };
 }
 
 export const Fraction = {
+  $type: 'ibc.lightclients.tendermint.v1.Fraction' as const,
+
   encode(
     message: Fraction,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -690,6 +730,7 @@ export const Fraction = {
 
   fromJSON(object: any): Fraction {
     return {
+      $type: Fraction.$type,
       numerator: isSet(object.numerator)
         ? Long.fromValue(object.numerator)
         : Long.UZERO,
@@ -721,6 +762,8 @@ export const Fraction = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Fraction.$type, Fraction);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -776,20 +819,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
+  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

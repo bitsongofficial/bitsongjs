@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Any } from '../../../../google/protobuf/any';
 import {
   Height,
@@ -20,6 +21,7 @@ export const protobufPackage = 'ibc.core.client.v1';
  * method
  */
 export interface QueryClientStateRequest {
+  $type: 'ibc.core.client.v1.QueryClientStateRequest';
   /** client state unique identifier */
   clientId: string;
 }
@@ -30,6 +32,7 @@ export interface QueryClientStateRequest {
  * which the proof was retrieved.
  */
 export interface QueryClientStateResponse {
+  $type: 'ibc.core.client.v1.QueryClientStateResponse';
   /** client state associated with the request identifier */
   clientState?: Any;
   /** merkle proof of existence */
@@ -43,6 +46,7 @@ export interface QueryClientStateResponse {
  * method
  */
 export interface QueryClientStatesRequest {
+  $type: 'ibc.core.client.v1.QueryClientStatesRequest';
   /** pagination request */
   pagination?: PageRequest;
 }
@@ -52,6 +56,7 @@ export interface QueryClientStatesRequest {
  * method.
  */
 export interface QueryClientStatesResponse {
+  $type: 'ibc.core.client.v1.QueryClientStatesResponse';
   /** list of stored ClientStates of the chain. */
   clientStates: IdentifiedClientState[];
   /** pagination response */
@@ -64,6 +69,7 @@ export interface QueryClientStatesResponse {
  * from which the proof was retrieved.
  */
 export interface QueryConsensusStateRequest {
+  $type: 'ibc.core.client.v1.QueryConsensusStateRequest';
   /** client identifier */
   clientId: string;
   /** consensus state revision number */
@@ -82,6 +88,7 @@ export interface QueryConsensusStateRequest {
  * RPC method
  */
 export interface QueryConsensusStateResponse {
+  $type: 'ibc.core.client.v1.QueryConsensusStateResponse';
   /** consensus state associated with the client identifier at the given height */
   consensusState?: Any;
   /** merkle proof of existence */
@@ -95,6 +102,7 @@ export interface QueryConsensusStateResponse {
  * RPC method.
  */
 export interface QueryConsensusStatesRequest {
+  $type: 'ibc.core.client.v1.QueryConsensusStatesRequest';
   /** client identifier */
   clientId: string;
   /** pagination request */
@@ -106,6 +114,7 @@ export interface QueryConsensusStatesRequest {
  * Query/ConsensusStates RPC method
  */
 export interface QueryConsensusStatesResponse {
+  $type: 'ibc.core.client.v1.QueryConsensusStatesResponse';
   /** consensus states associated with the identifier */
   consensusStates: ConsensusStateWithHeight[];
   /** pagination response */
@@ -117,6 +126,7 @@ export interface QueryConsensusStatesResponse {
  * method
  */
 export interface QueryClientStatusRequest {
+  $type: 'ibc.core.client.v1.QueryClientStatusRequest';
   /** client unique identifier */
   clientId: string;
 }
@@ -126,6 +136,7 @@ export interface QueryClientStatusRequest {
  * method. It returns the current status of the IBC client.
  */
 export interface QueryClientStatusResponse {
+  $type: 'ibc.core.client.v1.QueryClientStatusResponse';
   status: string;
 }
 
@@ -133,13 +144,16 @@ export interface QueryClientStatusResponse {
  * QueryClientParamsRequest is the request type for the Query/ClientParams RPC
  * method.
  */
-export interface QueryClientParamsRequest {}
+export interface QueryClientParamsRequest {
+  $type: 'ibc.core.client.v1.QueryClientParamsRequest';
+}
 
 /**
  * QueryClientParamsResponse is the response type for the Query/ClientParams RPC
  * method.
  */
 export interface QueryClientParamsResponse {
+  $type: 'ibc.core.client.v1.QueryClientParamsResponse';
   /** params defines the parameters of the module. */
   params?: Params;
 }
@@ -148,13 +162,16 @@ export interface QueryClientParamsResponse {
  * QueryUpgradedClientStateRequest is the request type for the
  * Query/UpgradedClientState RPC method
  */
-export interface QueryUpgradedClientStateRequest {}
+export interface QueryUpgradedClientStateRequest {
+  $type: 'ibc.core.client.v1.QueryUpgradedClientStateRequest';
+}
 
 /**
  * QueryUpgradedClientStateResponse is the response type for the
  * Query/UpgradedClientState RPC method.
  */
 export interface QueryUpgradedClientStateResponse {
+  $type: 'ibc.core.client.v1.QueryUpgradedClientStateResponse';
   /** client state associated with the request identifier */
   upgradedClientState?: Any;
 }
@@ -163,22 +180,27 @@ export interface QueryUpgradedClientStateResponse {
  * QueryUpgradedConsensusStateRequest is the request type for the
  * Query/UpgradedConsensusState RPC method
  */
-export interface QueryUpgradedConsensusStateRequest {}
+export interface QueryUpgradedConsensusStateRequest {
+  $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateRequest';
+}
 
 /**
  * QueryUpgradedConsensusStateResponse is the response type for the
  * Query/UpgradedConsensusState RPC method.
  */
 export interface QueryUpgradedConsensusStateResponse {
+  $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateResponse';
   /** Consensus state associated with the request identifier */
   upgradedConsensusState?: Any;
 }
 
 function createBaseQueryClientStateRequest(): QueryClientStateRequest {
-  return { clientId: '' };
+  return { $type: 'ibc.core.client.v1.QueryClientStateRequest', clientId: '' };
 }
 
 export const QueryClientStateRequest = {
+  $type: 'ibc.core.client.v1.QueryClientStateRequest' as const,
+
   encode(
     message: QueryClientStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -212,6 +234,7 @@ export const QueryClientStateRequest = {
 
   fromJSON(object: any): QueryClientStateRequest {
     return {
+      $type: QueryClientStateRequest.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
     };
   },
@@ -231,8 +254,11 @@ export const QueryClientStateRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryClientStateRequest.$type, QueryClientStateRequest);
+
 function createBaseQueryClientStateResponse(): QueryClientStateResponse {
   return {
+    $type: 'ibc.core.client.v1.QueryClientStateResponse',
     clientState: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -240,6 +266,8 @@ function createBaseQueryClientStateResponse(): QueryClientStateResponse {
 }
 
 export const QueryClientStateResponse = {
+  $type: 'ibc.core.client.v1.QueryClientStateResponse' as const,
+
   encode(
     message: QueryClientStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -285,6 +313,7 @@ export const QueryClientStateResponse = {
 
   fromJSON(object: any): QueryClientStateResponse {
     return {
+      $type: QueryClientStateResponse.$type,
       clientState: isSet(object.clientState)
         ? Any.fromJSON(object.clientState)
         : undefined,
@@ -331,11 +360,21 @@ export const QueryClientStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientStateResponse.$type,
+  QueryClientStateResponse,
+);
+
 function createBaseQueryClientStatesRequest(): QueryClientStatesRequest {
-  return { pagination: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryClientStatesRequest',
+    pagination: undefined,
+  };
 }
 
 export const QueryClientStatesRequest = {
+  $type: 'ibc.core.client.v1.QueryClientStatesRequest' as const,
+
   encode(
     message: QueryClientStatesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -369,6 +408,7 @@ export const QueryClientStatesRequest = {
 
   fromJSON(object: any): QueryClientStatesRequest {
     return {
+      $type: QueryClientStatesRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -396,11 +436,22 @@ export const QueryClientStatesRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientStatesRequest.$type,
+  QueryClientStatesRequest,
+);
+
 function createBaseQueryClientStatesResponse(): QueryClientStatesResponse {
-  return { clientStates: [], pagination: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryClientStatesResponse',
+    clientStates: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryClientStatesResponse = {
+  $type: 'ibc.core.client.v1.QueryClientStatesResponse' as const,
+
   encode(
     message: QueryClientStatesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -445,6 +496,7 @@ export const QueryClientStatesResponse = {
 
   fromJSON(object: any): QueryClientStatesResponse {
     return {
+      $type: QueryClientStatesResponse.$type,
       clientStates: Array.isArray(object?.clientStates)
         ? object.clientStates.map((e: any) => IdentifiedClientState.fromJSON(e))
         : [],
@@ -484,8 +536,14 @@ export const QueryClientStatesResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientStatesResponse.$type,
+  QueryClientStatesResponse,
+);
+
 function createBaseQueryConsensusStateRequest(): QueryConsensusStateRequest {
   return {
+    $type: 'ibc.core.client.v1.QueryConsensusStateRequest',
     clientId: '',
     revisionNumber: Long.UZERO,
     revisionHeight: Long.UZERO,
@@ -494,6 +552,8 @@ function createBaseQueryConsensusStateRequest(): QueryConsensusStateRequest {
 }
 
 export const QueryConsensusStateRequest = {
+  $type: 'ibc.core.client.v1.QueryConsensusStateRequest' as const,
+
   encode(
     message: QueryConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -545,6 +605,7 @@ export const QueryConsensusStateRequest = {
 
   fromJSON(object: any): QueryConsensusStateRequest {
     return {
+      $type: QueryConsensusStateRequest.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       revisionNumber: isSet(object.revisionNumber)
         ? Long.fromValue(object.revisionNumber)
@@ -588,8 +649,14 @@ export const QueryConsensusStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConsensusStateRequest.$type,
+  QueryConsensusStateRequest,
+);
+
 function createBaseQueryConsensusStateResponse(): QueryConsensusStateResponse {
   return {
+    $type: 'ibc.core.client.v1.QueryConsensusStateResponse',
     consensusState: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -597,6 +664,8 @@ function createBaseQueryConsensusStateResponse(): QueryConsensusStateResponse {
 }
 
 export const QueryConsensusStateResponse = {
+  $type: 'ibc.core.client.v1.QueryConsensusStateResponse' as const,
+
   encode(
     message: QueryConsensusStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -642,6 +711,7 @@ export const QueryConsensusStateResponse = {
 
   fromJSON(object: any): QueryConsensusStateResponse {
     return {
+      $type: QueryConsensusStateResponse.$type,
       consensusState: isSet(object.consensusState)
         ? Any.fromJSON(object.consensusState)
         : undefined,
@@ -688,11 +758,22 @@ export const QueryConsensusStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConsensusStateResponse.$type,
+  QueryConsensusStateResponse,
+);
+
 function createBaseQueryConsensusStatesRequest(): QueryConsensusStatesRequest {
-  return { clientId: '', pagination: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryConsensusStatesRequest',
+    clientId: '',
+    pagination: undefined,
+  };
 }
 
 export const QueryConsensusStatesRequest = {
+  $type: 'ibc.core.client.v1.QueryConsensusStatesRequest' as const,
+
   encode(
     message: QueryConsensusStatesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -732,6 +813,7 @@ export const QueryConsensusStatesRequest = {
 
   fromJSON(object: any): QueryConsensusStatesRequest {
     return {
+      $type: QueryConsensusStatesRequest.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -762,11 +844,22 @@ export const QueryConsensusStatesRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConsensusStatesRequest.$type,
+  QueryConsensusStatesRequest,
+);
+
 function createBaseQueryConsensusStatesResponse(): QueryConsensusStatesResponse {
-  return { consensusStates: [], pagination: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryConsensusStatesResponse',
+    consensusStates: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryConsensusStatesResponse = {
+  $type: 'ibc.core.client.v1.QueryConsensusStatesResponse' as const,
+
   encode(
     message: QueryConsensusStatesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -811,6 +904,7 @@ export const QueryConsensusStatesResponse = {
 
   fromJSON(object: any): QueryConsensusStatesResponse {
     return {
+      $type: QueryConsensusStatesResponse.$type,
       consensusStates: Array.isArray(object?.consensusStates)
         ? object.consensusStates.map((e: any) =>
             ConsensusStateWithHeight.fromJSON(e),
@@ -854,11 +948,18 @@ export const QueryConsensusStatesResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConsensusStatesResponse.$type,
+  QueryConsensusStatesResponse,
+);
+
 function createBaseQueryClientStatusRequest(): QueryClientStatusRequest {
-  return { clientId: '' };
+  return { $type: 'ibc.core.client.v1.QueryClientStatusRequest', clientId: '' };
 }
 
 export const QueryClientStatusRequest = {
+  $type: 'ibc.core.client.v1.QueryClientStatusRequest' as const,
+
   encode(
     message: QueryClientStatusRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -892,6 +993,7 @@ export const QueryClientStatusRequest = {
 
   fromJSON(object: any): QueryClientStatusRequest {
     return {
+      $type: QueryClientStatusRequest.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
     };
   },
@@ -911,11 +1013,18 @@ export const QueryClientStatusRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientStatusRequest.$type,
+  QueryClientStatusRequest,
+);
+
 function createBaseQueryClientStatusResponse(): QueryClientStatusResponse {
-  return { status: '' };
+  return { $type: 'ibc.core.client.v1.QueryClientStatusResponse', status: '' };
 }
 
 export const QueryClientStatusResponse = {
+  $type: 'ibc.core.client.v1.QueryClientStatusResponse' as const,
+
   encode(
     message: QueryClientStatusResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -949,6 +1058,7 @@ export const QueryClientStatusResponse = {
 
   fromJSON(object: any): QueryClientStatusResponse {
     return {
+      $type: QueryClientStatusResponse.$type,
       status: isSet(object.status) ? String(object.status) : '',
     };
   },
@@ -968,11 +1078,18 @@ export const QueryClientStatusResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientStatusResponse.$type,
+  QueryClientStatusResponse,
+);
+
 function createBaseQueryClientParamsRequest(): QueryClientParamsRequest {
-  return {};
+  return { $type: 'ibc.core.client.v1.QueryClientParamsRequest' };
 }
 
 export const QueryClientParamsRequest = {
+  $type: 'ibc.core.client.v1.QueryClientParamsRequest' as const,
+
   encode(
     _: QueryClientParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -999,7 +1116,9 @@ export const QueryClientParamsRequest = {
   },
 
   fromJSON(_: any): QueryClientParamsRequest {
-    return {};
+    return {
+      $type: QueryClientParamsRequest.$type,
+    };
   },
 
   toJSON(_: QueryClientParamsRequest): unknown {
@@ -1015,11 +1134,21 @@ export const QueryClientParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientParamsRequest.$type,
+  QueryClientParamsRequest,
+);
+
 function createBaseQueryClientParamsResponse(): QueryClientParamsResponse {
-  return { params: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryClientParamsResponse',
+    params: undefined,
+  };
 }
 
 export const QueryClientParamsResponse = {
+  $type: 'ibc.core.client.v1.QueryClientParamsResponse' as const,
+
   encode(
     message: QueryClientParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1053,6 +1182,7 @@ export const QueryClientParamsResponse = {
 
   fromJSON(object: any): QueryClientParamsResponse {
     return {
+      $type: QueryClientParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -1076,11 +1206,18 @@ export const QueryClientParamsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryClientParamsResponse.$type,
+  QueryClientParamsResponse,
+);
+
 function createBaseQueryUpgradedClientStateRequest(): QueryUpgradedClientStateRequest {
-  return {};
+  return { $type: 'ibc.core.client.v1.QueryUpgradedClientStateRequest' };
 }
 
 export const QueryUpgradedClientStateRequest = {
+  $type: 'ibc.core.client.v1.QueryUpgradedClientStateRequest' as const,
+
   encode(
     _: QueryUpgradedClientStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1107,7 +1244,9 @@ export const QueryUpgradedClientStateRequest = {
   },
 
   fromJSON(_: any): QueryUpgradedClientStateRequest {
-    return {};
+    return {
+      $type: QueryUpgradedClientStateRequest.$type,
+    };
   },
 
   toJSON(_: QueryUpgradedClientStateRequest): unknown {
@@ -1123,11 +1262,21 @@ export const QueryUpgradedClientStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUpgradedClientStateRequest.$type,
+  QueryUpgradedClientStateRequest,
+);
+
 function createBaseQueryUpgradedClientStateResponse(): QueryUpgradedClientStateResponse {
-  return { upgradedClientState: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryUpgradedClientStateResponse',
+    upgradedClientState: undefined,
+  };
 }
 
 export const QueryUpgradedClientStateResponse = {
+  $type: 'ibc.core.client.v1.QueryUpgradedClientStateResponse' as const,
+
   encode(
     message: QueryUpgradedClientStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1164,6 +1313,7 @@ export const QueryUpgradedClientStateResponse = {
 
   fromJSON(object: any): QueryUpgradedClientStateResponse {
     return {
+      $type: QueryUpgradedClientStateResponse.$type,
       upgradedClientState: isSet(object.upgradedClientState)
         ? Any.fromJSON(object.upgradedClientState)
         : undefined,
@@ -1192,11 +1342,18 @@ export const QueryUpgradedClientStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUpgradedClientStateResponse.$type,
+  QueryUpgradedClientStateResponse,
+);
+
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
-  return {};
+  return { $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateRequest' };
 }
 
 export const QueryUpgradedConsensusStateRequest = {
+  $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateRequest' as const,
+
   encode(
     _: QueryUpgradedConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1223,7 +1380,9 @@ export const QueryUpgradedConsensusStateRequest = {
   },
 
   fromJSON(_: any): QueryUpgradedConsensusStateRequest {
-    return {};
+    return {
+      $type: QueryUpgradedConsensusStateRequest.$type,
+    };
   },
 
   toJSON(_: QueryUpgradedConsensusStateRequest): unknown {
@@ -1239,11 +1398,21 @@ export const QueryUpgradedConsensusStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUpgradedConsensusStateRequest.$type,
+  QueryUpgradedConsensusStateRequest,
+);
+
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
-  return { upgradedConsensusState: undefined };
+  return {
+    $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateResponse',
+    upgradedConsensusState: undefined,
+  };
 }
 
 export const QueryUpgradedConsensusStateResponse = {
+  $type: 'ibc.core.client.v1.QueryUpgradedConsensusStateResponse' as const,
+
   encode(
     message: QueryUpgradedConsensusStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1280,6 +1449,7 @@ export const QueryUpgradedConsensusStateResponse = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateResponse {
     return {
+      $type: QueryUpgradedConsensusStateResponse.$type,
       upgradedConsensusState: isSet(object.upgradedConsensusState)
         ? Any.fromJSON(object.upgradedConsensusState)
         : undefined,
@@ -1307,6 +1477,11 @@ export const QueryUpgradedConsensusStateResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  QueryUpgradedConsensusStateResponse.$type,
+  QueryUpgradedConsensusStateResponse,
+);
 
 /** Query provides defines the gRPC querier service */
 export interface Query {
@@ -1538,14 +1713,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import { PublicKey } from '../crypto/keys';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -6,12 +7,14 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'tendermint.types';
 
 export interface ValidatorSet {
+  $type: 'tendermint.types.ValidatorSet';
   validators: Validator[];
   proposer?: Validator;
   totalVotingPower: Long;
 }
 
 export interface Validator {
+  $type: 'tendermint.types.Validator';
   address: Uint8Array;
   pubKey?: PublicKey;
   votingPower: Long;
@@ -19,15 +22,23 @@ export interface Validator {
 }
 
 export interface SimpleValidator {
+  $type: 'tendermint.types.SimpleValidator';
   pubKey?: PublicKey;
   votingPower: Long;
 }
 
 function createBaseValidatorSet(): ValidatorSet {
-  return { validators: [], proposer: undefined, totalVotingPower: Long.ZERO };
+  return {
+    $type: 'tendermint.types.ValidatorSet',
+    validators: [],
+    proposer: undefined,
+    totalVotingPower: Long.ZERO,
+  };
 }
 
 export const ValidatorSet = {
+  $type: 'tendermint.types.ValidatorSet' as const,
+
   encode(
     message: ValidatorSet,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -70,6 +81,7 @@ export const ValidatorSet = {
 
   fromJSON(object: any): ValidatorSet {
     return {
+      $type: ValidatorSet.$type,
       validators: Array.isArray(object?.validators)
         ? object.validators.map((e: any) => Validator.fromJSON(e))
         : [],
@@ -120,8 +132,11 @@ export const ValidatorSet = {
   },
 };
 
+messageTypeRegistry.set(ValidatorSet.$type, ValidatorSet);
+
 function createBaseValidator(): Validator {
   return {
+    $type: 'tendermint.types.Validator',
     address: new Uint8Array(),
     pubKey: undefined,
     votingPower: Long.ZERO,
@@ -130,6 +145,8 @@ function createBaseValidator(): Validator {
 }
 
 export const Validator = {
+  $type: 'tendermint.types.Validator' as const,
+
   encode(
     message: Validator,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -178,6 +195,7 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
+      $type: Validator.$type,
       address: isSet(object.address)
         ? bytesFromBase64(object.address)
         : new Uint8Array(),
@@ -233,11 +251,19 @@ export const Validator = {
   },
 };
 
+messageTypeRegistry.set(Validator.$type, Validator);
+
 function createBaseSimpleValidator(): SimpleValidator {
-  return { pubKey: undefined, votingPower: Long.ZERO };
+  return {
+    $type: 'tendermint.types.SimpleValidator',
+    pubKey: undefined,
+    votingPower: Long.ZERO,
+  };
 }
 
 export const SimpleValidator = {
+  $type: 'tendermint.types.SimpleValidator' as const,
+
   encode(
     message: SimpleValidator,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -274,6 +300,7 @@ export const SimpleValidator = {
 
   fromJSON(object: any): SimpleValidator {
     return {
+      $type: SimpleValidator.$type,
       pubKey: isSet(object.pubKey)
         ? PublicKey.fromJSON(object.pubKey)
         : undefined,
@@ -309,6 +336,8 @@ export const SimpleValidator = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SimpleValidator.$type, SimpleValidator);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -364,14 +393,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Any } from '../../../google/protobuf/any';
 import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination';
 import Long from 'long';
@@ -8,12 +9,14 @@ export const protobufPackage = 'cosmos.evidence.v1beta1';
 
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
+  $type: 'cosmos.evidence.v1beta1.QueryEvidenceRequest';
   /** evidence_hash defines the hash of the requested evidence. */
   evidenceHash: Uint8Array;
 }
 
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
 export interface QueryEvidenceResponse {
+  $type: 'cosmos.evidence.v1beta1.QueryEvidenceResponse';
   /** evidence returns the requested evidence. */
   evidence?: Any;
 }
@@ -23,6 +26,7 @@ export interface QueryEvidenceResponse {
  * method.
  */
 export interface QueryAllEvidenceRequest {
+  $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceRequest';
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
@@ -32,6 +36,7 @@ export interface QueryAllEvidenceRequest {
  * method.
  */
 export interface QueryAllEvidenceResponse {
+  $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceResponse';
   /** evidence returns all evidences. */
   evidence: Any[];
   /** pagination defines the pagination in the response. */
@@ -39,10 +44,15 @@ export interface QueryAllEvidenceResponse {
 }
 
 function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
-  return { evidenceHash: new Uint8Array() };
+  return {
+    $type: 'cosmos.evidence.v1beta1.QueryEvidenceRequest',
+    evidenceHash: new Uint8Array(),
+  };
 }
 
 export const QueryEvidenceRequest = {
+  $type: 'cosmos.evidence.v1beta1.QueryEvidenceRequest' as const,
+
   encode(
     message: QueryEvidenceRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -76,6 +86,7 @@ export const QueryEvidenceRequest = {
 
   fromJSON(object: any): QueryEvidenceRequest {
     return {
+      $type: QueryEvidenceRequest.$type,
       evidenceHash: isSet(object.evidenceHash)
         ? bytesFromBase64(object.evidenceHash)
         : new Uint8Array(),
@@ -102,11 +113,18 @@ export const QueryEvidenceRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryEvidenceRequest.$type, QueryEvidenceRequest);
+
 function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
-  return { evidence: undefined };
+  return {
+    $type: 'cosmos.evidence.v1beta1.QueryEvidenceResponse',
+    evidence: undefined,
+  };
 }
 
 export const QueryEvidenceResponse = {
+  $type: 'cosmos.evidence.v1beta1.QueryEvidenceResponse' as const,
+
   encode(
     message: QueryEvidenceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -140,6 +158,7 @@ export const QueryEvidenceResponse = {
 
   fromJSON(object: any): QueryEvidenceResponse {
     return {
+      $type: QueryEvidenceResponse.$type,
       evidence: isSet(object.evidence)
         ? Any.fromJSON(object.evidence)
         : undefined,
@@ -167,11 +186,18 @@ export const QueryEvidenceResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryEvidenceResponse.$type, QueryEvidenceResponse);
+
 function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
-  return { pagination: undefined };
+  return {
+    $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceRequest',
+    pagination: undefined,
+  };
 }
 
 export const QueryAllEvidenceRequest = {
+  $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceRequest' as const,
+
   encode(
     message: QueryAllEvidenceRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -205,6 +231,7 @@ export const QueryAllEvidenceRequest = {
 
   fromJSON(object: any): QueryAllEvidenceRequest {
     return {
+      $type: QueryAllEvidenceRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -232,11 +259,19 @@ export const QueryAllEvidenceRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryAllEvidenceRequest.$type, QueryAllEvidenceRequest);
+
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
-  return { evidence: [], pagination: undefined };
+  return {
+    $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceResponse',
+    evidence: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryAllEvidenceResponse = {
+  $type: 'cosmos.evidence.v1beta1.QueryAllEvidenceResponse' as const,
+
   encode(
     message: QueryAllEvidenceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -279,6 +314,7 @@ export const QueryAllEvidenceResponse = {
 
   fromJSON(object: any): QueryAllEvidenceResponse {
     return {
+      $type: QueryAllEvidenceResponse.$type,
       evidence: Array.isArray(object?.evidence)
         ? object.evidence.map((e: any) => Any.fromJSON(e))
         : [],
@@ -314,6 +350,11 @@ export const QueryAllEvidenceResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  QueryAllEvidenceResponse.$type,
+  QueryAllEvidenceResponse,
+);
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -421,14 +462,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

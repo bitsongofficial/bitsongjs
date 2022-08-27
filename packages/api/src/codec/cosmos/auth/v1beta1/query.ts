@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination';
 import { Any } from '../../../google/protobuf/any';
 import { Params } from './auth';
@@ -13,6 +14,7 @@ export const protobufPackage = 'cosmos.auth.v1beta1';
  * Since: cosmos-sdk 0.43
  */
 export interface QueryAccountsRequest {
+  $type: 'cosmos.auth.v1beta1.QueryAccountsRequest';
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
@@ -23,6 +25,7 @@ export interface QueryAccountsRequest {
  * Since: cosmos-sdk 0.43
  */
 export interface QueryAccountsResponse {
+  $type: 'cosmos.auth.v1beta1.QueryAccountsResponse';
   /** accounts are the existing accounts */
   accounts: Any[];
   /** pagination defines the pagination in the response. */
@@ -31,30 +34,40 @@ export interface QueryAccountsResponse {
 
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
 export interface QueryAccountRequest {
+  $type: 'cosmos.auth.v1beta1.QueryAccountRequest';
   /** address defines the address to query for. */
   address: string;
 }
 
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
 export interface QueryAccountResponse {
+  $type: 'cosmos.auth.v1beta1.QueryAccountResponse';
   /** account defines the account of the corresponding address. */
   account?: Any;
 }
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {}
+export interface QueryParamsRequest {
+  $type: 'cosmos.auth.v1beta1.QueryParamsRequest';
+}
 
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
+  $type: 'cosmos.auth.v1beta1.QueryParamsResponse';
   /** params defines the parameters of the module. */
   params?: Params;
 }
 
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
-  return { pagination: undefined };
+  return {
+    $type: 'cosmos.auth.v1beta1.QueryAccountsRequest',
+    pagination: undefined,
+  };
 }
 
 export const QueryAccountsRequest = {
+  $type: 'cosmos.auth.v1beta1.QueryAccountsRequest' as const,
+
   encode(
     message: QueryAccountsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -88,6 +101,7 @@ export const QueryAccountsRequest = {
 
   fromJSON(object: any): QueryAccountsRequest {
     return {
+      $type: QueryAccountsRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -115,11 +129,19 @@ export const QueryAccountsRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryAccountsRequest.$type, QueryAccountsRequest);
+
 function createBaseQueryAccountsResponse(): QueryAccountsResponse {
-  return { accounts: [], pagination: undefined };
+  return {
+    $type: 'cosmos.auth.v1beta1.QueryAccountsResponse',
+    accounts: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryAccountsResponse = {
+  $type: 'cosmos.auth.v1beta1.QueryAccountsResponse' as const,
+
   encode(
     message: QueryAccountsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -162,6 +184,7 @@ export const QueryAccountsResponse = {
 
   fromJSON(object: any): QueryAccountsResponse {
     return {
+      $type: QueryAccountsResponse.$type,
       accounts: Array.isArray(object?.accounts)
         ? object.accounts.map((e: any) => Any.fromJSON(e))
         : [],
@@ -198,11 +221,15 @@ export const QueryAccountsResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryAccountsResponse.$type, QueryAccountsResponse);
+
 function createBaseQueryAccountRequest(): QueryAccountRequest {
-  return { address: '' };
+  return { $type: 'cosmos.auth.v1beta1.QueryAccountRequest', address: '' };
 }
 
 export const QueryAccountRequest = {
+  $type: 'cosmos.auth.v1beta1.QueryAccountRequest' as const,
+
   encode(
     message: QueryAccountRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -233,6 +260,7 @@ export const QueryAccountRequest = {
 
   fromJSON(object: any): QueryAccountRequest {
     return {
+      $type: QueryAccountRequest.$type,
       address: isSet(object.address) ? String(object.address) : '',
     };
   },
@@ -252,11 +280,18 @@ export const QueryAccountRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryAccountRequest.$type, QueryAccountRequest);
+
 function createBaseQueryAccountResponse(): QueryAccountResponse {
-  return { account: undefined };
+  return {
+    $type: 'cosmos.auth.v1beta1.QueryAccountResponse',
+    account: undefined,
+  };
 }
 
 export const QueryAccountResponse = {
+  $type: 'cosmos.auth.v1beta1.QueryAccountResponse' as const,
+
   encode(
     message: QueryAccountResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -290,6 +325,7 @@ export const QueryAccountResponse = {
 
   fromJSON(object: any): QueryAccountResponse {
     return {
+      $type: QueryAccountResponse.$type,
       account: isSet(object.account) ? Any.fromJSON(object.account) : undefined,
     };
   },
@@ -313,11 +349,15 @@ export const QueryAccountResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryAccountResponse.$type, QueryAccountResponse);
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return {};
+  return { $type: 'cosmos.auth.v1beta1.QueryParamsRequest' };
 }
 
 export const QueryParamsRequest = {
+  $type: 'cosmos.auth.v1beta1.QueryParamsRequest' as const,
+
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -341,7 +381,9 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {};
+    return {
+      $type: QueryParamsRequest.$type,
+    };
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -357,11 +399,18 @@ export const QueryParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
+
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { params: undefined };
+  return {
+    $type: 'cosmos.auth.v1beta1.QueryParamsResponse',
+    params: undefined,
+  };
 }
 
 export const QueryParamsResponse = {
+  $type: 'cosmos.auth.v1beta1.QueryParamsResponse' as const,
+
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -392,6 +441,7 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
+      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -414,6 +464,8 @@ export const QueryParamsResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -500,14 +552,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

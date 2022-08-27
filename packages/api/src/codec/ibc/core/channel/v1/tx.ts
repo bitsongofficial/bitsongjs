@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Channel, Packet } from './channel';
 import { Height } from '../../client/v1/client';
 import Long from 'long';
@@ -11,19 +12,23 @@ export const protobufPackage = 'ibc.core.channel.v1';
  * is called by a relayer on Chain A.
  */
 export interface MsgChannelOpenInit {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenInit';
   portId: string;
   channel?: Channel;
   signer: string;
 }
 
 /** MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type. */
-export interface MsgChannelOpenInitResponse {}
+export interface MsgChannelOpenInitResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenInitResponse';
+}
 
 /**
  * MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
  * on Chain B.
  */
 export interface MsgChannelOpenTry {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenTry';
   portId: string;
   /**
    * in the case of crossing hello's, when both chains call OpenInit, we need
@@ -38,13 +43,16 @@ export interface MsgChannelOpenTry {
 }
 
 /** MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type. */
-export interface MsgChannelOpenTryResponse {}
+export interface MsgChannelOpenTryResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenTryResponse';
+}
 
 /**
  * MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
  * the change of channel state to TRYOPEN on Chain B.
  */
 export interface MsgChannelOpenAck {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenAck';
   portId: string;
   channelId: string;
   counterpartyChannelId: string;
@@ -55,13 +63,16 @@ export interface MsgChannelOpenAck {
 }
 
 /** MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type. */
-export interface MsgChannelOpenAckResponse {}
+export interface MsgChannelOpenAckResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenAckResponse';
+}
 
 /**
  * MsgChannelOpenConfirm defines a msg sent by a Relayer to Chain B to
  * acknowledge the change of channel state to OPEN on Chain A.
  */
 export interface MsgChannelOpenConfirm {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenConfirm';
   portId: string;
   channelId: string;
   proofAck: Uint8Array;
@@ -73,26 +84,32 @@ export interface MsgChannelOpenConfirm {
  * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
  * type.
  */
-export interface MsgChannelOpenConfirmResponse {}
+export interface MsgChannelOpenConfirmResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenConfirmResponse';
+}
 
 /**
  * MsgChannelCloseInit defines a msg sent by a Relayer to Chain A
  * to close a channel with Chain B.
  */
 export interface MsgChannelCloseInit {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseInit';
   portId: string;
   channelId: string;
   signer: string;
 }
 
 /** MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type. */
-export interface MsgChannelCloseInitResponse {}
+export interface MsgChannelCloseInitResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseInitResponse';
+}
 
 /**
  * MsgChannelCloseConfirm defines a msg sent by a Relayer to Chain B
  * to acknowledge the change of channel state to CLOSED on Chain A.
  */
 export interface MsgChannelCloseConfirm {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseConfirm';
   portId: string;
   channelId: string;
   proofInit: Uint8Array;
@@ -104,10 +121,13 @@ export interface MsgChannelCloseConfirm {
  * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
  * type.
  */
-export interface MsgChannelCloseConfirmResponse {}
+export interface MsgChannelCloseConfirmResponse {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseConfirmResponse';
+}
 
 /** MsgRecvPacket receives incoming IBC packet */
 export interface MsgRecvPacket {
+  $type: 'ibc.core.channel.v1.MsgRecvPacket';
   packet?: Packet;
   proofCommitment: Uint8Array;
   proofHeight?: Height;
@@ -115,10 +135,13 @@ export interface MsgRecvPacket {
 }
 
 /** MsgRecvPacketResponse defines the Msg/RecvPacket response type. */
-export interface MsgRecvPacketResponse {}
+export interface MsgRecvPacketResponse {
+  $type: 'ibc.core.channel.v1.MsgRecvPacketResponse';
+}
 
 /** MsgTimeout receives timed-out packet */
 export interface MsgTimeout {
+  $type: 'ibc.core.channel.v1.MsgTimeout';
   packet?: Packet;
   proofUnreceived: Uint8Array;
   proofHeight?: Height;
@@ -127,10 +150,13 @@ export interface MsgTimeout {
 }
 
 /** MsgTimeoutResponse defines the Msg/Timeout response type. */
-export interface MsgTimeoutResponse {}
+export interface MsgTimeoutResponse {
+  $type: 'ibc.core.channel.v1.MsgTimeoutResponse';
+}
 
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 export interface MsgTimeoutOnClose {
+  $type: 'ibc.core.channel.v1.MsgTimeoutOnClose';
   packet?: Packet;
   proofUnreceived: Uint8Array;
   proofClose: Uint8Array;
@@ -140,10 +166,13 @@ export interface MsgTimeoutOnClose {
 }
 
 /** MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type. */
-export interface MsgTimeoutOnCloseResponse {}
+export interface MsgTimeoutOnCloseResponse {
+  $type: 'ibc.core.channel.v1.MsgTimeoutOnCloseResponse';
+}
 
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 export interface MsgAcknowledgement {
+  $type: 'ibc.core.channel.v1.MsgAcknowledgement';
   packet?: Packet;
   acknowledgement: Uint8Array;
   proofAcked: Uint8Array;
@@ -152,13 +181,22 @@ export interface MsgAcknowledgement {
 }
 
 /** MsgAcknowledgementResponse defines the Msg/Acknowledgement response type. */
-export interface MsgAcknowledgementResponse {}
+export interface MsgAcknowledgementResponse {
+  $type: 'ibc.core.channel.v1.MsgAcknowledgementResponse';
+}
 
 function createBaseMsgChannelOpenInit(): MsgChannelOpenInit {
-  return { portId: '', channel: undefined, signer: '' };
+  return {
+    $type: 'ibc.core.channel.v1.MsgChannelOpenInit',
+    portId: '',
+    channel: undefined,
+    signer: '',
+  };
 }
 
 export const MsgChannelOpenInit = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenInit' as const,
+
   encode(
     message: MsgChannelOpenInit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -201,6 +239,7 @@ export const MsgChannelOpenInit = {
 
   fromJSON(object: any): MsgChannelOpenInit {
     return {
+      $type: MsgChannelOpenInit.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channel: isSet(object.channel)
         ? Channel.fromJSON(object.channel)
@@ -234,11 +273,15 @@ export const MsgChannelOpenInit = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelOpenInit.$type, MsgChannelOpenInit);
+
 function createBaseMsgChannelOpenInitResponse(): MsgChannelOpenInitResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelOpenInitResponse' };
 }
 
 export const MsgChannelOpenInitResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenInitResponse' as const,
+
   encode(
     _: MsgChannelOpenInitResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -265,7 +308,9 @@ export const MsgChannelOpenInitResponse = {
   },
 
   fromJSON(_: any): MsgChannelOpenInitResponse {
-    return {};
+    return {
+      $type: MsgChannelOpenInitResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelOpenInitResponse): unknown {
@@ -281,8 +326,14 @@ export const MsgChannelOpenInitResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelOpenInitResponse.$type,
+  MsgChannelOpenInitResponse,
+);
+
 function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
   return {
+    $type: 'ibc.core.channel.v1.MsgChannelOpenTry',
     portId: '',
     previousChannelId: '',
     channel: undefined,
@@ -294,6 +345,8 @@ function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
 }
 
 export const MsgChannelOpenTry = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenTry' as const,
+
   encode(
     message: MsgChannelOpenTry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -360,6 +413,7 @@ export const MsgChannelOpenTry = {
 
   fromJSON(object: any): MsgChannelOpenTry {
     return {
+      $type: MsgChannelOpenTry.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       previousChannelId: isSet(object.previousChannelId)
         ? String(object.previousChannelId)
@@ -424,11 +478,15 @@ export const MsgChannelOpenTry = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelOpenTry.$type, MsgChannelOpenTry);
+
 function createBaseMsgChannelOpenTryResponse(): MsgChannelOpenTryResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelOpenTryResponse' };
 }
 
 export const MsgChannelOpenTryResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenTryResponse' as const,
+
   encode(
     _: MsgChannelOpenTryResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -455,7 +513,9 @@ export const MsgChannelOpenTryResponse = {
   },
 
   fromJSON(_: any): MsgChannelOpenTryResponse {
-    return {};
+    return {
+      $type: MsgChannelOpenTryResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelOpenTryResponse): unknown {
@@ -471,8 +531,14 @@ export const MsgChannelOpenTryResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelOpenTryResponse.$type,
+  MsgChannelOpenTryResponse,
+);
+
 function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
   return {
+    $type: 'ibc.core.channel.v1.MsgChannelOpenAck',
     portId: '',
     channelId: '',
     counterpartyChannelId: '',
@@ -484,6 +550,8 @@ function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
 }
 
 export const MsgChannelOpenAck = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenAck' as const,
+
   encode(
     message: MsgChannelOpenAck,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -550,6 +618,7 @@ export const MsgChannelOpenAck = {
 
   fromJSON(object: any): MsgChannelOpenAck {
     return {
+      $type: MsgChannelOpenAck.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       counterpartyChannelId: isSet(object.counterpartyChannelId)
@@ -606,11 +675,15 @@ export const MsgChannelOpenAck = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelOpenAck.$type, MsgChannelOpenAck);
+
 function createBaseMsgChannelOpenAckResponse(): MsgChannelOpenAckResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelOpenAckResponse' };
 }
 
 export const MsgChannelOpenAckResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenAckResponse' as const,
+
   encode(
     _: MsgChannelOpenAckResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -637,7 +710,9 @@ export const MsgChannelOpenAckResponse = {
   },
 
   fromJSON(_: any): MsgChannelOpenAckResponse {
-    return {};
+    return {
+      $type: MsgChannelOpenAckResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelOpenAckResponse): unknown {
@@ -653,8 +728,14 @@ export const MsgChannelOpenAckResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelOpenAckResponse.$type,
+  MsgChannelOpenAckResponse,
+);
+
 function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
   return {
+    $type: 'ibc.core.channel.v1.MsgChannelOpenConfirm',
     portId: '',
     channelId: '',
     proofAck: new Uint8Array(),
@@ -664,6 +745,8 @@ function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
 }
 
 export const MsgChannelOpenConfirm = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenConfirm' as const,
+
   encode(
     message: MsgChannelOpenConfirm,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -721,6 +804,7 @@ export const MsgChannelOpenConfirm = {
 
   fromJSON(object: any): MsgChannelOpenConfirm {
     return {
+      $type: MsgChannelOpenConfirm.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       proofAck: isSet(object.proofAck)
@@ -765,11 +849,15 @@ export const MsgChannelOpenConfirm = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelOpenConfirm.$type, MsgChannelOpenConfirm);
+
 function createBaseMsgChannelOpenConfirmResponse(): MsgChannelOpenConfirmResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelOpenConfirmResponse' };
 }
 
 export const MsgChannelOpenConfirmResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelOpenConfirmResponse' as const,
+
   encode(
     _: MsgChannelOpenConfirmResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -796,7 +884,9 @@ export const MsgChannelOpenConfirmResponse = {
   },
 
   fromJSON(_: any): MsgChannelOpenConfirmResponse {
-    return {};
+    return {
+      $type: MsgChannelOpenConfirmResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelOpenConfirmResponse): unknown {
@@ -812,11 +902,23 @@ export const MsgChannelOpenConfirmResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelOpenConfirmResponse.$type,
+  MsgChannelOpenConfirmResponse,
+);
+
 function createBaseMsgChannelCloseInit(): MsgChannelCloseInit {
-  return { portId: '', channelId: '', signer: '' };
+  return {
+    $type: 'ibc.core.channel.v1.MsgChannelCloseInit',
+    portId: '',
+    channelId: '',
+    signer: '',
+  };
 }
 
 export const MsgChannelCloseInit = {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseInit' as const,
+
   encode(
     message: MsgChannelCloseInit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -859,6 +961,7 @@ export const MsgChannelCloseInit = {
 
   fromJSON(object: any): MsgChannelCloseInit {
     return {
+      $type: MsgChannelCloseInit.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       signer: isSet(object.signer) ? String(object.signer) : '',
@@ -884,11 +987,15 @@ export const MsgChannelCloseInit = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelCloseInit.$type, MsgChannelCloseInit);
+
 function createBaseMsgChannelCloseInitResponse(): MsgChannelCloseInitResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelCloseInitResponse' };
 }
 
 export const MsgChannelCloseInitResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseInitResponse' as const,
+
   encode(
     _: MsgChannelCloseInitResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -915,7 +1022,9 @@ export const MsgChannelCloseInitResponse = {
   },
 
   fromJSON(_: any): MsgChannelCloseInitResponse {
-    return {};
+    return {
+      $type: MsgChannelCloseInitResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelCloseInitResponse): unknown {
@@ -931,8 +1040,14 @@ export const MsgChannelCloseInitResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelCloseInitResponse.$type,
+  MsgChannelCloseInitResponse,
+);
+
 function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
   return {
+    $type: 'ibc.core.channel.v1.MsgChannelCloseConfirm',
     portId: '',
     channelId: '',
     proofInit: new Uint8Array(),
@@ -942,6 +1057,8 @@ function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
 }
 
 export const MsgChannelCloseConfirm = {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseConfirm' as const,
+
   encode(
     message: MsgChannelCloseConfirm,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -999,6 +1116,7 @@ export const MsgChannelCloseConfirm = {
 
   fromJSON(object: any): MsgChannelCloseConfirm {
     return {
+      $type: MsgChannelCloseConfirm.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       proofInit: isSet(object.proofInit)
@@ -1043,11 +1161,15 @@ export const MsgChannelCloseConfirm = {
   },
 };
 
+messageTypeRegistry.set(MsgChannelCloseConfirm.$type, MsgChannelCloseConfirm);
+
 function createBaseMsgChannelCloseConfirmResponse(): MsgChannelCloseConfirmResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgChannelCloseConfirmResponse' };
 }
 
 export const MsgChannelCloseConfirmResponse = {
+  $type: 'ibc.core.channel.v1.MsgChannelCloseConfirmResponse' as const,
+
   encode(
     _: MsgChannelCloseConfirmResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1074,7 +1196,9 @@ export const MsgChannelCloseConfirmResponse = {
   },
 
   fromJSON(_: any): MsgChannelCloseConfirmResponse {
-    return {};
+    return {
+      $type: MsgChannelCloseConfirmResponse.$type,
+    };
   },
 
   toJSON(_: MsgChannelCloseConfirmResponse): unknown {
@@ -1090,8 +1214,14 @@ export const MsgChannelCloseConfirmResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgChannelCloseConfirmResponse.$type,
+  MsgChannelCloseConfirmResponse,
+);
+
 function createBaseMsgRecvPacket(): MsgRecvPacket {
   return {
+    $type: 'ibc.core.channel.v1.MsgRecvPacket',
     packet: undefined,
     proofCommitment: new Uint8Array(),
     proofHeight: undefined,
@@ -1100,6 +1230,8 @@ function createBaseMsgRecvPacket(): MsgRecvPacket {
 }
 
 export const MsgRecvPacket = {
+  $type: 'ibc.core.channel.v1.MsgRecvPacket' as const,
+
   encode(
     message: MsgRecvPacket,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1148,6 +1280,7 @@ export const MsgRecvPacket = {
 
   fromJSON(object: any): MsgRecvPacket {
     return {
+      $type: MsgRecvPacket.$type,
       packet: isSet(object.packet) ? Packet.fromJSON(object.packet) : undefined,
       proofCommitment: isSet(object.proofCommitment)
         ? bytesFromBase64(object.proofCommitment)
@@ -1195,11 +1328,15 @@ export const MsgRecvPacket = {
   },
 };
 
+messageTypeRegistry.set(MsgRecvPacket.$type, MsgRecvPacket);
+
 function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgRecvPacketResponse' };
 }
 
 export const MsgRecvPacketResponse = {
+  $type: 'ibc.core.channel.v1.MsgRecvPacketResponse' as const,
+
   encode(
     _: MsgRecvPacketResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1226,7 +1363,9 @@ export const MsgRecvPacketResponse = {
   },
 
   fromJSON(_: any): MsgRecvPacketResponse {
-    return {};
+    return {
+      $type: MsgRecvPacketResponse.$type,
+    };
   },
 
   toJSON(_: MsgRecvPacketResponse): unknown {
@@ -1242,8 +1381,11 @@ export const MsgRecvPacketResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgRecvPacketResponse.$type, MsgRecvPacketResponse);
+
 function createBaseMsgTimeout(): MsgTimeout {
   return {
+    $type: 'ibc.core.channel.v1.MsgTimeout',
     packet: undefined,
     proofUnreceived: new Uint8Array(),
     proofHeight: undefined,
@@ -1253,6 +1395,8 @@ function createBaseMsgTimeout(): MsgTimeout {
 }
 
 export const MsgTimeout = {
+  $type: 'ibc.core.channel.v1.MsgTimeout' as const,
+
   encode(
     message: MsgTimeout,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1307,6 +1451,7 @@ export const MsgTimeout = {
 
   fromJSON(object: any): MsgTimeout {
     return {
+      $type: MsgTimeout.$type,
       packet: isSet(object.packet) ? Packet.fromJSON(object.packet) : undefined,
       proofUnreceived: isSet(object.proofUnreceived)
         ? bytesFromBase64(object.proofUnreceived)
@@ -1365,11 +1510,15 @@ export const MsgTimeout = {
   },
 };
 
+messageTypeRegistry.set(MsgTimeout.$type, MsgTimeout);
+
 function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgTimeoutResponse' };
 }
 
 export const MsgTimeoutResponse = {
+  $type: 'ibc.core.channel.v1.MsgTimeoutResponse' as const,
+
   encode(
     _: MsgTimeoutResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1393,7 +1542,9 @@ export const MsgTimeoutResponse = {
   },
 
   fromJSON(_: any): MsgTimeoutResponse {
-    return {};
+    return {
+      $type: MsgTimeoutResponse.$type,
+    };
   },
 
   toJSON(_: MsgTimeoutResponse): unknown {
@@ -1409,8 +1560,11 @@ export const MsgTimeoutResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgTimeoutResponse.$type, MsgTimeoutResponse);
+
 function createBaseMsgTimeoutOnClose(): MsgTimeoutOnClose {
   return {
+    $type: 'ibc.core.channel.v1.MsgTimeoutOnClose',
     packet: undefined,
     proofUnreceived: new Uint8Array(),
     proofClose: new Uint8Array(),
@@ -1421,6 +1575,8 @@ function createBaseMsgTimeoutOnClose(): MsgTimeoutOnClose {
 }
 
 export const MsgTimeoutOnClose = {
+  $type: 'ibc.core.channel.v1.MsgTimeoutOnClose' as const,
+
   encode(
     message: MsgTimeoutOnClose,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1481,6 +1637,7 @@ export const MsgTimeoutOnClose = {
 
   fromJSON(object: any): MsgTimeoutOnClose {
     return {
+      $type: MsgTimeoutOnClose.$type,
       packet: isSet(object.packet) ? Packet.fromJSON(object.packet) : undefined,
       proofUnreceived: isSet(object.proofUnreceived)
         ? bytesFromBase64(object.proofUnreceived)
@@ -1549,11 +1706,15 @@ export const MsgTimeoutOnClose = {
   },
 };
 
+messageTypeRegistry.set(MsgTimeoutOnClose.$type, MsgTimeoutOnClose);
+
 function createBaseMsgTimeoutOnCloseResponse(): MsgTimeoutOnCloseResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgTimeoutOnCloseResponse' };
 }
 
 export const MsgTimeoutOnCloseResponse = {
+  $type: 'ibc.core.channel.v1.MsgTimeoutOnCloseResponse' as const,
+
   encode(
     _: MsgTimeoutOnCloseResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1580,7 +1741,9 @@ export const MsgTimeoutOnCloseResponse = {
   },
 
   fromJSON(_: any): MsgTimeoutOnCloseResponse {
-    return {};
+    return {
+      $type: MsgTimeoutOnCloseResponse.$type,
+    };
   },
 
   toJSON(_: MsgTimeoutOnCloseResponse): unknown {
@@ -1596,8 +1759,14 @@ export const MsgTimeoutOnCloseResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgTimeoutOnCloseResponse.$type,
+  MsgTimeoutOnCloseResponse,
+);
+
 function createBaseMsgAcknowledgement(): MsgAcknowledgement {
   return {
+    $type: 'ibc.core.channel.v1.MsgAcknowledgement',
     packet: undefined,
     acknowledgement: new Uint8Array(),
     proofAcked: new Uint8Array(),
@@ -1607,6 +1776,8 @@ function createBaseMsgAcknowledgement(): MsgAcknowledgement {
 }
 
 export const MsgAcknowledgement = {
+  $type: 'ibc.core.channel.v1.MsgAcknowledgement' as const,
+
   encode(
     message: MsgAcknowledgement,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1661,6 +1832,7 @@ export const MsgAcknowledgement = {
 
   fromJSON(object: any): MsgAcknowledgement {
     return {
+      $type: MsgAcknowledgement.$type,
       packet: isSet(object.packet) ? Packet.fromJSON(object.packet) : undefined,
       acknowledgement: isSet(object.acknowledgement)
         ? bytesFromBase64(object.acknowledgement)
@@ -1718,11 +1890,15 @@ export const MsgAcknowledgement = {
   },
 };
 
+messageTypeRegistry.set(MsgAcknowledgement.$type, MsgAcknowledgement);
+
 function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
-  return {};
+  return { $type: 'ibc.core.channel.v1.MsgAcknowledgementResponse' };
 }
 
 export const MsgAcknowledgementResponse = {
+  $type: 'ibc.core.channel.v1.MsgAcknowledgementResponse' as const,
+
   encode(
     _: MsgAcknowledgementResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1749,7 +1925,9 @@ export const MsgAcknowledgementResponse = {
   },
 
   fromJSON(_: any): MsgAcknowledgementResponse {
-    return {};
+    return {
+      $type: MsgAcknowledgementResponse.$type,
+    };
   },
 
   toJSON(_: MsgAcknowledgementResponse): unknown {
@@ -1764,6 +1942,11 @@ export const MsgAcknowledgementResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  MsgAcknowledgementResponse.$type,
+  MsgAcknowledgementResponse,
+);
 
 /** Msg defines the ibc/channel Msg service. */
 export interface Msg {
@@ -2022,14 +2205,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

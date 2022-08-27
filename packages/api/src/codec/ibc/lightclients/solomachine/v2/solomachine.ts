@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Any } from '../../../../google/protobuf/any';
 import { ConnectionEnd } from '../../../core/connection/v1/connection';
 import { Channel } from '../../../core/channel/v1/channel';
@@ -107,6 +108,7 @@ export function dataTypeToJSON(object: DataType): string {
  * state and if the client is frozen.
  */
 export interface ClientState {
+  $type: 'ibc.lightclients.solomachine.v2.ClientState';
   /** latest sequence of the client state */
   sequence: Long;
   /** frozen sequence of the solo machine */
@@ -125,6 +127,7 @@ export interface ClientState {
  * consensus state.
  */
 export interface ConsensusState {
+  $type: 'ibc.lightclients.solomachine.v2.ConsensusState';
   /** public key of the solo machine */
   publicKey?: Any;
   /**
@@ -138,6 +141,7 @@ export interface ConsensusState {
 
 /** Header defines a solo machine consensus header */
 export interface Header {
+  $type: 'ibc.lightclients.solomachine.v2.Header';
   /** sequence to update solo machine public key at */
   sequence: Long;
   timestamp: Long;
@@ -151,6 +155,7 @@ export interface Header {
  * of a sequence and two signatures over different messages at that sequence.
  */
 export interface Misbehaviour {
+  $type: 'ibc.lightclients.solomachine.v2.Misbehaviour';
   clientId: string;
   sequence: Long;
   signatureOne?: SignatureAndData;
@@ -162,6 +167,7 @@ export interface Misbehaviour {
  * signature.
  */
 export interface SignatureAndData {
+  $type: 'ibc.lightclients.solomachine.v2.SignatureAndData';
   signature: Uint8Array;
   dataType: DataType;
   data: Uint8Array;
@@ -173,12 +179,14 @@ export interface SignatureAndData {
  * signature.
  */
 export interface TimestampedSignatureData {
+  $type: 'ibc.lightclients.solomachine.v2.TimestampedSignatureData';
   signatureData: Uint8Array;
   timestamp: Long;
 }
 
 /** SignBytes defines the signed bytes used for signature verification. */
 export interface SignBytes {
+  $type: 'ibc.lightclients.solomachine.v2.SignBytes';
   sequence: Long;
   timestamp: Long;
   diversifier: string;
@@ -190,6 +198,7 @@ export interface SignBytes {
 
 /** HeaderData returns the SignBytes data for update verification. */
 export interface HeaderData {
+  $type: 'ibc.lightclients.solomachine.v2.HeaderData';
   /** header public key */
   newPubKey?: Any;
   /** header diversifier */
@@ -198,6 +207,7 @@ export interface HeaderData {
 
 /** ClientStateData returns the SignBytes data for client state verification. */
 export interface ClientStateData {
+  $type: 'ibc.lightclients.solomachine.v2.ClientStateData';
   path: Uint8Array;
   clientState?: Any;
 }
@@ -207,6 +217,7 @@ export interface ClientStateData {
  * verification.
  */
 export interface ConsensusStateData {
+  $type: 'ibc.lightclients.solomachine.v2.ConsensusStateData';
   path: Uint8Array;
   consensusState?: Any;
 }
@@ -216,6 +227,7 @@ export interface ConsensusStateData {
  * verification.
  */
 export interface ConnectionStateData {
+  $type: 'ibc.lightclients.solomachine.v2.ConnectionStateData';
   path: Uint8Array;
   connection?: ConnectionEnd;
 }
@@ -225,6 +237,7 @@ export interface ConnectionStateData {
  * verification.
  */
 export interface ChannelStateData {
+  $type: 'ibc.lightclients.solomachine.v2.ChannelStateData';
   path: Uint8Array;
   channel?: Channel;
 }
@@ -234,6 +247,7 @@ export interface ChannelStateData {
  * verification.
  */
 export interface PacketCommitmentData {
+  $type: 'ibc.lightclients.solomachine.v2.PacketCommitmentData';
   path: Uint8Array;
   commitment: Uint8Array;
 }
@@ -243,6 +257,7 @@ export interface PacketCommitmentData {
  * verification.
  */
 export interface PacketAcknowledgementData {
+  $type: 'ibc.lightclients.solomachine.v2.PacketAcknowledgementData';
   path: Uint8Array;
   acknowledgement: Uint8Array;
 }
@@ -252,6 +267,7 @@ export interface PacketAcknowledgementData {
  * packet receipt absence verification.
  */
 export interface PacketReceiptAbsenceData {
+  $type: 'ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData';
   path: Uint8Array;
 }
 
@@ -260,12 +276,14 @@ export interface PacketReceiptAbsenceData {
  * sequence to be received.
  */
 export interface NextSequenceRecvData {
+  $type: 'ibc.lightclients.solomachine.v2.NextSequenceRecvData';
   path: Uint8Array;
   nextSeqRecv: Long;
 }
 
 function createBaseClientState(): ClientState {
   return {
+    $type: 'ibc.lightclients.solomachine.v2.ClientState',
     sequence: Long.UZERO,
     isFrozen: false,
     consensusState: undefined,
@@ -274,6 +292,8 @@ function createBaseClientState(): ClientState {
 }
 
 export const ClientState = {
+  $type: 'ibc.lightclients.solomachine.v2.ClientState' as const,
+
   encode(
     message: ClientState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -328,6 +348,7 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     return {
+      $type: ClientState.$type,
       sequence: isSet(object.sequence)
         ? Long.fromValue(object.sequence)
         : Long.UZERO,
@@ -373,11 +394,20 @@ export const ClientState = {
   },
 };
 
+messageTypeRegistry.set(ClientState.$type, ClientState);
+
 function createBaseConsensusState(): ConsensusState {
-  return { publicKey: undefined, diversifier: '', timestamp: Long.UZERO };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.ConsensusState',
+    publicKey: undefined,
+    diversifier: '',
+    timestamp: Long.UZERO,
+  };
 }
 
 export const ConsensusState = {
+  $type: 'ibc.lightclients.solomachine.v2.ConsensusState' as const,
+
   encode(
     message: ConsensusState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -420,6 +450,7 @@ export const ConsensusState = {
 
   fromJSON(object: any): ConsensusState {
     return {
+      $type: ConsensusState.$type,
       publicKey: isSet(object.publicKey)
         ? Any.fromJSON(object.publicKey)
         : undefined,
@@ -460,8 +491,11 @@ export const ConsensusState = {
   },
 };
 
+messageTypeRegistry.set(ConsensusState.$type, ConsensusState);
+
 function createBaseHeader(): Header {
   return {
+    $type: 'ibc.lightclients.solomachine.v2.Header',
     sequence: Long.UZERO,
     timestamp: Long.UZERO,
     signature: new Uint8Array(),
@@ -471,6 +505,8 @@ function createBaseHeader(): Header {
 }
 
 export const Header = {
+  $type: 'ibc.lightclients.solomachine.v2.Header' as const,
+
   encode(
     message: Header,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -525,6 +561,7 @@ export const Header = {
 
   fromJSON(object: any): Header {
     return {
+      $type: Header.$type,
       sequence: isSet(object.sequence)
         ? Long.fromValue(object.sequence)
         : Long.UZERO,
@@ -582,8 +619,11 @@ export const Header = {
   },
 };
 
+messageTypeRegistry.set(Header.$type, Header);
+
 function createBaseMisbehaviour(): Misbehaviour {
   return {
+    $type: 'ibc.lightclients.solomachine.v2.Misbehaviour',
     clientId: '',
     sequence: Long.UZERO,
     signatureOne: undefined,
@@ -592,6 +632,8 @@ function createBaseMisbehaviour(): Misbehaviour {
 }
 
 export const Misbehaviour = {
+  $type: 'ibc.lightclients.solomachine.v2.Misbehaviour' as const,
+
   encode(
     message: Misbehaviour,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -652,6 +694,7 @@ export const Misbehaviour = {
 
   fromJSON(object: any): Misbehaviour {
     return {
+      $type: Misbehaviour.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       sequence: isSet(object.sequence)
         ? Long.fromValue(object.sequence)
@@ -702,8 +745,11 @@ export const Misbehaviour = {
   },
 };
 
+messageTypeRegistry.set(Misbehaviour.$type, Misbehaviour);
+
 function createBaseSignatureAndData(): SignatureAndData {
   return {
+    $type: 'ibc.lightclients.solomachine.v2.SignatureAndData',
     signature: new Uint8Array(),
     dataType: 0,
     data: new Uint8Array(),
@@ -712,6 +758,8 @@ function createBaseSignatureAndData(): SignatureAndData {
 }
 
 export const SignatureAndData = {
+  $type: 'ibc.lightclients.solomachine.v2.SignatureAndData' as const,
+
   encode(
     message: SignatureAndData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -760,6 +808,7 @@ export const SignatureAndData = {
 
   fromJSON(object: any): SignatureAndData {
     return {
+      $type: SignatureAndData.$type,
       signature: isSet(object.signature)
         ? bytesFromBase64(object.signature)
         : new Uint8Array(),
@@ -805,11 +854,19 @@ export const SignatureAndData = {
   },
 };
 
+messageTypeRegistry.set(SignatureAndData.$type, SignatureAndData);
+
 function createBaseTimestampedSignatureData(): TimestampedSignatureData {
-  return { signatureData: new Uint8Array(), timestamp: Long.UZERO };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.TimestampedSignatureData',
+    signatureData: new Uint8Array(),
+    timestamp: Long.UZERO,
+  };
 }
 
 export const TimestampedSignatureData = {
+  $type: 'ibc.lightclients.solomachine.v2.TimestampedSignatureData' as const,
+
   encode(
     message: TimestampedSignatureData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -849,6 +906,7 @@ export const TimestampedSignatureData = {
 
   fromJSON(object: any): TimestampedSignatureData {
     return {
+      $type: TimestampedSignatureData.$type,
       signatureData: isSet(object.signatureData)
         ? bytesFromBase64(object.signatureData)
         : new Uint8Array(),
@@ -884,8 +942,14 @@ export const TimestampedSignatureData = {
   },
 };
 
+messageTypeRegistry.set(
+  TimestampedSignatureData.$type,
+  TimestampedSignatureData,
+);
+
 function createBaseSignBytes(): SignBytes {
   return {
+    $type: 'ibc.lightclients.solomachine.v2.SignBytes',
     sequence: Long.UZERO,
     timestamp: Long.UZERO,
     diversifier: '',
@@ -895,6 +959,8 @@ function createBaseSignBytes(): SignBytes {
 }
 
 export const SignBytes = {
+  $type: 'ibc.lightclients.solomachine.v2.SignBytes' as const,
+
   encode(
     message: SignBytes,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -949,6 +1015,7 @@ export const SignBytes = {
 
   fromJSON(object: any): SignBytes {
     return {
+      $type: SignBytes.$type,
       sequence: isSet(object.sequence)
         ? Long.fromValue(object.sequence)
         : Long.UZERO,
@@ -999,11 +1066,19 @@ export const SignBytes = {
   },
 };
 
+messageTypeRegistry.set(SignBytes.$type, SignBytes);
+
 function createBaseHeaderData(): HeaderData {
-  return { newPubKey: undefined, newDiversifier: '' };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.HeaderData',
+    newPubKey: undefined,
+    newDiversifier: '',
+  };
 }
 
 export const HeaderData = {
+  $type: 'ibc.lightclients.solomachine.v2.HeaderData' as const,
+
   encode(
     message: HeaderData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1040,6 +1115,7 @@ export const HeaderData = {
 
   fromJSON(object: any): HeaderData {
     return {
+      $type: HeaderData.$type,
       newPubKey: isSet(object.newPubKey)
         ? Any.fromJSON(object.newPubKey)
         : undefined,
@@ -1073,11 +1149,19 @@ export const HeaderData = {
   },
 };
 
+messageTypeRegistry.set(HeaderData.$type, HeaderData);
+
 function createBaseClientStateData(): ClientStateData {
-  return { path: new Uint8Array(), clientState: undefined };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.ClientStateData',
+    path: new Uint8Array(),
+    clientState: undefined,
+  };
 }
 
 export const ClientStateData = {
+  $type: 'ibc.lightclients.solomachine.v2.ClientStateData' as const,
+
   encode(
     message: ClientStateData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1114,6 +1198,7 @@ export const ClientStateData = {
 
   fromJSON(object: any): ClientStateData {
     return {
+      $type: ClientStateData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1149,11 +1234,19 @@ export const ClientStateData = {
   },
 };
 
+messageTypeRegistry.set(ClientStateData.$type, ClientStateData);
+
 function createBaseConsensusStateData(): ConsensusStateData {
-  return { path: new Uint8Array(), consensusState: undefined };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.ConsensusStateData',
+    path: new Uint8Array(),
+    consensusState: undefined,
+  };
 }
 
 export const ConsensusStateData = {
+  $type: 'ibc.lightclients.solomachine.v2.ConsensusStateData' as const,
+
   encode(
     message: ConsensusStateData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1190,6 +1283,7 @@ export const ConsensusStateData = {
 
   fromJSON(object: any): ConsensusStateData {
     return {
+      $type: ConsensusStateData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1225,11 +1319,19 @@ export const ConsensusStateData = {
   },
 };
 
+messageTypeRegistry.set(ConsensusStateData.$type, ConsensusStateData);
+
 function createBaseConnectionStateData(): ConnectionStateData {
-  return { path: new Uint8Array(), connection: undefined };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.ConnectionStateData',
+    path: new Uint8Array(),
+    connection: undefined,
+  };
 }
 
 export const ConnectionStateData = {
+  $type: 'ibc.lightclients.solomachine.v2.ConnectionStateData' as const,
+
   encode(
     message: ConnectionStateData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1269,6 +1371,7 @@ export const ConnectionStateData = {
 
   fromJSON(object: any): ConnectionStateData {
     return {
+      $type: ConnectionStateData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1304,11 +1407,19 @@ export const ConnectionStateData = {
   },
 };
 
+messageTypeRegistry.set(ConnectionStateData.$type, ConnectionStateData);
+
 function createBaseChannelStateData(): ChannelStateData {
-  return { path: new Uint8Array(), channel: undefined };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.ChannelStateData',
+    path: new Uint8Array(),
+    channel: undefined,
+  };
 }
 
 export const ChannelStateData = {
+  $type: 'ibc.lightclients.solomachine.v2.ChannelStateData' as const,
+
   encode(
     message: ChannelStateData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1345,6 +1456,7 @@ export const ChannelStateData = {
 
   fromJSON(object: any): ChannelStateData {
     return {
+      $type: ChannelStateData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1380,11 +1492,19 @@ export const ChannelStateData = {
   },
 };
 
+messageTypeRegistry.set(ChannelStateData.$type, ChannelStateData);
+
 function createBasePacketCommitmentData(): PacketCommitmentData {
-  return { path: new Uint8Array(), commitment: new Uint8Array() };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.PacketCommitmentData',
+    path: new Uint8Array(),
+    commitment: new Uint8Array(),
+  };
 }
 
 export const PacketCommitmentData = {
+  $type: 'ibc.lightclients.solomachine.v2.PacketCommitmentData' as const,
+
   encode(
     message: PacketCommitmentData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1424,6 +1544,7 @@ export const PacketCommitmentData = {
 
   fromJSON(object: any): PacketCommitmentData {
     return {
+      $type: PacketCommitmentData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1458,11 +1579,19 @@ export const PacketCommitmentData = {
   },
 };
 
+messageTypeRegistry.set(PacketCommitmentData.$type, PacketCommitmentData);
+
 function createBasePacketAcknowledgementData(): PacketAcknowledgementData {
-  return { path: new Uint8Array(), acknowledgement: new Uint8Array() };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.PacketAcknowledgementData',
+    path: new Uint8Array(),
+    acknowledgement: new Uint8Array(),
+  };
 }
 
 export const PacketAcknowledgementData = {
+  $type: 'ibc.lightclients.solomachine.v2.PacketAcknowledgementData' as const,
+
   encode(
     message: PacketAcknowledgementData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1502,6 +1631,7 @@ export const PacketAcknowledgementData = {
 
   fromJSON(object: any): PacketAcknowledgementData {
     return {
+      $type: PacketAcknowledgementData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1536,11 +1666,21 @@ export const PacketAcknowledgementData = {
   },
 };
 
+messageTypeRegistry.set(
+  PacketAcknowledgementData.$type,
+  PacketAcknowledgementData,
+);
+
 function createBasePacketReceiptAbsenceData(): PacketReceiptAbsenceData {
-  return { path: new Uint8Array() };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData',
+    path: new Uint8Array(),
+  };
 }
 
 export const PacketReceiptAbsenceData = {
+  $type: 'ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData' as const,
+
   encode(
     message: PacketReceiptAbsenceData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1574,6 +1714,7 @@ export const PacketReceiptAbsenceData = {
 
   fromJSON(object: any): PacketReceiptAbsenceData {
     return {
+      $type: PacketReceiptAbsenceData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1598,11 +1739,22 @@ export const PacketReceiptAbsenceData = {
   },
 };
 
+messageTypeRegistry.set(
+  PacketReceiptAbsenceData.$type,
+  PacketReceiptAbsenceData,
+);
+
 function createBaseNextSequenceRecvData(): NextSequenceRecvData {
-  return { path: new Uint8Array(), nextSeqRecv: Long.UZERO };
+  return {
+    $type: 'ibc.lightclients.solomachine.v2.NextSequenceRecvData',
+    path: new Uint8Array(),
+    nextSeqRecv: Long.UZERO,
+  };
 }
 
 export const NextSequenceRecvData = {
+  $type: 'ibc.lightclients.solomachine.v2.NextSequenceRecvData' as const,
+
   encode(
     message: NextSequenceRecvData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1642,6 +1794,7 @@ export const NextSequenceRecvData = {
 
   fromJSON(object: any): NextSequenceRecvData {
     return {
+      $type: NextSequenceRecvData.$type,
       path: isSet(object.path)
         ? bytesFromBase64(object.path)
         : new Uint8Array(),
@@ -1674,6 +1827,8 @@ export const NextSequenceRecvData = {
     return message;
   },
 };
+
+messageTypeRegistry.set(NextSequenceRecvData.$type, NextSequenceRecvData);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -1729,14 +1884,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

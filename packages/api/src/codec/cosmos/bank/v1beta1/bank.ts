@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'cosmos.bank.v1beta1';
 
 /** Params defines the parameters for the bank module. */
 export interface Params {
+  $type: 'cosmos.bank.v1beta1.Params';
   sendEnabled: SendEnabled[];
   defaultSendEnabled: boolean;
 }
@@ -16,18 +18,21 @@ export interface Params {
  * sendable).
  */
 export interface SendEnabled {
+  $type: 'cosmos.bank.v1beta1.SendEnabled';
   denom: string;
   enabled: boolean;
 }
 
 /** Input models transaction input. */
 export interface Input {
+  $type: 'cosmos.bank.v1beta1.Input';
   address: string;
   coins: Coin[];
 }
 
 /** Output models transaction outputs. */
 export interface Output {
+  $type: 'cosmos.bank.v1beta1.Output';
   address: string;
   coins: Coin[];
 }
@@ -40,6 +45,7 @@ export interface Output {
  * @deprecated
  */
 export interface Supply {
+  $type: 'cosmos.bank.v1beta1.Supply';
   total: Coin[];
 }
 
@@ -48,6 +54,7 @@ export interface Supply {
  * denomination unit of the basic token.
  */
 export interface DenomUnit {
+  $type: 'cosmos.bank.v1beta1.DenomUnit';
   /** denom represents the string name of the given denom unit (e.g uatom). */
   denom: string;
   /**
@@ -67,6 +74,7 @@ export interface DenomUnit {
  * a basic token.
  */
 export interface Metadata {
+  $type: 'cosmos.bank.v1beta1.Metadata';
   description: string;
   /** denom_units represents the list of DenomUnit's for a given coin */
   denomUnits: DenomUnit[];
@@ -93,10 +101,16 @@ export interface Metadata {
 }
 
 function createBaseParams(): Params {
-  return { sendEnabled: [], defaultSendEnabled: false };
+  return {
+    $type: 'cosmos.bank.v1beta1.Params',
+    sendEnabled: [],
+    defaultSendEnabled: false,
+  };
 }
 
 export const Params = {
+  $type: 'cosmos.bank.v1beta1.Params' as const,
+
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -133,6 +147,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       sendEnabled: Array.isArray(object?.sendEnabled)
         ? object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e))
         : [],
@@ -165,11 +180,19 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 function createBaseSendEnabled(): SendEnabled {
-  return { denom: '', enabled: false };
+  return {
+    $type: 'cosmos.bank.v1beta1.SendEnabled',
+    denom: '',
+    enabled: false,
+  };
 }
 
 export const SendEnabled = {
+  $type: 'cosmos.bank.v1beta1.SendEnabled' as const,
+
   encode(
     message: SendEnabled,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -206,6 +229,7 @@ export const SendEnabled = {
 
   fromJSON(object: any): SendEnabled {
     return {
+      $type: SendEnabled.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
     };
@@ -228,11 +252,15 @@ export const SendEnabled = {
   },
 };
 
+messageTypeRegistry.set(SendEnabled.$type, SendEnabled);
+
 function createBaseInput(): Input {
-  return { address: '', coins: [] };
+  return { $type: 'cosmos.bank.v1beta1.Input', address: '', coins: [] };
 }
 
 export const Input = {
+  $type: 'cosmos.bank.v1beta1.Input' as const,
+
   encode(message: Input, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== '') {
       writer.uint32(10).string(message.address);
@@ -266,6 +294,7 @@ export const Input = {
 
   fromJSON(object: any): Input {
     return {
+      $type: Input.$type,
       address: isSet(object.address) ? String(object.address) : '',
       coins: Array.isArray(object?.coins)
         ? object.coins.map((e: any) => Coin.fromJSON(e))
@@ -292,11 +321,15 @@ export const Input = {
   },
 };
 
+messageTypeRegistry.set(Input.$type, Input);
+
 function createBaseOutput(): Output {
-  return { address: '', coins: [] };
+  return { $type: 'cosmos.bank.v1beta1.Output', address: '', coins: [] };
 }
 
 export const Output = {
+  $type: 'cosmos.bank.v1beta1.Output' as const,
+
   encode(
     message: Output,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -333,6 +366,7 @@ export const Output = {
 
   fromJSON(object: any): Output {
     return {
+      $type: Output.$type,
       address: isSet(object.address) ? String(object.address) : '',
       coins: Array.isArray(object?.coins)
         ? object.coins.map((e: any) => Coin.fromJSON(e))
@@ -359,11 +393,15 @@ export const Output = {
   },
 };
 
+messageTypeRegistry.set(Output.$type, Output);
+
 function createBaseSupply(): Supply {
-  return { total: [] };
+  return { $type: 'cosmos.bank.v1beta1.Supply', total: [] };
 }
 
 export const Supply = {
+  $type: 'cosmos.bank.v1beta1.Supply' as const,
+
   encode(
     message: Supply,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -394,6 +432,7 @@ export const Supply = {
 
   fromJSON(object: any): Supply {
     return {
+      $type: Supply.$type,
       total: Array.isArray(object?.total)
         ? object.total.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -417,11 +456,20 @@ export const Supply = {
   },
 };
 
+messageTypeRegistry.set(Supply.$type, Supply);
+
 function createBaseDenomUnit(): DenomUnit {
-  return { denom: '', exponent: 0, aliases: [] };
+  return {
+    $type: 'cosmos.bank.v1beta1.DenomUnit',
+    denom: '',
+    exponent: 0,
+    aliases: [],
+  };
 }
 
 export const DenomUnit = {
+  $type: 'cosmos.bank.v1beta1.DenomUnit' as const,
+
   encode(
     message: DenomUnit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -464,6 +512,7 @@ export const DenomUnit = {
 
   fromJSON(object: any): DenomUnit {
     return {
+      $type: DenomUnit.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       exponent: isSet(object.exponent) ? Number(object.exponent) : 0,
       aliases: Array.isArray(object?.aliases)
@@ -496,8 +545,11 @@ export const DenomUnit = {
   },
 };
 
+messageTypeRegistry.set(DenomUnit.$type, DenomUnit);
+
 function createBaseMetadata(): Metadata {
   return {
+    $type: 'cosmos.bank.v1beta1.Metadata',
     description: '',
     denomUnits: [],
     base: '',
@@ -508,6 +560,8 @@ function createBaseMetadata(): Metadata {
 }
 
 export const Metadata = {
+  $type: 'cosmos.bank.v1beta1.Metadata' as const,
+
   encode(
     message: Metadata,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -568,6 +622,7 @@ export const Metadata = {
 
   fromJSON(object: any): Metadata {
     return {
+      $type: Metadata.$type,
       description: isSet(object.description) ? String(object.description) : '',
       denomUnits: Array.isArray(object?.denomUnits)
         ? object.denomUnits.map((e: any) => DenomUnit.fromJSON(e))
@@ -610,6 +665,8 @@ export const Metadata = {
   },
 };
 
+messageTypeRegistry.set(Metadata.$type, Metadata);
+
 type Builtin =
   | Date
   | Function
@@ -628,14 +685,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

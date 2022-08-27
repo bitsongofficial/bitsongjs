@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -6,6 +7,7 @@ export const protobufPackage = 'cosmos.mint.v1beta1';
 
 /** Minter represents the minting state. */
 export interface Minter {
+  $type: 'cosmos.mint.v1beta1.Minter';
   /** current annual inflation rate */
   inflation: string;
   /** current annual expected provisions */
@@ -14,6 +16,7 @@ export interface Minter {
 
 /** Params holds parameters for the mint module. */
 export interface Params {
+  $type: 'cosmos.mint.v1beta1.Params';
   /** type of coin to mint */
   mintDenom: string;
   /** maximum annual change in inflation rate */
@@ -29,10 +32,16 @@ export interface Params {
 }
 
 function createBaseMinter(): Minter {
-  return { inflation: '', annualProvisions: '' };
+  return {
+    $type: 'cosmos.mint.v1beta1.Minter',
+    inflation: '',
+    annualProvisions: '',
+  };
 }
 
 export const Minter = {
+  $type: 'cosmos.mint.v1beta1.Minter' as const,
+
   encode(
     message: Minter,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -69,6 +78,7 @@ export const Minter = {
 
   fromJSON(object: any): Minter {
     return {
+      $type: Minter.$type,
       inflation: isSet(object.inflation) ? String(object.inflation) : '',
       annualProvisions: isSet(object.annualProvisions)
         ? String(object.annualProvisions)
@@ -92,8 +102,11 @@ export const Minter = {
   },
 };
 
+messageTypeRegistry.set(Minter.$type, Minter);
+
 function createBaseParams(): Params {
   return {
+    $type: 'cosmos.mint.v1beta1.Params',
     mintDenom: '',
     inflationRateChange: '',
     inflationMax: '',
@@ -104,6 +117,8 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
+  $type: 'cosmos.mint.v1beta1.Params' as const,
+
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -164,6 +179,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       mintDenom: isSet(object.mintDenom) ? String(object.mintDenom) : '',
       inflationRateChange: isSet(object.inflationRateChange)
         ? String(object.inflationRateChange)
@@ -211,6 +227,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 type Builtin =
   | Date
   | Function
@@ -229,14 +247,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

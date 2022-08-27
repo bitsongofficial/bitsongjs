@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -8,6 +9,7 @@ export const protobufPackage = 'cosmos.authz.v1beta1';
 
 /** EventGrant is emitted on Msg/Grant */
 export interface EventGrant {
+  $type: 'cosmos.authz.v1beta1.EventGrant';
   /** Msg type URL for which an autorization is granted */
   msgTypeUrl: string;
   /** Granter account address */
@@ -18,6 +20,7 @@ export interface EventGrant {
 
 /** EventRevoke is emitted on Msg/Revoke */
 export interface EventRevoke {
+  $type: 'cosmos.authz.v1beta1.EventRevoke';
   /** Msg type URL for which an autorization is revoked */
   msgTypeUrl: string;
   /** Granter account address */
@@ -27,10 +30,17 @@ export interface EventRevoke {
 }
 
 function createBaseEventGrant(): EventGrant {
-  return { msgTypeUrl: '', granter: '', grantee: '' };
+  return {
+    $type: 'cosmos.authz.v1beta1.EventGrant',
+    msgTypeUrl: '',
+    granter: '',
+    grantee: '',
+  };
 }
 
 export const EventGrant = {
+  $type: 'cosmos.authz.v1beta1.EventGrant' as const,
+
   encode(
     message: EventGrant,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -73,6 +83,7 @@ export const EventGrant = {
 
   fromJSON(object: any): EventGrant {
     return {
+      $type: EventGrant.$type,
       msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
@@ -98,11 +109,20 @@ export const EventGrant = {
   },
 };
 
+messageTypeRegistry.set(EventGrant.$type, EventGrant);
+
 function createBaseEventRevoke(): EventRevoke {
-  return { msgTypeUrl: '', granter: '', grantee: '' };
+  return {
+    $type: 'cosmos.authz.v1beta1.EventRevoke',
+    msgTypeUrl: '',
+    granter: '',
+    grantee: '',
+  };
 }
 
 export const EventRevoke = {
+  $type: 'cosmos.authz.v1beta1.EventRevoke' as const,
+
   encode(
     message: EventRevoke,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -145,6 +165,7 @@ export const EventRevoke = {
 
   fromJSON(object: any): EventRevoke {
     return {
+      $type: EventRevoke.$type,
       msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
@@ -170,6 +191,8 @@ export const EventRevoke = {
   },
 };
 
+messageTypeRegistry.set(EventRevoke.$type, EventRevoke);
+
 type Builtin =
   | Date
   | Function
@@ -188,14 +211,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

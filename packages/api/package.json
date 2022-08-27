@@ -21,7 +21,6 @@
 		"define-proto": "./scripts/define-proto.sh",
 		"postdefine-proto": "prettier --write \"src/codec/**/*.ts\"",
 		"build": "rimraf lib && tsc",
-		"gen": "rimraf src/generated && mkdir src/generated && ./scripts/protocgen.sh",
 		"test": "jest"
 	}
 }

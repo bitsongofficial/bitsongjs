@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import { IdentifiedChannel, PacketState } from './channel';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'ibc.core.channel.v1';
 
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {
+  $type: 'ibc.core.channel.v1.GenesisState';
   channels: IdentifiedChannel[];
   acknowledgements: PacketState[];
   commitments: PacketState[];
@@ -23,6 +25,7 @@ export interface GenesisState {
  * next send and receive sequences.
  */
 export interface PacketSequence {
+  $type: 'ibc.core.channel.v1.PacketSequence';
   portId: string;
   channelId: string;
   sequence: Long;
@@ -30,6 +33,7 @@ export interface PacketSequence {
 
 function createBaseGenesisState(): GenesisState {
   return {
+    $type: 'ibc.core.channel.v1.GenesisState',
     channels: [],
     acknowledgements: [],
     commitments: [],
@@ -42,6 +46,8 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
+  $type: 'ibc.core.channel.v1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -124,6 +130,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       channels: Array.isArray(object?.channels)
         ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
         : [],
@@ -236,11 +243,20 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 function createBasePacketSequence(): PacketSequence {
-  return { portId: '', channelId: '', sequence: Long.UZERO };
+  return {
+    $type: 'ibc.core.channel.v1.PacketSequence',
+    portId: '',
+    channelId: '',
+    sequence: Long.UZERO,
+  };
 }
 
 export const PacketSequence = {
+  $type: 'ibc.core.channel.v1.PacketSequence' as const,
+
   encode(
     message: PacketSequence,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -283,6 +299,7 @@ export const PacketSequence = {
 
   fromJSON(object: any): PacketSequence {
     return {
+      $type: PacketSequence.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       sequence: isSet(object.sequence)
@@ -314,6 +331,8 @@ export const PacketSequence = {
   },
 };
 
+messageTypeRegistry.set(PacketSequence.$type, PacketSequence);
+
 type Builtin =
   | Date
   | Function
@@ -332,14 +351,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

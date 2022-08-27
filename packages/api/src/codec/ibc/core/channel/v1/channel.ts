@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Height } from '../../client/v1/client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -123,6 +124,7 @@ export function orderToJSON(object: Order): string {
  * sending packets and one end capable of receiving packets.
  */
 export interface Channel {
+  $type: 'ibc.core.channel.v1.Channel';
   /** current state of the channel end */
   state: State;
   /** whether the channel is ordered or unordered */
@@ -143,6 +145,7 @@ export interface Channel {
  * identifier fields.
  */
 export interface IdentifiedChannel {
+  $type: 'ibc.core.channel.v1.IdentifiedChannel';
   /** current state of the channel end */
   state: State;
   /** whether the channel is ordered or unordered */
@@ -164,6 +167,7 @@ export interface IdentifiedChannel {
 
 /** Counterparty defines a channel end counterparty */
 export interface Counterparty {
+  $type: 'ibc.core.channel.v1.Counterparty';
   /** port on the counterparty chain which owns the other end of the channel. */
   portId: string;
   /** channel end on the counterparty chain */
@@ -172,6 +176,7 @@ export interface Counterparty {
 
 /** Packet defines a type that carries data across different chains through IBC */
 export interface Packet {
+  $type: 'ibc.core.channel.v1.Packet';
   /**
    * number corresponds to the order of sends and receives, where a Packet
    * with an earlier sequence number must be sent and received before a Packet
@@ -201,6 +206,7 @@ export interface Packet {
  * state as a commitment, acknowledgement, or a receipt.
  */
 export interface PacketState {
+  $type: 'ibc.core.channel.v1.PacketState';
   /** channel port identifier. */
   portId: string;
   /** channel unique identifier. */
@@ -221,12 +227,14 @@ export interface PacketState {
  * https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope
  */
 export interface Acknowledgement {
+  $type: 'ibc.core.channel.v1.Acknowledgement';
   result: Uint8Array | undefined;
   error: string | undefined;
 }
 
 function createBaseChannel(): Channel {
   return {
+    $type: 'ibc.core.channel.v1.Channel',
     state: 0,
     ordering: 0,
     counterparty: undefined,
@@ -236,6 +244,8 @@ function createBaseChannel(): Channel {
 }
 
 export const Channel = {
+  $type: 'ibc.core.channel.v1.Channel' as const,
+
   encode(
     message: Channel,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -293,6 +303,7 @@ export const Channel = {
 
   fromJSON(object: any): Channel {
     return {
+      $type: Channel.$type,
       state: isSet(object.state) ? stateFromJSON(object.state) : 0,
       ordering: isSet(object.ordering) ? orderFromJSON(object.ordering) : 0,
       counterparty: isSet(object.counterparty)
@@ -337,8 +348,11 @@ export const Channel = {
   },
 };
 
+messageTypeRegistry.set(Channel.$type, Channel);
+
 function createBaseIdentifiedChannel(): IdentifiedChannel {
   return {
+    $type: 'ibc.core.channel.v1.IdentifiedChannel',
     state: 0,
     ordering: 0,
     counterparty: undefined,
@@ -350,6 +364,8 @@ function createBaseIdentifiedChannel(): IdentifiedChannel {
 }
 
 export const IdentifiedChannel = {
+  $type: 'ibc.core.channel.v1.IdentifiedChannel' as const,
+
   encode(
     message: IdentifiedChannel,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -419,6 +435,7 @@ export const IdentifiedChannel = {
 
   fromJSON(object: any): IdentifiedChannel {
     return {
+      $type: IdentifiedChannel.$type,
       state: isSet(object.state) ? stateFromJSON(object.state) : 0,
       ordering: isSet(object.ordering) ? orderFromJSON(object.ordering) : 0,
       counterparty: isSet(object.counterparty)
@@ -471,11 +488,19 @@ export const IdentifiedChannel = {
   },
 };
 
+messageTypeRegistry.set(IdentifiedChannel.$type, IdentifiedChannel);
+
 function createBaseCounterparty(): Counterparty {
-  return { portId: '', channelId: '' };
+  return {
+    $type: 'ibc.core.channel.v1.Counterparty',
+    portId: '',
+    channelId: '',
+  };
 }
 
 export const Counterparty = {
+  $type: 'ibc.core.channel.v1.Counterparty' as const,
+
   encode(
     message: Counterparty,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -512,6 +537,7 @@ export const Counterparty = {
 
   fromJSON(object: any): Counterparty {
     return {
+      $type: Counterparty.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
     };
@@ -534,8 +560,11 @@ export const Counterparty = {
   },
 };
 
+messageTypeRegistry.set(Counterparty.$type, Counterparty);
+
 function createBasePacket(): Packet {
   return {
+    $type: 'ibc.core.channel.v1.Packet',
     sequence: Long.UZERO,
     sourcePort: '',
     sourceChannel: '',
@@ -548,6 +577,8 @@ function createBasePacket(): Packet {
 }
 
 export const Packet = {
+  $type: 'ibc.core.channel.v1.Packet' as const,
+
   encode(
     message: Packet,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -620,6 +651,7 @@ export const Packet = {
 
   fromJSON(object: any): Packet {
     return {
+      $type: Packet.$type,
       sequence: isSet(object.sequence)
         ? Long.fromValue(object.sequence)
         : Long.UZERO,
@@ -694,8 +726,11 @@ export const Packet = {
   },
 };
 
+messageTypeRegistry.set(Packet.$type, Packet);
+
 function createBasePacketState(): PacketState {
   return {
+    $type: 'ibc.core.channel.v1.PacketState',
     portId: '',
     channelId: '',
     sequence: Long.UZERO,
@@ -704,6 +739,8 @@ function createBasePacketState(): PacketState {
 }
 
 export const PacketState = {
+  $type: 'ibc.core.channel.v1.PacketState' as const,
+
   encode(
     message: PacketState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -752,6 +789,7 @@ export const PacketState = {
 
   fromJSON(object: any): PacketState {
     return {
+      $type: PacketState.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       sequence: isSet(object.sequence)
@@ -791,11 +829,19 @@ export const PacketState = {
   },
 };
 
+messageTypeRegistry.set(PacketState.$type, PacketState);
+
 function createBaseAcknowledgement(): Acknowledgement {
-  return { result: undefined, error: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.Acknowledgement',
+    result: undefined,
+    error: undefined,
+  };
 }
 
 export const Acknowledgement = {
+  $type: 'ibc.core.channel.v1.Acknowledgement' as const,
+
   encode(
     message: Acknowledgement,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -832,6 +878,7 @@ export const Acknowledgement = {
 
   fromJSON(object: any): Acknowledgement {
     return {
+      $type: Acknowledgement.$type,
       result: isSet(object.result) ? bytesFromBase64(object.result) : undefined,
       error: isSet(object.error) ? String(object.error) : undefined,
     };
@@ -857,6 +904,8 @@ export const Acknowledgement = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Acknowledgement.$type, Acknowledgement);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -912,14 +961,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

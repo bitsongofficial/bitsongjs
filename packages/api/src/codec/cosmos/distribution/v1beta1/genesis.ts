@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import {
   ValidatorAccumulatedCommission,
   ValidatorHistoricalRewards,
@@ -20,6 +21,7 @@ export const protobufPackage = 'cosmos.distribution.v1beta1';
  * default withdraw addresses.
  */
 export interface DelegatorWithdrawInfo {
+  $type: 'cosmos.distribution.v1beta1.DelegatorWithdrawInfo';
   /** delegator_address is the address of the delegator. */
   delegatorAddress: string;
   /** withdraw_address is the address to withdraw the delegation rewards to. */
@@ -28,6 +30,7 @@ export interface DelegatorWithdrawInfo {
 
 /** ValidatorOutstandingRewardsRecord is used for import/export via genesis json. */
 export interface ValidatorOutstandingRewardsRecord {
+  $type: 'cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord';
   /** validator_address is the address of the validator. */
   validatorAddress: string;
   /** outstanding_rewards represents the oustanding rewards of a validator. */
@@ -39,6 +42,7 @@ export interface ValidatorOutstandingRewardsRecord {
  * json.
  */
 export interface ValidatorAccumulatedCommissionRecord {
+  $type: 'cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord';
   /** validator_address is the address of the validator. */
   validatorAddress: string;
   /** accumulated is the accumulated commission of a validator. */
@@ -50,6 +54,7 @@ export interface ValidatorAccumulatedCommissionRecord {
  * json.
  */
 export interface ValidatorHistoricalRewardsRecord {
+  $type: 'cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord';
   /** validator_address is the address of the validator. */
   validatorAddress: string;
   /** period defines the period the historical rewards apply to. */
@@ -60,6 +65,7 @@ export interface ValidatorHistoricalRewardsRecord {
 
 /** ValidatorCurrentRewardsRecord is used for import / export via genesis json. */
 export interface ValidatorCurrentRewardsRecord {
+  $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord';
   /** validator_address is the address of the validator. */
   validatorAddress: string;
   /** rewards defines the current rewards of a validator. */
@@ -68,6 +74,7 @@ export interface ValidatorCurrentRewardsRecord {
 
 /** DelegatorStartingInfoRecord used for import / export via genesis json. */
 export interface DelegatorStartingInfoRecord {
+  $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfoRecord';
   /** delegator_address is the address of the delegator. */
   delegatorAddress: string;
   /** validator_address is the address of the validator. */
@@ -78,6 +85,7 @@ export interface DelegatorStartingInfoRecord {
 
 /** ValidatorSlashEventRecord is used for import / export via genesis json. */
 export interface ValidatorSlashEventRecord {
+  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEventRecord';
   /** validator_address is the address of the validator. */
   validatorAddress: string;
   /** height defines the block height at which the slash event occured. */
@@ -90,6 +98,7 @@ export interface ValidatorSlashEventRecord {
 
 /** GenesisState defines the distribution module's genesis state. */
 export interface GenesisState {
+  $type: 'cosmos.distribution.v1beta1.GenesisState';
   /** params defines all the paramaters of the module. */
   params?: Params;
   /** fee_pool defines the fee pool at genesis. */
@@ -113,10 +122,16 @@ export interface GenesisState {
 }
 
 function createBaseDelegatorWithdrawInfo(): DelegatorWithdrawInfo {
-  return { delegatorAddress: '', withdrawAddress: '' };
+  return {
+    $type: 'cosmos.distribution.v1beta1.DelegatorWithdrawInfo',
+    delegatorAddress: '',
+    withdrawAddress: '',
+  };
 }
 
 export const DelegatorWithdrawInfo = {
+  $type: 'cosmos.distribution.v1beta1.DelegatorWithdrawInfo' as const,
+
   encode(
     message: DelegatorWithdrawInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -156,6 +171,7 @@ export const DelegatorWithdrawInfo = {
 
   fromJSON(object: any): DelegatorWithdrawInfo {
     return {
+      $type: DelegatorWithdrawInfo.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -184,11 +200,20 @@ export const DelegatorWithdrawInfo = {
   },
 };
 
+messageTypeRegistry.set(DelegatorWithdrawInfo.$type, DelegatorWithdrawInfo);
+
 function createBaseValidatorOutstandingRewardsRecord(): ValidatorOutstandingRewardsRecord {
-  return { validatorAddress: '', outstandingRewards: [] };
+  return {
+    $type: 'cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord',
+    validatorAddress: '',
+    outstandingRewards: [],
+  };
 }
 
 export const ValidatorOutstandingRewardsRecord = {
+  $type:
+    'cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord' as const,
+
   encode(
     message: ValidatorOutstandingRewardsRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -230,6 +255,7 @@ export const ValidatorOutstandingRewardsRecord = {
 
   fromJSON(object: any): ValidatorOutstandingRewardsRecord {
     return {
+      $type: ValidatorOutstandingRewardsRecord.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -264,11 +290,23 @@ export const ValidatorOutstandingRewardsRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  ValidatorOutstandingRewardsRecord.$type,
+  ValidatorOutstandingRewardsRecord,
+);
+
 function createBaseValidatorAccumulatedCommissionRecord(): ValidatorAccumulatedCommissionRecord {
-  return { validatorAddress: '', accumulated: undefined };
+  return {
+    $type: 'cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord',
+    validatorAddress: '',
+    accumulated: undefined,
+  };
 }
 
 export const ValidatorAccumulatedCommissionRecord = {
+  $type:
+    'cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord' as const,
+
   encode(
     message: ValidatorAccumulatedCommissionRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -314,6 +352,7 @@ export const ValidatorAccumulatedCommissionRecord = {
 
   fromJSON(object: any): ValidatorAccumulatedCommissionRecord {
     return {
+      $type: ValidatorAccumulatedCommissionRecord.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -347,11 +386,24 @@ export const ValidatorAccumulatedCommissionRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  ValidatorAccumulatedCommissionRecord.$type,
+  ValidatorAccumulatedCommissionRecord,
+);
+
 function createBaseValidatorHistoricalRewardsRecord(): ValidatorHistoricalRewardsRecord {
-  return { validatorAddress: '', period: Long.UZERO, rewards: undefined };
+  return {
+    $type: 'cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord',
+    validatorAddress: '',
+    period: Long.UZERO,
+    rewards: undefined,
+  };
 }
 
 export const ValidatorHistoricalRewardsRecord = {
+  $type:
+    'cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord' as const,
+
   encode(
     message: ValidatorHistoricalRewardsRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -403,6 +455,7 @@ export const ValidatorHistoricalRewardsRecord = {
 
   fromJSON(object: any): ValidatorHistoricalRewardsRecord {
     return {
+      $type: ValidatorHistoricalRewardsRecord.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -443,11 +496,22 @@ export const ValidatorHistoricalRewardsRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  ValidatorHistoricalRewardsRecord.$type,
+  ValidatorHistoricalRewardsRecord,
+);
+
 function createBaseValidatorCurrentRewardsRecord(): ValidatorCurrentRewardsRecord {
-  return { validatorAddress: '', rewards: undefined };
+  return {
+    $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord',
+    validatorAddress: '',
+    rewards: undefined,
+  };
 }
 
 export const ValidatorCurrentRewardsRecord = {
+  $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord' as const,
+
   encode(
     message: ValidatorCurrentRewardsRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -493,6 +557,7 @@ export const ValidatorCurrentRewardsRecord = {
 
   fromJSON(object: any): ValidatorCurrentRewardsRecord {
     return {
+      $type: ValidatorCurrentRewardsRecord.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -526,8 +591,14 @@ export const ValidatorCurrentRewardsRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  ValidatorCurrentRewardsRecord.$type,
+  ValidatorCurrentRewardsRecord,
+);
+
 function createBaseDelegatorStartingInfoRecord(): DelegatorStartingInfoRecord {
   return {
+    $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfoRecord',
     delegatorAddress: '',
     validatorAddress: '',
     startingInfo: undefined,
@@ -535,6 +606,8 @@ function createBaseDelegatorStartingInfoRecord(): DelegatorStartingInfoRecord {
 }
 
 export const DelegatorStartingInfoRecord = {
+  $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfoRecord' as const,
+
   encode(
     message: DelegatorStartingInfoRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -586,6 +659,7 @@ export const DelegatorStartingInfoRecord = {
 
   fromJSON(object: any): DelegatorStartingInfoRecord {
     return {
+      $type: DelegatorStartingInfoRecord.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -625,8 +699,14 @@ export const DelegatorStartingInfoRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  DelegatorStartingInfoRecord.$type,
+  DelegatorStartingInfoRecord,
+);
+
 function createBaseValidatorSlashEventRecord(): ValidatorSlashEventRecord {
   return {
+    $type: 'cosmos.distribution.v1beta1.ValidatorSlashEventRecord',
     validatorAddress: '',
     height: Long.UZERO,
     period: Long.UZERO,
@@ -635,6 +715,8 @@ function createBaseValidatorSlashEventRecord(): ValidatorSlashEventRecord {
 }
 
 export const ValidatorSlashEventRecord = {
+  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEventRecord' as const,
+
   encode(
     message: ValidatorSlashEventRecord,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -692,6 +774,7 @@ export const ValidatorSlashEventRecord = {
 
   fromJSON(object: any): ValidatorSlashEventRecord {
     return {
+      $type: ValidatorSlashEventRecord.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -740,8 +823,14 @@ export const ValidatorSlashEventRecord = {
   },
 };
 
+messageTypeRegistry.set(
+  ValidatorSlashEventRecord.$type,
+  ValidatorSlashEventRecord,
+);
+
 function createBaseGenesisState(): GenesisState {
   return {
+    $type: 'cosmos.distribution.v1beta1.GenesisState',
     params: undefined,
     feePool: undefined,
     delegatorWithdrawInfos: [],
@@ -756,6 +845,8 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
+  $type: 'cosmos.distribution.v1beta1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -869,6 +960,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       feePool: isSet(object.feePool)
         ? FeePool.fromJSON(object.feePool)
@@ -1026,6 +1118,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 type Builtin =
   | Date
   | Function
@@ -1044,14 +1138,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

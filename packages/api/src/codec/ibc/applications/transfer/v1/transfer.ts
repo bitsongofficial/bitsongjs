@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -9,6 +10,7 @@ export const protobufPackage = 'ibc.applications.transfer.v1';
  * source tracing information path.
  */
 export interface DenomTrace {
+  $type: 'ibc.applications.transfer.v1.DenomTrace';
   /**
    * path defines the chain of port/channel identifiers used for tracing the
    * source of the fungible token.
@@ -25,6 +27,7 @@ export interface DenomTrace {
  * parameter for the denomination to false.
  */
 export interface Params {
+  $type: 'ibc.applications.transfer.v1.Params';
   /**
    * send_enabled enables or disables all cross-chain token transfers from this
    * chain.
@@ -38,10 +41,16 @@ export interface Params {
 }
 
 function createBaseDenomTrace(): DenomTrace {
-  return { path: '', baseDenom: '' };
+  return {
+    $type: 'ibc.applications.transfer.v1.DenomTrace',
+    path: '',
+    baseDenom: '',
+  };
 }
 
 export const DenomTrace = {
+  $type: 'ibc.applications.transfer.v1.DenomTrace' as const,
+
   encode(
     message: DenomTrace,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -78,6 +87,7 @@ export const DenomTrace = {
 
   fromJSON(object: any): DenomTrace {
     return {
+      $type: DenomTrace.$type,
       path: isSet(object.path) ? String(object.path) : '',
       baseDenom: isSet(object.baseDenom) ? String(object.baseDenom) : '',
     };
@@ -100,11 +110,19 @@ export const DenomTrace = {
   },
 };
 
+messageTypeRegistry.set(DenomTrace.$type, DenomTrace);
+
 function createBaseParams(): Params {
-  return { sendEnabled: false, receiveEnabled: false };
+  return {
+    $type: 'ibc.applications.transfer.v1.Params',
+    sendEnabled: false,
+    receiveEnabled: false,
+  };
 }
 
 export const Params = {
+  $type: 'ibc.applications.transfer.v1.Params' as const,
+
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -141,6 +159,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       sendEnabled: isSet(object.sendEnabled)
         ? Boolean(object.sendEnabled)
         : false,
@@ -167,6 +186,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 type Builtin =
   | Date
   | Function
@@ -185,14 +206,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

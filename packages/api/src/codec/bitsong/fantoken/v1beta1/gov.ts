@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -6,6 +7,7 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
 export interface UpdateFeesProposal {
+  $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposal';
   title: string;
   description: string;
   issueFee?: Coin;
@@ -14,6 +16,7 @@ export interface UpdateFeesProposal {
 }
 
 export interface UpdateFeesProposalWithDeposit {
+  $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposalWithDeposit';
   title: string;
   description: string;
   issueFee: string;
@@ -24,6 +27,7 @@ export interface UpdateFeesProposalWithDeposit {
 
 function createBaseUpdateFeesProposal(): UpdateFeesProposal {
   return {
+    $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposal',
     title: '',
     description: '',
     issueFee: undefined,
@@ -33,6 +37,8 @@ function createBaseUpdateFeesProposal(): UpdateFeesProposal {
 }
 
 export const UpdateFeesProposal = {
+  $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposal' as const,
+
   encode(
     message: UpdateFeesProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -87,6 +93,7 @@ export const UpdateFeesProposal = {
 
   fromJSON(object: any): UpdateFeesProposal {
     return {
+      $type: UpdateFeesProposal.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       issueFee: isSet(object.issueFee)
@@ -143,8 +150,11 @@ export const UpdateFeesProposal = {
   },
 };
 
+messageTypeRegistry.set(UpdateFeesProposal.$type, UpdateFeesProposal);
+
 function createBaseUpdateFeesProposalWithDeposit(): UpdateFeesProposalWithDeposit {
   return {
+    $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposalWithDeposit',
     title: '',
     description: '',
     issueFee: '',
@@ -155,6 +165,8 @@ function createBaseUpdateFeesProposalWithDeposit(): UpdateFeesProposalWithDeposi
 }
 
 export const UpdateFeesProposalWithDeposit = {
+  $type: 'bitsong.fantoken.v1beta1.UpdateFeesProposalWithDeposit' as const,
+
   encode(
     message: UpdateFeesProposalWithDeposit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -218,6 +230,7 @@ export const UpdateFeesProposalWithDeposit = {
 
   fromJSON(object: any): UpdateFeesProposalWithDeposit {
     return {
+      $type: UpdateFeesProposalWithDeposit.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       issueFee: isSet(object.issueFee) ? String(object.issueFee) : '',
@@ -253,6 +266,11 @@ export const UpdateFeesProposalWithDeposit = {
   },
 };
 
+messageTypeRegistry.set(
+  UpdateFeesProposalWithDeposit.$type,
+  UpdateFeesProposalWithDeposit,
+);
+
 type Builtin =
   | Date
   | Function
@@ -271,14 +289,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {
