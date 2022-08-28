@@ -1,18 +1,18 @@
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { DeliverTxResponse } from '@cosmjs/stargate';
-import { BitsongApi } from '../src/api';
+import { BitsongApi } from './api';
 import { QueryClientImpl } from './codec/cosmos/bank/v1beta1/query';
 import { MsgSend } from './codec/cosmos/bank/v1beta1/tx';
 import { ServiceClientImpl } from './codec/cosmos/tx/v1beta1/service';
 import { stringToPath } from '@cosmjs/crypto';
-import { getHdPath } from './constants';
+import * as Constants from './constants';
 
-const TEST_ADDRESS = 'regen1df675r9vnf7pdedn4sf26svdsem3ugavgxmy46';
-const REDWOOD_NODE_TM_URL = 'http://redwood.regen.network:26657/';
+const TEST_ADDRESS = 'bitsong1vgpsha4f8grmsqr6krfdxwpcf3x20h0q3ztaj2';
+const NODE_TM_URL = 'http://localhost:26657/';
 const TEST_FEE = {
     amount: [
         {
-            denom: 'uregen',
+            denom: Constants.MicroDenom,
             amount: '5000',
         },
     ],
@@ -23,22 +23,22 @@ const TEST_MEMO = `bitsongjs v${process.env.npm_package_version} tests`;
 const TEST_MSG = MsgSend.fromPartial({
     fromAddress: TEST_ADDRESS,
     toAddress: TEST_ADDRESS,
-    amount: [{ amount: '1000', denom: 'uregen' }],
+    amount: [{ amount: '1000', denom: Constants.MicroDenom }],
 });
 
 const connect = async (): Promise<BitsongApi> => {
     const mnemonic = // mnemonic for TEST_ADDRESS
-        'coast scheme approve soccer juice wealth bunker state fetch warrior inmate belt';
+        'guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host';
 
     const signer = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-        prefix: 'regen',
-        hdPaths: [stringToPath(getHdPath())]
+        prefix: Constants.Bech32PrefixAccAddr,
+        hdPaths: [stringToPath(Constants.getHdPath())]
     });
 
     return BitsongApi.connect({
         connection: {
             type: 'tendermint',
-            endpoint: REDWOOD_NODE_TM_URL,
+            endpoint: NODE_TM_URL,
             signer,
         },
     });
@@ -46,7 +46,7 @@ const connect = async (): Promise<BitsongApi> => {
 
 let api: BitsongApi;
 
-describe('RegenApi with tendermint connection', () => {
+describe('BitSongApi with tendermint connection', () => {
     beforeAll(async () => {
         api = await connect();
     });
@@ -56,21 +56,23 @@ describe('RegenApi with tendermint connection', () => {
 
             const res = await bankClient.AllBalances({
                 address: TEST_ADDRESS,
+                $type: 'cosmos.bank.v1beta1.QueryAllBalancesRequest'
             });
             expect(res.balances.length).toBeGreaterThanOrEqual(1);
         });
 
         it('should fetch a tx using tendermint service client', async () => {
-            const redwoodTxHash =
-                'F6A31AB068F49C5719ECB3793E0C3C4412EDD1F0C3D3C954EE0D9B1C81A0BEC8';
+            const txHash =
+                '0B79928F320419163E5FF438075F47156F3B20C2FC3F49854CDF7932425868CE';
             const serviceClient = new ServiceClientImpl(api.queryClient);
 
             const res = await serviceClient.GetTx({
-                hash: redwoodTxHash,
+                hash: txHash,
+                $type: 'cosmos.tx.v1beta1.GetTxRequest'
             });
             expect(res.txResponse).toBeTruthy();
             expect(res.txResponse?.data).toBeTruthy();
-            expect(res.txResponse?.txhash).toEqual(redwoodTxHash);
+            expect(res.txResponse?.txhash).toEqual(txHash);
         });
     });
     describe('Signing and broadcasting txs', () => {
