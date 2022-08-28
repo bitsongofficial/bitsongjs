@@ -6,11 +6,11 @@ import {
 } from '@cosmjs/stargate';
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
-import { SigningConnectionOptions } from './api';
+import { SigningConnectionOptions } from './client';
 import { messageTypeRegistry } from './codec/typeRegistry';
 import { createStargateSigningClient } from './signing';
 
-export interface MessageClient {
+export interface TxClient {
     readonly sign: (
         signerAddress: string,
         msg: any,
@@ -22,7 +22,7 @@ export interface MessageClient {
 
 export async function setupTxExtension(
     connection: SigningConnectionOptions,
-): Promise<MessageClient> {
+): Promise<TxClient> {
     const customRegistry: Array<[string, GeneratedType]> = [];
     messageTypeRegistry.forEach((value, key) => {
         customRegistry.push([`/${key}`, value]);

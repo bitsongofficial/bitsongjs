@@ -7,7 +7,7 @@ import {
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 
 import { OfflineSigner } from '@cosmjs/proto-signing';
-import { setupTxExtension, MessageClient } from './message';
+import { setupTxExtension, TxClient } from './tx';
 
 interface DefaultConnectionOptions {
     type: 'tendermint';
@@ -24,31 +24,31 @@ export interface SigningConnectionOptions extends DefaultConnectionOptions {
 }
 
 /**
- * Options to pass into the BitsongApi constructor.
+ * Options to pass into the BitsongClient constructor.
  */
-export interface BitsongApiOptions {
+export interface BitsongClientOptions {
     connection: ConnectionOptions;
 }
 
 /**
- * The main entry point for interacting with the Regen Ledger. The class needs
+ * The main entry point for interacting with the BitSong Blockchain. The class needs
  * a client connection
  */
-export class BitsongApi {
+export class BitsongClient {
     readonly queryClient: ProtobufRpcClient;
-    readonly msgClient?: MessageClient;
+    readonly txClient?: TxClient;
 
-    constructor(queryClient: ProtobufRpcClient, msgClient?: MessageClient) {
+    constructor(queryClient: ProtobufRpcClient, txClient?: TxClient) {
         this.queryClient = queryClient;
-        this.msgClient = msgClient;
+        this.txClient = txClient;
     }
 
     /**
-     * Create a RegenApi object which connects to the given gRPC connection.
+     * Create a BitsongClient object which connects to the given gRPC connection.
      *
-     * @param options - Options to pass into RegenAPI.
+     * @param options - Options to pass into BitsongClient.
      */
-    public static async connect(options: BitsongApiOptions): Promise<BitsongApi> {
+    public static async connect(options: BitsongClientOptions): Promise<BitsongClient> {
         const { connection } = options;
         switch (connection.type) {
             case 'tendermint': {
@@ -64,13 +64,13 @@ export class BitsongApi {
                 const rpcClient = createProtobufRpcClient(queryClient);
 
                 if (connection.signer) {
-                    const msgClient = await setupTxExtension(
+                    const txClient = await setupTxExtension(
                         connection as SigningConnectionOptions,
                     );
-                    return new BitsongApi(rpcClient, msgClient);
+                    return new BitsongClient(rpcClient, txClient);
                 }
 
-                return new BitsongApi(rpcClient);
+                return new BitsongClient(rpcClient);
             }
         }
     }

@@ -1,9 +1,7 @@
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
-import { BitsongApi } from '../lib/api';
-import { QueryClientImpl } from '../lib/codec/cosmos/bank/v1beta1/query';
+import { BitsongClient } from '../lib/client';
 import { MsgBurn, MsgIssue, MsgMint } from '../lib/codec/bitsong/fantoken/v1beta1/tx';
-import { ServiceClientImpl } from '../lib/codec/cosmos/tx/v1beta1/service';
 import { stringToPath } from '@cosmjs/crypto';
 import * as Constants from '../lib/constants';
 
@@ -19,7 +17,7 @@ const TEST_FEE = {
   gas: '200000',
 };
 
-const connect = async (): Promise<BitsongApi> => {
+const connect = async (): Promise<BitsongClient> => {
   const mnemonic = // mnemonic for TEST_ADDRESS
     'guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host';
 
@@ -28,7 +26,7 @@ const connect = async (): Promise<BitsongApi> => {
     hdPaths: [stringToPath(Constants.getHdPath())]
   });
 
-  return BitsongApi.connect({
+  return BitsongClient.connect({
     connection: {
       type: 'tendermint',
       endpoint: NODE_TM_URL,
@@ -37,7 +35,7 @@ const connect = async (): Promise<BitsongApi> => {
   });
 };
 
-let api: BitsongApi;
+let api: BitsongClient;
 
 let ftDenom: string;
 
@@ -58,7 +56,7 @@ describe('BitSongApi with tendermint connection', () => {
         minter: TEST_ADDRESS
       })
 
-      const signedTxBytes = await api.msgClient?.sign(
+      const signedTxBytes = await api.txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -67,7 +65,7 @@ describe('BitSongApi with tendermint connection', () => {
 
       let txRes: DeliverTxResponse | undefined;
       if (signedTxBytes) {
-        txRes = await api.msgClient?.broadcast(signedTxBytes);
+        txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
         console.log(txRes?.transactionHash)
 
@@ -91,7 +89,7 @@ describe('BitSongApi with tendermint connection', () => {
         minter: TEST_ADDRESS
       })
 
-      const signedTxBytes = await api.msgClient?.sign(
+      const signedTxBytes = await api.txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -100,7 +98,7 @@ describe('BitSongApi with tendermint connection', () => {
 
       let txRes: DeliverTxResponse | undefined;
       if (signedTxBytes) {
-        txRes = await api.msgClient?.broadcast(signedTxBytes);
+        txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
         console.log(txRes?.transactionHash)
       }
@@ -117,7 +115,7 @@ describe('BitSongApi with tendermint connection', () => {
         sender: TEST_ADDRESS
       })
 
-      const signedTxBytes = await api.msgClient?.sign(
+      const signedTxBytes = await api.txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -126,7 +124,7 @@ describe('BitSongApi with tendermint connection', () => {
 
       let txRes: DeliverTxResponse | undefined;
       if (signedTxBytes) {
-        txRes = await api.msgClient?.broadcast(signedTxBytes);
+        txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
         console.log(txRes?.transactionHash)
       }
