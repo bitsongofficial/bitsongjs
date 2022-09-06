@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Params } from './params';
 import Long from 'long';
 import { Merkledrop } from './merkledrop';
@@ -7,11 +8,13 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
 export interface Indexes {
+  $type: 'bitsong.merkledrop.v1beta1.Indexes';
   merkledropId: Long;
   index: Long[];
 }
 
 export interface GenesisState {
+  $type: 'bitsong.merkledrop.v1beta1.GenesisState';
   lastMerkledropId: Long;
   merkledrops: Merkledrop[];
   indexes: Indexes[];
@@ -19,10 +22,16 @@ export interface GenesisState {
 }
 
 function createBaseIndexes(): Indexes {
-  return { merkledropId: Long.UZERO, index: [] };
+  return {
+    $type: 'bitsong.merkledrop.v1beta1.Indexes',
+    merkledropId: Long.UZERO,
+    index: [],
+  };
 }
 
 export const Indexes = {
+  $type: 'bitsong.merkledrop.v1beta1.Indexes' as const,
+
   encode(
     message: Indexes,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -68,6 +77,7 @@ export const Indexes = {
 
   fromJSON(object: any): Indexes {
     return {
+      $type: Indexes.$type,
       merkledropId: isSet(object.merkledropId)
         ? Long.fromValue(object.merkledropId)
         : Long.UZERO,
@@ -100,8 +110,11 @@ export const Indexes = {
   },
 };
 
+messageTypeRegistry.set(Indexes.$type, Indexes);
+
 function createBaseGenesisState(): GenesisState {
   return {
+    $type: 'bitsong.merkledrop.v1beta1.GenesisState',
     lastMerkledropId: Long.UZERO,
     merkledrops: [],
     indexes: [],
@@ -110,6 +123,8 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
+  $type: 'bitsong.merkledrop.v1beta1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -158,6 +173,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       lastMerkledropId: isSet(object.lastMerkledropId)
         ? Long.fromValue(object.lastMerkledropId)
         : Long.UZERO,
@@ -215,6 +231,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 type Builtin =
   | Date
   | Function
@@ -233,14 +251,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -8,6 +9,7 @@ export const protobufPackage = 'cosmos.base.reflection.v2alpha1';
 
 /** AppDescriptor describes a cosmos-sdk based application */
 export interface AppDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.AppDescriptor';
   /**
    * AuthnDescriptor provides information on how to authenticate transactions on the application
    * NOTE: experimental and subject to change in future releases.
@@ -27,6 +29,7 @@ export interface AppDescriptor {
 
 /** TxDescriptor describes the accepted transaction type */
 export interface TxDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.TxDescriptor';
   /**
    * fullname is the protobuf fullname of the raw transaction type (for instance the tx.Tx type)
    * it is not meant to support polymorphism of transaction types, it is supposed to be used by
@@ -42,6 +45,7 @@ export interface TxDescriptor {
  * on the online RPCs GetTxMetadata and CombineUnsignedTxAndSignatures
  */
 export interface AuthnDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.AuthnDescriptor';
   /** sign_modes defines the supported signature algorithm */
   signModes: SigningModeDescriptor[];
 }
@@ -53,6 +57,7 @@ export interface AuthnDescriptor {
  * this another time
  */
 export interface SigningModeDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.SigningModeDescriptor';
   /** name defines the unique name of the signing mode */
   name: string;
   /** number is the unique int32 identifier for the sign_mode enum */
@@ -66,18 +71,21 @@ export interface SigningModeDescriptor {
 
 /** ChainDescriptor describes chain information of the application */
 export interface ChainDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.ChainDescriptor';
   /** id is the chain id */
   id: string;
 }
 
 /** CodecDescriptor describes the registered interfaces and provides metadata information on the types */
 export interface CodecDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.CodecDescriptor';
   /** interfaces is a list of the registerted interfaces descriptors */
   interfaces: InterfaceDescriptor[];
 }
 
 /** InterfaceDescriptor describes the implementation of an interface */
 export interface InterfaceDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.InterfaceDescriptor';
   /** fullname is the name of the interface */
   fullname: string;
   /**
@@ -91,6 +99,7 @@ export interface InterfaceDescriptor {
 
 /** InterfaceImplementerDescriptor describes an interface implementer */
 export interface InterfaceImplementerDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor';
   /** fullname is the protobuf queryable name of the interface implementer */
   fullname: string;
   /**
@@ -107,6 +116,7 @@ export interface InterfaceImplementerDescriptor {
  * an interface represented as a google.protobuf.Any
  */
 export interface InterfaceAcceptingMessageDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor';
   /** fullname is the protobuf fullname of the type containing the interface */
   fullname: string;
   /**
@@ -119,66 +129,86 @@ export interface InterfaceAcceptingMessageDescriptor {
 
 /** ConfigurationDescriptor contains metadata information on the sdk.Config */
 export interface ConfigurationDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.ConfigurationDescriptor';
   /** bech32_account_address_prefix is the account address prefix */
   bech32AccountAddressPrefix: string;
 }
 
 /** MsgDescriptor describes a cosmos-sdk message that can be delivered with a transaction */
 export interface MsgDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.MsgDescriptor';
   /** msg_type_url contains the TypeURL of a sdk.Msg. */
   msgTypeUrl: string;
 }
 
 /** GetAuthnDescriptorRequest is the request used for the GetAuthnDescriptor RPC */
-export interface GetAuthnDescriptorRequest {}
+export interface GetAuthnDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest';
+}
 
 /** GetAuthnDescriptorResponse is the response returned by the GetAuthnDescriptor RPC */
 export interface GetAuthnDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse';
   /** authn describes how to authenticate to the application when sending transactions */
   authn?: AuthnDescriptor;
 }
 
 /** GetChainDescriptorRequest is the request used for the GetChainDescriptor RPC */
-export interface GetChainDescriptorRequest {}
+export interface GetChainDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest';
+}
 
 /** GetChainDescriptorResponse is the response returned by the GetChainDescriptor RPC */
 export interface GetChainDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse';
   /** chain describes application chain information */
   chain?: ChainDescriptor;
 }
 
 /** GetCodecDescriptorRequest is the request used for the GetCodecDescriptor RPC */
-export interface GetCodecDescriptorRequest {}
+export interface GetCodecDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest';
+}
 
 /** GetCodecDescriptorResponse is the response returned by the GetCodecDescriptor RPC */
 export interface GetCodecDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse';
   /** codec describes the application codec such as registered interfaces and implementations */
   codec?: CodecDescriptor;
 }
 
 /** GetConfigurationDescriptorRequest is the request used for the GetConfigurationDescriptor RPC */
-export interface GetConfigurationDescriptorRequest {}
+export interface GetConfigurationDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest';
+}
 
 /** GetConfigurationDescriptorResponse is the response returned by the GetConfigurationDescriptor RPC */
 export interface GetConfigurationDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse';
   /** config describes the application's sdk.Config */
   config?: ConfigurationDescriptor;
 }
 
 /** GetQueryServicesDescriptorRequest is the request used for the GetQueryServicesDescriptor RPC */
-export interface GetQueryServicesDescriptorRequest {}
+export interface GetQueryServicesDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest';
+}
 
 /** GetQueryServicesDescriptorResponse is the response returned by the GetQueryServicesDescriptor RPC */
 export interface GetQueryServicesDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse';
   /** queries provides information on the available queryable services */
   queries?: QueryServicesDescriptor;
 }
 
 /** GetTxDescriptorRequest is the request used for the GetTxDescriptor RPC */
-export interface GetTxDescriptorRequest {}
+export interface GetTxDescriptorRequest {
+  $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest';
+}
 
 /** GetTxDescriptorResponse is the response returned by the GetTxDescriptor RPC */
 export interface GetTxDescriptorResponse {
+  $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse';
   /**
    * tx provides information on msgs that can be forwarded to the application
    * alongside the accepted transaction protobuf type
@@ -188,12 +218,14 @@ export interface GetTxDescriptorResponse {
 
 /** QueryServicesDescriptor contains the list of cosmos-sdk queriable services */
 export interface QueryServicesDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryServicesDescriptor';
   /** query_services is a list of cosmos-sdk QueryServiceDescriptor */
   queryServices: QueryServiceDescriptor[];
 }
 
 /** QueryServiceDescriptor describes a cosmos-sdk queryable service */
 export interface QueryServiceDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryServiceDescriptor';
   /** fullname is the protobuf fullname of the service descriptor */
   fullname: string;
   /** is_module describes if this service is actually exposed by an application's module */
@@ -208,6 +240,7 @@ export interface QueryServiceDescriptor {
  * because it would be redundant with the grpc reflection service
  */
 export interface QueryMethodDescriptor {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryMethodDescriptor';
   /** name is the protobuf name (not fullname) of the method */
   name: string;
   /**
@@ -219,6 +252,7 @@ export interface QueryMethodDescriptor {
 
 function createBaseAppDescriptor(): AppDescriptor {
   return {
+    $type: 'cosmos.base.reflection.v2alpha1.AppDescriptor',
     authn: undefined,
     chain: undefined,
     codec: undefined,
@@ -229,6 +263,8 @@ function createBaseAppDescriptor(): AppDescriptor {
 }
 
 export const AppDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.AppDescriptor' as const,
+
   encode(
     message: AppDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -301,6 +337,7 @@ export const AppDescriptor = {
 
   fromJSON(object: any): AppDescriptor {
     return {
+      $type: AppDescriptor.$type,
       authn: isSet(object.authn)
         ? AuthnDescriptor.fromJSON(object.authn)
         : undefined,
@@ -379,11 +416,19 @@ export const AppDescriptor = {
   },
 };
 
+messageTypeRegistry.set(AppDescriptor.$type, AppDescriptor);
+
 function createBaseTxDescriptor(): TxDescriptor {
-  return { fullname: '', msgs: [] };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.TxDescriptor',
+    fullname: '',
+    msgs: [],
+  };
 }
 
 export const TxDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.TxDescriptor' as const,
+
   encode(
     message: TxDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -420,6 +465,7 @@ export const TxDescriptor = {
 
   fromJSON(object: any): TxDescriptor {
     return {
+      $type: TxDescriptor.$type,
       fullname: isSet(object.fullname) ? String(object.fullname) : '',
       msgs: Array.isArray(object?.msgs)
         ? object.msgs.map((e: any) => MsgDescriptor.fromJSON(e))
@@ -450,11 +496,18 @@ export const TxDescriptor = {
   },
 };
 
+messageTypeRegistry.set(TxDescriptor.$type, TxDescriptor);
+
 function createBaseAuthnDescriptor(): AuthnDescriptor {
-  return { signModes: [] };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.AuthnDescriptor',
+    signModes: [],
+  };
 }
 
 export const AuthnDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.AuthnDescriptor' as const,
+
   encode(
     message: AuthnDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -487,6 +540,7 @@ export const AuthnDescriptor = {
 
   fromJSON(object: any): AuthnDescriptor {
     return {
+      $type: AuthnDescriptor.$type,
       signModes: Array.isArray(object?.signModes)
         ? object.signModes.map((e: any) => SigningModeDescriptor.fromJSON(e))
         : [],
@@ -515,11 +569,20 @@ export const AuthnDescriptor = {
   },
 };
 
+messageTypeRegistry.set(AuthnDescriptor.$type, AuthnDescriptor);
+
 function createBaseSigningModeDescriptor(): SigningModeDescriptor {
-  return { name: '', number: 0, authnInfoProviderMethodFullname: '' };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.SigningModeDescriptor',
+    name: '',
+    number: 0,
+    authnInfoProviderMethodFullname: '',
+  };
 }
 
 export const SigningModeDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.SigningModeDescriptor' as const,
+
   encode(
     message: SigningModeDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -565,6 +628,7 @@ export const SigningModeDescriptor = {
 
   fromJSON(object: any): SigningModeDescriptor {
     return {
+      $type: SigningModeDescriptor.$type,
       name: isSet(object.name) ? String(object.name) : '',
       number: isSet(object.number) ? Number(object.number) : 0,
       authnInfoProviderMethodFullname: isSet(
@@ -597,11 +661,15 @@ export const SigningModeDescriptor = {
   },
 };
 
+messageTypeRegistry.set(SigningModeDescriptor.$type, SigningModeDescriptor);
+
 function createBaseChainDescriptor(): ChainDescriptor {
-  return { id: '' };
+  return { $type: 'cosmos.base.reflection.v2alpha1.ChainDescriptor', id: '' };
 }
 
 export const ChainDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.ChainDescriptor' as const,
+
   encode(
     message: ChainDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -632,6 +700,7 @@ export const ChainDescriptor = {
 
   fromJSON(object: any): ChainDescriptor {
     return {
+      $type: ChainDescriptor.$type,
       id: isSet(object.id) ? String(object.id) : '',
     };
   },
@@ -651,11 +720,18 @@ export const ChainDescriptor = {
   },
 };
 
+messageTypeRegistry.set(ChainDescriptor.$type, ChainDescriptor);
+
 function createBaseCodecDescriptor(): CodecDescriptor {
-  return { interfaces: [] };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.CodecDescriptor',
+    interfaces: [],
+  };
 }
 
 export const CodecDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.CodecDescriptor' as const,
+
   encode(
     message: CodecDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -688,6 +764,7 @@ export const CodecDescriptor = {
 
   fromJSON(object: any): CodecDescriptor {
     return {
+      $type: CodecDescriptor.$type,
       interfaces: Array.isArray(object?.interfaces)
         ? object.interfaces.map((e: any) => InterfaceDescriptor.fromJSON(e))
         : [],
@@ -716,8 +793,11 @@ export const CodecDescriptor = {
   },
 };
 
+messageTypeRegistry.set(CodecDescriptor.$type, CodecDescriptor);
+
 function createBaseInterfaceDescriptor(): InterfaceDescriptor {
   return {
+    $type: 'cosmos.base.reflection.v2alpha1.InterfaceDescriptor',
     fullname: '',
     interfaceAcceptingMessages: [],
     interfaceImplementers: [],
@@ -725,6 +805,8 @@ function createBaseInterfaceDescriptor(): InterfaceDescriptor {
 }
 
 export const InterfaceDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.InterfaceDescriptor' as const,
+
   encode(
     message: InterfaceDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -777,6 +859,7 @@ export const InterfaceDescriptor = {
 
   fromJSON(object: any): InterfaceDescriptor {
     return {
+      $type: InterfaceDescriptor.$type,
       fullname: isSet(object.fullname) ? String(object.fullname) : '',
       interfaceAcceptingMessages: Array.isArray(
         object?.interfaceAcceptingMessages,
@@ -830,11 +913,20 @@ export const InterfaceDescriptor = {
   },
 };
 
+messageTypeRegistry.set(InterfaceDescriptor.$type, InterfaceDescriptor);
+
 function createBaseInterfaceImplementerDescriptor(): InterfaceImplementerDescriptor {
-  return { fullname: '', typeUrl: '' };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor',
+    fullname: '',
+    typeUrl: '',
+  };
 }
 
 export const InterfaceImplementerDescriptor = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor' as const,
+
   encode(
     message: InterfaceImplementerDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -874,6 +966,7 @@ export const InterfaceImplementerDescriptor = {
 
   fromJSON(object: any): InterfaceImplementerDescriptor {
     return {
+      $type: InterfaceImplementerDescriptor.$type,
       fullname: isSet(object.fullname) ? String(object.fullname) : '',
       typeUrl: isSet(object.typeUrl) ? String(object.typeUrl) : '',
     };
@@ -896,11 +989,24 @@ export const InterfaceImplementerDescriptor = {
   },
 };
 
+messageTypeRegistry.set(
+  InterfaceImplementerDescriptor.$type,
+  InterfaceImplementerDescriptor,
+);
+
 function createBaseInterfaceAcceptingMessageDescriptor(): InterfaceAcceptingMessageDescriptor {
-  return { fullname: '', fieldDescriptorNames: [] };
+  return {
+    $type:
+      'cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor',
+    fullname: '',
+    fieldDescriptorNames: [],
+  };
 }
 
 export const InterfaceAcceptingMessageDescriptor = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor' as const,
+
   encode(
     message: InterfaceAcceptingMessageDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -940,6 +1046,7 @@ export const InterfaceAcceptingMessageDescriptor = {
 
   fromJSON(object: any): InterfaceAcceptingMessageDescriptor {
     return {
+      $type: InterfaceAcceptingMessageDescriptor.$type,
       fullname: isSet(object.fullname) ? String(object.fullname) : '',
       fieldDescriptorNames: Array.isArray(object?.fieldDescriptorNames)
         ? object.fieldDescriptorNames.map((e: any) => String(e))
@@ -969,11 +1076,21 @@ export const InterfaceAcceptingMessageDescriptor = {
   },
 };
 
+messageTypeRegistry.set(
+  InterfaceAcceptingMessageDescriptor.$type,
+  InterfaceAcceptingMessageDescriptor,
+);
+
 function createBaseConfigurationDescriptor(): ConfigurationDescriptor {
-  return { bech32AccountAddressPrefix: '' };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.ConfigurationDescriptor',
+    bech32AccountAddressPrefix: '',
+  };
 }
 
 export const ConfigurationDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.ConfigurationDescriptor' as const,
+
   encode(
     message: ConfigurationDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1007,6 +1124,7 @@ export const ConfigurationDescriptor = {
 
   fromJSON(object: any): ConfigurationDescriptor {
     return {
+      $type: ConfigurationDescriptor.$type,
       bech32AccountAddressPrefix: isSet(object.bech32AccountAddressPrefix)
         ? String(object.bech32AccountAddressPrefix)
         : '',
@@ -1030,11 +1148,18 @@ export const ConfigurationDescriptor = {
   },
 };
 
+messageTypeRegistry.set(ConfigurationDescriptor.$type, ConfigurationDescriptor);
+
 function createBaseMsgDescriptor(): MsgDescriptor {
-  return { msgTypeUrl: '' };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.MsgDescriptor',
+    msgTypeUrl: '',
+  };
 }
 
 export const MsgDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.MsgDescriptor' as const,
+
   encode(
     message: MsgDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1065,6 +1190,7 @@ export const MsgDescriptor = {
 
   fromJSON(object: any): MsgDescriptor {
     return {
+      $type: MsgDescriptor.$type,
       msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
     };
   },
@@ -1084,11 +1210,15 @@ export const MsgDescriptor = {
   },
 };
 
+messageTypeRegistry.set(MsgDescriptor.$type, MsgDescriptor);
+
 function createBaseGetAuthnDescriptorRequest(): GetAuthnDescriptorRequest {
-  return {};
+  return { $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest' };
 }
 
 export const GetAuthnDescriptorRequest = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest' as const,
+
   encode(
     _: GetAuthnDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1115,7 +1245,9 @@ export const GetAuthnDescriptorRequest = {
   },
 
   fromJSON(_: any): GetAuthnDescriptorRequest {
-    return {};
+    return {
+      $type: GetAuthnDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetAuthnDescriptorRequest): unknown {
@@ -1131,11 +1263,21 @@ export const GetAuthnDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  GetAuthnDescriptorRequest.$type,
+  GetAuthnDescriptorRequest,
+);
+
 function createBaseGetAuthnDescriptorResponse(): GetAuthnDescriptorResponse {
-  return { authn: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse',
+    authn: undefined,
+  };
 }
 
 export const GetAuthnDescriptorResponse = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse' as const,
+
   encode(
     message: GetAuthnDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1169,6 +1311,7 @@ export const GetAuthnDescriptorResponse = {
 
   fromJSON(object: any): GetAuthnDescriptorResponse {
     return {
+      $type: GetAuthnDescriptorResponse.$type,
       authn: isSet(object.authn)
         ? AuthnDescriptor.fromJSON(object.authn)
         : undefined,
@@ -1196,11 +1339,18 @@ export const GetAuthnDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  GetAuthnDescriptorResponse.$type,
+  GetAuthnDescriptorResponse,
+);
+
 function createBaseGetChainDescriptorRequest(): GetChainDescriptorRequest {
-  return {};
+  return { $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest' };
 }
 
 export const GetChainDescriptorRequest = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest' as const,
+
   encode(
     _: GetChainDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1227,7 +1377,9 @@ export const GetChainDescriptorRequest = {
   },
 
   fromJSON(_: any): GetChainDescriptorRequest {
-    return {};
+    return {
+      $type: GetChainDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetChainDescriptorRequest): unknown {
@@ -1243,11 +1395,21 @@ export const GetChainDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  GetChainDescriptorRequest.$type,
+  GetChainDescriptorRequest,
+);
+
 function createBaseGetChainDescriptorResponse(): GetChainDescriptorResponse {
-  return { chain: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse',
+    chain: undefined,
+  };
 }
 
 export const GetChainDescriptorResponse = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse' as const,
+
   encode(
     message: GetChainDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1281,6 +1443,7 @@ export const GetChainDescriptorResponse = {
 
   fromJSON(object: any): GetChainDescriptorResponse {
     return {
+      $type: GetChainDescriptorResponse.$type,
       chain: isSet(object.chain)
         ? ChainDescriptor.fromJSON(object.chain)
         : undefined,
@@ -1308,11 +1471,18 @@ export const GetChainDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  GetChainDescriptorResponse.$type,
+  GetChainDescriptorResponse,
+);
+
 function createBaseGetCodecDescriptorRequest(): GetCodecDescriptorRequest {
-  return {};
+  return { $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest' };
 }
 
 export const GetCodecDescriptorRequest = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest' as const,
+
   encode(
     _: GetCodecDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1339,7 +1509,9 @@ export const GetCodecDescriptorRequest = {
   },
 
   fromJSON(_: any): GetCodecDescriptorRequest {
-    return {};
+    return {
+      $type: GetCodecDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetCodecDescriptorRequest): unknown {
@@ -1355,11 +1527,21 @@ export const GetCodecDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  GetCodecDescriptorRequest.$type,
+  GetCodecDescriptorRequest,
+);
+
 function createBaseGetCodecDescriptorResponse(): GetCodecDescriptorResponse {
-  return { codec: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse',
+    codec: undefined,
+  };
 }
 
 export const GetCodecDescriptorResponse = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse' as const,
+
   encode(
     message: GetCodecDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1393,6 +1575,7 @@ export const GetCodecDescriptorResponse = {
 
   fromJSON(object: any): GetCodecDescriptorResponse {
     return {
+      $type: GetCodecDescriptorResponse.$type,
       codec: isSet(object.codec)
         ? CodecDescriptor.fromJSON(object.codec)
         : undefined,
@@ -1420,11 +1603,21 @@ export const GetCodecDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  GetCodecDescriptorResponse.$type,
+  GetCodecDescriptorResponse,
+);
+
 function createBaseGetConfigurationDescriptorRequest(): GetConfigurationDescriptorRequest {
-  return {};
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest',
+  };
 }
 
 export const GetConfigurationDescriptorRequest = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest' as const,
+
   encode(
     _: GetConfigurationDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1451,7 +1644,9 @@ export const GetConfigurationDescriptorRequest = {
   },
 
   fromJSON(_: any): GetConfigurationDescriptorRequest {
-    return {};
+    return {
+      $type: GetConfigurationDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetConfigurationDescriptorRequest): unknown {
@@ -1467,11 +1662,22 @@ export const GetConfigurationDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  GetConfigurationDescriptorRequest.$type,
+  GetConfigurationDescriptorRequest,
+);
+
 function createBaseGetConfigurationDescriptorResponse(): GetConfigurationDescriptorResponse {
-  return { config: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse',
+    config: undefined,
+  };
 }
 
 export const GetConfigurationDescriptorResponse = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse' as const,
+
   encode(
     message: GetConfigurationDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1511,6 +1717,7 @@ export const GetConfigurationDescriptorResponse = {
 
   fromJSON(object: any): GetConfigurationDescriptorResponse {
     return {
+      $type: GetConfigurationDescriptorResponse.$type,
       config: isSet(object.config)
         ? ConfigurationDescriptor.fromJSON(object.config)
         : undefined,
@@ -1538,11 +1745,21 @@ export const GetConfigurationDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  GetConfigurationDescriptorResponse.$type,
+  GetConfigurationDescriptorResponse,
+);
+
 function createBaseGetQueryServicesDescriptorRequest(): GetQueryServicesDescriptorRequest {
-  return {};
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest',
+  };
 }
 
 export const GetQueryServicesDescriptorRequest = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest' as const,
+
   encode(
     _: GetQueryServicesDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1569,7 +1786,9 @@ export const GetQueryServicesDescriptorRequest = {
   },
 
   fromJSON(_: any): GetQueryServicesDescriptorRequest {
-    return {};
+    return {
+      $type: GetQueryServicesDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetQueryServicesDescriptorRequest): unknown {
@@ -1585,11 +1804,22 @@ export const GetQueryServicesDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  GetQueryServicesDescriptorRequest.$type,
+  GetQueryServicesDescriptorRequest,
+);
+
 function createBaseGetQueryServicesDescriptorResponse(): GetQueryServicesDescriptorResponse {
-  return { queries: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse',
+    queries: undefined,
+  };
 }
 
 export const GetQueryServicesDescriptorResponse = {
+  $type:
+    'cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse' as const,
+
   encode(
     message: GetQueryServicesDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1629,6 +1859,7 @@ export const GetQueryServicesDescriptorResponse = {
 
   fromJSON(object: any): GetQueryServicesDescriptorResponse {
     return {
+      $type: GetQueryServicesDescriptorResponse.$type,
       queries: isSet(object.queries)
         ? QueryServicesDescriptor.fromJSON(object.queries)
         : undefined,
@@ -1656,11 +1887,18 @@ export const GetQueryServicesDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  GetQueryServicesDescriptorResponse.$type,
+  GetQueryServicesDescriptorResponse,
+);
+
 function createBaseGetTxDescriptorRequest(): GetTxDescriptorRequest {
-  return {};
+  return { $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest' };
 }
 
 export const GetTxDescriptorRequest = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest' as const,
+
   encode(
     _: GetTxDescriptorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1687,7 +1925,9 @@ export const GetTxDescriptorRequest = {
   },
 
   fromJSON(_: any): GetTxDescriptorRequest {
-    return {};
+    return {
+      $type: GetTxDescriptorRequest.$type,
+    };
   },
 
   toJSON(_: GetTxDescriptorRequest): unknown {
@@ -1703,11 +1943,18 @@ export const GetTxDescriptorRequest = {
   },
 };
 
+messageTypeRegistry.set(GetTxDescriptorRequest.$type, GetTxDescriptorRequest);
+
 function createBaseGetTxDescriptorResponse(): GetTxDescriptorResponse {
-  return { tx: undefined };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse',
+    tx: undefined,
+  };
 }
 
 export const GetTxDescriptorResponse = {
+  $type: 'cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse' as const,
+
   encode(
     message: GetTxDescriptorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1741,6 +1988,7 @@ export const GetTxDescriptorResponse = {
 
   fromJSON(object: any): GetTxDescriptorResponse {
     return {
+      $type: GetTxDescriptorResponse.$type,
       tx: isSet(object.tx) ? TxDescriptor.fromJSON(object.tx) : undefined,
     };
   },
@@ -1764,11 +2012,18 @@ export const GetTxDescriptorResponse = {
   },
 };
 
+messageTypeRegistry.set(GetTxDescriptorResponse.$type, GetTxDescriptorResponse);
+
 function createBaseQueryServicesDescriptor(): QueryServicesDescriptor {
-  return { queryServices: [] };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.QueryServicesDescriptor',
+    queryServices: [],
+  };
 }
 
 export const QueryServicesDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryServicesDescriptor' as const,
+
   encode(
     message: QueryServicesDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1804,6 +2059,7 @@ export const QueryServicesDescriptor = {
 
   fromJSON(object: any): QueryServicesDescriptor {
     return {
+      $type: QueryServicesDescriptor.$type,
       queryServices: Array.isArray(object?.queryServices)
         ? object.queryServices.map((e: any) =>
             QueryServiceDescriptor.fromJSON(e),
@@ -1835,11 +2091,20 @@ export const QueryServicesDescriptor = {
   },
 };
 
+messageTypeRegistry.set(QueryServicesDescriptor.$type, QueryServicesDescriptor);
+
 function createBaseQueryServiceDescriptor(): QueryServiceDescriptor {
-  return { fullname: '', isModule: false, methods: [] };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.QueryServiceDescriptor',
+    fullname: '',
+    isModule: false,
+    methods: [],
+  };
 }
 
 export const QueryServiceDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryServiceDescriptor' as const,
+
   encode(
     message: QueryServiceDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1887,6 +2152,7 @@ export const QueryServiceDescriptor = {
 
   fromJSON(object: any): QueryServiceDescriptor {
     return {
+      $type: QueryServiceDescriptor.$type,
       fullname: isSet(object.fullname) ? String(object.fullname) : '',
       isModule: isSet(object.isModule) ? Boolean(object.isModule) : false,
       methods: Array.isArray(object?.methods)
@@ -1921,11 +2187,19 @@ export const QueryServiceDescriptor = {
   },
 };
 
+messageTypeRegistry.set(QueryServiceDescriptor.$type, QueryServiceDescriptor);
+
 function createBaseQueryMethodDescriptor(): QueryMethodDescriptor {
-  return { name: '', fullQueryPath: '' };
+  return {
+    $type: 'cosmos.base.reflection.v2alpha1.QueryMethodDescriptor',
+    name: '',
+    fullQueryPath: '',
+  };
 }
 
 export const QueryMethodDescriptor = {
+  $type: 'cosmos.base.reflection.v2alpha1.QueryMethodDescriptor' as const,
+
   encode(
     message: QueryMethodDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1965,6 +2239,7 @@ export const QueryMethodDescriptor = {
 
   fromJSON(object: any): QueryMethodDescriptor {
     return {
+      $type: QueryMethodDescriptor.$type,
       name: isSet(object.name) ? String(object.name) : '',
       fullQueryPath: isSet(object.fullQueryPath)
         ? String(object.fullQueryPath)
@@ -1989,6 +2264,8 @@ export const QueryMethodDescriptor = {
     return message;
   },
 };
+
+messageTypeRegistry.set(QueryMethodDescriptor.$type, QueryMethodDescriptor);
 
 /** ReflectionService defines a service for application reflection. */
 export interface ReflectionService {
@@ -2146,14 +2423,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

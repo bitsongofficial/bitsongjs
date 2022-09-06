@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Grant } from './authz';
 import Long from 'long';
 import { Any } from '../../../google/protobuf/any';
@@ -13,6 +14,7 @@ export const protobufPackage = 'cosmos.authz.v1beta1';
  * on behalf of the granter with the provided expiration time.
  */
 export interface MsgGrant {
+  $type: 'cosmos.authz.v1beta1.MsgGrant';
   granter: string;
   grantee: string;
   grant?: Grant;
@@ -20,6 +22,7 @@ export interface MsgGrant {
 
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
 export interface MsgExecResponse {
+  $type: 'cosmos.authz.v1beta1.MsgExecResponse';
   results: Uint8Array[];
 }
 
@@ -29,6 +32,7 @@ export interface MsgExecResponse {
  * one signer corresponding to the granter of the authorization.
  */
 export interface MsgExec {
+  $type: 'cosmos.authz.v1beta1.MsgExec';
   grantee: string;
   /**
    * Authorization Msg requests to execute. Each msg must implement Authorization interface
@@ -39,26 +43,38 @@ export interface MsgExec {
 }
 
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
-export interface MsgGrantResponse {}
+export interface MsgGrantResponse {
+  $type: 'cosmos.authz.v1beta1.MsgGrantResponse';
+}
 
 /**
  * MsgRevoke revokes any authorization with the provided sdk.Msg type on the
  * granter's account with that has been granted to the grantee.
  */
 export interface MsgRevoke {
+  $type: 'cosmos.authz.v1beta1.MsgRevoke';
   granter: string;
   grantee: string;
   msgTypeUrl: string;
 }
 
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
-export interface MsgRevokeResponse {}
+export interface MsgRevokeResponse {
+  $type: 'cosmos.authz.v1beta1.MsgRevokeResponse';
+}
 
 function createBaseMsgGrant(): MsgGrant {
-  return { granter: '', grantee: '', grant: undefined };
+  return {
+    $type: 'cosmos.authz.v1beta1.MsgGrant',
+    granter: '',
+    grantee: '',
+    grant: undefined,
+  };
 }
 
 export const MsgGrant = {
+  $type: 'cosmos.authz.v1beta1.MsgGrant' as const,
+
   encode(
     message: MsgGrant,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -101,6 +117,7 @@ export const MsgGrant = {
 
   fromJSON(object: any): MsgGrant {
     return {
+      $type: MsgGrant.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       grant: isSet(object.grant) ? Grant.fromJSON(object.grant) : undefined,
@@ -128,11 +145,15 @@ export const MsgGrant = {
   },
 };
 
+messageTypeRegistry.set(MsgGrant.$type, MsgGrant);
+
 function createBaseMsgExecResponse(): MsgExecResponse {
-  return { results: [] };
+  return { $type: 'cosmos.authz.v1beta1.MsgExecResponse', results: [] };
 }
 
 export const MsgExecResponse = {
+  $type: 'cosmos.authz.v1beta1.MsgExecResponse' as const,
+
   encode(
     message: MsgExecResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -163,6 +184,7 @@ export const MsgExecResponse = {
 
   fromJSON(object: any): MsgExecResponse {
     return {
+      $type: MsgExecResponse.$type,
       results: Array.isArray(object?.results)
         ? object.results.map((e: any) => bytesFromBase64(e))
         : [],
@@ -190,11 +212,15 @@ export const MsgExecResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgExecResponse.$type, MsgExecResponse);
+
 function createBaseMsgExec(): MsgExec {
-  return { grantee: '', msgs: [] };
+  return { $type: 'cosmos.authz.v1beta1.MsgExec', grantee: '', msgs: [] };
 }
 
 export const MsgExec = {
+  $type: 'cosmos.authz.v1beta1.MsgExec' as const,
+
   encode(
     message: MsgExec,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -231,6 +257,7 @@ export const MsgExec = {
 
   fromJSON(object: any): MsgExec {
     return {
+      $type: MsgExec.$type,
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       msgs: Array.isArray(object?.msgs)
         ? object.msgs.map((e: any) => Any.fromJSON(e))
@@ -257,11 +284,15 @@ export const MsgExec = {
   },
 };
 
+messageTypeRegistry.set(MsgExec.$type, MsgExec);
+
 function createBaseMsgGrantResponse(): MsgGrantResponse {
-  return {};
+  return { $type: 'cosmos.authz.v1beta1.MsgGrantResponse' };
 }
 
 export const MsgGrantResponse = {
+  $type: 'cosmos.authz.v1beta1.MsgGrantResponse' as const,
+
   encode(
     _: MsgGrantResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -285,7 +316,9 @@ export const MsgGrantResponse = {
   },
 
   fromJSON(_: any): MsgGrantResponse {
-    return {};
+    return {
+      $type: MsgGrantResponse.$type,
+    };
   },
 
   toJSON(_: MsgGrantResponse): unknown {
@@ -301,11 +334,20 @@ export const MsgGrantResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgGrantResponse.$type, MsgGrantResponse);
+
 function createBaseMsgRevoke(): MsgRevoke {
-  return { granter: '', grantee: '', msgTypeUrl: '' };
+  return {
+    $type: 'cosmos.authz.v1beta1.MsgRevoke',
+    granter: '',
+    grantee: '',
+    msgTypeUrl: '',
+  };
 }
 
 export const MsgRevoke = {
+  $type: 'cosmos.authz.v1beta1.MsgRevoke' as const,
+
   encode(
     message: MsgRevoke,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -348,6 +390,7 @@ export const MsgRevoke = {
 
   fromJSON(object: any): MsgRevoke {
     return {
+      $type: MsgRevoke.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
@@ -373,11 +416,15 @@ export const MsgRevoke = {
   },
 };
 
+messageTypeRegistry.set(MsgRevoke.$type, MsgRevoke);
+
 function createBaseMsgRevokeResponse(): MsgRevokeResponse {
-  return {};
+  return { $type: 'cosmos.authz.v1beta1.MsgRevokeResponse' };
 }
 
 export const MsgRevokeResponse = {
+  $type: 'cosmos.authz.v1beta1.MsgRevokeResponse' as const,
+
   encode(
     _: MsgRevokeResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -401,7 +448,9 @@ export const MsgRevokeResponse = {
   },
 
   fromJSON(_: any): MsgRevokeResponse {
-    return {};
+    return {
+      $type: MsgRevokeResponse.$type,
+    };
   },
 
   toJSON(_: MsgRevokeResponse): unknown {
@@ -416,6 +465,8 @@ export const MsgRevokeResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(MsgRevokeResponse.$type, MsgRevokeResponse);
 
 /** Msg defines the authz Msg service. */
 export interface Msg {
@@ -532,14 +583,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

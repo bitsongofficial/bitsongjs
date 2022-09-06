@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { BaseAccount } from '../../auth/v1beta1/auth';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
@@ -11,6 +12,7 @@ export const protobufPackage = 'cosmos.vesting.v1beta1';
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccount {
+  $type: 'cosmos.vesting.v1beta1.BaseVestingAccount';
   baseAccount?: BaseAccount;
   originalVesting: Coin[];
   delegatedFree: Coin[];
@@ -23,6 +25,7 @@ export interface BaseVestingAccount {
  * continuously vests by unlocking coins linearly with respect to time.
  */
 export interface ContinuousVestingAccount {
+  $type: 'cosmos.vesting.v1beta1.ContinuousVestingAccount';
   baseVestingAccount?: BaseVestingAccount;
   startTime: Long;
 }
@@ -33,11 +36,13 @@ export interface ContinuousVestingAccount {
  * locked until a specified time.
  */
 export interface DelayedVestingAccount {
+  $type: 'cosmos.vesting.v1beta1.DelayedVestingAccount';
   baseVestingAccount?: BaseVestingAccount;
 }
 
 /** Period defines a length of time and amount of coins that will vest. */
 export interface Period {
+  $type: 'cosmos.vesting.v1beta1.Period';
   length: Long;
   amount: Coin[];
 }
@@ -47,6 +52,7 @@ export interface Period {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface PeriodicVestingAccount {
+  $type: 'cosmos.vesting.v1beta1.PeriodicVestingAccount';
   baseVestingAccount?: BaseVestingAccount;
   startTime: Long;
   vestingPeriods: Period[];
@@ -60,11 +66,13 @@ export interface PeriodicVestingAccount {
  * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccount {
+  $type: 'cosmos.vesting.v1beta1.PermanentLockedAccount';
   baseVestingAccount?: BaseVestingAccount;
 }
 
 function createBaseBaseVestingAccount(): BaseVestingAccount {
   return {
+    $type: 'cosmos.vesting.v1beta1.BaseVestingAccount',
     baseAccount: undefined,
     originalVesting: [],
     delegatedFree: [],
@@ -74,6 +82,8 @@ function createBaseBaseVestingAccount(): BaseVestingAccount {
 }
 
 export const BaseVestingAccount = {
+  $type: 'cosmos.vesting.v1beta1.BaseVestingAccount' as const,
+
   encode(
     message: BaseVestingAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -131,6 +141,7 @@ export const BaseVestingAccount = {
 
   fromJSON(object: any): BaseVestingAccount {
     return {
+      $type: BaseVestingAccount.$type,
       baseAccount: isSet(object.baseAccount)
         ? BaseAccount.fromJSON(object.baseAccount)
         : undefined,
@@ -203,11 +214,19 @@ export const BaseVestingAccount = {
   },
 };
 
+messageTypeRegistry.set(BaseVestingAccount.$type, BaseVestingAccount);
+
 function createBaseContinuousVestingAccount(): ContinuousVestingAccount {
-  return { baseVestingAccount: undefined, startTime: Long.ZERO };
+  return {
+    $type: 'cosmos.vesting.v1beta1.ContinuousVestingAccount',
+    baseVestingAccount: undefined,
+    startTime: Long.ZERO,
+  };
 }
 
 export const ContinuousVestingAccount = {
+  $type: 'cosmos.vesting.v1beta1.ContinuousVestingAccount' as const,
+
   encode(
     message: ContinuousVestingAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -253,6 +272,7 @@ export const ContinuousVestingAccount = {
 
   fromJSON(object: any): ContinuousVestingAccount {
     return {
+      $type: ContinuousVestingAccount.$type,
       baseVestingAccount: isSet(object.baseVestingAccount)
         ? BaseVestingAccount.fromJSON(object.baseVestingAccount)
         : undefined,
@@ -290,11 +310,21 @@ export const ContinuousVestingAccount = {
   },
 };
 
+messageTypeRegistry.set(
+  ContinuousVestingAccount.$type,
+  ContinuousVestingAccount,
+);
+
 function createBaseDelayedVestingAccount(): DelayedVestingAccount {
-  return { baseVestingAccount: undefined };
+  return {
+    $type: 'cosmos.vesting.v1beta1.DelayedVestingAccount',
+    baseVestingAccount: undefined,
+  };
 }
 
 export const DelayedVestingAccount = {
+  $type: 'cosmos.vesting.v1beta1.DelayedVestingAccount' as const,
+
   encode(
     message: DelayedVestingAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -334,6 +364,7 @@ export const DelayedVestingAccount = {
 
   fromJSON(object: any): DelayedVestingAccount {
     return {
+      $type: DelayedVestingAccount.$type,
       baseVestingAccount: isSet(object.baseVestingAccount)
         ? BaseVestingAccount.fromJSON(object.baseVestingAccount)
         : undefined,
@@ -362,11 +393,19 @@ export const DelayedVestingAccount = {
   },
 };
 
+messageTypeRegistry.set(DelayedVestingAccount.$type, DelayedVestingAccount);
+
 function createBasePeriod(): Period {
-  return { length: Long.ZERO, amount: [] };
+  return {
+    $type: 'cosmos.vesting.v1beta1.Period',
+    length: Long.ZERO,
+    amount: [],
+  };
 }
 
 export const Period = {
+  $type: 'cosmos.vesting.v1beta1.Period' as const,
+
   encode(
     message: Period,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -403,6 +442,7 @@ export const Period = {
 
   fromJSON(object: any): Period {
     return {
+      $type: Period.$type,
       length: isSet(object.length) ? Long.fromValue(object.length) : Long.ZERO,
       amount: Array.isArray(object?.amount)
         ? object.amount.map((e: any) => Coin.fromJSON(e))
@@ -433,8 +473,11 @@ export const Period = {
   },
 };
 
+messageTypeRegistry.set(Period.$type, Period);
+
 function createBasePeriodicVestingAccount(): PeriodicVestingAccount {
   return {
+    $type: 'cosmos.vesting.v1beta1.PeriodicVestingAccount',
     baseVestingAccount: undefined,
     startTime: Long.ZERO,
     vestingPeriods: [],
@@ -442,6 +485,8 @@ function createBasePeriodicVestingAccount(): PeriodicVestingAccount {
 }
 
 export const PeriodicVestingAccount = {
+  $type: 'cosmos.vesting.v1beta1.PeriodicVestingAccount' as const,
+
   encode(
     message: PeriodicVestingAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -493,6 +538,7 @@ export const PeriodicVestingAccount = {
 
   fromJSON(object: any): PeriodicVestingAccount {
     return {
+      $type: PeriodicVestingAccount.$type,
       baseVestingAccount: isSet(object.baseVestingAccount)
         ? BaseVestingAccount.fromJSON(object.baseVestingAccount)
         : undefined,
@@ -542,11 +588,18 @@ export const PeriodicVestingAccount = {
   },
 };
 
+messageTypeRegistry.set(PeriodicVestingAccount.$type, PeriodicVestingAccount);
+
 function createBasePermanentLockedAccount(): PermanentLockedAccount {
-  return { baseVestingAccount: undefined };
+  return {
+    $type: 'cosmos.vesting.v1beta1.PermanentLockedAccount',
+    baseVestingAccount: undefined,
+  };
 }
 
 export const PermanentLockedAccount = {
+  $type: 'cosmos.vesting.v1beta1.PermanentLockedAccount' as const,
+
   encode(
     message: PermanentLockedAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -586,6 +639,7 @@ export const PermanentLockedAccount = {
 
   fromJSON(object: any): PermanentLockedAccount {
     return {
+      $type: PermanentLockedAccount.$type,
       baseVestingAccount: isSet(object.baseVestingAccount)
         ? BaseVestingAccount.fromJSON(object.baseVestingAccount)
         : undefined,
@@ -614,6 +668,8 @@ export const PermanentLockedAccount = {
   },
 };
 
+messageTypeRegistry.set(PermanentLockedAccount.$type, PermanentLockedAccount);
+
 type Builtin =
   | Date
   | Function
@@ -632,14 +688,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Any } from '../../../../google/protobuf/any';
 import { Plan } from '../../../../cosmos/upgrade/v1beta1/upgrade';
 import Long from 'long';
@@ -11,6 +12,7 @@ export const protobufPackage = 'ibc.core.client.v1';
  * identifier field.
  */
 export interface IdentifiedClientState {
+  $type: 'ibc.core.client.v1.IdentifiedClientState';
   /** client identifier */
   clientId: string;
   /** client state */
@@ -22,6 +24,7 @@ export interface IdentifiedClientState {
  * field.
  */
 export interface ConsensusStateWithHeight {
+  $type: 'ibc.core.client.v1.ConsensusStateWithHeight';
   /** consensus state height */
   height?: Height;
   /** consensus state */
@@ -33,6 +36,7 @@ export interface ConsensusStateWithHeight {
  * client.
  */
 export interface ClientConsensusStates {
+  $type: 'ibc.core.client.v1.ClientConsensusStates';
   /** client identifier */
   clientId: string;
   /** consensus states and their heights associated with the client */
@@ -46,6 +50,7 @@ export interface ClientConsensusStates {
  * chain parameters (with exception to latest height, frozen height, and chain-id).
  */
 export interface ClientUpdateProposal {
+  $type: 'ibc.core.client.v1.ClientUpdateProposal';
   /** the title of the update proposal */
   title: string;
   /** the description of the proposal */
@@ -64,6 +69,7 @@ export interface ClientUpdateProposal {
  * upgrade.
  */
 export interface UpgradeProposal {
+  $type: 'ibc.core.client.v1.UpgradeProposal';
   title: string;
   description: string;
   plan?: Plan;
@@ -91,6 +97,7 @@ export interface UpgradeProposal {
  * gets reset
  */
 export interface Height {
+  $type: 'ibc.core.client.v1.Height';
   /** the revision that the client is currently on */
   revisionNumber: Long;
   /** the height within the given revision */
@@ -99,15 +106,22 @@ export interface Height {
 
 /** Params defines the set of IBC light client parameters. */
 export interface Params {
+  $type: 'ibc.core.client.v1.Params';
   /** allowed_clients defines the list of allowed client state types. */
   allowedClients: string[];
 }
 
 function createBaseIdentifiedClientState(): IdentifiedClientState {
-  return { clientId: '', clientState: undefined };
+  return {
+    $type: 'ibc.core.client.v1.IdentifiedClientState',
+    clientId: '',
+    clientState: undefined,
+  };
 }
 
 export const IdentifiedClientState = {
+  $type: 'ibc.core.client.v1.IdentifiedClientState' as const,
+
   encode(
     message: IdentifiedClientState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -147,6 +161,7 @@ export const IdentifiedClientState = {
 
   fromJSON(object: any): IdentifiedClientState {
     return {
+      $type: IdentifiedClientState.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       clientState: isSet(object.clientState)
         ? Any.fromJSON(object.clientState)
@@ -177,11 +192,19 @@ export const IdentifiedClientState = {
   },
 };
 
+messageTypeRegistry.set(IdentifiedClientState.$type, IdentifiedClientState);
+
 function createBaseConsensusStateWithHeight(): ConsensusStateWithHeight {
-  return { height: undefined, consensusState: undefined };
+  return {
+    $type: 'ibc.core.client.v1.ConsensusStateWithHeight',
+    height: undefined,
+    consensusState: undefined,
+  };
 }
 
 export const ConsensusStateWithHeight = {
+  $type: 'ibc.core.client.v1.ConsensusStateWithHeight' as const,
+
   encode(
     message: ConsensusStateWithHeight,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -221,6 +244,7 @@ export const ConsensusStateWithHeight = {
 
   fromJSON(object: any): ConsensusStateWithHeight {
     return {
+      $type: ConsensusStateWithHeight.$type,
       height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
       consensusState: isSet(object.consensusState)
         ? Any.fromJSON(object.consensusState)
@@ -255,11 +279,22 @@ export const ConsensusStateWithHeight = {
   },
 };
 
+messageTypeRegistry.set(
+  ConsensusStateWithHeight.$type,
+  ConsensusStateWithHeight,
+);
+
 function createBaseClientConsensusStates(): ClientConsensusStates {
-  return { clientId: '', consensusStates: [] };
+  return {
+    $type: 'ibc.core.client.v1.ClientConsensusStates',
+    clientId: '',
+    consensusStates: [],
+  };
 }
 
 export const ClientConsensusStates = {
+  $type: 'ibc.core.client.v1.ClientConsensusStates' as const,
+
   encode(
     message: ClientConsensusStates,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -301,6 +336,7 @@ export const ClientConsensusStates = {
 
   fromJSON(object: any): ClientConsensusStates {
     return {
+      $type: ClientConsensusStates.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       consensusStates: Array.isArray(object?.consensusStates)
         ? object.consensusStates.map((e: any) =>
@@ -336,8 +372,11 @@ export const ClientConsensusStates = {
   },
 };
 
+messageTypeRegistry.set(ClientConsensusStates.$type, ClientConsensusStates);
+
 function createBaseClientUpdateProposal(): ClientUpdateProposal {
   return {
+    $type: 'ibc.core.client.v1.ClientUpdateProposal',
     title: '',
     description: '',
     subjectClientId: '',
@@ -346,6 +385,8 @@ function createBaseClientUpdateProposal(): ClientUpdateProposal {
 }
 
 export const ClientUpdateProposal = {
+  $type: 'ibc.core.client.v1.ClientUpdateProposal' as const,
+
   encode(
     message: ClientUpdateProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -397,6 +438,7 @@ export const ClientUpdateProposal = {
 
   fromJSON(object: any): ClientUpdateProposal {
     return {
+      $type: ClientUpdateProposal.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       subjectClientId: isSet(object.subjectClientId)
@@ -432,8 +474,11 @@ export const ClientUpdateProposal = {
   },
 };
 
+messageTypeRegistry.set(ClientUpdateProposal.$type, ClientUpdateProposal);
+
 function createBaseUpgradeProposal(): UpgradeProposal {
   return {
+    $type: 'ibc.core.client.v1.UpgradeProposal',
     title: '',
     description: '',
     plan: undefined,
@@ -442,6 +487,8 @@ function createBaseUpgradeProposal(): UpgradeProposal {
 }
 
 export const UpgradeProposal = {
+  $type: 'ibc.core.client.v1.UpgradeProposal' as const,
+
   encode(
     message: UpgradeProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -493,6 +540,7 @@ export const UpgradeProposal = {
 
   fromJSON(object: any): UpgradeProposal {
     return {
+      $type: UpgradeProposal.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
@@ -535,11 +583,19 @@ export const UpgradeProposal = {
   },
 };
 
+messageTypeRegistry.set(UpgradeProposal.$type, UpgradeProposal);
+
 function createBaseHeight(): Height {
-  return { revisionNumber: Long.UZERO, revisionHeight: Long.UZERO };
+  return {
+    $type: 'ibc.core.client.v1.Height',
+    revisionNumber: Long.UZERO,
+    revisionHeight: Long.UZERO,
+  };
 }
 
 export const Height = {
+  $type: 'ibc.core.client.v1.Height' as const,
+
   encode(
     message: Height,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -576,6 +632,7 @@ export const Height = {
 
   fromJSON(object: any): Height {
     return {
+      $type: Height.$type,
       revisionNumber: isSet(object.revisionNumber)
         ? Long.fromValue(object.revisionNumber)
         : Long.UZERO,
@@ -608,11 +665,15 @@ export const Height = {
   },
 };
 
+messageTypeRegistry.set(Height.$type, Height);
+
 function createBaseParams(): Params {
-  return { allowedClients: [] };
+  return { $type: 'ibc.core.client.v1.Params', allowedClients: [] };
 }
 
 export const Params = {
+  $type: 'ibc.core.client.v1.Params' as const,
+
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -643,6 +704,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       allowedClients: Array.isArray(object?.allowedClients)
         ? object.allowedClients.map((e: any) => String(e))
         : [],
@@ -666,6 +728,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 type Builtin =
   | Date
   | Function
@@ -684,14 +748,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

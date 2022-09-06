@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Any } from '../../../google/protobuf/any';
 import { Timestamp } from '../../../google/protobuf/timestamp';
 import Long from 'long';
@@ -13,6 +14,7 @@ export const protobufPackage = 'cosmos.authz.v1beta1';
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorization {
+  $type: 'cosmos.authz.v1beta1.GenericAuthorization';
   /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
   msg: string;
 }
@@ -22,6 +24,7 @@ export interface GenericAuthorization {
  * the provide method with expiration time.
  */
 export interface Grant {
+  $type: 'cosmos.authz.v1beta1.Grant';
   authorization?: Any;
   expiration?: Timestamp;
 }
@@ -33,6 +36,7 @@ export interface Grant {
  * Since: cosmos-sdk 0.45.2
  */
 export interface GrantAuthorization {
+  $type: 'cosmos.authz.v1beta1.GrantAuthorization';
   granter: string;
   grantee: string;
   authorization?: Any;
@@ -40,10 +44,12 @@ export interface GrantAuthorization {
 }
 
 function createBaseGenericAuthorization(): GenericAuthorization {
-  return { msg: '' };
+  return { $type: 'cosmos.authz.v1beta1.GenericAuthorization', msg: '' };
 }
 
 export const GenericAuthorization = {
+  $type: 'cosmos.authz.v1beta1.GenericAuthorization' as const,
+
   encode(
     message: GenericAuthorization,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -77,6 +83,7 @@ export const GenericAuthorization = {
 
   fromJSON(object: any): GenericAuthorization {
     return {
+      $type: GenericAuthorization.$type,
       msg: isSet(object.msg) ? String(object.msg) : '',
     };
   },
@@ -96,11 +103,19 @@ export const GenericAuthorization = {
   },
 };
 
+messageTypeRegistry.set(GenericAuthorization.$type, GenericAuthorization);
+
 function createBaseGrant(): Grant {
-  return { authorization: undefined, expiration: undefined };
+  return {
+    $type: 'cosmos.authz.v1beta1.Grant',
+    authorization: undefined,
+    expiration: undefined,
+  };
 }
 
 export const Grant = {
+  $type: 'cosmos.authz.v1beta1.Grant' as const,
+
   encode(message: Grant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.authorization !== undefined) {
       Any.encode(message.authorization, writer.uint32(10).fork()).ldelim();
@@ -134,6 +149,7 @@ export const Grant = {
 
   fromJSON(object: any): Grant {
     return {
+      $type: Grant.$type,
       authorization: isSet(object.authorization)
         ? Any.fromJSON(object.authorization)
         : undefined,
@@ -168,8 +184,11 @@ export const Grant = {
   },
 };
 
+messageTypeRegistry.set(Grant.$type, Grant);
+
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
+    $type: 'cosmos.authz.v1beta1.GrantAuthorization',
     granter: '',
     grantee: '',
     authorization: undefined,
@@ -178,6 +197,8 @@ function createBaseGrantAuthorization(): GrantAuthorization {
 }
 
 export const GrantAuthorization = {
+  $type: 'cosmos.authz.v1beta1.GrantAuthorization' as const,
+
   encode(
     message: GrantAuthorization,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -226,6 +247,7 @@ export const GrantAuthorization = {
 
   fromJSON(object: any): GrantAuthorization {
     return {
+      $type: GrantAuthorization.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       authorization: isSet(object.authorization)
@@ -268,6 +290,8 @@ export const GrantAuthorization = {
   },
 };
 
+messageTypeRegistry.set(GrantAuthorization.$type, GrantAuthorization);
+
 type Builtin =
   | Date
   | Function
@@ -286,20 +310,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
+  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

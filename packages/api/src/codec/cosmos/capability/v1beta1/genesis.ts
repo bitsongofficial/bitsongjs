@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { CapabilityOwners } from './capability';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'cosmos.capability.v1beta1';
 
 /** GenesisOwners defines the capability owners with their corresponding index. */
 export interface GenesisOwners {
+  $type: 'cosmos.capability.v1beta1.GenesisOwners';
   /** index is the index of the capability owner. */
   index: Long;
   /** index_owners are the owners at the given index. */
@@ -15,6 +17,7 @@ export interface GenesisOwners {
 
 /** GenesisState defines the capability module's genesis state. */
 export interface GenesisState {
+  $type: 'cosmos.capability.v1beta1.GenesisState';
   /** index is the capability global index. */
   index: Long;
   /**
@@ -25,10 +28,16 @@ export interface GenesisState {
 }
 
 function createBaseGenesisOwners(): GenesisOwners {
-  return { index: Long.UZERO, indexOwners: undefined };
+  return {
+    $type: 'cosmos.capability.v1beta1.GenesisOwners',
+    index: Long.UZERO,
+    indexOwners: undefined,
+  };
 }
 
 export const GenesisOwners = {
+  $type: 'cosmos.capability.v1beta1.GenesisOwners' as const,
+
   encode(
     message: GenesisOwners,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -71,6 +80,7 @@ export const GenesisOwners = {
 
   fromJSON(object: any): GenesisOwners {
     return {
+      $type: GenesisOwners.$type,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       indexOwners: isSet(object.indexOwners)
         ? CapabilityOwners.fromJSON(object.indexOwners)
@@ -105,11 +115,19 @@ export const GenesisOwners = {
   },
 };
 
+messageTypeRegistry.set(GenesisOwners.$type, GenesisOwners);
+
 function createBaseGenesisState(): GenesisState {
-  return { index: Long.UZERO, owners: [] };
+  return {
+    $type: 'cosmos.capability.v1beta1.GenesisState',
+    index: Long.UZERO,
+    owners: [],
+  };
 }
 
 export const GenesisState = {
+  $type: 'cosmos.capability.v1beta1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -146,6 +164,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       owners: Array.isArray(object?.owners)
         ? object.owners.map((e: any) => GenesisOwners.fromJSON(e))
@@ -181,6 +200,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 type Builtin =
   | Date
   | Function
@@ -199,14 +220,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

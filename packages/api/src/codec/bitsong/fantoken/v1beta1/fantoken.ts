@@ -1,10 +1,12 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
 export interface Metadata {
+  $type: 'bitsong.fantoken.v1beta1.Metadata';
   /** name defines the name of the fantoken (eg: Kitty Punk) */
   name: string;
   /** symbol is the token symbol usually shown on exchanges (eg: KITTY) */
@@ -20,6 +22,7 @@ export interface Metadata {
 
 /** FanToken defines a standard for the fungible token */
 export interface FanToken {
+  $type: 'bitsong.fantoken.v1beta1.FanToken';
   /** denom represents the string name of the given denom unit (e.g ft<hash>). */
   denom: string;
   maxSupply: string;
@@ -29,10 +32,18 @@ export interface FanToken {
 }
 
 function createBaseMetadata(): Metadata {
-  return { name: '', symbol: '', uri: '', authority: '' };
+  return {
+    $type: 'bitsong.fantoken.v1beta1.Metadata',
+    name: '',
+    symbol: '',
+    uri: '',
+    authority: '',
+  };
 }
 
 export const Metadata = {
+  $type: 'bitsong.fantoken.v1beta1.Metadata' as const,
+
   encode(
     message: Metadata,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -81,6 +92,7 @@ export const Metadata = {
 
   fromJSON(object: any): Metadata {
     return {
+      $type: Metadata.$type,
       name: isSet(object.name) ? String(object.name) : '',
       symbol: isSet(object.symbol) ? String(object.symbol) : '',
       uri: isSet(object.uri) ? String(object.uri) : '',
@@ -107,11 +119,21 @@ export const Metadata = {
   },
 };
 
+messageTypeRegistry.set(Metadata.$type, Metadata);
+
 function createBaseFanToken(): FanToken {
-  return { denom: '', maxSupply: '', minter: '', metaData: undefined };
+  return {
+    $type: 'bitsong.fantoken.v1beta1.FanToken',
+    denom: '',
+    maxSupply: '',
+    minter: '',
+    metaData: undefined,
+  };
 }
 
 export const FanToken = {
+  $type: 'bitsong.fantoken.v1beta1.FanToken' as const,
+
   encode(
     message: FanToken,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -160,6 +182,7 @@ export const FanToken = {
 
   fromJSON(object: any): FanToken {
     return {
+      $type: FanToken.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       maxSupply: isSet(object.maxSupply) ? String(object.maxSupply) : '',
       minter: isSet(object.minter) ? String(object.minter) : '',
@@ -194,6 +217,8 @@ export const FanToken = {
   },
 };
 
+messageTypeRegistry.set(FanToken.$type, FanToken);
+
 type Builtin =
   | Date
   | Function
@@ -212,14 +237,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

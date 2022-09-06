@@ -8,7 +8,7 @@ mkdir -p "$OUT_DIR"
 BITSONG_PROTO_DIR="./proto/merged"
 
 #TS_PROTO_OPTS="esModuleInterop=true,forceLong=string,useOptionals=true,useDate=false,lowerCaseServiceMethods=true,outputClientImpl=grpc-web"
-TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,outputTypeRegistry=false,useDate=false"
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,outputTypeRegistry=true,useDate=false"
 
 protoc \
     --plugin="$(yarn bin protoc-gen-ts_proto)" \

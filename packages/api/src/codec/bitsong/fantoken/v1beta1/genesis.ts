@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Params } from './params';
 import Long from 'long';
 import { FanToken } from './fantoken';
@@ -8,15 +9,22 @@ export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
 /** GenesisState defines the fantoken module's genesis state */
 export interface GenesisState {
+  $type: 'bitsong.fantoken.v1beta1.GenesisState';
   params?: Params;
   fanTokens: FanToken[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, fanTokens: [] };
+  return {
+    $type: 'bitsong.fantoken.v1beta1.GenesisState',
+    params: undefined,
+    fanTokens: [],
+  };
 }
 
 export const GenesisState = {
+  $type: 'bitsong.fantoken.v1beta1.GenesisState' as const,
+
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -53,6 +61,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       fanTokens: Array.isArray(object?.fanTokens)
         ? object.fanTokens.map((e: any) => FanToken.fromJSON(e))
@@ -88,6 +97,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 type Builtin =
   | Date
   | Function
@@ -106,14 +117,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

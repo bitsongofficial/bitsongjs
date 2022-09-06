@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import { Any } from '../protobuf/any';
 import _m0 from 'protobufjs/minimal';
@@ -47,6 +48,7 @@ export const protobufPackage = 'google.api';
  * handled, all other features will continue to work unchanged.
  */
 export interface HttpBody {
+  $type: 'google.api.HttpBody';
   /** The HTTP Content-Type header value specifying the content type of the body. */
   contentType: string;
   /** The HTTP request/response body as raw binary. */
@@ -59,10 +61,17 @@ export interface HttpBody {
 }
 
 function createBaseHttpBody(): HttpBody {
-  return { contentType: '', data: new Uint8Array(), extensions: [] };
+  return {
+    $type: 'google.api.HttpBody',
+    contentType: '',
+    data: new Uint8Array(),
+    extensions: [],
+  };
 }
 
 export const HttpBody = {
+  $type: 'google.api.HttpBody' as const,
+
   encode(
     message: HttpBody,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -105,6 +114,7 @@ export const HttpBody = {
 
   fromJSON(object: any): HttpBody {
     return {
+      $type: HttpBody.$type,
       contentType: isSet(object.contentType) ? String(object.contentType) : '',
       data: isSet(object.data)
         ? bytesFromBase64(object.data)
@@ -141,6 +151,8 @@ export const HttpBody = {
     return message;
   },
 };
+
+messageTypeRegistry.set(HttpBody.$type, HttpBody);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -196,14 +208,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

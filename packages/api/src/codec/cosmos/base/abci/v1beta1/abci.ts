@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Any } from '../../../../google/protobuf/any';
 import Long from 'long';
 import { Event } from '../../../../tendermint/abci/types';
@@ -11,6 +12,7 @@ export const protobufPackage = 'cosmos.base.abci.v1beta1';
  * tags are stringified and the log is JSON decoded.
  */
 export interface TxResponse {
+  $type: 'cosmos.base.abci.v1beta1.TxResponse';
   /** The block height */
   height: Long;
   /** The transaction hash. */
@@ -55,6 +57,7 @@ export interface TxResponse {
 
 /** ABCIMessageLog defines a structure containing an indexed tx ABCI message log. */
 export interface ABCIMessageLog {
+  $type: 'cosmos.base.abci.v1beta1.ABCIMessageLog';
   msgIndex: number;
   log: string;
   /**
@@ -69,6 +72,7 @@ export interface ABCIMessageLog {
  * contain key/value pairs that are strings instead of raw bytes.
  */
 export interface StringEvent {
+  $type: 'cosmos.base.abci.v1beta1.StringEvent';
   type: string;
   attributes: Attribute[];
 }
@@ -78,12 +82,14 @@ export interface StringEvent {
  * strings instead of raw bytes.
  */
 export interface Attribute {
+  $type: 'cosmos.base.abci.v1beta1.Attribute';
   key: string;
   value: string;
 }
 
 /** GasInfo defines tx execution gas context. */
 export interface GasInfo {
+  $type: 'cosmos.base.abci.v1beta1.GasInfo';
   /** GasWanted is the maximum units of work we allow this tx to perform. */
   gasWanted: Long;
   /** GasUsed is the amount of gas actually consumed. */
@@ -92,6 +98,7 @@ export interface GasInfo {
 
 /** Result is the union of ResponseFormat and ResponseCheckTx. */
 export interface Result {
+  $type: 'cosmos.base.abci.v1beta1.Result';
   /**
    * Data is any data returned from message or handler execution. It MUST be
    * length prefixed in order to separate data from multiple message executions.
@@ -111,6 +118,7 @@ export interface Result {
  * successfully simulated.
  */
 export interface SimulationResponse {
+  $type: 'cosmos.base.abci.v1beta1.SimulationResponse';
   gasInfo?: GasInfo;
   result?: Result;
 }
@@ -120,6 +128,7 @@ export interface SimulationResponse {
  * execution.
  */
 export interface MsgData {
+  $type: 'cosmos.base.abci.v1beta1.MsgData';
   msgType: string;
   data: Uint8Array;
 }
@@ -129,11 +138,13 @@ export interface MsgData {
  * for each message.
  */
 export interface TxMsgData {
+  $type: 'cosmos.base.abci.v1beta1.TxMsgData';
   data: MsgData[];
 }
 
 /** SearchTxsResult defines a structure for querying txs pageable */
 export interface SearchTxsResult {
+  $type: 'cosmos.base.abci.v1beta1.SearchTxsResult';
   /** Count of all txs */
   totalCount: Long;
   /** Count of txs in current page */
@@ -150,6 +161,7 @@ export interface SearchTxsResult {
 
 function createBaseTxResponse(): TxResponse {
   return {
+    $type: 'cosmos.base.abci.v1beta1.TxResponse',
     height: Long.ZERO,
     txhash: '',
     codespace: '',
@@ -167,6 +179,8 @@ function createBaseTxResponse(): TxResponse {
 }
 
 export const TxResponse = {
+  $type: 'cosmos.base.abci.v1beta1.TxResponse' as const,
+
   encode(
     message: TxResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -269,6 +283,7 @@ export const TxResponse = {
 
   fromJSON(object: any): TxResponse {
     return {
+      $type: TxResponse.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       txhash: isSet(object.txhash) ? String(object.txhash) : '',
       codespace: isSet(object.codespace) ? String(object.codespace) : '',
@@ -358,11 +373,20 @@ export const TxResponse = {
   },
 };
 
+messageTypeRegistry.set(TxResponse.$type, TxResponse);
+
 function createBaseABCIMessageLog(): ABCIMessageLog {
-  return { msgIndex: 0, log: '', events: [] };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.ABCIMessageLog',
+    msgIndex: 0,
+    log: '',
+    events: [],
+  };
 }
 
 export const ABCIMessageLog = {
+  $type: 'cosmos.base.abci.v1beta1.ABCIMessageLog' as const,
+
   encode(
     message: ABCIMessageLog,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -405,6 +429,7 @@ export const ABCIMessageLog = {
 
   fromJSON(object: any): ABCIMessageLog {
     return {
+      $type: ABCIMessageLog.$type,
       msgIndex: isSet(object.msgIndex) ? Number(object.msgIndex) : 0,
       log: isSet(object.log) ? String(object.log) : '',
       events: Array.isArray(object?.events)
@@ -439,11 +464,19 @@ export const ABCIMessageLog = {
   },
 };
 
+messageTypeRegistry.set(ABCIMessageLog.$type, ABCIMessageLog);
+
 function createBaseStringEvent(): StringEvent {
-  return { type: '', attributes: [] };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.StringEvent',
+    type: '',
+    attributes: [],
+  };
 }
 
 export const StringEvent = {
+  $type: 'cosmos.base.abci.v1beta1.StringEvent' as const,
+
   encode(
     message: StringEvent,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -480,6 +513,7 @@ export const StringEvent = {
 
   fromJSON(object: any): StringEvent {
     return {
+      $type: StringEvent.$type,
       type: isSet(object.type) ? String(object.type) : '',
       attributes: Array.isArray(object?.attributes)
         ? object.attributes.map((e: any) => Attribute.fromJSON(e))
@@ -511,11 +545,15 @@ export const StringEvent = {
   },
 };
 
+messageTypeRegistry.set(StringEvent.$type, StringEvent);
+
 function createBaseAttribute(): Attribute {
-  return { key: '', value: '' };
+  return { $type: 'cosmos.base.abci.v1beta1.Attribute', key: '', value: '' };
 }
 
 export const Attribute = {
+  $type: 'cosmos.base.abci.v1beta1.Attribute' as const,
+
   encode(
     message: Attribute,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -552,6 +590,7 @@ export const Attribute = {
 
   fromJSON(object: any): Attribute {
     return {
+      $type: Attribute.$type,
       key: isSet(object.key) ? String(object.key) : '',
       value: isSet(object.value) ? String(object.value) : '',
     };
@@ -574,11 +613,19 @@ export const Attribute = {
   },
 };
 
+messageTypeRegistry.set(Attribute.$type, Attribute);
+
 function createBaseGasInfo(): GasInfo {
-  return { gasWanted: Long.UZERO, gasUsed: Long.UZERO };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.GasInfo',
+    gasWanted: Long.UZERO,
+    gasUsed: Long.UZERO,
+  };
 }
 
 export const GasInfo = {
+  $type: 'cosmos.base.abci.v1beta1.GasInfo' as const,
+
   encode(
     message: GasInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -615,6 +662,7 @@ export const GasInfo = {
 
   fromJSON(object: any): GasInfo {
     return {
+      $type: GasInfo.$type,
       gasWanted: isSet(object.gasWanted)
         ? Long.fromValue(object.gasWanted)
         : Long.UZERO,
@@ -647,11 +695,20 @@ export const GasInfo = {
   },
 };
 
+messageTypeRegistry.set(GasInfo.$type, GasInfo);
+
 function createBaseResult(): Result {
-  return { data: new Uint8Array(), log: '', events: [] };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.Result',
+    data: new Uint8Array(),
+    log: '',
+    events: [],
+  };
 }
 
 export const Result = {
+  $type: 'cosmos.base.abci.v1beta1.Result' as const,
+
   encode(
     message: Result,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -694,6 +751,7 @@ export const Result = {
 
   fromJSON(object: any): Result {
     return {
+      $type: Result.$type,
       data: isSet(object.data)
         ? bytesFromBase64(object.data)
         : new Uint8Array(),
@@ -728,11 +786,19 @@ export const Result = {
   },
 };
 
+messageTypeRegistry.set(Result.$type, Result);
+
 function createBaseSimulationResponse(): SimulationResponse {
-  return { gasInfo: undefined, result: undefined };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.SimulationResponse',
+    gasInfo: undefined,
+    result: undefined,
+  };
 }
 
 export const SimulationResponse = {
+  $type: 'cosmos.base.abci.v1beta1.SimulationResponse' as const,
+
   encode(
     message: SimulationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -769,6 +835,7 @@ export const SimulationResponse = {
 
   fromJSON(object: any): SimulationResponse {
     return {
+      $type: SimulationResponse.$type,
       gasInfo: isSet(object.gasInfo)
         ? GasInfo.fromJSON(object.gasInfo)
         : undefined,
@@ -803,11 +870,19 @@ export const SimulationResponse = {
   },
 };
 
+messageTypeRegistry.set(SimulationResponse.$type, SimulationResponse);
+
 function createBaseMsgData(): MsgData {
-  return { msgType: '', data: new Uint8Array() };
+  return {
+    $type: 'cosmos.base.abci.v1beta1.MsgData',
+    msgType: '',
+    data: new Uint8Array(),
+  };
 }
 
 export const MsgData = {
+  $type: 'cosmos.base.abci.v1beta1.MsgData' as const,
+
   encode(
     message: MsgData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -844,6 +919,7 @@ export const MsgData = {
 
   fromJSON(object: any): MsgData {
     return {
+      $type: MsgData.$type,
       msgType: isSet(object.msgType) ? String(object.msgType) : '',
       data: isSet(object.data)
         ? bytesFromBase64(object.data)
@@ -869,11 +945,15 @@ export const MsgData = {
   },
 };
 
+messageTypeRegistry.set(MsgData.$type, MsgData);
+
 function createBaseTxMsgData(): TxMsgData {
-  return { data: [] };
+  return { $type: 'cosmos.base.abci.v1beta1.TxMsgData', data: [] };
 }
 
 export const TxMsgData = {
+  $type: 'cosmos.base.abci.v1beta1.TxMsgData' as const,
+
   encode(
     message: TxMsgData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -904,6 +984,7 @@ export const TxMsgData = {
 
   fromJSON(object: any): TxMsgData {
     return {
+      $type: TxMsgData.$type,
       data: Array.isArray(object?.data)
         ? object.data.map((e: any) => MsgData.fromJSON(e))
         : [],
@@ -929,8 +1010,11 @@ export const TxMsgData = {
   },
 };
 
+messageTypeRegistry.set(TxMsgData.$type, TxMsgData);
+
 function createBaseSearchTxsResult(): SearchTxsResult {
   return {
+    $type: 'cosmos.base.abci.v1beta1.SearchTxsResult',
     totalCount: Long.UZERO,
     count: Long.UZERO,
     pageNumber: Long.UZERO,
@@ -941,6 +1025,8 @@ function createBaseSearchTxsResult(): SearchTxsResult {
 }
 
 export const SearchTxsResult = {
+  $type: 'cosmos.base.abci.v1beta1.SearchTxsResult' as const,
+
   encode(
     message: SearchTxsResult,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1001,6 +1087,7 @@ export const SearchTxsResult = {
 
   fromJSON(object: any): SearchTxsResult {
     return {
+      $type: SearchTxsResult.$type,
       totalCount: isSet(object.totalCount)
         ? Long.fromValue(object.totalCount)
         : Long.UZERO,
@@ -1067,6 +1154,8 @@ export const SearchTxsResult = {
   },
 };
 
+messageTypeRegistry.set(SearchTxsResult.$type, SearchTxsResult);
+
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
@@ -1121,14 +1210,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

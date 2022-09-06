@@ -3,6 +3,7 @@ import _m0 from 'protobufjs/minimal';
 import Long from 'long';
 
 export interface MessageType<Message extends UnknownMessage = UnknownMessage> {
+  $type: Message['$type'];
   encode(message: Message, writer?: _m0.Writer): _m0.Writer;
   decode(input: _m0.Reader | Uint8Array, length?: number): Message;
   fromJSON(object: any): Message;

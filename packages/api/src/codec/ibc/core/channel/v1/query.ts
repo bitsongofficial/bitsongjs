@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Channel, IdentifiedChannel, PacketState } from './channel';
 import { Height, IdentifiedClientState } from '../../client/v1/client';
 import {
@@ -13,6 +14,7 @@ export const protobufPackage = 'ibc.core.channel.v1';
 
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 export interface QueryChannelRequest {
+  $type: 'ibc.core.channel.v1.QueryChannelRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -25,6 +27,7 @@ export interface QueryChannelRequest {
  * proof was retrieved.
  */
 export interface QueryChannelResponse {
+  $type: 'ibc.core.channel.v1.QueryChannelResponse';
   /** channel associated with the request identifiers */
   channel?: Channel;
   /** merkle proof of existence */
@@ -35,12 +38,14 @@ export interface QueryChannelResponse {
 
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
+  $type: 'ibc.core.channel.v1.QueryChannelsRequest';
   /** pagination request */
   pagination?: PageRequest;
 }
 
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
+  $type: 'ibc.core.channel.v1.QueryChannelsResponse';
   /** list of stored channels of the chain. */
   channels: IdentifiedChannel[];
   /** pagination response */
@@ -54,6 +59,7 @@ export interface QueryChannelsResponse {
  * Query/QueryConnectionChannels RPC method
  */
 export interface QueryConnectionChannelsRequest {
+  $type: 'ibc.core.channel.v1.QueryConnectionChannelsRequest';
   /** connection unique identifier */
   connection: string;
   /** pagination request */
@@ -65,6 +71,7 @@ export interface QueryConnectionChannelsRequest {
  * Query/QueryConnectionChannels RPC method
  */
 export interface QueryConnectionChannelsResponse {
+  $type: 'ibc.core.channel.v1.QueryConnectionChannelsResponse';
   /** list of channels associated with a connection. */
   channels: IdentifiedChannel[];
   /** pagination response */
@@ -78,6 +85,7 @@ export interface QueryConnectionChannelsResponse {
  * RPC method
  */
 export interface QueryChannelClientStateRequest {
+  $type: 'ibc.core.channel.v1.QueryChannelClientStateRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -89,6 +97,7 @@ export interface QueryChannelClientStateRequest {
  * Query/QueryChannelClientState RPC method
  */
 export interface QueryChannelClientStateResponse {
+  $type: 'ibc.core.channel.v1.QueryChannelClientStateResponse';
   /** client state associated with the channel */
   identifiedClientState?: IdentifiedClientState;
   /** merkle proof of existence */
@@ -102,6 +111,7 @@ export interface QueryChannelClientStateResponse {
  * Query/ConsensusState RPC method
  */
 export interface QueryChannelConsensusStateRequest {
+  $type: 'ibc.core.channel.v1.QueryChannelConsensusStateRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -117,6 +127,7 @@ export interface QueryChannelConsensusStateRequest {
  * Query/QueryChannelClientState RPC method
  */
 export interface QueryChannelConsensusStateResponse {
+  $type: 'ibc.core.channel.v1.QueryChannelConsensusStateResponse';
   /** consensus state associated with the channel */
   consensusState?: Any;
   /** client ID associated with the consensus state */
@@ -132,6 +143,7 @@ export interface QueryChannelConsensusStateResponse {
  * Query/PacketCommitment RPC method
  */
 export interface QueryPacketCommitmentRequest {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -146,6 +158,7 @@ export interface QueryPacketCommitmentRequest {
  * retrieved
  */
 export interface QueryPacketCommitmentResponse {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentResponse';
   /** packet associated with the request fields */
   commitment: Uint8Array;
   /** merkle proof of existence */
@@ -159,6 +172,7 @@ export interface QueryPacketCommitmentResponse {
  * Query/QueryPacketCommitments RPC method
  */
 export interface QueryPacketCommitmentsRequest {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentsRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -172,6 +186,7 @@ export interface QueryPacketCommitmentsRequest {
  * Query/QueryPacketCommitments RPC method
  */
 export interface QueryPacketCommitmentsResponse {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentsResponse';
   commitments: PacketState[];
   /** pagination response */
   pagination?: PageResponse;
@@ -184,6 +199,7 @@ export interface QueryPacketCommitmentsResponse {
  * Query/PacketReceipt RPC method
  */
 export interface QueryPacketReceiptRequest {
+  $type: 'ibc.core.channel.v1.QueryPacketReceiptRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -198,6 +214,7 @@ export interface QueryPacketReceiptRequest {
  * retrieved
  */
 export interface QueryPacketReceiptResponse {
+  $type: 'ibc.core.channel.v1.QueryPacketReceiptResponse';
   /** success flag for if receipt exists */
   received: boolean;
   /** merkle proof of existence */
@@ -211,6 +228,7 @@ export interface QueryPacketReceiptResponse {
  * Query/PacketAcknowledgement RPC method
  */
 export interface QueryPacketAcknowledgementRequest {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -225,6 +243,7 @@ export interface QueryPacketAcknowledgementRequest {
  * proof was retrieved
  */
 export interface QueryPacketAcknowledgementResponse {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementResponse';
   /** packet associated with the request fields */
   acknowledgement: Uint8Array;
   /** merkle proof of existence */
@@ -238,6 +257,7 @@ export interface QueryPacketAcknowledgementResponse {
  * Query/QueryPacketCommitments RPC method
  */
 export interface QueryPacketAcknowledgementsRequest {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -253,6 +273,7 @@ export interface QueryPacketAcknowledgementsRequest {
  * Query/QueryPacketAcknowledgements RPC method
  */
 export interface QueryPacketAcknowledgementsResponse {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsResponse';
   acknowledgements: PacketState[];
   /** pagination response */
   pagination?: PageResponse;
@@ -265,6 +286,7 @@ export interface QueryPacketAcknowledgementsResponse {
  * Query/UnreceivedPackets RPC method
  */
 export interface QueryUnreceivedPacketsRequest {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -278,6 +300,7 @@ export interface QueryUnreceivedPacketsRequest {
  * Query/UnreceivedPacketCommitments RPC method
  */
 export interface QueryUnreceivedPacketsResponse {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsResponse';
   /** list of unreceived packet sequences */
   sequences: Long[];
   /** query block height */
@@ -289,6 +312,7 @@ export interface QueryUnreceivedPacketsResponse {
  * Query/UnreceivedAcks RPC method
  */
 export interface QueryUnreceivedAcksRequest {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedAcksRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -302,6 +326,7 @@ export interface QueryUnreceivedAcksRequest {
  * Query/UnreceivedAcks RPC method
  */
 export interface QueryUnreceivedAcksResponse {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedAcksResponse';
   /** list of unreceived acknowledgement sequences */
   sequences: Long[];
   /** query block height */
@@ -313,6 +338,7 @@ export interface QueryUnreceivedAcksResponse {
  * Query/QueryNextSequenceReceiveRequest RPC method
  */
 export interface QueryNextSequenceReceiveRequest {
+  $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveRequest';
   /** port unique identifier */
   portId: string;
   /** channel unique identifier */
@@ -324,6 +350,7 @@ export interface QueryNextSequenceReceiveRequest {
  * Query/QueryNextSequenceReceiveResponse RPC method
  */
 export interface QueryNextSequenceReceiveResponse {
+  $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveResponse';
   /** next sequence receive number */
   nextSequenceReceive: Long;
   /** merkle proof of existence */
@@ -333,10 +360,16 @@ export interface QueryNextSequenceReceiveResponse {
 }
 
 function createBaseQueryChannelRequest(): QueryChannelRequest {
-  return { portId: '', channelId: '' };
+  return {
+    $type: 'ibc.core.channel.v1.QueryChannelRequest',
+    portId: '',
+    channelId: '',
+  };
 }
 
 export const QueryChannelRequest = {
+  $type: 'ibc.core.channel.v1.QueryChannelRequest' as const,
+
   encode(
     message: QueryChannelRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -373,6 +406,7 @@ export const QueryChannelRequest = {
 
   fromJSON(object: any): QueryChannelRequest {
     return {
+      $type: QueryChannelRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
     };
@@ -395,8 +429,11 @@ export const QueryChannelRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryChannelRequest.$type, QueryChannelRequest);
+
 function createBaseQueryChannelResponse(): QueryChannelResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryChannelResponse',
     channel: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -404,6 +441,8 @@ function createBaseQueryChannelResponse(): QueryChannelResponse {
 }
 
 export const QueryChannelResponse = {
+  $type: 'ibc.core.channel.v1.QueryChannelResponse' as const,
+
   encode(
     message: QueryChannelResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -449,6 +488,7 @@ export const QueryChannelResponse = {
 
   fromJSON(object: any): QueryChannelResponse {
     return {
+      $type: QueryChannelResponse.$type,
       channel: isSet(object.channel)
         ? Channel.fromJSON(object.channel)
         : undefined,
@@ -495,11 +535,18 @@ export const QueryChannelResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryChannelResponse.$type, QueryChannelResponse);
+
 function createBaseQueryChannelsRequest(): QueryChannelsRequest {
-  return { pagination: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryChannelsRequest',
+    pagination: undefined,
+  };
 }
 
 export const QueryChannelsRequest = {
+  $type: 'ibc.core.channel.v1.QueryChannelsRequest' as const,
+
   encode(
     message: QueryChannelsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -533,6 +580,7 @@ export const QueryChannelsRequest = {
 
   fromJSON(object: any): QueryChannelsRequest {
     return {
+      $type: QueryChannelsRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -560,11 +608,20 @@ export const QueryChannelsRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryChannelsRequest.$type, QueryChannelsRequest);
+
 function createBaseQueryChannelsResponse(): QueryChannelsResponse {
-  return { channels: [], pagination: undefined, height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryChannelsResponse',
+    channels: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryChannelsResponse = {
+  $type: 'ibc.core.channel.v1.QueryChannelsResponse' as const,
+
   encode(
     message: QueryChannelsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -615,6 +672,7 @@ export const QueryChannelsResponse = {
 
   fromJSON(object: any): QueryChannelsResponse {
     return {
+      $type: QueryChannelsResponse.$type,
       channels: Array.isArray(object?.channels)
         ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
         : [],
@@ -661,11 +719,19 @@ export const QueryChannelsResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryChannelsResponse.$type, QueryChannelsResponse);
+
 function createBaseQueryConnectionChannelsRequest(): QueryConnectionChannelsRequest {
-  return { connection: '', pagination: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryConnectionChannelsRequest',
+    connection: '',
+    pagination: undefined,
+  };
 }
 
 export const QueryConnectionChannelsRequest = {
+  $type: 'ibc.core.channel.v1.QueryConnectionChannelsRequest' as const,
+
   encode(
     message: QueryConnectionChannelsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -705,6 +771,7 @@ export const QueryConnectionChannelsRequest = {
 
   fromJSON(object: any): QueryConnectionChannelsRequest {
     return {
+      $type: QueryConnectionChannelsRequest.$type,
       connection: isSet(object.connection) ? String(object.connection) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -735,11 +802,23 @@ export const QueryConnectionChannelsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionChannelsRequest.$type,
+  QueryConnectionChannelsRequest,
+);
+
 function createBaseQueryConnectionChannelsResponse(): QueryConnectionChannelsResponse {
-  return { channels: [], pagination: undefined, height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryConnectionChannelsResponse',
+    channels: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryConnectionChannelsResponse = {
+  $type: 'ibc.core.channel.v1.QueryConnectionChannelsResponse' as const,
+
   encode(
     message: QueryConnectionChannelsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -790,6 +869,7 @@ export const QueryConnectionChannelsResponse = {
 
   fromJSON(object: any): QueryConnectionChannelsResponse {
     return {
+      $type: QueryConnectionChannelsResponse.$type,
       channels: Array.isArray(object?.channels)
         ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
         : [],
@@ -836,11 +916,22 @@ export const QueryConnectionChannelsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryConnectionChannelsResponse.$type,
+  QueryConnectionChannelsResponse,
+);
+
 function createBaseQueryChannelClientStateRequest(): QueryChannelClientStateRequest {
-  return { portId: '', channelId: '' };
+  return {
+    $type: 'ibc.core.channel.v1.QueryChannelClientStateRequest',
+    portId: '',
+    channelId: '',
+  };
 }
 
 export const QueryChannelClientStateRequest = {
+  $type: 'ibc.core.channel.v1.QueryChannelClientStateRequest' as const,
+
   encode(
     message: QueryChannelClientStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -880,6 +971,7 @@ export const QueryChannelClientStateRequest = {
 
   fromJSON(object: any): QueryChannelClientStateRequest {
     return {
+      $type: QueryChannelClientStateRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
     };
@@ -902,8 +994,14 @@ export const QueryChannelClientStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryChannelClientStateRequest.$type,
+  QueryChannelClientStateRequest,
+);
+
 function createBaseQueryChannelClientStateResponse(): QueryChannelClientStateResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryChannelClientStateResponse',
     identifiedClientState: undefined,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -911,6 +1009,8 @@ function createBaseQueryChannelClientStateResponse(): QueryChannelClientStateRes
 }
 
 export const QueryChannelClientStateResponse = {
+  $type: 'ibc.core.channel.v1.QueryChannelClientStateResponse' as const,
+
   encode(
     message: QueryChannelClientStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -962,6 +1062,7 @@ export const QueryChannelClientStateResponse = {
 
   fromJSON(object: any): QueryChannelClientStateResponse {
     return {
+      $type: QueryChannelClientStateResponse.$type,
       identifiedClientState: isSet(object.identifiedClientState)
         ? IdentifiedClientState.fromJSON(object.identifiedClientState)
         : undefined,
@@ -1009,8 +1110,14 @@ export const QueryChannelClientStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryChannelClientStateResponse.$type,
+  QueryChannelClientStateResponse,
+);
+
 function createBaseQueryChannelConsensusStateRequest(): QueryChannelConsensusStateRequest {
   return {
+    $type: 'ibc.core.channel.v1.QueryChannelConsensusStateRequest',
     portId: '',
     channelId: '',
     revisionNumber: Long.UZERO,
@@ -1019,6 +1126,8 @@ function createBaseQueryChannelConsensusStateRequest(): QueryChannelConsensusSta
 }
 
 export const QueryChannelConsensusStateRequest = {
+  $type: 'ibc.core.channel.v1.QueryChannelConsensusStateRequest' as const,
+
   encode(
     message: QueryChannelConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1070,6 +1179,7 @@ export const QueryChannelConsensusStateRequest = {
 
   fromJSON(object: any): QueryChannelConsensusStateRequest {
     return {
+      $type: QueryChannelConsensusStateRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       revisionNumber: isSet(object.revisionNumber)
@@ -1110,8 +1220,14 @@ export const QueryChannelConsensusStateRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryChannelConsensusStateRequest.$type,
+  QueryChannelConsensusStateRequest,
+);
+
 function createBaseQueryChannelConsensusStateResponse(): QueryChannelConsensusStateResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryChannelConsensusStateResponse',
     consensusState: undefined,
     clientId: '',
     proof: new Uint8Array(),
@@ -1120,6 +1236,8 @@ function createBaseQueryChannelConsensusStateResponse(): QueryChannelConsensusSt
 }
 
 export const QueryChannelConsensusStateResponse = {
+  $type: 'ibc.core.channel.v1.QueryChannelConsensusStateResponse' as const,
+
   encode(
     message: QueryChannelConsensusStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1171,6 +1289,7 @@ export const QueryChannelConsensusStateResponse = {
 
   fromJSON(object: any): QueryChannelConsensusStateResponse {
     return {
+      $type: QueryChannelConsensusStateResponse.$type,
       consensusState: isSet(object.consensusState)
         ? Any.fromJSON(object.consensusState)
         : undefined,
@@ -1220,11 +1339,23 @@ export const QueryChannelConsensusStateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryChannelConsensusStateResponse.$type,
+  QueryChannelConsensusStateResponse,
+);
+
 function createBaseQueryPacketCommitmentRequest(): QueryPacketCommitmentRequest {
-  return { portId: '', channelId: '', sequence: Long.UZERO };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketCommitmentRequest',
+    portId: '',
+    channelId: '',
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketCommitmentRequest = {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentRequest' as const,
+
   encode(
     message: QueryPacketCommitmentRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1270,6 +1401,7 @@ export const QueryPacketCommitmentRequest = {
 
   fromJSON(object: any): QueryPacketCommitmentRequest {
     return {
+      $type: QueryPacketCommitmentRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       sequence: isSet(object.sequence)
@@ -1301,8 +1433,14 @@ export const QueryPacketCommitmentRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketCommitmentRequest.$type,
+  QueryPacketCommitmentRequest,
+);
+
 function createBaseQueryPacketCommitmentResponse(): QueryPacketCommitmentResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryPacketCommitmentResponse',
     commitment: new Uint8Array(),
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -1310,6 +1448,8 @@ function createBaseQueryPacketCommitmentResponse(): QueryPacketCommitmentRespons
 }
 
 export const QueryPacketCommitmentResponse = {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentResponse' as const,
+
   encode(
     message: QueryPacketCommitmentResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1355,6 +1495,7 @@ export const QueryPacketCommitmentResponse = {
 
   fromJSON(object: any): QueryPacketCommitmentResponse {
     return {
+      $type: QueryPacketCommitmentResponse.$type,
       commitment: isSet(object.commitment)
         ? bytesFromBase64(object.commitment)
         : new Uint8Array(),
@@ -1400,11 +1541,23 @@ export const QueryPacketCommitmentResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketCommitmentResponse.$type,
+  QueryPacketCommitmentResponse,
+);
+
 function createBaseQueryPacketCommitmentsRequest(): QueryPacketCommitmentsRequest {
-  return { portId: '', channelId: '', pagination: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketCommitmentsRequest',
+    portId: '',
+    channelId: '',
+    pagination: undefined,
+  };
 }
 
 export const QueryPacketCommitmentsRequest = {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentsRequest' as const,
+
   encode(
     message: QueryPacketCommitmentsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1450,6 +1603,7 @@ export const QueryPacketCommitmentsRequest = {
 
   fromJSON(object: any): QueryPacketCommitmentsRequest {
     return {
+      $type: QueryPacketCommitmentsRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       pagination: isSet(object.pagination)
@@ -1483,11 +1637,23 @@ export const QueryPacketCommitmentsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketCommitmentsRequest.$type,
+  QueryPacketCommitmentsRequest,
+);
+
 function createBaseQueryPacketCommitmentsResponse(): QueryPacketCommitmentsResponse {
-  return { commitments: [], pagination: undefined, height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketCommitmentsResponse',
+    commitments: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryPacketCommitmentsResponse = {
+  $type: 'ibc.core.channel.v1.QueryPacketCommitmentsResponse' as const,
+
   encode(
     message: QueryPacketCommitmentsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1536,6 +1702,7 @@ export const QueryPacketCommitmentsResponse = {
 
   fromJSON(object: any): QueryPacketCommitmentsResponse {
     return {
+      $type: QueryPacketCommitmentsResponse.$type,
       commitments: Array.isArray(object?.commitments)
         ? object.commitments.map((e: any) => PacketState.fromJSON(e))
         : [],
@@ -1582,11 +1749,23 @@ export const QueryPacketCommitmentsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketCommitmentsResponse.$type,
+  QueryPacketCommitmentsResponse,
+);
+
 function createBaseQueryPacketReceiptRequest(): QueryPacketReceiptRequest {
-  return { portId: '', channelId: '', sequence: Long.UZERO };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketReceiptRequest',
+    portId: '',
+    channelId: '',
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketReceiptRequest = {
+  $type: 'ibc.core.channel.v1.QueryPacketReceiptRequest' as const,
+
   encode(
     message: QueryPacketReceiptRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1632,6 +1811,7 @@ export const QueryPacketReceiptRequest = {
 
   fromJSON(object: any): QueryPacketReceiptRequest {
     return {
+      $type: QueryPacketReceiptRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       sequence: isSet(object.sequence)
@@ -1663,11 +1843,23 @@ export const QueryPacketReceiptRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketReceiptRequest.$type,
+  QueryPacketReceiptRequest,
+);
+
 function createBaseQueryPacketReceiptResponse(): QueryPacketReceiptResponse {
-  return { received: false, proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketReceiptResponse',
+    received: false,
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryPacketReceiptResponse = {
+  $type: 'ibc.core.channel.v1.QueryPacketReceiptResponse' as const,
+
   encode(
     message: QueryPacketReceiptResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1713,6 +1905,7 @@ export const QueryPacketReceiptResponse = {
 
   fromJSON(object: any): QueryPacketReceiptResponse {
     return {
+      $type: QueryPacketReceiptResponse.$type,
       received: isSet(object.received) ? Boolean(object.received) : false,
       proof: isSet(object.proof)
         ? bytesFromBase64(object.proof)
@@ -1751,11 +1944,23 @@ export const QueryPacketReceiptResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketReceiptResponse.$type,
+  QueryPacketReceiptResponse,
+);
+
 function createBaseQueryPacketAcknowledgementRequest(): QueryPacketAcknowledgementRequest {
-  return { portId: '', channelId: '', sequence: Long.UZERO };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementRequest',
+    portId: '',
+    channelId: '',
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketAcknowledgementRequest = {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementRequest' as const,
+
   encode(
     message: QueryPacketAcknowledgementRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1801,6 +2006,7 @@ export const QueryPacketAcknowledgementRequest = {
 
   fromJSON(object: any): QueryPacketAcknowledgementRequest {
     return {
+      $type: QueryPacketAcknowledgementRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       sequence: isSet(object.sequence)
@@ -1832,8 +2038,14 @@ export const QueryPacketAcknowledgementRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketAcknowledgementRequest.$type,
+  QueryPacketAcknowledgementRequest,
+);
+
 function createBaseQueryPacketAcknowledgementResponse(): QueryPacketAcknowledgementResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementResponse',
     acknowledgement: new Uint8Array(),
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -1841,6 +2053,8 @@ function createBaseQueryPacketAcknowledgementResponse(): QueryPacketAcknowledgem
 }
 
 export const QueryPacketAcknowledgementResponse = {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementResponse' as const,
+
   encode(
     message: QueryPacketAcknowledgementResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1886,6 +2100,7 @@ export const QueryPacketAcknowledgementResponse = {
 
   fromJSON(object: any): QueryPacketAcknowledgementResponse {
     return {
+      $type: QueryPacketAcknowledgementResponse.$type,
       acknowledgement: isSet(object.acknowledgement)
         ? bytesFromBase64(object.acknowledgement)
         : new Uint8Array(),
@@ -1931,8 +2146,14 @@ export const QueryPacketAcknowledgementResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketAcknowledgementResponse.$type,
+  QueryPacketAcknowledgementResponse,
+);
+
 function createBaseQueryPacketAcknowledgementsRequest(): QueryPacketAcknowledgementsRequest {
   return {
+    $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsRequest',
     portId: '',
     channelId: '',
     pagination: undefined,
@@ -1941,6 +2162,8 @@ function createBaseQueryPacketAcknowledgementsRequest(): QueryPacketAcknowledgem
 }
 
 export const QueryPacketAcknowledgementsRequest = {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsRequest' as const,
+
   encode(
     message: QueryPacketAcknowledgementsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2001,6 +2224,7 @@ export const QueryPacketAcknowledgementsRequest = {
 
   fromJSON(object: any): QueryPacketAcknowledgementsRequest {
     return {
+      $type: QueryPacketAcknowledgementsRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       pagination: isSet(object.pagination)
@@ -2048,11 +2272,23 @@ export const QueryPacketAcknowledgementsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketAcknowledgementsRequest.$type,
+  QueryPacketAcknowledgementsRequest,
+);
+
 function createBaseQueryPacketAcknowledgementsResponse(): QueryPacketAcknowledgementsResponse {
-  return { acknowledgements: [], pagination: undefined, height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsResponse',
+    acknowledgements: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryPacketAcknowledgementsResponse = {
+  $type: 'ibc.core.channel.v1.QueryPacketAcknowledgementsResponse' as const,
+
   encode(
     message: QueryPacketAcknowledgementsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2103,6 +2339,7 @@ export const QueryPacketAcknowledgementsResponse = {
 
   fromJSON(object: any): QueryPacketAcknowledgementsResponse {
     return {
+      $type: QueryPacketAcknowledgementsResponse.$type,
       acknowledgements: Array.isArray(object?.acknowledgements)
         ? object.acknowledgements.map((e: any) => PacketState.fromJSON(e))
         : [],
@@ -2149,11 +2386,23 @@ export const QueryPacketAcknowledgementsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryPacketAcknowledgementsResponse.$type,
+  QueryPacketAcknowledgementsResponse,
+);
+
 function createBaseQueryUnreceivedPacketsRequest(): QueryUnreceivedPacketsRequest {
-  return { portId: '', channelId: '', packetCommitmentSequences: [] };
+  return {
+    $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsRequest',
+    portId: '',
+    channelId: '',
+    packetCommitmentSequences: [],
+  };
 }
 
 export const QueryUnreceivedPacketsRequest = {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsRequest' as const,
+
   encode(
     message: QueryUnreceivedPacketsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2208,6 +2457,7 @@ export const QueryUnreceivedPacketsRequest = {
 
   fromJSON(object: any): QueryUnreceivedPacketsRequest {
     return {
+      $type: QueryUnreceivedPacketsRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       packetCommitmentSequences: Array.isArray(
@@ -2244,11 +2494,22 @@ export const QueryUnreceivedPacketsRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUnreceivedPacketsRequest.$type,
+  QueryUnreceivedPacketsRequest,
+);
+
 function createBaseQueryUnreceivedPacketsResponse(): QueryUnreceivedPacketsResponse {
-  return { sequences: [], height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsResponse',
+    sequences: [],
+    height: undefined,
+  };
 }
 
 export const QueryUnreceivedPacketsResponse = {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedPacketsResponse' as const,
+
   encode(
     message: QueryUnreceivedPacketsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2297,6 +2558,7 @@ export const QueryUnreceivedPacketsResponse = {
 
   fromJSON(object: any): QueryUnreceivedPacketsResponse {
     return {
+      $type: QueryUnreceivedPacketsResponse.$type,
       sequences: Array.isArray(object?.sequences)
         ? object.sequences.map((e: any) => Long.fromValue(e))
         : [],
@@ -2329,11 +2591,23 @@ export const QueryUnreceivedPacketsResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUnreceivedPacketsResponse.$type,
+  QueryUnreceivedPacketsResponse,
+);
+
 function createBaseQueryUnreceivedAcksRequest(): QueryUnreceivedAcksRequest {
-  return { portId: '', channelId: '', packetAckSequences: [] };
+  return {
+    $type: 'ibc.core.channel.v1.QueryUnreceivedAcksRequest',
+    portId: '',
+    channelId: '',
+    packetAckSequences: [],
+  };
 }
 
 export const QueryUnreceivedAcksRequest = {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedAcksRequest' as const,
+
   encode(
     message: QueryUnreceivedAcksRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2388,6 +2662,7 @@ export const QueryUnreceivedAcksRequest = {
 
   fromJSON(object: any): QueryUnreceivedAcksRequest {
     return {
+      $type: QueryUnreceivedAcksRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
       packetAckSequences: Array.isArray(object?.packetAckSequences)
@@ -2422,11 +2697,22 @@ export const QueryUnreceivedAcksRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUnreceivedAcksRequest.$type,
+  QueryUnreceivedAcksRequest,
+);
+
 function createBaseQueryUnreceivedAcksResponse(): QueryUnreceivedAcksResponse {
-  return { sequences: [], height: undefined };
+  return {
+    $type: 'ibc.core.channel.v1.QueryUnreceivedAcksResponse',
+    sequences: [],
+    height: undefined,
+  };
 }
 
 export const QueryUnreceivedAcksResponse = {
+  $type: 'ibc.core.channel.v1.QueryUnreceivedAcksResponse' as const,
+
   encode(
     message: QueryUnreceivedAcksResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2475,6 +2761,7 @@ export const QueryUnreceivedAcksResponse = {
 
   fromJSON(object: any): QueryUnreceivedAcksResponse {
     return {
+      $type: QueryUnreceivedAcksResponse.$type,
       sequences: Array.isArray(object?.sequences)
         ? object.sequences.map((e: any) => Long.fromValue(e))
         : [],
@@ -2507,11 +2794,22 @@ export const QueryUnreceivedAcksResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryUnreceivedAcksResponse.$type,
+  QueryUnreceivedAcksResponse,
+);
+
 function createBaseQueryNextSequenceReceiveRequest(): QueryNextSequenceReceiveRequest {
-  return { portId: '', channelId: '' };
+  return {
+    $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveRequest',
+    portId: '',
+    channelId: '',
+  };
 }
 
 export const QueryNextSequenceReceiveRequest = {
+  $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveRequest' as const,
+
   encode(
     message: QueryNextSequenceReceiveRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2551,6 +2849,7 @@ export const QueryNextSequenceReceiveRequest = {
 
   fromJSON(object: any): QueryNextSequenceReceiveRequest {
     return {
+      $type: QueryNextSequenceReceiveRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       channelId: isSet(object.channelId) ? String(object.channelId) : '',
     };
@@ -2573,8 +2872,14 @@ export const QueryNextSequenceReceiveRequest = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryNextSequenceReceiveRequest.$type,
+  QueryNextSequenceReceiveRequest,
+);
+
 function createBaseQueryNextSequenceReceiveResponse(): QueryNextSequenceReceiveResponse {
   return {
+    $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveResponse',
     nextSequenceReceive: Long.UZERO,
     proof: new Uint8Array(),
     proofHeight: undefined,
@@ -2582,6 +2887,8 @@ function createBaseQueryNextSequenceReceiveResponse(): QueryNextSequenceReceiveR
 }
 
 export const QueryNextSequenceReceiveResponse = {
+  $type: 'ibc.core.channel.v1.QueryNextSequenceReceiveResponse' as const,
+
   encode(
     message: QueryNextSequenceReceiveResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2627,6 +2934,7 @@ export const QueryNextSequenceReceiveResponse = {
 
   fromJSON(object: any): QueryNextSequenceReceiveResponse {
     return {
+      $type: QueryNextSequenceReceiveResponse.$type,
       nextSequenceReceive: isSet(object.nextSequenceReceive)
         ? Long.fromValue(object.nextSequenceReceive)
         : Long.UZERO,
@@ -2673,6 +2981,11 @@ export const QueryNextSequenceReceiveResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  QueryNextSequenceReceiveResponse.$type,
+  QueryNextSequenceReceiveResponse,
+);
 
 /** Query provides defines the gRPC querier service */
 export interface Query {
@@ -3009,14 +3322,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

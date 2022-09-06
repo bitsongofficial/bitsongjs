@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import { Vote, LightBlock } from './types';
 import { Timestamp } from '../../google/protobuf/timestamp';
 import Long from 'long';
@@ -8,12 +9,14 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'tendermint.types';
 
 export interface Evidence {
+  $type: 'tendermint.types.Evidence';
   duplicateVoteEvidence?: DuplicateVoteEvidence | undefined;
   lightClientAttackEvidence?: LightClientAttackEvidence | undefined;
 }
 
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
 export interface DuplicateVoteEvidence {
+  $type: 'tendermint.types.DuplicateVoteEvidence';
   voteA?: Vote;
   voteB?: Vote;
   totalVotingPower: Long;
@@ -23,6 +26,7 @@ export interface DuplicateVoteEvidence {
 
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
 export interface LightClientAttackEvidence {
+  $type: 'tendermint.types.LightClientAttackEvidence';
   conflictingBlock?: LightBlock;
   commonHeight: Long;
   byzantineValidators: Validator[];
@@ -31,17 +35,21 @@ export interface LightClientAttackEvidence {
 }
 
 export interface EvidenceList {
+  $type: 'tendermint.types.EvidenceList';
   evidence: Evidence[];
 }
 
 function createBaseEvidence(): Evidence {
   return {
+    $type: 'tendermint.types.Evidence',
     duplicateVoteEvidence: undefined,
     lightClientAttackEvidence: undefined,
   };
 }
 
 export const Evidence = {
+  $type: 'tendermint.types.Evidence' as const,
+
   encode(
     message: Evidence,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -90,6 +98,7 @@ export const Evidence = {
 
   fromJSON(object: any): Evidence {
     return {
+      $type: Evidence.$type,
       duplicateVoteEvidence: isSet(object.duplicateVoteEvidence)
         ? DuplicateVoteEvidence.fromJSON(object.duplicateVoteEvidence)
         : undefined,
@@ -130,8 +139,11 @@ export const Evidence = {
   },
 };
 
+messageTypeRegistry.set(Evidence.$type, Evidence);
+
 function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
   return {
+    $type: 'tendermint.types.DuplicateVoteEvidence',
     voteA: undefined,
     voteB: undefined,
     totalVotingPower: Long.ZERO,
@@ -141,6 +153,8 @@ function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
 }
 
 export const DuplicateVoteEvidence = {
+  $type: 'tendermint.types.DuplicateVoteEvidence' as const,
+
   encode(
     message: DuplicateVoteEvidence,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -198,6 +212,7 @@ export const DuplicateVoteEvidence = {
 
   fromJSON(object: any): DuplicateVoteEvidence {
     return {
+      $type: DuplicateVoteEvidence.$type,
       voteA: isSet(object.voteA) ? Vote.fromJSON(object.voteA) : undefined,
       voteB: isSet(object.voteB) ? Vote.fromJSON(object.voteB) : undefined,
       totalVotingPower: isSet(object.totalVotingPower)
@@ -257,8 +272,11 @@ export const DuplicateVoteEvidence = {
   },
 };
 
+messageTypeRegistry.set(DuplicateVoteEvidence.$type, DuplicateVoteEvidence);
+
 function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
   return {
+    $type: 'tendermint.types.LightClientAttackEvidence',
     conflictingBlock: undefined,
     commonHeight: Long.ZERO,
     byzantineValidators: [],
@@ -268,6 +286,8 @@ function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
 }
 
 export const LightClientAttackEvidence = {
+  $type: 'tendermint.types.LightClientAttackEvidence' as const,
+
   encode(
     message: LightClientAttackEvidence,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -330,6 +350,7 @@ export const LightClientAttackEvidence = {
 
   fromJSON(object: any): LightClientAttackEvidence {
     return {
+      $type: LightClientAttackEvidence.$type,
       conflictingBlock: isSet(object.conflictingBlock)
         ? LightBlock.fromJSON(object.conflictingBlock)
         : undefined,
@@ -398,11 +419,18 @@ export const LightClientAttackEvidence = {
   },
 };
 
+messageTypeRegistry.set(
+  LightClientAttackEvidence.$type,
+  LightClientAttackEvidence,
+);
+
 function createBaseEvidenceList(): EvidenceList {
-  return { evidence: [] };
+  return { $type: 'tendermint.types.EvidenceList', evidence: [] };
 }
 
 export const EvidenceList = {
+  $type: 'tendermint.types.EvidenceList' as const,
+
   encode(
     message: EvidenceList,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -433,6 +461,7 @@ export const EvidenceList = {
 
   fromJSON(object: any): EvidenceList {
     return {
+      $type: EvidenceList.$type,
       evidence: Array.isArray(object?.evidence)
         ? object.evidence.map((e: any) => Evidence.fromJSON(e))
         : [],
@@ -460,6 +489,8 @@ export const EvidenceList = {
   },
 };
 
+messageTypeRegistry.set(EvidenceList.$type, EvidenceList);
+
 type Builtin =
   | Date
   | Function
@@ -478,20 +509,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
+  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

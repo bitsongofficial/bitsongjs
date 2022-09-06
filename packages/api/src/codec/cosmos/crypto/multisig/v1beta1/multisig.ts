@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -10,6 +11,7 @@ export const protobufPackage = 'cosmos.crypto.multisig.v1beta1';
  * signed and with which modes.
  */
 export interface MultiSignature {
+  $type: 'cosmos.crypto.multisig.v1beta1.MultiSignature';
   signatures: Uint8Array[];
 }
 
@@ -20,15 +22,21 @@ export interface MultiSignature {
  * This is not thread safe, and is not intended for concurrent usage.
  */
 export interface CompactBitArray {
+  $type: 'cosmos.crypto.multisig.v1beta1.CompactBitArray';
   extraBitsStored: number;
   elems: Uint8Array;
 }
 
 function createBaseMultiSignature(): MultiSignature {
-  return { signatures: [] };
+  return {
+    $type: 'cosmos.crypto.multisig.v1beta1.MultiSignature',
+    signatures: [],
+  };
 }
 
 export const MultiSignature = {
+  $type: 'cosmos.crypto.multisig.v1beta1.MultiSignature' as const,
+
   encode(
     message: MultiSignature,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -59,6 +67,7 @@ export const MultiSignature = {
 
   fromJSON(object: any): MultiSignature {
     return {
+      $type: MultiSignature.$type,
       signatures: Array.isArray(object?.signatures)
         ? object.signatures.map((e: any) => bytesFromBase64(e))
         : [],
@@ -86,11 +95,19 @@ export const MultiSignature = {
   },
 };
 
+messageTypeRegistry.set(MultiSignature.$type, MultiSignature);
+
 function createBaseCompactBitArray(): CompactBitArray {
-  return { extraBitsStored: 0, elems: new Uint8Array() };
+  return {
+    $type: 'cosmos.crypto.multisig.v1beta1.CompactBitArray',
+    extraBitsStored: 0,
+    elems: new Uint8Array(),
+  };
 }
 
 export const CompactBitArray = {
+  $type: 'cosmos.crypto.multisig.v1beta1.CompactBitArray' as const,
+
   encode(
     message: CompactBitArray,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -127,6 +144,7 @@ export const CompactBitArray = {
 
   fromJSON(object: any): CompactBitArray {
     return {
+      $type: CompactBitArray.$type,
       extraBitsStored: isSet(object.extraBitsStored)
         ? Number(object.extraBitsStored)
         : 0,
@@ -156,6 +174,8 @@ export const CompactBitArray = {
     return message;
   },
 };
+
+messageTypeRegistry.set(CompactBitArray.$type, CompactBitArray);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -211,14 +231,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

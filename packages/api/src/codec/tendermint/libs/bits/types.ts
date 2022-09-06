@@ -1,19 +1,23 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
 export const protobufPackage = 'tendermint.libs.bits';
 
 export interface BitArray {
+  $type: 'tendermint.libs.bits.BitArray';
   bits: Long;
   elems: Long[];
 }
 
 function createBaseBitArray(): BitArray {
-  return { bits: Long.ZERO, elems: [] };
+  return { $type: 'tendermint.libs.bits.BitArray', bits: Long.ZERO, elems: [] };
 }
 
 export const BitArray = {
+  $type: 'tendermint.libs.bits.BitArray' as const,
+
   encode(
     message: BitArray,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -59,6 +63,7 @@ export const BitArray = {
 
   fromJSON(object: any): BitArray {
     return {
+      $type: BitArray.$type,
       bits: isSet(object.bits) ? Long.fromValue(object.bits) : Long.ZERO,
       elems: Array.isArray(object?.elems)
         ? object.elems.map((e: any) => Long.fromValue(e))
@@ -89,6 +94,8 @@ export const BitArray = {
   },
 };
 
+messageTypeRegistry.set(BitArray.$type, BitArray);
+
 type Builtin =
   | Date
   | Function
@@ -107,14 +114,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

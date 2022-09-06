@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Any } from '../../../../google/protobuf/any';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,6 +8,7 @@ export const protobufPackage = 'ibc.core.client.v1';
 
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
+  $type: 'ibc.core.client.v1.MsgCreateClient';
   /** light client state */
   clientState?: Any;
   /**
@@ -19,13 +21,16 @@ export interface MsgCreateClient {
 }
 
 /** MsgCreateClientResponse defines the Msg/CreateClient response type. */
-export interface MsgCreateClientResponse {}
+export interface MsgCreateClientResponse {
+  $type: 'ibc.core.client.v1.MsgCreateClientResponse';
+}
 
 /**
  * MsgUpdateClient defines an sdk.Msg to update a IBC client state using
  * the given header.
  */
 export interface MsgUpdateClient {
+  $type: 'ibc.core.client.v1.MsgUpdateClient';
   /** client unique identifier */
   clientId: string;
   /** header to update the light client */
@@ -35,13 +40,16 @@ export interface MsgUpdateClient {
 }
 
 /** MsgUpdateClientResponse defines the Msg/UpdateClient response type. */
-export interface MsgUpdateClientResponse {}
+export interface MsgUpdateClientResponse {
+  $type: 'ibc.core.client.v1.MsgUpdateClientResponse';
+}
 
 /**
  * MsgUpgradeClient defines an sdk.Msg to upgrade an IBC client to a new client
  * state
  */
 export interface MsgUpgradeClient {
+  $type: 'ibc.core.client.v1.MsgUpgradeClient';
   /** client unique identifier */
   clientId: string;
   /** upgraded client state */
@@ -60,13 +68,16 @@ export interface MsgUpgradeClient {
 }
 
 /** MsgUpgradeClientResponse defines the Msg/UpgradeClient response type. */
-export interface MsgUpgradeClientResponse {}
+export interface MsgUpgradeClientResponse {
+  $type: 'ibc.core.client.v1.MsgUpgradeClientResponse';
+}
 
 /**
  * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
  * light client misbehaviour.
  */
 export interface MsgSubmitMisbehaviour {
+  $type: 'ibc.core.client.v1.MsgSubmitMisbehaviour';
   /** client unique identifier */
   clientId: string;
   /** misbehaviour used for freezing the light client */
@@ -79,13 +90,22 @@ export interface MsgSubmitMisbehaviour {
  * MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
  * type.
  */
-export interface MsgSubmitMisbehaviourResponse {}
+export interface MsgSubmitMisbehaviourResponse {
+  $type: 'ibc.core.client.v1.MsgSubmitMisbehaviourResponse';
+}
 
 function createBaseMsgCreateClient(): MsgCreateClient {
-  return { clientState: undefined, consensusState: undefined, signer: '' };
+  return {
+    $type: 'ibc.core.client.v1.MsgCreateClient',
+    clientState: undefined,
+    consensusState: undefined,
+    signer: '',
+  };
 }
 
 export const MsgCreateClient = {
+  $type: 'ibc.core.client.v1.MsgCreateClient' as const,
+
   encode(
     message: MsgCreateClient,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -128,6 +148,7 @@ export const MsgCreateClient = {
 
   fromJSON(object: any): MsgCreateClient {
     return {
+      $type: MsgCreateClient.$type,
       clientState: isSet(object.clientState)
         ? Any.fromJSON(object.clientState)
         : undefined,
@@ -169,11 +190,15 @@ export const MsgCreateClient = {
   },
 };
 
+messageTypeRegistry.set(MsgCreateClient.$type, MsgCreateClient);
+
 function createBaseMsgCreateClientResponse(): MsgCreateClientResponse {
-  return {};
+  return { $type: 'ibc.core.client.v1.MsgCreateClientResponse' };
 }
 
 export const MsgCreateClientResponse = {
+  $type: 'ibc.core.client.v1.MsgCreateClientResponse' as const,
+
   encode(
     _: MsgCreateClientResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -200,7 +225,9 @@ export const MsgCreateClientResponse = {
   },
 
   fromJSON(_: any): MsgCreateClientResponse {
-    return {};
+    return {
+      $type: MsgCreateClientResponse.$type,
+    };
   },
 
   toJSON(_: MsgCreateClientResponse): unknown {
@@ -216,11 +243,20 @@ export const MsgCreateClientResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgCreateClientResponse.$type, MsgCreateClientResponse);
+
 function createBaseMsgUpdateClient(): MsgUpdateClient {
-  return { clientId: '', header: undefined, signer: '' };
+  return {
+    $type: 'ibc.core.client.v1.MsgUpdateClient',
+    clientId: '',
+    header: undefined,
+    signer: '',
+  };
 }
 
 export const MsgUpdateClient = {
+  $type: 'ibc.core.client.v1.MsgUpdateClient' as const,
+
   encode(
     message: MsgUpdateClient,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -263,6 +299,7 @@ export const MsgUpdateClient = {
 
   fromJSON(object: any): MsgUpdateClient {
     return {
+      $type: MsgUpdateClient.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       header: isSet(object.header) ? Any.fromJSON(object.header) : undefined,
       signer: isSet(object.signer) ? String(object.signer) : '',
@@ -292,11 +329,15 @@ export const MsgUpdateClient = {
   },
 };
 
+messageTypeRegistry.set(MsgUpdateClient.$type, MsgUpdateClient);
+
 function createBaseMsgUpdateClientResponse(): MsgUpdateClientResponse {
-  return {};
+  return { $type: 'ibc.core.client.v1.MsgUpdateClientResponse' };
 }
 
 export const MsgUpdateClientResponse = {
+  $type: 'ibc.core.client.v1.MsgUpdateClientResponse' as const,
+
   encode(
     _: MsgUpdateClientResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -323,7 +364,9 @@ export const MsgUpdateClientResponse = {
   },
 
   fromJSON(_: any): MsgUpdateClientResponse {
-    return {};
+    return {
+      $type: MsgUpdateClientResponse.$type,
+    };
   },
 
   toJSON(_: MsgUpdateClientResponse): unknown {
@@ -339,8 +382,11 @@ export const MsgUpdateClientResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgUpdateClientResponse.$type, MsgUpdateClientResponse);
+
 function createBaseMsgUpgradeClient(): MsgUpgradeClient {
   return {
+    $type: 'ibc.core.client.v1.MsgUpgradeClient',
     clientId: '',
     clientState: undefined,
     consensusState: undefined,
@@ -351,6 +397,8 @@ function createBaseMsgUpgradeClient(): MsgUpgradeClient {
 }
 
 export const MsgUpgradeClient = {
+  $type: 'ibc.core.client.v1.MsgUpgradeClient' as const,
+
   encode(
     message: MsgUpgradeClient,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -411,6 +459,7 @@ export const MsgUpgradeClient = {
 
   fromJSON(object: any): MsgUpgradeClient {
     return {
+      $type: MsgUpgradeClient.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       clientState: isSet(object.clientState)
         ? Any.fromJSON(object.clientState)
@@ -476,11 +525,15 @@ export const MsgUpgradeClient = {
   },
 };
 
+messageTypeRegistry.set(MsgUpgradeClient.$type, MsgUpgradeClient);
+
 function createBaseMsgUpgradeClientResponse(): MsgUpgradeClientResponse {
-  return {};
+  return { $type: 'ibc.core.client.v1.MsgUpgradeClientResponse' };
 }
 
 export const MsgUpgradeClientResponse = {
+  $type: 'ibc.core.client.v1.MsgUpgradeClientResponse' as const,
+
   encode(
     _: MsgUpgradeClientResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -507,7 +560,9 @@ export const MsgUpgradeClientResponse = {
   },
 
   fromJSON(_: any): MsgUpgradeClientResponse {
-    return {};
+    return {
+      $type: MsgUpgradeClientResponse.$type,
+    };
   },
 
   toJSON(_: MsgUpgradeClientResponse): unknown {
@@ -523,11 +578,23 @@ export const MsgUpgradeClientResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgUpgradeClientResponse.$type,
+  MsgUpgradeClientResponse,
+);
+
 function createBaseMsgSubmitMisbehaviour(): MsgSubmitMisbehaviour {
-  return { clientId: '', misbehaviour: undefined, signer: '' };
+  return {
+    $type: 'ibc.core.client.v1.MsgSubmitMisbehaviour',
+    clientId: '',
+    misbehaviour: undefined,
+    signer: '',
+  };
 }
 
 export const MsgSubmitMisbehaviour = {
+  $type: 'ibc.core.client.v1.MsgSubmitMisbehaviour' as const,
+
   encode(
     message: MsgSubmitMisbehaviour,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -573,6 +640,7 @@ export const MsgSubmitMisbehaviour = {
 
   fromJSON(object: any): MsgSubmitMisbehaviour {
     return {
+      $type: MsgSubmitMisbehaviour.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       misbehaviour: isSet(object.misbehaviour)
         ? Any.fromJSON(object.misbehaviour)
@@ -606,11 +674,15 @@ export const MsgSubmitMisbehaviour = {
   },
 };
 
+messageTypeRegistry.set(MsgSubmitMisbehaviour.$type, MsgSubmitMisbehaviour);
+
 function createBaseMsgSubmitMisbehaviourResponse(): MsgSubmitMisbehaviourResponse {
-  return {};
+  return { $type: 'ibc.core.client.v1.MsgSubmitMisbehaviourResponse' };
 }
 
 export const MsgSubmitMisbehaviourResponse = {
+  $type: 'ibc.core.client.v1.MsgSubmitMisbehaviourResponse' as const,
+
   encode(
     _: MsgSubmitMisbehaviourResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -637,7 +709,9 @@ export const MsgSubmitMisbehaviourResponse = {
   },
 
   fromJSON(_: any): MsgSubmitMisbehaviourResponse {
-    return {};
+    return {
+      $type: MsgSubmitMisbehaviourResponse.$type,
+    };
   },
 
   toJSON(_: MsgSubmitMisbehaviourResponse): unknown {
@@ -652,6 +726,11 @@ export const MsgSubmitMisbehaviourResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  MsgSubmitMisbehaviourResponse.$type,
+  MsgSubmitMisbehaviourResponse,
+);
 
 /** Msg defines the ibc/client Msg service. */
 export interface Msg {
@@ -789,14 +868,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

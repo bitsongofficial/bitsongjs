@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -86,6 +87,7 @@ export const protobufPackage = 'google.protobuf';
  *     }
  */
 export interface Any {
+  $type: 'google.protobuf.Any';
   /**
    * A URL/resource name that uniquely identifies the type of the serialized
    * protocol buffer message. This string must contain at least
@@ -121,10 +123,12 @@ export interface Any {
 }
 
 function createBaseAny(): Any {
-  return { typeUrl: '', value: new Uint8Array() };
+  return { $type: 'google.protobuf.Any', typeUrl: '', value: new Uint8Array() };
 }
 
 export const Any = {
+  $type: 'google.protobuf.Any' as const,
+
   encode(message: Any, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.typeUrl !== '') {
       writer.uint32(10).string(message.typeUrl);
@@ -158,6 +162,7 @@ export const Any = {
 
   fromJSON(object: any): Any {
     return {
+      $type: Any.$type,
       typeUrl: isSet(object.typeUrl) ? String(object.typeUrl) : '',
       value: isSet(object.value)
         ? bytesFromBase64(object.value)
@@ -182,6 +187,8 @@ export const Any = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Any.$type, Any);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -237,14 +244,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

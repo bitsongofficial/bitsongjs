@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import {
   Order,
   Counterparty,
@@ -12,6 +13,7 @@ export const protobufPackage = 'ibc.core.port.v1';
 
 /** QueryAppVersionRequest is the request type for the Query/AppVersion RPC method */
 export interface QueryAppVersionRequest {
+  $type: 'ibc.core.port.v1.QueryAppVersionRequest';
   /** port unique identifier */
   portId: string;
   /** connection unique identifier */
@@ -26,6 +28,7 @@ export interface QueryAppVersionRequest {
 
 /** QueryAppVersionResponse is the response type for the Query/AppVersion RPC method. */
 export interface QueryAppVersionResponse {
+  $type: 'ibc.core.port.v1.QueryAppVersionResponse';
   /** port id associated with the request identifiers */
   portId: string;
   /** supported app version */
@@ -34,6 +37,7 @@ export interface QueryAppVersionResponse {
 
 function createBaseQueryAppVersionRequest(): QueryAppVersionRequest {
   return {
+    $type: 'ibc.core.port.v1.QueryAppVersionRequest',
     portId: '',
     connectionId: '',
     ordering: 0,
@@ -43,6 +47,8 @@ function createBaseQueryAppVersionRequest(): QueryAppVersionRequest {
 }
 
 export const QueryAppVersionRequest = {
+  $type: 'ibc.core.port.v1.QueryAppVersionRequest' as const,
+
   encode(
     message: QueryAppVersionRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -103,6 +109,7 @@ export const QueryAppVersionRequest = {
 
   fromJSON(object: any): QueryAppVersionRequest {
     return {
+      $type: QueryAppVersionRequest.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
@@ -149,11 +156,19 @@ export const QueryAppVersionRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryAppVersionRequest.$type, QueryAppVersionRequest);
+
 function createBaseQueryAppVersionResponse(): QueryAppVersionResponse {
-  return { portId: '', version: '' };
+  return {
+    $type: 'ibc.core.port.v1.QueryAppVersionResponse',
+    portId: '',
+    version: '',
+  };
 }
 
 export const QueryAppVersionResponse = {
+  $type: 'ibc.core.port.v1.QueryAppVersionResponse' as const,
+
   encode(
     message: QueryAppVersionResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -193,6 +208,7 @@ export const QueryAppVersionResponse = {
 
   fromJSON(object: any): QueryAppVersionResponse {
     return {
+      $type: QueryAppVersionResponse.$type,
       portId: isSet(object.portId) ? String(object.portId) : '',
       version: isSet(object.version) ? String(object.version) : '',
     };
@@ -214,6 +230,8 @@ export const QueryAppVersionResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(QueryAppVersionResponse.$type, QueryAppVersionResponse);
 
 /** Query defines the gRPC querier service */
 export interface Query {
@@ -268,14 +286,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

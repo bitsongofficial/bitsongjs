@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -6,19 +7,29 @@ export const protobufPackage = 'cosmos.crisis.v1beta1';
 
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariant {
+  $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariant';
   sender: string;
   invariantModuleName: string;
   invariantRoute: string;
 }
 
 /** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
-export interface MsgVerifyInvariantResponse {}
+export interface MsgVerifyInvariantResponse {
+  $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariantResponse';
+}
 
 function createBaseMsgVerifyInvariant(): MsgVerifyInvariant {
-  return { sender: '', invariantModuleName: '', invariantRoute: '' };
+  return {
+    $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariant',
+    sender: '',
+    invariantModuleName: '',
+    invariantRoute: '',
+  };
 }
 
 export const MsgVerifyInvariant = {
+  $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariant' as const,
+
   encode(
     message: MsgVerifyInvariant,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -61,6 +72,7 @@ export const MsgVerifyInvariant = {
 
   fromJSON(object: any): MsgVerifyInvariant {
     return {
+      $type: MsgVerifyInvariant.$type,
       sender: isSet(object.sender) ? String(object.sender) : '',
       invariantModuleName: isSet(object.invariantModuleName)
         ? String(object.invariantModuleName)
@@ -92,11 +104,15 @@ export const MsgVerifyInvariant = {
   },
 };
 
+messageTypeRegistry.set(MsgVerifyInvariant.$type, MsgVerifyInvariant);
+
 function createBaseMsgVerifyInvariantResponse(): MsgVerifyInvariantResponse {
-  return {};
+  return { $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariantResponse' };
 }
 
 export const MsgVerifyInvariantResponse = {
+  $type: 'cosmos.crisis.v1beta1.MsgVerifyInvariantResponse' as const,
+
   encode(
     _: MsgVerifyInvariantResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -123,7 +139,9 @@ export const MsgVerifyInvariantResponse = {
   },
 
   fromJSON(_: any): MsgVerifyInvariantResponse {
-    return {};
+    return {
+      $type: MsgVerifyInvariantResponse.$type,
+    };
   },
 
   toJSON(_: MsgVerifyInvariantResponse): unknown {
@@ -138,6 +156,11 @@ export const MsgVerifyInvariantResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(
+  MsgVerifyInvariantResponse.$type,
+  MsgVerifyInvariantResponse,
+);
 
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -194,14 +217,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

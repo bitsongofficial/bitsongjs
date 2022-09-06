@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -12,6 +13,7 @@ export const protobufPackage = 'cosmos.base.store.v1beta1';
  * Since: cosmos-sdk 0.43
  */
 export interface StoreKVPair {
+  $type: 'cosmos.base.store.v1beta1.StoreKVPair';
   /** the store key for the KVStore this pair originates from */
   storeKey: string;
   /** true indicates a delete operation, false indicates a set operation */
@@ -22,6 +24,7 @@ export interface StoreKVPair {
 
 function createBaseStoreKVPair(): StoreKVPair {
   return {
+    $type: 'cosmos.base.store.v1beta1.StoreKVPair',
     storeKey: '',
     delete: false,
     key: new Uint8Array(),
@@ -30,6 +33,8 @@ function createBaseStoreKVPair(): StoreKVPair {
 }
 
 export const StoreKVPair = {
+  $type: 'cosmos.base.store.v1beta1.StoreKVPair' as const,
+
   encode(
     message: StoreKVPair,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -78,6 +83,7 @@ export const StoreKVPair = {
 
   fromJSON(object: any): StoreKVPair {
     return {
+      $type: StoreKVPair.$type,
       storeKey: isSet(object.storeKey) ? String(object.storeKey) : '',
       delete: isSet(object.delete) ? Boolean(object.delete) : false,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
@@ -113,6 +119,8 @@ export const StoreKVPair = {
     return message;
   },
 };
+
+messageTypeRegistry.set(StoreKVPair.$type, StoreKVPair);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -168,14 +176,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 if (_m0.util.Long !== Long) {

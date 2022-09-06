@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { messageTypeRegistry } from '../../../typeRegistry';
 import { Description, CommissionRates } from './staking';
 import { Any } from '../../../google/protobuf/any';
 import { Coin } from '../../base/v1beta1/coin';
@@ -10,6 +11,7 @@ export const protobufPackage = 'cosmos.staking.v1beta1';
 
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 export interface MsgCreateValidator {
+  $type: 'cosmos.staking.v1beta1.MsgCreateValidator';
   description?: Description;
   commission?: CommissionRates;
   minSelfDelegation: string;
@@ -20,10 +22,13 @@ export interface MsgCreateValidator {
 }
 
 /** MsgCreateValidatorResponse defines the Msg/CreateValidator response type. */
-export interface MsgCreateValidatorResponse {}
+export interface MsgCreateValidatorResponse {
+  $type: 'cosmos.staking.v1beta1.MsgCreateValidatorResponse';
+}
 
 /** MsgEditValidator defines a SDK message for editing an existing validator. */
 export interface MsgEditValidator {
+  $type: 'cosmos.staking.v1beta1.MsgEditValidator';
   description?: Description;
   validatorAddress: string;
   /**
@@ -37,26 +42,32 @@ export interface MsgEditValidator {
 }
 
 /** MsgEditValidatorResponse defines the Msg/EditValidator response type. */
-export interface MsgEditValidatorResponse {}
+export interface MsgEditValidatorResponse {
+  $type: 'cosmos.staking.v1beta1.MsgEditValidatorResponse';
+}
 
 /**
  * MsgDelegate defines a SDK message for performing a delegation of coins
  * from a delegator to a validator.
  */
 export interface MsgDelegate {
+  $type: 'cosmos.staking.v1beta1.MsgDelegate';
   delegatorAddress: string;
   validatorAddress: string;
   amount?: Coin;
 }
 
 /** MsgDelegateResponse defines the Msg/Delegate response type. */
-export interface MsgDelegateResponse {}
+export interface MsgDelegateResponse {
+  $type: 'cosmos.staking.v1beta1.MsgDelegateResponse';
+}
 
 /**
  * MsgBeginRedelegate defines a SDK message for performing a redelegation
  * of coins from a delegator and source validator to a destination validator.
  */
 export interface MsgBeginRedelegate {
+  $type: 'cosmos.staking.v1beta1.MsgBeginRedelegate';
   delegatorAddress: string;
   validatorSrcAddress: string;
   validatorDstAddress: string;
@@ -65,6 +76,7 @@ export interface MsgBeginRedelegate {
 
 /** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
 export interface MsgBeginRedelegateResponse {
+  $type: 'cosmos.staking.v1beta1.MsgBeginRedelegateResponse';
   completionTime?: Timestamp;
 }
 
@@ -73,6 +85,7 @@ export interface MsgBeginRedelegateResponse {
  * delegate and a validator.
  */
 export interface MsgUndelegate {
+  $type: 'cosmos.staking.v1beta1.MsgUndelegate';
   delegatorAddress: string;
   validatorAddress: string;
   amount?: Coin;
@@ -80,11 +93,13 @@ export interface MsgUndelegate {
 
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponse {
+  $type: 'cosmos.staking.v1beta1.MsgUndelegateResponse';
   completionTime?: Timestamp;
 }
 
 function createBaseMsgCreateValidator(): MsgCreateValidator {
   return {
+    $type: 'cosmos.staking.v1beta1.MsgCreateValidator',
     description: undefined,
     commission: undefined,
     minSelfDelegation: '',
@@ -96,6 +111,8 @@ function createBaseMsgCreateValidator(): MsgCreateValidator {
 }
 
 export const MsgCreateValidator = {
+  $type: 'cosmos.staking.v1beta1.MsgCreateValidator' as const,
+
   encode(
     message: MsgCreateValidator,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -168,6 +185,7 @@ export const MsgCreateValidator = {
 
   fromJSON(object: any): MsgCreateValidator {
     return {
+      $type: MsgCreateValidator.$type,
       description: isSet(object.description)
         ? Description.fromJSON(object.description)
         : undefined,
@@ -238,11 +256,15 @@ export const MsgCreateValidator = {
   },
 };
 
+messageTypeRegistry.set(MsgCreateValidator.$type, MsgCreateValidator);
+
 function createBaseMsgCreateValidatorResponse(): MsgCreateValidatorResponse {
-  return {};
+  return { $type: 'cosmos.staking.v1beta1.MsgCreateValidatorResponse' };
 }
 
 export const MsgCreateValidatorResponse = {
+  $type: 'cosmos.staking.v1beta1.MsgCreateValidatorResponse' as const,
+
   encode(
     _: MsgCreateValidatorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -269,7 +291,9 @@ export const MsgCreateValidatorResponse = {
   },
 
   fromJSON(_: any): MsgCreateValidatorResponse {
-    return {};
+    return {
+      $type: MsgCreateValidatorResponse.$type,
+    };
   },
 
   toJSON(_: MsgCreateValidatorResponse): unknown {
@@ -285,8 +309,14 @@ export const MsgCreateValidatorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgCreateValidatorResponse.$type,
+  MsgCreateValidatorResponse,
+);
+
 function createBaseMsgEditValidator(): MsgEditValidator {
   return {
+    $type: 'cosmos.staking.v1beta1.MsgEditValidator',
     description: undefined,
     validatorAddress: '',
     commissionRate: '',
@@ -295,6 +325,8 @@ function createBaseMsgEditValidator(): MsgEditValidator {
 }
 
 export const MsgEditValidator = {
+  $type: 'cosmos.staking.v1beta1.MsgEditValidator' as const,
+
   encode(
     message: MsgEditValidator,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -346,6 +378,7 @@ export const MsgEditValidator = {
 
   fromJSON(object: any): MsgEditValidator {
     return {
+      $type: MsgEditValidator.$type,
       description: isSet(object.description)
         ? Description.fromJSON(object.description)
         : undefined,
@@ -391,11 +424,15 @@ export const MsgEditValidator = {
   },
 };
 
+messageTypeRegistry.set(MsgEditValidator.$type, MsgEditValidator);
+
 function createBaseMsgEditValidatorResponse(): MsgEditValidatorResponse {
-  return {};
+  return { $type: 'cosmos.staking.v1beta1.MsgEditValidatorResponse' };
 }
 
 export const MsgEditValidatorResponse = {
+  $type: 'cosmos.staking.v1beta1.MsgEditValidatorResponse' as const,
+
   encode(
     _: MsgEditValidatorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -422,7 +459,9 @@ export const MsgEditValidatorResponse = {
   },
 
   fromJSON(_: any): MsgEditValidatorResponse {
-    return {};
+    return {
+      $type: MsgEditValidatorResponse.$type,
+    };
   },
 
   toJSON(_: MsgEditValidatorResponse): unknown {
@@ -438,11 +477,23 @@ export const MsgEditValidatorResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgEditValidatorResponse.$type,
+  MsgEditValidatorResponse,
+);
+
 function createBaseMsgDelegate(): MsgDelegate {
-  return { delegatorAddress: '', validatorAddress: '', amount: undefined };
+  return {
+    $type: 'cosmos.staking.v1beta1.MsgDelegate',
+    delegatorAddress: '',
+    validatorAddress: '',
+    amount: undefined,
+  };
 }
 
 export const MsgDelegate = {
+  $type: 'cosmos.staking.v1beta1.MsgDelegate' as const,
+
   encode(
     message: MsgDelegate,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -485,6 +536,7 @@ export const MsgDelegate = {
 
   fromJSON(object: any): MsgDelegate {
     return {
+      $type: MsgDelegate.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -520,11 +572,15 @@ export const MsgDelegate = {
   },
 };
 
+messageTypeRegistry.set(MsgDelegate.$type, MsgDelegate);
+
 function createBaseMsgDelegateResponse(): MsgDelegateResponse {
-  return {};
+  return { $type: 'cosmos.staking.v1beta1.MsgDelegateResponse' };
 }
 
 export const MsgDelegateResponse = {
+  $type: 'cosmos.staking.v1beta1.MsgDelegateResponse' as const,
+
   encode(
     _: MsgDelegateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -548,7 +604,9 @@ export const MsgDelegateResponse = {
   },
 
   fromJSON(_: any): MsgDelegateResponse {
-    return {};
+    return {
+      $type: MsgDelegateResponse.$type,
+    };
   },
 
   toJSON(_: MsgDelegateResponse): unknown {
@@ -564,8 +622,11 @@ export const MsgDelegateResponse = {
   },
 };
 
+messageTypeRegistry.set(MsgDelegateResponse.$type, MsgDelegateResponse);
+
 function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
   return {
+    $type: 'cosmos.staking.v1beta1.MsgBeginRedelegate',
     delegatorAddress: '',
     validatorSrcAddress: '',
     validatorDstAddress: '',
@@ -574,6 +635,8 @@ function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
 }
 
 export const MsgBeginRedelegate = {
+  $type: 'cosmos.staking.v1beta1.MsgBeginRedelegate' as const,
+
   encode(
     message: MsgBeginRedelegate,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -622,6 +685,7 @@ export const MsgBeginRedelegate = {
 
   fromJSON(object: any): MsgBeginRedelegate {
     return {
+      $type: MsgBeginRedelegate.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -663,11 +727,18 @@ export const MsgBeginRedelegate = {
   },
 };
 
+messageTypeRegistry.set(MsgBeginRedelegate.$type, MsgBeginRedelegate);
+
 function createBaseMsgBeginRedelegateResponse(): MsgBeginRedelegateResponse {
-  return { completionTime: undefined };
+  return {
+    $type: 'cosmos.staking.v1beta1.MsgBeginRedelegateResponse',
+    completionTime: undefined,
+  };
 }
 
 export const MsgBeginRedelegateResponse = {
+  $type: 'cosmos.staking.v1beta1.MsgBeginRedelegateResponse' as const,
+
   encode(
     message: MsgBeginRedelegateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -704,6 +775,7 @@ export const MsgBeginRedelegateResponse = {
 
   fromJSON(object: any): MsgBeginRedelegateResponse {
     return {
+      $type: MsgBeginRedelegateResponse.$type,
       completionTime: isSet(object.completionTime)
         ? fromJsonTimestamp(object.completionTime)
         : undefined,
@@ -731,11 +803,23 @@ export const MsgBeginRedelegateResponse = {
   },
 };
 
+messageTypeRegistry.set(
+  MsgBeginRedelegateResponse.$type,
+  MsgBeginRedelegateResponse,
+);
+
 function createBaseMsgUndelegate(): MsgUndelegate {
-  return { delegatorAddress: '', validatorAddress: '', amount: undefined };
+  return {
+    $type: 'cosmos.staking.v1beta1.MsgUndelegate',
+    delegatorAddress: '',
+    validatorAddress: '',
+    amount: undefined,
+  };
 }
 
 export const MsgUndelegate = {
+  $type: 'cosmos.staking.v1beta1.MsgUndelegate' as const,
+
   encode(
     message: MsgUndelegate,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -778,6 +862,7 @@ export const MsgUndelegate = {
 
   fromJSON(object: any): MsgUndelegate {
     return {
+      $type: MsgUndelegate.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -813,11 +898,18 @@ export const MsgUndelegate = {
   },
 };
 
+messageTypeRegistry.set(MsgUndelegate.$type, MsgUndelegate);
+
 function createBaseMsgUndelegateResponse(): MsgUndelegateResponse {
-  return { completionTime: undefined };
+  return {
+    $type: 'cosmos.staking.v1beta1.MsgUndelegateResponse',
+    completionTime: undefined,
+  };
 }
 
 export const MsgUndelegateResponse = {
+  $type: 'cosmos.staking.v1beta1.MsgUndelegateResponse' as const,
+
   encode(
     message: MsgUndelegateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -854,6 +946,7 @@ export const MsgUndelegateResponse = {
 
   fromJSON(object: any): MsgUndelegateResponse {
     return {
+      $type: MsgUndelegateResponse.$type,
       completionTime: isSet(object.completionTime)
         ? fromJsonTimestamp(object.completionTime)
         : undefined,
@@ -880,6 +973,8 @@ export const MsgUndelegateResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(MsgUndelegateResponse.$type, MsgUndelegateResponse);
 
 /** Msg defines the staking Msg service. */
 export interface Msg {
@@ -1009,20 +1104,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
+  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {
