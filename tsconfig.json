@@ -20,5 +20,5 @@
 	},
 	"exclude": ["**/lib/**/*"],
 	"ecmaVersion": 6,
-	"sourceType": "module",
+	"sourceType": "module"
 }

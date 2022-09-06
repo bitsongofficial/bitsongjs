@@ -10,7 +10,6 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build:api": "yarn workspace @bitsongjs/api build",
 		"build": "lerna run build --stream",
 		"format": "yarn lint --fix",
 		"lerna:deploy": "yarn build && lerna version --conventional-commits && lerna publish from-git",
