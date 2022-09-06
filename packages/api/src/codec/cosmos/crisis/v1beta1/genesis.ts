@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -8,7 +7,6 @@ export const protobufPackage = 'cosmos.crisis.v1beta1';
 
 /** GenesisState defines the crisis module's genesis state. */
 export interface GenesisState {
-  $type: 'cosmos.crisis.v1beta1.GenesisState';
   /**
    * constant_fee is the fee used to verify the invariant in the crisis
    * module.
@@ -17,15 +15,10 @@ export interface GenesisState {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    $type: 'cosmos.crisis.v1beta1.GenesisState',
-    constantFee: undefined,
-  };
+  return { constantFee: undefined };
 }
 
 export const GenesisState = {
-  $type: 'cosmos.crisis.v1beta1.GenesisState' as const,
-
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -56,7 +49,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       constantFee: isSet(object.constantFee)
         ? Coin.fromJSON(object.constantFee)
         : undefined,
@@ -84,8 +76,6 @@ export const GenesisState = {
   },
 };
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState);
-
 type Builtin =
   | Date
   | Function
@@ -104,14 +94,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Coin } from '../../../../cosmos/base/v1beta1/coin';
 import { Height } from '../../../core/client/v1/client';
 import Long from 'long';
@@ -13,7 +12,6 @@ export const protobufPackage = 'ibc.applications.transfer.v1';
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
  */
 export interface MsgTransfer {
-  $type: 'ibc.applications.transfer.v1.MsgTransfer';
   /** the port on which the packet will be sent */
   sourcePort: string;
   /** the channel by which the packet will be sent */
@@ -37,13 +35,10 @@ export interface MsgTransfer {
 }
 
 /** MsgTransferResponse defines the Msg/Transfer response type. */
-export interface MsgTransferResponse {
-  $type: 'ibc.applications.transfer.v1.MsgTransferResponse';
-}
+export interface MsgTransferResponse {}
 
 function createBaseMsgTransfer(): MsgTransfer {
   return {
-    $type: 'ibc.applications.transfer.v1.MsgTransfer',
     sourcePort: '',
     sourceChannel: '',
     token: undefined,
@@ -55,8 +50,6 @@ function createBaseMsgTransfer(): MsgTransfer {
 }
 
 export const MsgTransfer = {
-  $type: 'ibc.applications.transfer.v1.MsgTransfer' as const,
-
   encode(
     message: MsgTransfer,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -123,7 +116,6 @@ export const MsgTransfer = {
 
   fromJSON(object: any): MsgTransfer {
     return {
-      $type: MsgTransfer.$type,
       sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : '',
       sourceChannel: isSet(object.sourceChannel)
         ? String(object.sourceChannel)
@@ -184,15 +176,11 @@ export const MsgTransfer = {
   },
 };
 
-messageTypeRegistry.set(MsgTransfer.$type, MsgTransfer);
-
 function createBaseMsgTransferResponse(): MsgTransferResponse {
-  return { $type: 'ibc.applications.transfer.v1.MsgTransferResponse' };
+  return {};
 }
 
 export const MsgTransferResponse = {
-  $type: 'ibc.applications.transfer.v1.MsgTransferResponse' as const,
-
   encode(
     _: MsgTransferResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -216,9 +204,7 @@ export const MsgTransferResponse = {
   },
 
   fromJSON(_: any): MsgTransferResponse {
-    return {
-      $type: MsgTransferResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgTransferResponse): unknown {
@@ -233,8 +219,6 @@ export const MsgTransferResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(MsgTransferResponse.$type, MsgTransferResponse);
 
 /** Msg defines the ibc/transfer Msg service. */
 export interface Msg {
@@ -287,14 +271,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

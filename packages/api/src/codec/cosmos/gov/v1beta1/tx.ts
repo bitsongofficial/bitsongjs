@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Any } from '../../../google/protobuf/any';
 import {
   VoteOption,
@@ -18,7 +17,6 @@ export const protobufPackage = 'cosmos.gov.v1beta1';
  * proposal Content.
  */
 export interface MsgSubmitProposal {
-  $type: 'cosmos.gov.v1beta1.MsgSubmitProposal';
   content?: Any;
   initialDeposit: Coin[];
   proposer: string;
@@ -26,22 +24,18 @@ export interface MsgSubmitProposal {
 
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponse {
-  $type: 'cosmos.gov.v1beta1.MsgSubmitProposalResponse';
   proposalId: Long;
 }
 
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVote {
-  $type: 'cosmos.gov.v1beta1.MsgVote';
   proposalId: Long;
   voter: string;
   option: VoteOption;
 }
 
 /** MsgVoteResponse defines the Msg/Vote response type. */
-export interface MsgVoteResponse {
-  $type: 'cosmos.gov.v1beta1.MsgVoteResponse';
-}
+export interface MsgVoteResponse {}
 
 /**
  * MsgVoteWeighted defines a message to cast a vote.
@@ -49,7 +43,6 @@ export interface MsgVoteResponse {
  * Since: cosmos-sdk 0.43
  */
 export interface MsgVoteWeighted {
-  $type: 'cosmos.gov.v1beta1.MsgVoteWeighted';
   proposalId: Long;
   voter: string;
   options: WeightedVoteOption[];
@@ -60,35 +53,23 @@ export interface MsgVoteWeighted {
  *
  * Since: cosmos-sdk 0.43
  */
-export interface MsgVoteWeightedResponse {
-  $type: 'cosmos.gov.v1beta1.MsgVoteWeightedResponse';
-}
+export interface MsgVoteWeightedResponse {}
 
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDeposit {
-  $type: 'cosmos.gov.v1beta1.MsgDeposit';
   proposalId: Long;
   depositor: string;
   amount: Coin[];
 }
 
 /** MsgDepositResponse defines the Msg/Deposit response type. */
-export interface MsgDepositResponse {
-  $type: 'cosmos.gov.v1beta1.MsgDepositResponse';
-}
+export interface MsgDepositResponse {}
 
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
-  return {
-    $type: 'cosmos.gov.v1beta1.MsgSubmitProposal',
-    content: undefined,
-    initialDeposit: [],
-    proposer: '',
-  };
+  return { content: undefined, initialDeposit: [], proposer: '' };
 }
 
 export const MsgSubmitProposal = {
-  $type: 'cosmos.gov.v1beta1.MsgSubmitProposal' as const,
-
   encode(
     message: MsgSubmitProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -131,7 +112,6 @@ export const MsgSubmitProposal = {
 
   fromJSON(object: any): MsgSubmitProposal {
     return {
-      $type: MsgSubmitProposal.$type,
       content: isSet(object.content) ? Any.fromJSON(object.content) : undefined,
       initialDeposit: Array.isArray(object?.initialDeposit)
         ? object.initialDeposit.map((e: any) => Coin.fromJSON(e))
@@ -170,18 +150,11 @@ export const MsgSubmitProposal = {
   },
 };
 
-messageTypeRegistry.set(MsgSubmitProposal.$type, MsgSubmitProposal);
-
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
-  return {
-    $type: 'cosmos.gov.v1beta1.MsgSubmitProposalResponse',
-    proposalId: Long.UZERO,
-  };
+  return { proposalId: Long.UZERO };
 }
 
 export const MsgSubmitProposalResponse = {
-  $type: 'cosmos.gov.v1beta1.MsgSubmitProposalResponse' as const,
-
   encode(
     message: MsgSubmitProposalResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -215,7 +188,6 @@ export const MsgSubmitProposalResponse = {
 
   fromJSON(object: any): MsgSubmitProposalResponse {
     return {
-      $type: MsgSubmitProposalResponse.$type,
       proposalId: isSet(object.proposalId)
         ? Long.fromValue(object.proposalId)
         : Long.UZERO,
@@ -241,23 +213,11 @@ export const MsgSubmitProposalResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgSubmitProposalResponse.$type,
-  MsgSubmitProposalResponse,
-);
-
 function createBaseMsgVote(): MsgVote {
-  return {
-    $type: 'cosmos.gov.v1beta1.MsgVote',
-    proposalId: Long.UZERO,
-    voter: '',
-    option: 0,
-  };
+  return { proposalId: Long.UZERO, voter: '', option: 0 };
 }
 
 export const MsgVote = {
-  $type: 'cosmos.gov.v1beta1.MsgVote' as const,
-
   encode(
     message: MsgVote,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -300,7 +260,6 @@ export const MsgVote = {
 
   fromJSON(object: any): MsgVote {
     return {
-      $type: MsgVote.$type,
       proposalId: isSet(object.proposalId)
         ? Long.fromValue(object.proposalId)
         : Long.UZERO,
@@ -331,15 +290,11 @@ export const MsgVote = {
   },
 };
 
-messageTypeRegistry.set(MsgVote.$type, MsgVote);
-
 function createBaseMsgVoteResponse(): MsgVoteResponse {
-  return { $type: 'cosmos.gov.v1beta1.MsgVoteResponse' };
+  return {};
 }
 
 export const MsgVoteResponse = {
-  $type: 'cosmos.gov.v1beta1.MsgVoteResponse' as const,
-
   encode(
     _: MsgVoteResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -363,9 +318,7 @@ export const MsgVoteResponse = {
   },
 
   fromJSON(_: any): MsgVoteResponse {
-    return {
-      $type: MsgVoteResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgVoteResponse): unknown {
@@ -381,20 +334,11 @@ export const MsgVoteResponse = {
   },
 };
 
-messageTypeRegistry.set(MsgVoteResponse.$type, MsgVoteResponse);
-
 function createBaseMsgVoteWeighted(): MsgVoteWeighted {
-  return {
-    $type: 'cosmos.gov.v1beta1.MsgVoteWeighted',
-    proposalId: Long.UZERO,
-    voter: '',
-    options: [],
-  };
+  return { proposalId: Long.UZERO, voter: '', options: [] };
 }
 
 export const MsgVoteWeighted = {
-  $type: 'cosmos.gov.v1beta1.MsgVoteWeighted' as const,
-
   encode(
     message: MsgVoteWeighted,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -439,7 +383,6 @@ export const MsgVoteWeighted = {
 
   fromJSON(object: any): MsgVoteWeighted {
     return {
-      $type: MsgVoteWeighted.$type,
       proposalId: isSet(object.proposalId)
         ? Long.fromValue(object.proposalId)
         : Long.UZERO,
@@ -480,15 +423,11 @@ export const MsgVoteWeighted = {
   },
 };
 
-messageTypeRegistry.set(MsgVoteWeighted.$type, MsgVoteWeighted);
-
 function createBaseMsgVoteWeightedResponse(): MsgVoteWeightedResponse {
-  return { $type: 'cosmos.gov.v1beta1.MsgVoteWeightedResponse' };
+  return {};
 }
 
 export const MsgVoteWeightedResponse = {
-  $type: 'cosmos.gov.v1beta1.MsgVoteWeightedResponse' as const,
-
   encode(
     _: MsgVoteWeightedResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -515,9 +454,7 @@ export const MsgVoteWeightedResponse = {
   },
 
   fromJSON(_: any): MsgVoteWeightedResponse {
-    return {
-      $type: MsgVoteWeightedResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgVoteWeightedResponse): unknown {
@@ -533,20 +470,11 @@ export const MsgVoteWeightedResponse = {
   },
 };
 
-messageTypeRegistry.set(MsgVoteWeightedResponse.$type, MsgVoteWeightedResponse);
-
 function createBaseMsgDeposit(): MsgDeposit {
-  return {
-    $type: 'cosmos.gov.v1beta1.MsgDeposit',
-    proposalId: Long.UZERO,
-    depositor: '',
-    amount: [],
-  };
+  return { proposalId: Long.UZERO, depositor: '', amount: [] };
 }
 
 export const MsgDeposit = {
-  $type: 'cosmos.gov.v1beta1.MsgDeposit' as const,
-
   encode(
     message: MsgDeposit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -589,7 +517,6 @@ export const MsgDeposit = {
 
   fromJSON(object: any): MsgDeposit {
     return {
-      $type: MsgDeposit.$type,
       proposalId: isSet(object.proposalId)
         ? Long.fromValue(object.proposalId)
         : Long.UZERO,
@@ -627,15 +554,11 @@ export const MsgDeposit = {
   },
 };
 
-messageTypeRegistry.set(MsgDeposit.$type, MsgDeposit);
-
 function createBaseMsgDepositResponse(): MsgDepositResponse {
-  return { $type: 'cosmos.gov.v1beta1.MsgDepositResponse' };
+  return {};
 }
 
 export const MsgDepositResponse = {
-  $type: 'cosmos.gov.v1beta1.MsgDepositResponse' as const,
-
   encode(
     _: MsgDepositResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -659,9 +582,7 @@ export const MsgDepositResponse = {
   },
 
   fromJSON(_: any): MsgDepositResponse {
-    return {
-      $type: MsgDepositResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgDepositResponse): unknown {
@@ -676,8 +597,6 @@ export const MsgDepositResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(MsgDepositResponse.$type, MsgDepositResponse);
 
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -773,14 +692,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

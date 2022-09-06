@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Any } from '../../../google/protobuf/any';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -13,7 +12,6 @@ export const protobufPackage = 'cosmos.feegrant.v1beta1';
  * of fees from the account of Granter.
  */
 export interface MsgGrantAllowance {
-  $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowance';
   /** granter is the address of the user granting an allowance of their funds. */
   granter: string;
   /** grantee is the address of the user being granted an allowance of another user's funds. */
@@ -23,13 +21,10 @@ export interface MsgGrantAllowance {
 }
 
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
-export interface MsgGrantAllowanceResponse {
-  $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse';
-}
+export interface MsgGrantAllowanceResponse {}
 
 /** MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. */
 export interface MsgRevokeAllowance {
-  $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowance';
   /** granter is the address of the user granting an allowance of their funds. */
   granter: string;
   /** grantee is the address of the user being granted an allowance of another user's funds. */
@@ -37,22 +32,13 @@ export interface MsgRevokeAllowance {
 }
 
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
-export interface MsgRevokeAllowanceResponse {
-  $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse';
-}
+export interface MsgRevokeAllowanceResponse {}
 
 function createBaseMsgGrantAllowance(): MsgGrantAllowance {
-  return {
-    $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowance',
-    granter: '',
-    grantee: '',
-    allowance: undefined,
-  };
+  return { granter: '', grantee: '', allowance: undefined };
 }
 
 export const MsgGrantAllowance = {
-  $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowance' as const,
-
   encode(
     message: MsgGrantAllowance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -95,7 +81,6 @@ export const MsgGrantAllowance = {
 
   fromJSON(object: any): MsgGrantAllowance {
     return {
-      $type: MsgGrantAllowance.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       allowance: isSet(object.allowance)
@@ -129,15 +114,11 @@ export const MsgGrantAllowance = {
   },
 };
 
-messageTypeRegistry.set(MsgGrantAllowance.$type, MsgGrantAllowance);
-
 function createBaseMsgGrantAllowanceResponse(): MsgGrantAllowanceResponse {
-  return { $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse' };
+  return {};
 }
 
 export const MsgGrantAllowanceResponse = {
-  $type: 'cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse' as const,
-
   encode(
     _: MsgGrantAllowanceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -164,9 +145,7 @@ export const MsgGrantAllowanceResponse = {
   },
 
   fromJSON(_: any): MsgGrantAllowanceResponse {
-    return {
-      $type: MsgGrantAllowanceResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgGrantAllowanceResponse): unknown {
@@ -182,22 +161,11 @@ export const MsgGrantAllowanceResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgGrantAllowanceResponse.$type,
-  MsgGrantAllowanceResponse,
-);
-
 function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
-  return {
-    $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowance',
-    granter: '',
-    grantee: '',
-  };
+  return { granter: '', grantee: '' };
 }
 
 export const MsgRevokeAllowance = {
-  $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowance' as const,
-
   encode(
     message: MsgRevokeAllowance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -234,7 +202,6 @@ export const MsgRevokeAllowance = {
 
   fromJSON(object: any): MsgRevokeAllowance {
     return {
-      $type: MsgRevokeAllowance.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
     };
@@ -257,15 +224,11 @@ export const MsgRevokeAllowance = {
   },
 };
 
-messageTypeRegistry.set(MsgRevokeAllowance.$type, MsgRevokeAllowance);
-
 function createBaseMsgRevokeAllowanceResponse(): MsgRevokeAllowanceResponse {
-  return { $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse' };
+  return {};
 }
 
 export const MsgRevokeAllowanceResponse = {
-  $type: 'cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse' as const,
-
   encode(
     _: MsgRevokeAllowanceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -292,9 +255,7 @@ export const MsgRevokeAllowanceResponse = {
   },
 
   fromJSON(_: any): MsgRevokeAllowanceResponse {
-    return {
-      $type: MsgRevokeAllowanceResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgRevokeAllowanceResponse): unknown {
@@ -309,11 +270,6 @@ export const MsgRevokeAllowanceResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  MsgRevokeAllowanceResponse.$type,
-  MsgRevokeAllowanceResponse,
-);
 
 /** Msg defines the feegrant msg service. */
 export interface Msg {
@@ -395,14 +351,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

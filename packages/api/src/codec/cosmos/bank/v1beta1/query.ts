@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../base/v1beta1/coin';
 import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination';
 import { Params, Metadata } from './bank';
@@ -10,7 +9,6 @@ export const protobufPackage = 'cosmos.bank.v1beta1';
 
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
 export interface QueryBalanceRequest {
-  $type: 'cosmos.bank.v1beta1.QueryBalanceRequest';
   /** address is the address to query balances for. */
   address: string;
   /** denom is the coin denom to query balances for. */
@@ -19,14 +17,12 @@ export interface QueryBalanceRequest {
 
 /** QueryBalanceResponse is the response type for the Query/Balance RPC method. */
 export interface QueryBalanceResponse {
-  $type: 'cosmos.bank.v1beta1.QueryBalanceResponse';
   /** balance is the balance of the coin. */
   balance?: Coin;
 }
 
 /** QueryBalanceRequest is the request type for the Query/AllBalances RPC method. */
 export interface QueryAllBalancesRequest {
-  $type: 'cosmos.bank.v1beta1.QueryAllBalancesRequest';
   /** address is the address to query balances for. */
   address: string;
   /** pagination defines an optional pagination for the request. */
@@ -38,7 +34,6 @@ export interface QueryAllBalancesRequest {
  * method.
  */
 export interface QueryAllBalancesResponse {
-  $type: 'cosmos.bank.v1beta1.QueryAllBalancesResponse';
   /** balances is the balances of all the coins. */
   balances: Coin[];
   /** pagination defines the pagination in the response. */
@@ -50,7 +45,6 @@ export interface QueryAllBalancesResponse {
  * an account's spendable balances.
  */
 export interface QuerySpendableBalancesRequest {
-  $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesRequest';
   /** address is the address to query spendable balances for. */
   address: string;
   /** pagination defines an optional pagination for the request. */
@@ -62,7 +56,6 @@ export interface QuerySpendableBalancesRequest {
  * an account's spendable balances.
  */
 export interface QuerySpendableBalancesResponse {
-  $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesResponse';
   /** balances is the spendable balances of all the coins. */
   balances: Coin[];
   /** pagination defines the pagination in the response. */
@@ -74,7 +67,6 @@ export interface QuerySpendableBalancesResponse {
  * method.
  */
 export interface QueryTotalSupplyRequest {
-  $type: 'cosmos.bank.v1beta1.QueryTotalSupplyRequest';
   /**
    * pagination defines an optional pagination for the request.
    *
@@ -88,7 +80,6 @@ export interface QueryTotalSupplyRequest {
  * method
  */
 export interface QueryTotalSupplyResponse {
-  $type: 'cosmos.bank.v1beta1.QueryTotalSupplyResponse';
   /** supply is the supply of the coins */
   supply: Coin[];
   /**
@@ -101,32 +92,26 @@ export interface QueryTotalSupplyResponse {
 
 /** QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfRequest {
-  $type: 'cosmos.bank.v1beta1.QuerySupplyOfRequest';
   /** denom is the coin denom to query balances for. */
   denom: string;
 }
 
 /** QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfResponse {
-  $type: 'cosmos.bank.v1beta1.QuerySupplyOfResponse';
   /** amount is the supply of the coin. */
   amount?: Coin;
 }
 
 /** QueryParamsRequest defines the request type for querying x/bank parameters. */
-export interface QueryParamsRequest {
-  $type: 'cosmos.bank.v1beta1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParamsResponse defines the response type for querying x/bank parameters. */
 export interface QueryParamsResponse {
-  $type: 'cosmos.bank.v1beta1.QueryParamsResponse';
   params?: Params;
 }
 
 /** QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method. */
 export interface QueryDenomsMetadataRequest {
-  $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataRequest';
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
@@ -136,7 +121,6 @@ export interface QueryDenomsMetadataRequest {
  * method.
  */
 export interface QueryDenomsMetadataResponse {
-  $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataResponse';
   /** metadata provides the client information for all the registered tokens. */
   metadatas: Metadata[];
   /** pagination defines the pagination in the response. */
@@ -145,7 +129,6 @@ export interface QueryDenomsMetadataResponse {
 
 /** QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method. */
 export interface QueryDenomMetadataRequest {
-  $type: 'cosmos.bank.v1beta1.QueryDenomMetadataRequest';
   /** denom is the coin denom to query the metadata for. */
   denom: string;
 }
@@ -155,22 +138,15 @@ export interface QueryDenomMetadataRequest {
  * method.
  */
 export interface QueryDenomMetadataResponse {
-  $type: 'cosmos.bank.v1beta1.QueryDenomMetadataResponse';
   /** metadata describes and provides all the client information for the requested token. */
   metadata?: Metadata;
 }
 
 function createBaseQueryBalanceRequest(): QueryBalanceRequest {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryBalanceRequest',
-    address: '',
-    denom: '',
-  };
+  return { address: '', denom: '' };
 }
 
 export const QueryBalanceRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryBalanceRequest' as const,
-
   encode(
     message: QueryBalanceRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -207,7 +183,6 @@ export const QueryBalanceRequest = {
 
   fromJSON(object: any): QueryBalanceRequest {
     return {
-      $type: QueryBalanceRequest.$type,
       address: isSet(object.address) ? String(object.address) : '',
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
@@ -230,18 +205,11 @@ export const QueryBalanceRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryBalanceRequest.$type, QueryBalanceRequest);
-
 function createBaseQueryBalanceResponse(): QueryBalanceResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryBalanceResponse',
-    balance: undefined,
-  };
+  return { balance: undefined };
 }
 
 export const QueryBalanceResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryBalanceResponse' as const,
-
   encode(
     message: QueryBalanceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -275,7 +243,6 @@ export const QueryBalanceResponse = {
 
   fromJSON(object: any): QueryBalanceResponse {
     return {
-      $type: QueryBalanceResponse.$type,
       balance: isSet(object.balance)
         ? Coin.fromJSON(object.balance)
         : undefined,
@@ -303,19 +270,11 @@ export const QueryBalanceResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryBalanceResponse.$type, QueryBalanceResponse);
-
 function createBaseQueryAllBalancesRequest(): QueryAllBalancesRequest {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryAllBalancesRequest',
-    address: '',
-    pagination: undefined,
-  };
+  return { address: '', pagination: undefined };
 }
 
 export const QueryAllBalancesRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryAllBalancesRequest' as const,
-
   encode(
     message: QueryAllBalancesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -355,7 +314,6 @@ export const QueryAllBalancesRequest = {
 
   fromJSON(object: any): QueryAllBalancesRequest {
     return {
-      $type: QueryAllBalancesRequest.$type,
       address: isSet(object.address) ? String(object.address) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -386,19 +344,11 @@ export const QueryAllBalancesRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryAllBalancesRequest.$type, QueryAllBalancesRequest);
-
 function createBaseQueryAllBalancesResponse(): QueryAllBalancesResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryAllBalancesResponse',
-    balances: [],
-    pagination: undefined,
-  };
+  return { balances: [], pagination: undefined };
 }
 
 export const QueryAllBalancesResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryAllBalancesResponse' as const,
-
   encode(
     message: QueryAllBalancesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -441,7 +391,6 @@ export const QueryAllBalancesResponse = {
 
   fromJSON(object: any): QueryAllBalancesResponse {
     return {
-      $type: QueryAllBalancesResponse.$type,
       balances: Array.isArray(object?.balances)
         ? object.balances.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -480,22 +429,11 @@ export const QueryAllBalancesResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryAllBalancesResponse.$type,
-  QueryAllBalancesResponse,
-);
-
 function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesRequest {
-  return {
-    $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesRequest',
-    address: '',
-    pagination: undefined,
-  };
+  return { address: '', pagination: undefined };
 }
 
 export const QuerySpendableBalancesRequest = {
-  $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesRequest' as const,
-
   encode(
     message: QuerySpendableBalancesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -535,7 +473,6 @@ export const QuerySpendableBalancesRequest = {
 
   fromJSON(object: any): QuerySpendableBalancesRequest {
     return {
-      $type: QuerySpendableBalancesRequest.$type,
       address: isSet(object.address) ? String(object.address) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -566,22 +503,11 @@ export const QuerySpendableBalancesRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QuerySpendableBalancesRequest.$type,
-  QuerySpendableBalancesRequest,
-);
-
 function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesResponse',
-    balances: [],
-    pagination: undefined,
-  };
+  return { balances: [], pagination: undefined };
 }
 
 export const QuerySpendableBalancesResponse = {
-  $type: 'cosmos.bank.v1beta1.QuerySpendableBalancesResponse' as const,
-
   encode(
     message: QuerySpendableBalancesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -624,7 +550,6 @@ export const QuerySpendableBalancesResponse = {
 
   fromJSON(object: any): QuerySpendableBalancesResponse {
     return {
-      $type: QuerySpendableBalancesResponse.$type,
       balances: Array.isArray(object?.balances)
         ? object.balances.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -663,21 +588,11 @@ export const QuerySpendableBalancesResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QuerySpendableBalancesResponse.$type,
-  QuerySpendableBalancesResponse,
-);
-
 function createBaseQueryTotalSupplyRequest(): QueryTotalSupplyRequest {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryTotalSupplyRequest',
-    pagination: undefined,
-  };
+  return { pagination: undefined };
 }
 
 export const QueryTotalSupplyRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryTotalSupplyRequest' as const,
-
   encode(
     message: QueryTotalSupplyRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -711,7 +626,6 @@ export const QueryTotalSupplyRequest = {
 
   fromJSON(object: any): QueryTotalSupplyRequest {
     return {
-      $type: QueryTotalSupplyRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -739,19 +653,11 @@ export const QueryTotalSupplyRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryTotalSupplyRequest.$type, QueryTotalSupplyRequest);
-
 function createBaseQueryTotalSupplyResponse(): QueryTotalSupplyResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryTotalSupplyResponse',
-    supply: [],
-    pagination: undefined,
-  };
+  return { supply: [], pagination: undefined };
 }
 
 export const QueryTotalSupplyResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryTotalSupplyResponse' as const,
-
   encode(
     message: QueryTotalSupplyResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -794,7 +700,6 @@ export const QueryTotalSupplyResponse = {
 
   fromJSON(object: any): QueryTotalSupplyResponse {
     return {
-      $type: QueryTotalSupplyResponse.$type,
       supply: Array.isArray(object?.supply)
         ? object.supply.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -831,18 +736,11 @@ export const QueryTotalSupplyResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryTotalSupplyResponse.$type,
-  QueryTotalSupplyResponse,
-);
-
 function createBaseQuerySupplyOfRequest(): QuerySupplyOfRequest {
-  return { $type: 'cosmos.bank.v1beta1.QuerySupplyOfRequest', denom: '' };
+  return { denom: '' };
 }
 
 export const QuerySupplyOfRequest = {
-  $type: 'cosmos.bank.v1beta1.QuerySupplyOfRequest' as const,
-
   encode(
     message: QuerySupplyOfRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -876,7 +774,6 @@ export const QuerySupplyOfRequest = {
 
   fromJSON(object: any): QuerySupplyOfRequest {
     return {
-      $type: QuerySupplyOfRequest.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -896,18 +793,11 @@ export const QuerySupplyOfRequest = {
   },
 };
 
-messageTypeRegistry.set(QuerySupplyOfRequest.$type, QuerySupplyOfRequest);
-
 function createBaseQuerySupplyOfResponse(): QuerySupplyOfResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QuerySupplyOfResponse',
-    amount: undefined,
-  };
+  return { amount: undefined };
 }
 
 export const QuerySupplyOfResponse = {
-  $type: 'cosmos.bank.v1beta1.QuerySupplyOfResponse' as const,
-
   encode(
     message: QuerySupplyOfResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -941,7 +831,6 @@ export const QuerySupplyOfResponse = {
 
   fromJSON(object: any): QuerySupplyOfResponse {
     return {
-      $type: QuerySupplyOfResponse.$type,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
@@ -965,15 +854,11 @@ export const QuerySupplyOfResponse = {
   },
 };
 
-messageTypeRegistry.set(QuerySupplyOfResponse.$type, QuerySupplyOfResponse);
-
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'cosmos.bank.v1beta1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -997,9 +882,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -1015,18 +898,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1057,7 +933,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -1081,18 +956,11 @@ export const QueryParamsResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
-
 function createBaseQueryDenomsMetadataRequest(): QueryDenomsMetadataRequest {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataRequest',
-    pagination: undefined,
-  };
+  return { pagination: undefined };
 }
 
 export const QueryDenomsMetadataRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataRequest' as const,
-
   encode(
     message: QueryDenomsMetadataRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1126,7 +994,6 @@ export const QueryDenomsMetadataRequest = {
 
   fromJSON(object: any): QueryDenomsMetadataRequest {
     return {
-      $type: QueryDenomsMetadataRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -1154,22 +1021,11 @@ export const QueryDenomsMetadataRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDenomsMetadataRequest.$type,
-  QueryDenomsMetadataRequest,
-);
-
 function createBaseQueryDenomsMetadataResponse(): QueryDenomsMetadataResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataResponse',
-    metadatas: [],
-    pagination: undefined,
-  };
+  return { metadatas: [], pagination: undefined };
 }
 
 export const QueryDenomsMetadataResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryDenomsMetadataResponse' as const,
-
   encode(
     message: QueryDenomsMetadataResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1212,7 +1068,6 @@ export const QueryDenomsMetadataResponse = {
 
   fromJSON(object: any): QueryDenomsMetadataResponse {
     return {
-      $type: QueryDenomsMetadataResponse.$type,
       metadatas: Array.isArray(object?.metadatas)
         ? object.metadatas.map((e: any) => Metadata.fromJSON(e))
         : [],
@@ -1252,18 +1107,11 @@ export const QueryDenomsMetadataResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDenomsMetadataResponse.$type,
-  QueryDenomsMetadataResponse,
-);
-
 function createBaseQueryDenomMetadataRequest(): QueryDenomMetadataRequest {
-  return { $type: 'cosmos.bank.v1beta1.QueryDenomMetadataRequest', denom: '' };
+  return { denom: '' };
 }
 
 export const QueryDenomMetadataRequest = {
-  $type: 'cosmos.bank.v1beta1.QueryDenomMetadataRequest' as const,
-
   encode(
     message: QueryDenomMetadataRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1297,7 +1145,6 @@ export const QueryDenomMetadataRequest = {
 
   fromJSON(object: any): QueryDenomMetadataRequest {
     return {
-      $type: QueryDenomMetadataRequest.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -1317,21 +1164,11 @@ export const QueryDenomMetadataRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDenomMetadataRequest.$type,
-  QueryDenomMetadataRequest,
-);
-
 function createBaseQueryDenomMetadataResponse(): QueryDenomMetadataResponse {
-  return {
-    $type: 'cosmos.bank.v1beta1.QueryDenomMetadataResponse',
-    metadata: undefined,
-  };
+  return { metadata: undefined };
 }
 
 export const QueryDenomMetadataResponse = {
-  $type: 'cosmos.bank.v1beta1.QueryDenomMetadataResponse' as const,
-
   encode(
     message: QueryDenomMetadataResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1365,7 +1202,6 @@ export const QueryDenomMetadataResponse = {
 
   fromJSON(object: any): QueryDenomMetadataResponse {
     return {
-      $type: QueryDenomMetadataResponse.$type,
       metadata: isSet(object.metadata)
         ? Metadata.fromJSON(object.metadata)
         : undefined,
@@ -1392,11 +1228,6 @@ export const QueryDenomMetadataResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  QueryDenomMetadataResponse.$type,
-  QueryDenomMetadataResponse,
-);
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -1577,14 +1408,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

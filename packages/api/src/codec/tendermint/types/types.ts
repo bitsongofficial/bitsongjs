@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../typeRegistry';
 import { Proof } from '../crypto/proof';
 import { Consensus } from '../version/types';
 import { Timestamp } from '../../google/protobuf/timestamp';
@@ -105,13 +104,11 @@ export function signedMsgTypeToJSON(object: SignedMsgType): string {
 
 /** PartsetHeader */
 export interface PartSetHeader {
-  $type: 'tendermint.types.PartSetHeader';
   total: number;
   hash: Uint8Array;
 }
 
 export interface Part {
-  $type: 'tendermint.types.Part';
   index: number;
   bytes: Uint8Array;
   proof?: Proof;
@@ -119,14 +116,12 @@ export interface Part {
 
 /** BlockID */
 export interface BlockID {
-  $type: 'tendermint.types.BlockID';
   hash: Uint8Array;
   partSetHeader?: PartSetHeader;
 }
 
 /** Header defines the structure of a Tendermint block header. */
 export interface Header {
-  $type: 'tendermint.types.Header';
   /** basic block info */
   version?: Consensus;
   chainId: string;
@@ -156,7 +151,6 @@ export interface Header {
 
 /** Data contains the set of transactions included in the block */
 export interface Data {
-  $type: 'tendermint.types.Data';
   /**
    * Txs that will be applied by state @ block.Height+1.
    * NOTE: not all txs here are valid.  We're just agreeing on the order first.
@@ -170,7 +164,6 @@ export interface Data {
  * consensus.
  */
 export interface Vote {
-  $type: 'tendermint.types.Vote';
   type: SignedMsgType;
   height: Long;
   round: number;
@@ -184,7 +177,6 @@ export interface Vote {
 
 /** Commit contains the evidence that a block was committed by a set of validators. */
 export interface Commit {
-  $type: 'tendermint.types.Commit';
   height: Long;
   round: number;
   blockId?: BlockID;
@@ -193,7 +185,6 @@ export interface Commit {
 
 /** CommitSig is a part of the Vote included in a Commit. */
 export interface CommitSig {
-  $type: 'tendermint.types.CommitSig';
   blockIdFlag: BlockIDFlag;
   validatorAddress: Uint8Array;
   timestamp?: Timestamp;
@@ -201,7 +192,6 @@ export interface CommitSig {
 }
 
 export interface Proposal {
-  $type: 'tendermint.types.Proposal';
   type: SignedMsgType;
   height: Long;
   round: number;
@@ -212,19 +202,16 @@ export interface Proposal {
 }
 
 export interface SignedHeader {
-  $type: 'tendermint.types.SignedHeader';
   header?: Header;
   commit?: Commit;
 }
 
 export interface LightBlock {
-  $type: 'tendermint.types.LightBlock';
   signedHeader?: SignedHeader;
   validatorSet?: ValidatorSet;
 }
 
 export interface BlockMeta {
-  $type: 'tendermint.types.BlockMeta';
   blockId?: BlockID;
   blockSize: Long;
   header?: Header;
@@ -233,23 +220,16 @@ export interface BlockMeta {
 
 /** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
 export interface TxProof {
-  $type: 'tendermint.types.TxProof';
   rootHash: Uint8Array;
   data: Uint8Array;
   proof?: Proof;
 }
 
 function createBasePartSetHeader(): PartSetHeader {
-  return {
-    $type: 'tendermint.types.PartSetHeader',
-    total: 0,
-    hash: new Uint8Array(),
-  };
+  return { total: 0, hash: new Uint8Array() };
 }
 
 export const PartSetHeader = {
-  $type: 'tendermint.types.PartSetHeader' as const,
-
   encode(
     message: PartSetHeader,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -286,7 +266,6 @@ export const PartSetHeader = {
 
   fromJSON(object: any): PartSetHeader {
     return {
-      $type: PartSetHeader.$type,
       total: isSet(object.total) ? Number(object.total) : 0,
       hash: isSet(object.hash)
         ? bytesFromBase64(object.hash)
@@ -314,20 +293,11 @@ export const PartSetHeader = {
   },
 };
 
-messageTypeRegistry.set(PartSetHeader.$type, PartSetHeader);
-
 function createBasePart(): Part {
-  return {
-    $type: 'tendermint.types.Part',
-    index: 0,
-    bytes: new Uint8Array(),
-    proof: undefined,
-  };
+  return { index: 0, bytes: new Uint8Array(), proof: undefined };
 }
 
 export const Part = {
-  $type: 'tendermint.types.Part' as const,
-
   encode(message: Part, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== 0) {
       writer.uint32(8).uint32(message.index);
@@ -367,7 +337,6 @@ export const Part = {
 
   fromJSON(object: any): Part {
     return {
-      $type: Part.$type,
       index: isSet(object.index) ? Number(object.index) : 0,
       bytes: isSet(object.bytes)
         ? bytesFromBase64(object.bytes)
@@ -400,19 +369,11 @@ export const Part = {
   },
 };
 
-messageTypeRegistry.set(Part.$type, Part);
-
 function createBaseBlockID(): BlockID {
-  return {
-    $type: 'tendermint.types.BlockID',
-    hash: new Uint8Array(),
-    partSetHeader: undefined,
-  };
+  return { hash: new Uint8Array(), partSetHeader: undefined };
 }
 
 export const BlockID = {
-  $type: 'tendermint.types.BlockID' as const,
-
   encode(
     message: BlockID,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -452,7 +413,6 @@ export const BlockID = {
 
   fromJSON(object: any): BlockID {
     return {
-      $type: BlockID.$type,
       hash: isSet(object.hash)
         ? bytesFromBase64(object.hash)
         : new Uint8Array(),
@@ -486,11 +446,8 @@ export const BlockID = {
   },
 };
 
-messageTypeRegistry.set(BlockID.$type, BlockID);
-
 function createBaseHeader(): Header {
   return {
-    $type: 'tendermint.types.Header',
     version: undefined,
     chainId: '',
     height: Long.ZERO,
@@ -509,8 +466,6 @@ function createBaseHeader(): Header {
 }
 
 export const Header = {
-  $type: 'tendermint.types.Header' as const,
-
   encode(
     message: Header,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -619,7 +574,6 @@ export const Header = {
 
   fromJSON(object: any): Header {
     return {
-      $type: Header.$type,
       version: isSet(object.version)
         ? Consensus.fromJSON(object.version)
         : undefined,
@@ -759,15 +713,11 @@ export const Header = {
   },
 };
 
-messageTypeRegistry.set(Header.$type, Header);
-
 function createBaseData(): Data {
-  return { $type: 'tendermint.types.Data', txs: [] };
+  return { txs: [] };
 }
 
 export const Data = {
-  $type: 'tendermint.types.Data' as const,
-
   encode(message: Data, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.txs) {
       writer.uint32(10).bytes(v!);
@@ -795,7 +745,6 @@ export const Data = {
 
   fromJSON(object: any): Data {
     return {
-      $type: Data.$type,
       txs: Array.isArray(object?.txs)
         ? object.txs.map((e: any) => bytesFromBase64(e))
         : [],
@@ -821,11 +770,8 @@ export const Data = {
   },
 };
 
-messageTypeRegistry.set(Data.$type, Data);
-
 function createBaseVote(): Vote {
   return {
-    $type: 'tendermint.types.Vote',
     type: 0,
     height: Long.ZERO,
     round: 0,
@@ -838,8 +784,6 @@ function createBaseVote(): Vote {
 }
 
 export const Vote = {
-  $type: 'tendermint.types.Vote' as const,
-
   encode(message: Vote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
@@ -909,7 +853,6 @@ export const Vote = {
 
   fromJSON(object: any): Vote {
     return {
-      $type: Vote.$type,
       type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       round: isSet(object.round) ? Number(object.round) : 0,
@@ -982,21 +925,11 @@ export const Vote = {
   },
 };
 
-messageTypeRegistry.set(Vote.$type, Vote);
-
 function createBaseCommit(): Commit {
-  return {
-    $type: 'tendermint.types.Commit',
-    height: Long.ZERO,
-    round: 0,
-    blockId: undefined,
-    signatures: [],
-  };
+  return { height: Long.ZERO, round: 0, blockId: undefined, signatures: [] };
 }
 
 export const Commit = {
-  $type: 'tendermint.types.Commit' as const,
-
   encode(
     message: Commit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1045,7 +978,6 @@ export const Commit = {
 
   fromJSON(object: any): Commit {
     return {
-      $type: Commit.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       round: isSet(object.round) ? Number(object.round) : 0,
       blockId: isSet(object.blockId)
@@ -1093,11 +1025,8 @@ export const Commit = {
   },
 };
 
-messageTypeRegistry.set(Commit.$type, Commit);
-
 function createBaseCommitSig(): CommitSig {
   return {
-    $type: 'tendermint.types.CommitSig',
     blockIdFlag: 0,
     validatorAddress: new Uint8Array(),
     timestamp: undefined,
@@ -1106,8 +1035,6 @@ function createBaseCommitSig(): CommitSig {
 }
 
 export const CommitSig = {
-  $type: 'tendermint.types.CommitSig' as const,
-
   encode(
     message: CommitSig,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1156,7 +1083,6 @@ export const CommitSig = {
 
   fromJSON(object: any): CommitSig {
     return {
-      $type: CommitSig.$type,
       blockIdFlag: isSet(object.blockIdFlag)
         ? blockIDFlagFromJSON(object.blockIdFlag)
         : 0,
@@ -1206,11 +1132,8 @@ export const CommitSig = {
   },
 };
 
-messageTypeRegistry.set(CommitSig.$type, CommitSig);
-
 function createBaseProposal(): Proposal {
   return {
-    $type: 'tendermint.types.Proposal',
     type: 0,
     height: Long.ZERO,
     round: 0,
@@ -1222,8 +1145,6 @@ function createBaseProposal(): Proposal {
 }
 
 export const Proposal = {
-  $type: 'tendermint.types.Proposal' as const,
-
   encode(
     message: Proposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1290,7 +1211,6 @@ export const Proposal = {
 
   fromJSON(object: any): Proposal {
     return {
-      $type: Proposal.$type,
       type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       round: isSet(object.round) ? Number(object.round) : 0,
@@ -1351,19 +1271,11 @@ export const Proposal = {
   },
 };
 
-messageTypeRegistry.set(Proposal.$type, Proposal);
-
 function createBaseSignedHeader(): SignedHeader {
-  return {
-    $type: 'tendermint.types.SignedHeader',
-    header: undefined,
-    commit: undefined,
-  };
+  return { header: undefined, commit: undefined };
 }
 
 export const SignedHeader = {
-  $type: 'tendermint.types.SignedHeader' as const,
-
   encode(
     message: SignedHeader,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1400,7 +1312,6 @@ export const SignedHeader = {
 
   fromJSON(object: any): SignedHeader {
     return {
-      $type: SignedHeader.$type,
       header: isSet(object.header) ? Header.fromJSON(object.header) : undefined,
       commit: isSet(object.commit) ? Commit.fromJSON(object.commit) : undefined,
     };
@@ -1431,19 +1342,11 @@ export const SignedHeader = {
   },
 };
 
-messageTypeRegistry.set(SignedHeader.$type, SignedHeader);
-
 function createBaseLightBlock(): LightBlock {
-  return {
-    $type: 'tendermint.types.LightBlock',
-    signedHeader: undefined,
-    validatorSet: undefined,
-  };
+  return { signedHeader: undefined, validatorSet: undefined };
 }
 
 export const LightBlock = {
-  $type: 'tendermint.types.LightBlock' as const,
-
   encode(
     message: LightBlock,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1486,7 +1389,6 @@ export const LightBlock = {
 
   fromJSON(object: any): LightBlock {
     return {
-      $type: LightBlock.$type,
       signedHeader: isSet(object.signedHeader)
         ? SignedHeader.fromJSON(object.signedHeader)
         : undefined,
@@ -1525,11 +1427,8 @@ export const LightBlock = {
   },
 };
 
-messageTypeRegistry.set(LightBlock.$type, LightBlock);
-
 function createBaseBlockMeta(): BlockMeta {
   return {
-    $type: 'tendermint.types.BlockMeta',
     blockId: undefined,
     blockSize: Long.ZERO,
     header: undefined,
@@ -1538,8 +1437,6 @@ function createBaseBlockMeta(): BlockMeta {
 }
 
 export const BlockMeta = {
-  $type: 'tendermint.types.BlockMeta' as const,
-
   encode(
     message: BlockMeta,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1588,7 +1485,6 @@ export const BlockMeta = {
 
   fromJSON(object: any): BlockMeta {
     return {
-      $type: BlockMeta.$type,
       blockId: isSet(object.blockId)
         ? BlockID.fromJSON(object.blockId)
         : undefined,
@@ -1639,11 +1535,8 @@ export const BlockMeta = {
   },
 };
 
-messageTypeRegistry.set(BlockMeta.$type, BlockMeta);
-
 function createBaseTxProof(): TxProof {
   return {
-    $type: 'tendermint.types.TxProof',
     rootHash: new Uint8Array(),
     data: new Uint8Array(),
     proof: undefined,
@@ -1651,8 +1544,6 @@ function createBaseTxProof(): TxProof {
 }
 
 export const TxProof = {
-  $type: 'tendermint.types.TxProof' as const,
-
   encode(
     message: TxProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1695,7 +1586,6 @@ export const TxProof = {
 
   fromJSON(object: any): TxProof {
     return {
-      $type: TxProof.$type,
       rootHash: isSet(object.rootHash)
         ? bytesFromBase64(object.rootHash)
         : new Uint8Array(),
@@ -1732,8 +1622,6 @@ export const TxProof = {
     return message;
   },
 };
-
-messageTypeRegistry.set(TxProof.$type, TxProof);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -1789,20 +1677,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
+  return { seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -11,7 +10,6 @@ export const protobufPackage = 'tendermint.version';
  * updated in ResponseEndBlock.
  */
 export interface App {
-  $type: 'tendermint.version.App';
   protocol: Long;
   software: string;
 }
@@ -22,22 +20,15 @@ export interface App {
  * state transition machine.
  */
 export interface Consensus {
-  $type: 'tendermint.version.Consensus';
   block: Long;
   app: Long;
 }
 
 function createBaseApp(): App {
-  return {
-    $type: 'tendermint.version.App',
-    protocol: Long.UZERO,
-    software: '',
-  };
+  return { protocol: Long.UZERO, software: '' };
 }
 
 export const App = {
-  $type: 'tendermint.version.App' as const,
-
   encode(message: App, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.protocol.isZero()) {
       writer.uint32(8).uint64(message.protocol);
@@ -71,7 +62,6 @@ export const App = {
 
   fromJSON(object: any): App {
     return {
-      $type: App.$type,
       protocol: isSet(object.protocol)
         ? Long.fromValue(object.protocol)
         : Long.UZERO,
@@ -98,19 +88,11 @@ export const App = {
   },
 };
 
-messageTypeRegistry.set(App.$type, App);
-
 function createBaseConsensus(): Consensus {
-  return {
-    $type: 'tendermint.version.Consensus',
-    block: Long.UZERO,
-    app: Long.UZERO,
-  };
+  return { block: Long.UZERO, app: Long.UZERO };
 }
 
 export const Consensus = {
-  $type: 'tendermint.version.Consensus' as const,
-
   encode(
     message: Consensus,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -147,7 +129,6 @@ export const Consensus = {
 
   fromJSON(object: any): Consensus {
     return {
-      $type: Consensus.$type,
       block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
       app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO,
     };
@@ -178,8 +159,6 @@ export const Consensus = {
   },
 };
 
-messageTypeRegistry.set(Consensus.$type, Consensus);
-
 type Builtin =
   | Date
   | Function
@@ -198,14 +177,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

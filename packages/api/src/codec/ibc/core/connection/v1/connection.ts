@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import { MerklePrefix } from '../../commitment/v1/commitment';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -69,7 +68,6 @@ export function stateToJSON(object: State): string {
  * a connection between two chains.
  */
 export interface ConnectionEnd {
-  $type: 'ibc.core.connection.v1.ConnectionEnd';
   /** client associated with this connection. */
   clientId: string;
   /**
@@ -94,7 +92,6 @@ export interface ConnectionEnd {
  * identifier field.
  */
 export interface IdentifiedConnection {
-  $type: 'ibc.core.connection.v1.IdentifiedConnection';
   /** connection identifier. */
   id: string;
   /** client associated with this connection. */
@@ -114,7 +111,6 @@ export interface IdentifiedConnection {
 
 /** Counterparty defines the counterparty chain associated with a connection end. */
 export interface Counterparty {
-  $type: 'ibc.core.connection.v1.Counterparty';
   /**
    * identifies the client on the counterparty chain associated with a given
    * connection.
@@ -131,14 +127,12 @@ export interface Counterparty {
 
 /** ClientPaths define all the connection paths for a client state. */
 export interface ClientPaths {
-  $type: 'ibc.core.connection.v1.ClientPaths';
   /** list of connection paths */
   paths: string[];
 }
 
 /** ConnectionPaths define all the connection paths for a given client state. */
 export interface ConnectionPaths {
-  $type: 'ibc.core.connection.v1.ConnectionPaths';
   /** client state unique identifier */
   clientId: string;
   /** list of connection paths */
@@ -150,7 +144,6 @@ export interface ConnectionPaths {
  * the connection handshake.
  */
 export interface Version {
-  $type: 'ibc.core.connection.v1.Version';
   /** unique version identifier */
   identifier: string;
   /** list of features compatible with the specified identifier */
@@ -159,7 +152,6 @@ export interface Version {
 
 /** Params defines the set of Connection parameters. */
 export interface Params {
-  $type: 'ibc.core.connection.v1.Params';
   /**
    * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
    * largest amount of time that the chain might reasonably take to produce the next block under normal operating
@@ -170,7 +162,6 @@ export interface Params {
 
 function createBaseConnectionEnd(): ConnectionEnd {
   return {
-    $type: 'ibc.core.connection.v1.ConnectionEnd',
     clientId: '',
     versions: [],
     state: 0,
@@ -180,8 +171,6 @@ function createBaseConnectionEnd(): ConnectionEnd {
 }
 
 export const ConnectionEnd = {
-  $type: 'ibc.core.connection.v1.ConnectionEnd' as const,
-
   encode(
     message: ConnectionEnd,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -239,7 +228,6 @@ export const ConnectionEnd = {
 
   fromJSON(object: any): ConnectionEnd {
     return {
-      $type: ConnectionEnd.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       versions: Array.isArray(object?.versions)
         ? object.versions.map((e: any) => Version.fromJSON(e))
@@ -293,11 +281,8 @@ export const ConnectionEnd = {
   },
 };
 
-messageTypeRegistry.set(ConnectionEnd.$type, ConnectionEnd);
-
 function createBaseIdentifiedConnection(): IdentifiedConnection {
   return {
-    $type: 'ibc.core.connection.v1.IdentifiedConnection',
     id: '',
     clientId: '',
     versions: [],
@@ -308,8 +293,6 @@ function createBaseIdentifiedConnection(): IdentifiedConnection {
 }
 
 export const IdentifiedConnection = {
-  $type: 'ibc.core.connection.v1.IdentifiedConnection' as const,
-
   encode(
     message: IdentifiedConnection,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -376,7 +359,6 @@ export const IdentifiedConnection = {
 
   fromJSON(object: any): IdentifiedConnection {
     return {
-      $type: IdentifiedConnection.$type,
       id: isSet(object.id) ? String(object.id) : '',
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       versions: Array.isArray(object?.versions)
@@ -433,20 +415,11 @@ export const IdentifiedConnection = {
   },
 };
 
-messageTypeRegistry.set(IdentifiedConnection.$type, IdentifiedConnection);
-
 function createBaseCounterparty(): Counterparty {
-  return {
-    $type: 'ibc.core.connection.v1.Counterparty',
-    clientId: '',
-    connectionId: '',
-    prefix: undefined,
-  };
+  return { clientId: '', connectionId: '', prefix: undefined };
 }
 
 export const Counterparty = {
-  $type: 'ibc.core.connection.v1.Counterparty' as const,
-
   encode(
     message: Counterparty,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -489,7 +462,6 @@ export const Counterparty = {
 
   fromJSON(object: any): Counterparty {
     return {
-      $type: Counterparty.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
@@ -526,15 +498,11 @@ export const Counterparty = {
   },
 };
 
-messageTypeRegistry.set(Counterparty.$type, Counterparty);
-
 function createBaseClientPaths(): ClientPaths {
-  return { $type: 'ibc.core.connection.v1.ClientPaths', paths: [] };
+  return { paths: [] };
 }
 
 export const ClientPaths = {
-  $type: 'ibc.core.connection.v1.ClientPaths' as const,
-
   encode(
     message: ClientPaths,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -565,7 +533,6 @@ export const ClientPaths = {
 
   fromJSON(object: any): ClientPaths {
     return {
-      $type: ClientPaths.$type,
       paths: Array.isArray(object?.paths)
         ? object.paths.map((e: any) => String(e))
         : [],
@@ -591,19 +558,11 @@ export const ClientPaths = {
   },
 };
 
-messageTypeRegistry.set(ClientPaths.$type, ClientPaths);
-
 function createBaseConnectionPaths(): ConnectionPaths {
-  return {
-    $type: 'ibc.core.connection.v1.ConnectionPaths',
-    clientId: '',
-    paths: [],
-  };
+  return { clientId: '', paths: [] };
 }
 
 export const ConnectionPaths = {
-  $type: 'ibc.core.connection.v1.ConnectionPaths' as const,
-
   encode(
     message: ConnectionPaths,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -640,7 +599,6 @@ export const ConnectionPaths = {
 
   fromJSON(object: any): ConnectionPaths {
     return {
-      $type: ConnectionPaths.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       paths: Array.isArray(object?.paths)
         ? object.paths.map((e: any) => String(e))
@@ -669,19 +627,11 @@ export const ConnectionPaths = {
   },
 };
 
-messageTypeRegistry.set(ConnectionPaths.$type, ConnectionPaths);
-
 function createBaseVersion(): Version {
-  return {
-    $type: 'ibc.core.connection.v1.Version',
-    identifier: '',
-    features: [],
-  };
+  return { identifier: '', features: [] };
 }
 
 export const Version = {
-  $type: 'ibc.core.connection.v1.Version' as const,
-
   encode(
     message: Version,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -718,7 +668,6 @@ export const Version = {
 
   fromJSON(object: any): Version {
     return {
-      $type: Version.$type,
       identifier: isSet(object.identifier) ? String(object.identifier) : '',
       features: Array.isArray(object?.features)
         ? object.features.map((e: any) => String(e))
@@ -745,18 +694,11 @@ export const Version = {
   },
 };
 
-messageTypeRegistry.set(Version.$type, Version);
-
 function createBaseParams(): Params {
-  return {
-    $type: 'ibc.core.connection.v1.Params',
-    maxExpectedTimePerBlock: Long.UZERO,
-  };
+  return { maxExpectedTimePerBlock: Long.UZERO };
 }
 
 export const Params = {
-  $type: 'ibc.core.connection.v1.Params' as const,
-
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -787,7 +729,6 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       maxExpectedTimePerBlock: isSet(object.maxExpectedTimePerBlock)
         ? Long.fromValue(object.maxExpectedTimePerBlock)
         : Long.UZERO,
@@ -814,8 +755,6 @@ export const Params = {
   },
 };
 
-messageTypeRegistry.set(Params.$type, Params);
-
 type Builtin =
   | Date
   | Function
@@ -834,14 +773,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,58 +1,48 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
 export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
 export interface EventIssue {
-  $type: 'bitsong.fantoken.v1beta1.EventIssue';
   denom: string;
 }
 
 export interface EventDisableMint {
-  $type: 'bitsong.fantoken.v1beta1.EventDisableMint';
   denom: string;
 }
 
 export interface EventMint {
-  $type: 'bitsong.fantoken.v1beta1.EventMint';
   recipient: string;
   coin: string;
 }
 
 export interface EventBurn {
-  $type: 'bitsong.fantoken.v1beta1.EventBurn';
   sender: string;
   coin: string;
 }
 
 export interface EventSetAuthority {
-  $type: 'bitsong.fantoken.v1beta1.EventSetAuthority';
   denom: string;
   oldAuthority: string;
   newAuthority: string;
 }
 
 export interface EventSetMinter {
-  $type: 'bitsong.fantoken.v1beta1.EventSetMinter';
   denom: string;
   oldMinter: string;
   newMinter: string;
 }
 
 export interface EventSetUri {
-  $type: 'bitsong.fantoken.v1beta1.EventSetUri';
   denom: string;
 }
 
 function createBaseEventIssue(): EventIssue {
-  return { $type: 'bitsong.fantoken.v1beta1.EventIssue', denom: '' };
+  return { denom: '' };
 }
 
 export const EventIssue = {
-  $type: 'bitsong.fantoken.v1beta1.EventIssue' as const,
-
   encode(
     message: EventIssue,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -83,7 +73,6 @@ export const EventIssue = {
 
   fromJSON(object: any): EventIssue {
     return {
-      $type: EventIssue.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -103,15 +92,11 @@ export const EventIssue = {
   },
 };
 
-messageTypeRegistry.set(EventIssue.$type, EventIssue);
-
 function createBaseEventDisableMint(): EventDisableMint {
-  return { $type: 'bitsong.fantoken.v1beta1.EventDisableMint', denom: '' };
+  return { denom: '' };
 }
 
 export const EventDisableMint = {
-  $type: 'bitsong.fantoken.v1beta1.EventDisableMint' as const,
-
   encode(
     message: EventDisableMint,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -142,7 +127,6 @@ export const EventDisableMint = {
 
   fromJSON(object: any): EventDisableMint {
     return {
-      $type: EventDisableMint.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -162,19 +146,11 @@ export const EventDisableMint = {
   },
 };
 
-messageTypeRegistry.set(EventDisableMint.$type, EventDisableMint);
-
 function createBaseEventMint(): EventMint {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.EventMint',
-    recipient: '',
-    coin: '',
-  };
+  return { recipient: '', coin: '' };
 }
 
 export const EventMint = {
-  $type: 'bitsong.fantoken.v1beta1.EventMint' as const,
-
   encode(
     message: EventMint,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -211,7 +187,6 @@ export const EventMint = {
 
   fromJSON(object: any): EventMint {
     return {
-      $type: EventMint.$type,
       recipient: isSet(object.recipient) ? String(object.recipient) : '',
       coin: isSet(object.coin) ? String(object.coin) : '',
     };
@@ -234,15 +209,11 @@ export const EventMint = {
   },
 };
 
-messageTypeRegistry.set(EventMint.$type, EventMint);
-
 function createBaseEventBurn(): EventBurn {
-  return { $type: 'bitsong.fantoken.v1beta1.EventBurn', sender: '', coin: '' };
+  return { sender: '', coin: '' };
 }
 
 export const EventBurn = {
-  $type: 'bitsong.fantoken.v1beta1.EventBurn' as const,
-
   encode(
     message: EventBurn,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -279,7 +250,6 @@ export const EventBurn = {
 
   fromJSON(object: any): EventBurn {
     return {
-      $type: EventBurn.$type,
       sender: isSet(object.sender) ? String(object.sender) : '',
       coin: isSet(object.coin) ? String(object.coin) : '',
     };
@@ -302,20 +272,11 @@ export const EventBurn = {
   },
 };
 
-messageTypeRegistry.set(EventBurn.$type, EventBurn);
-
 function createBaseEventSetAuthority(): EventSetAuthority {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.EventSetAuthority',
-    denom: '',
-    oldAuthority: '',
-    newAuthority: '',
-  };
+  return { denom: '', oldAuthority: '', newAuthority: '' };
 }
 
 export const EventSetAuthority = {
-  $type: 'bitsong.fantoken.v1beta1.EventSetAuthority' as const,
-
   encode(
     message: EventSetAuthority,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -358,7 +319,6 @@ export const EventSetAuthority = {
 
   fromJSON(object: any): EventSetAuthority {
     return {
-      $type: EventSetAuthority.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       oldAuthority: isSet(object.oldAuthority)
         ? String(object.oldAuthority)
@@ -390,20 +350,11 @@ export const EventSetAuthority = {
   },
 };
 
-messageTypeRegistry.set(EventSetAuthority.$type, EventSetAuthority);
-
 function createBaseEventSetMinter(): EventSetMinter {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.EventSetMinter',
-    denom: '',
-    oldMinter: '',
-    newMinter: '',
-  };
+  return { denom: '', oldMinter: '', newMinter: '' };
 }
 
 export const EventSetMinter = {
-  $type: 'bitsong.fantoken.v1beta1.EventSetMinter' as const,
-
   encode(
     message: EventSetMinter,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -446,7 +397,6 @@ export const EventSetMinter = {
 
   fromJSON(object: any): EventSetMinter {
     return {
-      $type: EventSetMinter.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       oldMinter: isSet(object.oldMinter) ? String(object.oldMinter) : '',
       newMinter: isSet(object.newMinter) ? String(object.newMinter) : '',
@@ -472,15 +422,11 @@ export const EventSetMinter = {
   },
 };
 
-messageTypeRegistry.set(EventSetMinter.$type, EventSetMinter);
-
 function createBaseEventSetUri(): EventSetUri {
-  return { $type: 'bitsong.fantoken.v1beta1.EventSetUri', denom: '' };
+  return { denom: '' };
 }
 
 export const EventSetUri = {
-  $type: 'bitsong.fantoken.v1beta1.EventSetUri' as const,
-
   encode(
     message: EventSetUri,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -511,7 +457,6 @@ export const EventSetUri = {
 
   fromJSON(object: any): EventSetUri {
     return {
-      $type: EventSetUri.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -531,8 +476,6 @@ export const EventSetUri = {
   },
 };
 
-messageTypeRegistry.set(EventSetUri.$type, EventSetUri);
-
 type Builtin =
   | Date
   | Function
@@ -551,14 +494,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Counterparty, Version } from './connection';
 import { Any } from '../../../../google/protobuf/any';
 import { Height } from '../../client/v1/client';
@@ -13,7 +12,6 @@ export const protobufPackage = 'ibc.core.connection.v1';
  * initialize a connection with Chain B.
  */
 export interface MsgConnectionOpenInit {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenInit';
   clientId: string;
   counterparty?: Counterparty;
   version?: Version;
@@ -25,16 +23,13 @@ export interface MsgConnectionOpenInit {
  * MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
  * type.
  */
-export interface MsgConnectionOpenInitResponse {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenInitResponse';
-}
+export interface MsgConnectionOpenInitResponse {}
 
 /**
  * MsgConnectionOpenTry defines a msg sent by a Relayer to try to open a
  * connection on Chain B.
  */
 export interface MsgConnectionOpenTry {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenTry';
   clientId: string;
   /**
    * in the case of crossing hello's, when both chains call OpenInit, we need
@@ -60,16 +55,13 @@ export interface MsgConnectionOpenTry {
 }
 
 /** MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type. */
-export interface MsgConnectionOpenTryResponse {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenTryResponse';
-}
+export interface MsgConnectionOpenTryResponse {}
 
 /**
  * MsgConnectionOpenAck defines a msg sent by a Relayer to Chain A to
  * acknowledge the change of connection state to TRYOPEN on Chain B.
  */
 export interface MsgConnectionOpenAck {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenAck';
   connectionId: string;
   counterpartyConnectionId: string;
   version?: Version;
@@ -89,16 +81,13 @@ export interface MsgConnectionOpenAck {
 }
 
 /** MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type. */
-export interface MsgConnectionOpenAckResponse {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenAckResponse';
-}
+export interface MsgConnectionOpenAckResponse {}
 
 /**
  * MsgConnectionOpenConfirm defines a msg sent by a Relayer to Chain B to
  * acknowledge the change of connection state to OPEN on Chain A.
  */
 export interface MsgConnectionOpenConfirm {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirm';
   connectionId: string;
   /** proof for the change of the connection state on Chain A: `INIT -> OPEN` */
   proofAck: Uint8Array;
@@ -110,13 +99,10 @@ export interface MsgConnectionOpenConfirm {
  * MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
  * response type.
  */
-export interface MsgConnectionOpenConfirmResponse {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirmResponse';
-}
+export interface MsgConnectionOpenConfirmResponse {}
 
 function createBaseMsgConnectionOpenInit(): MsgConnectionOpenInit {
   return {
-    $type: 'ibc.core.connection.v1.MsgConnectionOpenInit',
     clientId: '',
     counterparty: undefined,
     version: undefined,
@@ -126,8 +112,6 @@ function createBaseMsgConnectionOpenInit(): MsgConnectionOpenInit {
 }
 
 export const MsgConnectionOpenInit = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenInit' as const,
-
   encode(
     message: MsgConnectionOpenInit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -188,7 +172,6 @@ export const MsgConnectionOpenInit = {
 
   fromJSON(object: any): MsgConnectionOpenInit {
     return {
-      $type: MsgConnectionOpenInit.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       counterparty: isSet(object.counterparty)
         ? Counterparty.fromJSON(object.counterparty)
@@ -242,15 +225,11 @@ export const MsgConnectionOpenInit = {
   },
 };
 
-messageTypeRegistry.set(MsgConnectionOpenInit.$type, MsgConnectionOpenInit);
-
 function createBaseMsgConnectionOpenInitResponse(): MsgConnectionOpenInitResponse {
-  return { $type: 'ibc.core.connection.v1.MsgConnectionOpenInitResponse' };
+  return {};
 }
 
 export const MsgConnectionOpenInitResponse = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenInitResponse' as const,
-
   encode(
     _: MsgConnectionOpenInitResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -277,9 +256,7 @@ export const MsgConnectionOpenInitResponse = {
   },
 
   fromJSON(_: any): MsgConnectionOpenInitResponse {
-    return {
-      $type: MsgConnectionOpenInitResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgConnectionOpenInitResponse): unknown {
@@ -295,14 +272,8 @@ export const MsgConnectionOpenInitResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgConnectionOpenInitResponse.$type,
-  MsgConnectionOpenInitResponse,
-);
-
 function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
   return {
-    $type: 'ibc.core.connection.v1.MsgConnectionOpenTry',
     clientId: '',
     previousConnectionId: '',
     clientState: undefined,
@@ -319,8 +290,6 @@ function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
 }
 
 export const MsgConnectionOpenTry = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenTry' as const,
-
   encode(
     message: MsgConnectionOpenTry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -425,7 +394,6 @@ export const MsgConnectionOpenTry = {
 
   fromJSON(object: any): MsgConnectionOpenTry {
     return {
-      $type: MsgConnectionOpenTry.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       previousConnectionId: isSet(object.previousConnectionId)
         ? String(object.previousConnectionId)
@@ -547,15 +515,11 @@ export const MsgConnectionOpenTry = {
   },
 };
 
-messageTypeRegistry.set(MsgConnectionOpenTry.$type, MsgConnectionOpenTry);
-
 function createBaseMsgConnectionOpenTryResponse(): MsgConnectionOpenTryResponse {
-  return { $type: 'ibc.core.connection.v1.MsgConnectionOpenTryResponse' };
+  return {};
 }
 
 export const MsgConnectionOpenTryResponse = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenTryResponse' as const,
-
   encode(
     _: MsgConnectionOpenTryResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -582,9 +546,7 @@ export const MsgConnectionOpenTryResponse = {
   },
 
   fromJSON(_: any): MsgConnectionOpenTryResponse {
-    return {
-      $type: MsgConnectionOpenTryResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgConnectionOpenTryResponse): unknown {
@@ -600,14 +562,8 @@ export const MsgConnectionOpenTryResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgConnectionOpenTryResponse.$type,
-  MsgConnectionOpenTryResponse,
-);
-
 function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
   return {
-    $type: 'ibc.core.connection.v1.MsgConnectionOpenAck',
     connectionId: '',
     counterpartyConnectionId: '',
     version: undefined,
@@ -622,8 +578,6 @@ function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
 }
 
 export const MsgConnectionOpenAck = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenAck' as const,
-
   encode(
     message: MsgConnectionOpenAck,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -711,7 +665,6 @@ export const MsgConnectionOpenAck = {
 
   fromJSON(object: any): MsgConnectionOpenAck {
     return {
-      $type: MsgConnectionOpenAck.$type,
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
         : '',
@@ -815,15 +768,11 @@ export const MsgConnectionOpenAck = {
   },
 };
 
-messageTypeRegistry.set(MsgConnectionOpenAck.$type, MsgConnectionOpenAck);
-
 function createBaseMsgConnectionOpenAckResponse(): MsgConnectionOpenAckResponse {
-  return { $type: 'ibc.core.connection.v1.MsgConnectionOpenAckResponse' };
+  return {};
 }
 
 export const MsgConnectionOpenAckResponse = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenAckResponse' as const,
-
   encode(
     _: MsgConnectionOpenAckResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -850,9 +799,7 @@ export const MsgConnectionOpenAckResponse = {
   },
 
   fromJSON(_: any): MsgConnectionOpenAckResponse {
-    return {
-      $type: MsgConnectionOpenAckResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgConnectionOpenAckResponse): unknown {
@@ -868,14 +815,8 @@ export const MsgConnectionOpenAckResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgConnectionOpenAckResponse.$type,
-  MsgConnectionOpenAckResponse,
-);
-
 function createBaseMsgConnectionOpenConfirm(): MsgConnectionOpenConfirm {
   return {
-    $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirm',
     connectionId: '',
     proofAck: new Uint8Array(),
     proofHeight: undefined,
@@ -884,8 +825,6 @@ function createBaseMsgConnectionOpenConfirm(): MsgConnectionOpenConfirm {
 }
 
 export const MsgConnectionOpenConfirm = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirm' as const,
-
   encode(
     message: MsgConnectionOpenConfirm,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -937,7 +876,6 @@ export const MsgConnectionOpenConfirm = {
 
   fromJSON(object: any): MsgConnectionOpenConfirm {
     return {
-      $type: MsgConnectionOpenConfirm.$type,
       connectionId: isSet(object.connectionId)
         ? String(object.connectionId)
         : '',
@@ -982,18 +920,11 @@ export const MsgConnectionOpenConfirm = {
   },
 };
 
-messageTypeRegistry.set(
-  MsgConnectionOpenConfirm.$type,
-  MsgConnectionOpenConfirm,
-);
-
 function createBaseMsgConnectionOpenConfirmResponse(): MsgConnectionOpenConfirmResponse {
-  return { $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirmResponse' };
+  return {};
 }
 
 export const MsgConnectionOpenConfirmResponse = {
-  $type: 'ibc.core.connection.v1.MsgConnectionOpenConfirmResponse' as const,
-
   encode(
     _: MsgConnectionOpenConfirmResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1020,9 +951,7 @@ export const MsgConnectionOpenConfirmResponse = {
   },
 
   fromJSON(_: any): MsgConnectionOpenConfirmResponse {
-    return {
-      $type: MsgConnectionOpenConfirmResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgConnectionOpenConfirmResponse): unknown {
@@ -1037,11 +966,6 @@ export const MsgConnectionOpenConfirmResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  MsgConnectionOpenConfirmResponse.$type,
-  MsgConnectionOpenConfirmResponse,
-);
 
 /** Msg defines the ibc/connection Msg service. */
 export interface Msg {
@@ -1194,14 +1118,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

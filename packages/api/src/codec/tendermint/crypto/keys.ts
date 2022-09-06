@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -7,22 +6,15 @@ export const protobufPackage = 'tendermint.crypto';
 
 /** PublicKey defines the keys available for use with Tendermint Validators */
 export interface PublicKey {
-  $type: 'tendermint.crypto.PublicKey';
   ed25519: Uint8Array | undefined;
   secp256k1: Uint8Array | undefined;
 }
 
 function createBasePublicKey(): PublicKey {
-  return {
-    $type: 'tendermint.crypto.PublicKey',
-    ed25519: undefined,
-    secp256k1: undefined,
-  };
+  return { ed25519: undefined, secp256k1: undefined };
 }
 
 export const PublicKey = {
-  $type: 'tendermint.crypto.PublicKey' as const,
-
   encode(
     message: PublicKey,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -59,7 +51,6 @@ export const PublicKey = {
 
   fromJSON(object: any): PublicKey {
     return {
-      $type: PublicKey.$type,
       ed25519: isSet(object.ed25519)
         ? bytesFromBase64(object.ed25519)
         : undefined,
@@ -93,8 +84,6 @@ export const PublicKey = {
     return message;
   },
 };
-
-messageTypeRegistry.set(PublicKey.$type, PublicKey);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -150,14 +139,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

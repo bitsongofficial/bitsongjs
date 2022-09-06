@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { FanToken } from './fantoken';
 import {
   PageRequest,
@@ -13,19 +12,16 @@ export const protobufPackage = 'bitsong.fantoken.v1beta1';
 
 /** QueryFanTokenRequest is request type for the Query/FanToken RPC method */
 export interface QueryFanTokenRequest {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokenRequest';
   denom: string;
 }
 
 /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
 export interface QueryFanTokenResponse {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokenResponse';
   fantoken?: FanToken;
 }
 
 /** QueryFanTokensRequest is request type for the Query/FanTokens RPC method */
 export interface QueryFanTokensRequest {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokensRequest';
   authority: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
@@ -33,29 +29,23 @@ export interface QueryFanTokensRequest {
 
 /** QueryFanTokensResponse is response type for the Query/FanTokens RPC method */
 export interface QueryFanTokensResponse {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokensResponse';
   fantokens: FanToken[];
   pagination?: PageResponse;
 }
 
 /** QueryParametersRequest is request type for the Query/Parameters RPC method */
-export interface QueryParamsRequest {
-  $type: 'bitsong.fantoken.v1beta1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParametersResponse is response type for the Query/Parameters RPC method */
 export interface QueryParamsResponse {
-  $type: 'bitsong.fantoken.v1beta1.QueryParamsResponse';
   params?: Params;
 }
 
 function createBaseQueryFanTokenRequest(): QueryFanTokenRequest {
-  return { $type: 'bitsong.fantoken.v1beta1.QueryFanTokenRequest', denom: '' };
+  return { denom: '' };
 }
 
 export const QueryFanTokenRequest = {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokenRequest' as const,
-
   encode(
     message: QueryFanTokenRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -89,7 +79,6 @@ export const QueryFanTokenRequest = {
 
   fromJSON(object: any): QueryFanTokenRequest {
     return {
-      $type: QueryFanTokenRequest.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
     };
   },
@@ -109,18 +98,11 @@ export const QueryFanTokenRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryFanTokenRequest.$type, QueryFanTokenRequest);
-
 function createBaseQueryFanTokenResponse(): QueryFanTokenResponse {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.QueryFanTokenResponse',
-    fantoken: undefined,
-  };
+  return { fantoken: undefined };
 }
 
 export const QueryFanTokenResponse = {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokenResponse' as const,
-
   encode(
     message: QueryFanTokenResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -154,7 +136,6 @@ export const QueryFanTokenResponse = {
 
   fromJSON(object: any): QueryFanTokenResponse {
     return {
-      $type: QueryFanTokenResponse.$type,
       fantoken: isSet(object.fantoken)
         ? FanToken.fromJSON(object.fantoken)
         : undefined,
@@ -182,19 +163,11 @@ export const QueryFanTokenResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryFanTokenResponse.$type, QueryFanTokenResponse);
-
 function createBaseQueryFanTokensRequest(): QueryFanTokensRequest {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.QueryFanTokensRequest',
-    authority: '',
-    pagination: undefined,
-  };
+  return { authority: '', pagination: undefined };
 }
 
 export const QueryFanTokensRequest = {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokensRequest' as const,
-
   encode(
     message: QueryFanTokensRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -234,7 +207,6 @@ export const QueryFanTokensRequest = {
 
   fromJSON(object: any): QueryFanTokensRequest {
     return {
-      $type: QueryFanTokensRequest.$type,
       authority: isSet(object.authority) ? String(object.authority) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -265,19 +237,11 @@ export const QueryFanTokensRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryFanTokensRequest.$type, QueryFanTokensRequest);
-
 function createBaseQueryFanTokensResponse(): QueryFanTokensResponse {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.QueryFanTokensResponse',
-    fantokens: [],
-    pagination: undefined,
-  };
+  return { fantokens: [], pagination: undefined };
 }
 
 export const QueryFanTokensResponse = {
-  $type: 'bitsong.fantoken.v1beta1.QueryFanTokensResponse' as const,
-
   encode(
     message: QueryFanTokensResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -320,7 +284,6 @@ export const QueryFanTokensResponse = {
 
   fromJSON(object: any): QueryFanTokensResponse {
     return {
-      $type: QueryFanTokensResponse.$type,
       fantokens: Array.isArray(object?.fantokens)
         ? object.fantokens.map((e: any) => FanToken.fromJSON(e))
         : [],
@@ -360,15 +323,11 @@ export const QueryFanTokensResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryFanTokensResponse.$type, QueryFanTokensResponse);
-
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'bitsong.fantoken.v1beta1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'bitsong.fantoken.v1beta1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -392,9 +351,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -410,18 +367,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'bitsong.fantoken.v1beta1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'bitsong.fantoken.v1beta1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -452,7 +402,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -475,8 +424,6 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
 
 /** Query creates service with fantoken as RPC */
 export interface Query {
@@ -559,14 +506,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import { Params, IdentifiedClientState, ClientConsensusStates } from './client';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -8,7 +7,6 @@ export const protobufPackage = 'ibc.core.client.v1';
 
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisState {
-  $type: 'ibc.core.client.v1.GenesisState';
   /** client states with their corresponding identifiers */
   clients: IdentifiedClientState[];
   /** consensus states from each client */
@@ -27,7 +25,6 @@ export interface GenesisState {
  * with ExportMetadata
  */
 export interface GenesisMetadata {
-  $type: 'ibc.core.client.v1.GenesisMetadata';
   /** store key of metadata without clientID-prefix */
   key: Uint8Array;
   /** metadata value */
@@ -39,14 +36,12 @@ export interface GenesisMetadata {
  * client id.
  */
 export interface IdentifiedGenesisMetadata {
-  $type: 'ibc.core.client.v1.IdentifiedGenesisMetadata';
   clientId: string;
   clientMetadata: GenesisMetadata[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    $type: 'ibc.core.client.v1.GenesisState',
     clients: [],
     clientsConsensus: [],
     clientsMetadata: [],
@@ -57,8 +52,6 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  $type: 'ibc.core.client.v1.GenesisState' as const,
-
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -125,7 +118,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       clients: Array.isArray(object?.clients)
         ? object.clients.map((e: any) => IdentifiedClientState.fromJSON(e))
         : [],
@@ -210,19 +202,11 @@ export const GenesisState = {
   },
 };
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState);
-
 function createBaseGenesisMetadata(): GenesisMetadata {
-  return {
-    $type: 'ibc.core.client.v1.GenesisMetadata',
-    key: new Uint8Array(),
-    value: new Uint8Array(),
-  };
+  return { key: new Uint8Array(), value: new Uint8Array() };
 }
 
 export const GenesisMetadata = {
-  $type: 'ibc.core.client.v1.GenesisMetadata' as const,
-
   encode(
     message: GenesisMetadata,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -259,7 +243,6 @@ export const GenesisMetadata = {
 
   fromJSON(object: any): GenesisMetadata {
     return {
-      $type: GenesisMetadata.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value)
         ? bytesFromBase64(object.value)
@@ -290,19 +273,11 @@ export const GenesisMetadata = {
   },
 };
 
-messageTypeRegistry.set(GenesisMetadata.$type, GenesisMetadata);
-
 function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
-  return {
-    $type: 'ibc.core.client.v1.IdentifiedGenesisMetadata',
-    clientId: '',
-    clientMetadata: [],
-  };
+  return { clientId: '', clientMetadata: [] };
 }
 
 export const IdentifiedGenesisMetadata = {
-  $type: 'ibc.core.client.v1.IdentifiedGenesisMetadata' as const,
-
   encode(
     message: IdentifiedGenesisMetadata,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -344,7 +319,6 @@ export const IdentifiedGenesisMetadata = {
 
   fromJSON(object: any): IdentifiedGenesisMetadata {
     return {
-      $type: IdentifiedGenesisMetadata.$type,
       clientId: isSet(object.clientId) ? String(object.clientId) : '',
       clientMetadata: Array.isArray(object?.clientMetadata)
         ? object.clientMetadata.map((e: any) => GenesisMetadata.fromJSON(e))
@@ -375,11 +349,6 @@ export const IdentifiedGenesisMetadata = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  IdentifiedGenesisMetadata.$type,
-  IdentifiedGenesisMetadata,
-);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -435,14 +404,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

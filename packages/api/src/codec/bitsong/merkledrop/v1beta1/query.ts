@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Merkledrop } from './merkledrop';
 import { Params } from './params';
 import Long from 'long';
@@ -8,47 +7,35 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
 export interface QueryMerkledropRequest {
-  $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropRequest';
   id: Long;
 }
 
 export interface QueryMerkledropResponse {
-  $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropResponse';
   merkledrop?: Merkledrop;
 }
 
 export interface QueryIndexClaimedRequest {
-  $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedRequest';
   id: Long;
   index: Long;
 }
 
 export interface QueryIndexClaimedResponse {
-  $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedResponse';
   isClaimed: boolean;
 }
 
 /** QueryParametersRequest is request type for the Query/Parameters RPC method */
-export interface QueryParamsRequest {
-  $type: 'bitsong.merkledrop.v1beta1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParametersResponse is response type for the Query/Parameters RPC method */
 export interface QueryParamsResponse {
-  $type: 'bitsong.merkledrop.v1beta1.QueryParamsResponse';
   params?: Params;
 }
 
 function createBaseQueryMerkledropRequest(): QueryMerkledropRequest {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropRequest',
-    id: Long.UZERO,
-  };
+  return { id: Long.UZERO };
 }
 
 export const QueryMerkledropRequest = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropRequest' as const,
-
   encode(
     message: QueryMerkledropRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -82,7 +69,6 @@ export const QueryMerkledropRequest = {
 
   fromJSON(object: any): QueryMerkledropRequest {
     return {
-      $type: QueryMerkledropRequest.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
@@ -106,18 +92,11 @@ export const QueryMerkledropRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryMerkledropRequest.$type, QueryMerkledropRequest);
-
 function createBaseQueryMerkledropResponse(): QueryMerkledropResponse {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropResponse',
-    merkledrop: undefined,
-  };
+  return { merkledrop: undefined };
 }
 
 export const QueryMerkledropResponse = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryMerkledropResponse' as const,
-
   encode(
     message: QueryMerkledropResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -151,7 +130,6 @@ export const QueryMerkledropResponse = {
 
   fromJSON(object: any): QueryMerkledropResponse {
     return {
-      $type: QueryMerkledropResponse.$type,
       merkledrop: isSet(object.merkledrop)
         ? Merkledrop.fromJSON(object.merkledrop)
         : undefined,
@@ -179,19 +157,11 @@ export const QueryMerkledropResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryMerkledropResponse.$type, QueryMerkledropResponse);
-
 function createBaseQueryIndexClaimedRequest(): QueryIndexClaimedRequest {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedRequest',
-    id: Long.UZERO,
-    index: Long.UZERO,
-  };
+  return { id: Long.UZERO, index: Long.UZERO };
 }
 
 export const QueryIndexClaimedRequest = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedRequest' as const,
-
   encode(
     message: QueryIndexClaimedRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -231,7 +201,6 @@ export const QueryIndexClaimedRequest = {
 
   fromJSON(object: any): QueryIndexClaimedRequest {
     return {
-      $type: QueryIndexClaimedRequest.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
     };
@@ -262,21 +231,11 @@ export const QueryIndexClaimedRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryIndexClaimedRequest.$type,
-  QueryIndexClaimedRequest,
-);
-
 function createBaseQueryIndexClaimedResponse(): QueryIndexClaimedResponse {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedResponse',
-    isClaimed: false,
-  };
+  return { isClaimed: false };
 }
 
 export const QueryIndexClaimedResponse = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryIndexClaimedResponse' as const,
-
   encode(
     message: QueryIndexClaimedResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -310,7 +269,6 @@ export const QueryIndexClaimedResponse = {
 
   fromJSON(object: any): QueryIndexClaimedResponse {
     return {
-      $type: QueryIndexClaimedResponse.$type,
       isClaimed: isSet(object.isClaimed) ? Boolean(object.isClaimed) : false,
     };
   },
@@ -330,18 +288,11 @@ export const QueryIndexClaimedResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryIndexClaimedResponse.$type,
-  QueryIndexClaimedResponse,
-);
-
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'bitsong.merkledrop.v1beta1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -365,9 +316,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -383,18 +332,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'bitsong.merkledrop.v1beta1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -425,7 +367,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -448,8 +389,6 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
 
 export interface Query {
   Merkledrop(request: QueryMerkledropRequest): Promise<QueryMerkledropResponse>;
@@ -535,14 +474,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

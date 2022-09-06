@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,35 +6,26 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
 export interface EventCreate {
-  $type: 'bitsong.merkledrop.v1beta1.EventCreate';
   owner: string;
   merkledropId: Long;
 }
 
 export interface EventClaim {
-  $type: 'bitsong.merkledrop.v1beta1.EventClaim';
   merkledropId: Long;
   index: Long;
   coin?: Coin;
 }
 
 export interface EventWithdraw {
-  $type: 'bitsong.merkledrop.v1beta1.EventWithdraw';
   merkledropId: Long;
   coin?: Coin;
 }
 
 function createBaseEventCreate(): EventCreate {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.EventCreate',
-    owner: '',
-    merkledropId: Long.UZERO,
-  };
+  return { owner: '', merkledropId: Long.UZERO };
 }
 
 export const EventCreate = {
-  $type: 'bitsong.merkledrop.v1beta1.EventCreate' as const,
-
   encode(
     message: EventCreate,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -72,7 +62,6 @@ export const EventCreate = {
 
   fromJSON(object: any): EventCreate {
     return {
-      $type: EventCreate.$type,
       owner: isSet(object.owner) ? String(object.owner) : '',
       merkledropId: isSet(object.merkledropId)
         ? Long.fromValue(object.merkledropId)
@@ -101,20 +90,11 @@ export const EventCreate = {
   },
 };
 
-messageTypeRegistry.set(EventCreate.$type, EventCreate);
-
 function createBaseEventClaim(): EventClaim {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.EventClaim',
-    merkledropId: Long.UZERO,
-    index: Long.UZERO,
-    coin: undefined,
-  };
+  return { merkledropId: Long.UZERO, index: Long.UZERO, coin: undefined };
 }
 
 export const EventClaim = {
-  $type: 'bitsong.merkledrop.v1beta1.EventClaim' as const,
-
   encode(
     message: EventClaim,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -157,7 +137,6 @@ export const EventClaim = {
 
   fromJSON(object: any): EventClaim {
     return {
-      $type: EventClaim.$type,
       merkledropId: isSet(object.merkledropId)
         ? Long.fromValue(object.merkledropId)
         : Long.UZERO,
@@ -197,19 +176,11 @@ export const EventClaim = {
   },
 };
 
-messageTypeRegistry.set(EventClaim.$type, EventClaim);
-
 function createBaseEventWithdraw(): EventWithdraw {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.EventWithdraw',
-    merkledropId: Long.UZERO,
-    coin: undefined,
-  };
+  return { merkledropId: Long.UZERO, coin: undefined };
 }
 
 export const EventWithdraw = {
-  $type: 'bitsong.merkledrop.v1beta1.EventWithdraw' as const,
-
   encode(
     message: EventWithdraw,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -246,7 +217,6 @@ export const EventWithdraw = {
 
   fromJSON(object: any): EventWithdraw {
     return {
-      $type: EventWithdraw.$type,
       merkledropId: isSet(object.merkledropId)
         ? Long.fromValue(object.merkledropId)
         : Long.UZERO,
@@ -279,8 +249,6 @@ export const EventWithdraw = {
   },
 };
 
-messageTypeRegistry.set(EventWithdraw.$type, EventWithdraw);
-
 type Builtin =
   | Date
   | Function
@@ -299,14 +267,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

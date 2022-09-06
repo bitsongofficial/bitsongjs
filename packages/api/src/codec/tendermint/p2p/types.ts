@@ -1,26 +1,22 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
 export const protobufPackage = 'tendermint.p2p';
 
 export interface NetAddress {
-  $type: 'tendermint.p2p.NetAddress';
   id: string;
   ip: string;
   port: number;
 }
 
 export interface ProtocolVersion {
-  $type: 'tendermint.p2p.ProtocolVersion';
   p2p: Long;
   block: Long;
   app: Long;
 }
 
 export interface DefaultNodeInfo {
-  $type: 'tendermint.p2p.DefaultNodeInfo';
   protocolVersion?: ProtocolVersion;
   defaultNodeId: string;
   listenAddr: string;
@@ -32,18 +28,15 @@ export interface DefaultNodeInfo {
 }
 
 export interface DefaultNodeInfoOther {
-  $type: 'tendermint.p2p.DefaultNodeInfoOther';
   txIndex: string;
   rpcAddress: string;
 }
 
 function createBaseNetAddress(): NetAddress {
-  return { $type: 'tendermint.p2p.NetAddress', id: '', ip: '', port: 0 };
+  return { id: '', ip: '', port: 0 };
 }
 
 export const NetAddress = {
-  $type: 'tendermint.p2p.NetAddress' as const,
-
   encode(
     message: NetAddress,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -86,7 +79,6 @@ export const NetAddress = {
 
   fromJSON(object: any): NetAddress {
     return {
-      $type: NetAddress.$type,
       id: isSet(object.id) ? String(object.id) : '',
       ip: isSet(object.ip) ? String(object.ip) : '',
       port: isSet(object.port) ? Number(object.port) : 0,
@@ -112,20 +104,11 @@ export const NetAddress = {
   },
 };
 
-messageTypeRegistry.set(NetAddress.$type, NetAddress);
-
 function createBaseProtocolVersion(): ProtocolVersion {
-  return {
-    $type: 'tendermint.p2p.ProtocolVersion',
-    p2p: Long.UZERO,
-    block: Long.UZERO,
-    app: Long.UZERO,
-  };
+  return { p2p: Long.UZERO, block: Long.UZERO, app: Long.UZERO };
 }
 
 export const ProtocolVersion = {
-  $type: 'tendermint.p2p.ProtocolVersion' as const,
-
   encode(
     message: ProtocolVersion,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -168,7 +151,6 @@ export const ProtocolVersion = {
 
   fromJSON(object: any): ProtocolVersion {
     return {
-      $type: ProtocolVersion.$type,
       p2p: isSet(object.p2p) ? Long.fromValue(object.p2p) : Long.UZERO,
       block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
       app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO,
@@ -206,11 +188,8 @@ export const ProtocolVersion = {
   },
 };
 
-messageTypeRegistry.set(ProtocolVersion.$type, ProtocolVersion);
-
 function createBaseDefaultNodeInfo(): DefaultNodeInfo {
   return {
-    $type: 'tendermint.p2p.DefaultNodeInfo',
     protocolVersion: undefined,
     defaultNodeId: '',
     listenAddr: '',
@@ -223,8 +202,6 @@ function createBaseDefaultNodeInfo(): DefaultNodeInfo {
 }
 
 export const DefaultNodeInfo = {
-  $type: 'tendermint.p2p.DefaultNodeInfo' as const,
-
   encode(
     message: DefaultNodeInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -306,7 +283,6 @@ export const DefaultNodeInfo = {
 
   fromJSON(object: any): DefaultNodeInfo {
     return {
-      $type: DefaultNodeInfo.$type,
       protocolVersion: isSet(object.protocolVersion)
         ? ProtocolVersion.fromJSON(object.protocolVersion)
         : undefined,
@@ -371,19 +347,11 @@ export const DefaultNodeInfo = {
   },
 };
 
-messageTypeRegistry.set(DefaultNodeInfo.$type, DefaultNodeInfo);
-
 function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
-  return {
-    $type: 'tendermint.p2p.DefaultNodeInfoOther',
-    txIndex: '',
-    rpcAddress: '',
-  };
+  return { txIndex: '', rpcAddress: '' };
 }
 
 export const DefaultNodeInfoOther = {
-  $type: 'tendermint.p2p.DefaultNodeInfoOther' as const,
-
   encode(
     message: DefaultNodeInfoOther,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -423,7 +391,6 @@ export const DefaultNodeInfoOther = {
 
   fromJSON(object: any): DefaultNodeInfoOther {
     return {
-      $type: DefaultNodeInfoOther.$type,
       txIndex: isSet(object.txIndex) ? String(object.txIndex) : '',
       rpcAddress: isSet(object.rpcAddress) ? String(object.rpcAddress) : '',
     };
@@ -445,8 +412,6 @@ export const DefaultNodeInfoOther = {
     return message;
   },
 };
-
-messageTypeRegistry.set(DefaultNodeInfoOther.$type, DefaultNodeInfoOther);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -502,14 +467,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

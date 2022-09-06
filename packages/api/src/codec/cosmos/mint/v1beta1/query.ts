@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Params } from './mint';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,28 +6,22 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'cosmos.mint.v1beta1';
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {
-  $type: 'cosmos.mint.v1beta1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
-  $type: 'cosmos.mint.v1beta1.QueryParamsResponse';
   /** params defines the parameters of the module. */
   params?: Params;
 }
 
 /** QueryInflationRequest is the request type for the Query/Inflation RPC method. */
-export interface QueryInflationRequest {
-  $type: 'cosmos.mint.v1beta1.QueryInflationRequest';
-}
+export interface QueryInflationRequest {}
 
 /**
  * QueryInflationResponse is the response type for the Query/Inflation RPC
  * method.
  */
 export interface QueryInflationResponse {
-  $type: 'cosmos.mint.v1beta1.QueryInflationResponse';
   /** inflation is the current minting inflation value. */
   inflation: Uint8Array;
 }
@@ -37,27 +30,22 @@ export interface QueryInflationResponse {
  * QueryAnnualProvisionsRequest is the request type for the
  * Query/AnnualProvisions RPC method.
  */
-export interface QueryAnnualProvisionsRequest {
-  $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsRequest';
-}
+export interface QueryAnnualProvisionsRequest {}
 
 /**
  * QueryAnnualProvisionsResponse is the response type for the
  * Query/AnnualProvisions RPC method.
  */
 export interface QueryAnnualProvisionsResponse {
-  $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsResponse';
   /** annual_provisions is the current minting annual provisions value. */
   annualProvisions: Uint8Array;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'cosmos.mint.v1beta1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'cosmos.mint.v1beta1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -81,9 +69,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -99,18 +85,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'cosmos.mint.v1beta1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'cosmos.mint.v1beta1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -141,7 +120,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -165,15 +143,11 @@ export const QueryParamsResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
-
 function createBaseQueryInflationRequest(): QueryInflationRequest {
-  return { $type: 'cosmos.mint.v1beta1.QueryInflationRequest' };
+  return {};
 }
 
 export const QueryInflationRequest = {
-  $type: 'cosmos.mint.v1beta1.QueryInflationRequest' as const,
-
   encode(
     _: QueryInflationRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -200,9 +174,7 @@ export const QueryInflationRequest = {
   },
 
   fromJSON(_: any): QueryInflationRequest {
-    return {
-      $type: QueryInflationRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryInflationRequest): unknown {
@@ -218,18 +190,11 @@ export const QueryInflationRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryInflationRequest.$type, QueryInflationRequest);
-
 function createBaseQueryInflationResponse(): QueryInflationResponse {
-  return {
-    $type: 'cosmos.mint.v1beta1.QueryInflationResponse',
-    inflation: new Uint8Array(),
-  };
+  return { inflation: new Uint8Array() };
 }
 
 export const QueryInflationResponse = {
-  $type: 'cosmos.mint.v1beta1.QueryInflationResponse' as const,
-
   encode(
     message: QueryInflationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -263,7 +228,6 @@ export const QueryInflationResponse = {
 
   fromJSON(object: any): QueryInflationResponse {
     return {
-      $type: QueryInflationResponse.$type,
       inflation: isSet(object.inflation)
         ? bytesFromBase64(object.inflation)
         : new Uint8Array(),
@@ -288,15 +252,11 @@ export const QueryInflationResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryInflationResponse.$type, QueryInflationResponse);
-
 function createBaseQueryAnnualProvisionsRequest(): QueryAnnualProvisionsRequest {
-  return { $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsRequest' };
+  return {};
 }
 
 export const QueryAnnualProvisionsRequest = {
-  $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsRequest' as const,
-
   encode(
     _: QueryAnnualProvisionsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -323,9 +283,7 @@ export const QueryAnnualProvisionsRequest = {
   },
 
   fromJSON(_: any): QueryAnnualProvisionsRequest {
-    return {
-      $type: QueryAnnualProvisionsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryAnnualProvisionsRequest): unknown {
@@ -341,21 +299,11 @@ export const QueryAnnualProvisionsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryAnnualProvisionsRequest.$type,
-  QueryAnnualProvisionsRequest,
-);
-
 function createBaseQueryAnnualProvisionsResponse(): QueryAnnualProvisionsResponse {
-  return {
-    $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsResponse',
-    annualProvisions: new Uint8Array(),
-  };
+  return { annualProvisions: new Uint8Array() };
 }
 
 export const QueryAnnualProvisionsResponse = {
-  $type: 'cosmos.mint.v1beta1.QueryAnnualProvisionsResponse' as const,
-
   encode(
     message: QueryAnnualProvisionsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -389,7 +337,6 @@ export const QueryAnnualProvisionsResponse = {
 
   fromJSON(object: any): QueryAnnualProvisionsResponse {
     return {
-      $type: QueryAnnualProvisionsResponse.$type,
       annualProvisions: isSet(object.annualProvisions)
         ? bytesFromBase64(object.annualProvisions)
         : new Uint8Array(),
@@ -415,11 +362,6 @@ export const QueryAnnualProvisionsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  QueryAnnualProvisionsResponse.$type,
-  QueryAnnualProvisionsResponse,
-);
 
 /** Query provides defines the gRPC querier service. */
 export interface Query {
@@ -542,14 +484,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

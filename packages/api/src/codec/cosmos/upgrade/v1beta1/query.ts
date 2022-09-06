@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Plan, ModuleVersion } from './upgrade';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -10,16 +9,13 @@ export const protobufPackage = 'cosmos.upgrade.v1beta1';
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
  * method.
  */
-export interface QueryCurrentPlanRequest {
-  $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanRequest';
-}
+export interface QueryCurrentPlanRequest {}
 
 /**
  * QueryCurrentPlanResponse is the response type for the Query/CurrentPlan RPC
  * method.
  */
 export interface QueryCurrentPlanResponse {
-  $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanResponse';
   /** plan is the current upgrade plan. */
   plan?: Plan;
 }
@@ -29,7 +25,6 @@ export interface QueryCurrentPlanResponse {
  * method.
  */
 export interface QueryAppliedPlanRequest {
-  $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanRequest';
   /** name is the name of the applied plan to query for. */
   name: string;
 }
@@ -39,7 +34,6 @@ export interface QueryAppliedPlanRequest {
  * method.
  */
 export interface QueryAppliedPlanResponse {
-  $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanResponse';
   /** height is the block height at which the plan was applied. */
   height: Long;
 }
@@ -51,7 +45,6 @@ export interface QueryAppliedPlanResponse {
  * @deprecated
  */
 export interface QueryUpgradedConsensusStateRequest {
-  $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest';
   /**
    * last height of the current chain must be sent in request
    * as this is the height under which next consensus state is stored
@@ -66,7 +59,6 @@ export interface QueryUpgradedConsensusStateRequest {
  * @deprecated
  */
 export interface QueryUpgradedConsensusStateResponse {
-  $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse';
   /** Since: cosmos-sdk 0.43 */
   upgradedConsensusState: Uint8Array;
 }
@@ -78,7 +70,6 @@ export interface QueryUpgradedConsensusStateResponse {
  * Since: cosmos-sdk 0.43
  */
 export interface QueryModuleVersionsRequest {
-  $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsRequest';
   /**
    * module_name is a field to query a specific module
    * consensus version from state. Leaving this empty will
@@ -94,18 +85,15 @@ export interface QueryModuleVersionsRequest {
  * Since: cosmos-sdk 0.43
  */
 export interface QueryModuleVersionsResponse {
-  $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsResponse';
   /** module_versions is a list of module names with their consensus versions. */
   moduleVersions: ModuleVersion[];
 }
 
 function createBaseQueryCurrentPlanRequest(): QueryCurrentPlanRequest {
-  return { $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanRequest' };
+  return {};
 }
 
 export const QueryCurrentPlanRequest = {
-  $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanRequest' as const,
-
   encode(
     _: QueryCurrentPlanRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -132,9 +120,7 @@ export const QueryCurrentPlanRequest = {
   },
 
   fromJSON(_: any): QueryCurrentPlanRequest {
-    return {
-      $type: QueryCurrentPlanRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryCurrentPlanRequest): unknown {
@@ -150,18 +136,11 @@ export const QueryCurrentPlanRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryCurrentPlanRequest.$type, QueryCurrentPlanRequest);
-
 function createBaseQueryCurrentPlanResponse(): QueryCurrentPlanResponse {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanResponse',
-    plan: undefined,
-  };
+  return { plan: undefined };
 }
 
 export const QueryCurrentPlanResponse = {
-  $type: 'cosmos.upgrade.v1beta1.QueryCurrentPlanResponse' as const,
-
   encode(
     message: QueryCurrentPlanResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -195,7 +174,6 @@ export const QueryCurrentPlanResponse = {
 
   fromJSON(object: any): QueryCurrentPlanResponse {
     return {
-      $type: QueryCurrentPlanResponse.$type,
       plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
     };
   },
@@ -219,18 +197,11 @@ export const QueryCurrentPlanResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryCurrentPlanResponse.$type,
-  QueryCurrentPlanResponse,
-);
-
 function createBaseQueryAppliedPlanRequest(): QueryAppliedPlanRequest {
-  return { $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanRequest', name: '' };
+  return { name: '' };
 }
 
 export const QueryAppliedPlanRequest = {
-  $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanRequest' as const,
-
   encode(
     message: QueryAppliedPlanRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -264,7 +235,6 @@ export const QueryAppliedPlanRequest = {
 
   fromJSON(object: any): QueryAppliedPlanRequest {
     return {
-      $type: QueryAppliedPlanRequest.$type,
       name: isSet(object.name) ? String(object.name) : '',
     };
   },
@@ -284,18 +254,11 @@ export const QueryAppliedPlanRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryAppliedPlanRequest.$type, QueryAppliedPlanRequest);
-
 function createBaseQueryAppliedPlanResponse(): QueryAppliedPlanResponse {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanResponse',
-    height: Long.ZERO,
-  };
+  return { height: Long.ZERO };
 }
 
 export const QueryAppliedPlanResponse = {
-  $type: 'cosmos.upgrade.v1beta1.QueryAppliedPlanResponse' as const,
-
   encode(
     message: QueryAppliedPlanResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -329,7 +292,6 @@ export const QueryAppliedPlanResponse = {
 
   fromJSON(object: any): QueryAppliedPlanResponse {
     return {
-      $type: QueryAppliedPlanResponse.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
     };
   },
@@ -353,21 +315,11 @@ export const QueryAppliedPlanResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryAppliedPlanResponse.$type,
-  QueryAppliedPlanResponse,
-);
-
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest',
-    lastHeight: Long.ZERO,
-  };
+  return { lastHeight: Long.ZERO };
 }
 
 export const QueryUpgradedConsensusStateRequest = {
-  $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest' as const,
-
   encode(
     message: QueryUpgradedConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -401,7 +353,6 @@ export const QueryUpgradedConsensusStateRequest = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateRequest {
     return {
-      $type: QueryUpgradedConsensusStateRequest.$type,
       lastHeight: isSet(object.lastHeight)
         ? Long.fromValue(object.lastHeight)
         : Long.ZERO,
@@ -427,21 +378,11 @@ export const QueryUpgradedConsensusStateRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryUpgradedConsensusStateRequest.$type,
-  QueryUpgradedConsensusStateRequest,
-);
-
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse',
-    upgradedConsensusState: new Uint8Array(),
-  };
+  return { upgradedConsensusState: new Uint8Array() };
 }
 
 export const QueryUpgradedConsensusStateResponse = {
-  $type: 'cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse' as const,
-
   encode(
     message: QueryUpgradedConsensusStateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -475,7 +416,6 @@ export const QueryUpgradedConsensusStateResponse = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateResponse {
     return {
-      $type: QueryUpgradedConsensusStateResponse.$type,
       upgradedConsensusState: isSet(object.upgradedConsensusState)
         ? bytesFromBase64(object.upgradedConsensusState)
         : new Uint8Array(),
@@ -503,21 +443,11 @@ export const QueryUpgradedConsensusStateResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryUpgradedConsensusStateResponse.$type,
-  QueryUpgradedConsensusStateResponse,
-);
-
 function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsRequest',
-    moduleName: '',
-  };
+  return { moduleName: '' };
 }
 
 export const QueryModuleVersionsRequest = {
-  $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsRequest' as const,
-
   encode(
     message: QueryModuleVersionsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -551,7 +481,6 @@ export const QueryModuleVersionsRequest = {
 
   fromJSON(object: any): QueryModuleVersionsRequest {
     return {
-      $type: QueryModuleVersionsRequest.$type,
       moduleName: isSet(object.moduleName) ? String(object.moduleName) : '',
     };
   },
@@ -571,21 +500,11 @@ export const QueryModuleVersionsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryModuleVersionsRequest.$type,
-  QueryModuleVersionsRequest,
-);
-
 function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
-  return {
-    $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsResponse',
-    moduleVersions: [],
-  };
+  return { moduleVersions: [] };
 }
 
 export const QueryModuleVersionsResponse = {
-  $type: 'cosmos.upgrade.v1beta1.QueryModuleVersionsResponse' as const,
-
   encode(
     message: QueryModuleVersionsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -621,7 +540,6 @@ export const QueryModuleVersionsResponse = {
 
   fromJSON(object: any): QueryModuleVersionsResponse {
     return {
-      $type: QueryModuleVersionsResponse.$type,
       moduleVersions: Array.isArray(object?.moduleVersions)
         ? object.moduleVersions.map((e: any) => ModuleVersion.fromJSON(e))
         : [],
@@ -649,11 +567,6 @@ export const QueryModuleVersionsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  QueryModuleVersionsResponse.$type,
-  QueryModuleVersionsResponse,
-);
 
 /** Query defines the gRPC upgrade querier service. */
 export interface Query {
@@ -816,14 +729,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

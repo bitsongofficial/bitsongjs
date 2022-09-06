@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -7,7 +6,6 @@ export const protobufPackage = 'cosmos.base.snapshots.v1beta1';
 
 /** Snapshot contains Tendermint state sync snapshot info. */
 export interface Snapshot {
-  $type: 'cosmos.base.snapshots.v1beta1.Snapshot';
   height: Long;
   format: number;
   chunks: number;
@@ -17,14 +15,12 @@ export interface Snapshot {
 
 /** Metadata contains SDK-specific snapshot metadata. */
 export interface Metadata {
-  $type: 'cosmos.base.snapshots.v1beta1.Metadata';
   /** SHA-256 chunk hashes */
   chunkHashes: Uint8Array[];
 }
 
 /** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
 export interface SnapshotItem {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotItem';
   store?: SnapshotStoreItem | undefined;
   iavl?: SnapshotIAVLItem | undefined;
   extension?: SnapshotExtensionMeta | undefined;
@@ -33,13 +29,11 @@ export interface SnapshotItem {
 
 /** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItem {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotStoreItem';
   name: string;
 }
 
 /** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItem {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotIAVLItem';
   key: Uint8Array;
   value: Uint8Array;
   /** version is block height */
@@ -50,20 +44,17 @@ export interface SnapshotIAVLItem {
 
 /** SnapshotExtensionMeta contains metadata about an external snapshotter. */
 export interface SnapshotExtensionMeta {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta';
   name: string;
   format: number;
 }
 
 /** SnapshotExtensionPayload contains payloads of an external snapshotter. */
 export interface SnapshotExtensionPayload {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload';
   payload: Uint8Array;
 }
 
 function createBaseSnapshot(): Snapshot {
   return {
-    $type: 'cosmos.base.snapshots.v1beta1.Snapshot',
     height: Long.UZERO,
     format: 0,
     chunks: 0,
@@ -73,8 +64,6 @@ function createBaseSnapshot(): Snapshot {
 }
 
 export const Snapshot = {
-  $type: 'cosmos.base.snapshots.v1beta1.Snapshot' as const,
-
   encode(
     message: Snapshot,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -129,7 +118,6 @@ export const Snapshot = {
 
   fromJSON(object: any): Snapshot {
     return {
-      $type: Snapshot.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
       format: isSet(object.format) ? Number(object.format) : 0,
       chunks: isSet(object.chunks) ? Number(object.chunks) : 0,
@@ -176,15 +164,11 @@ export const Snapshot = {
   },
 };
 
-messageTypeRegistry.set(Snapshot.$type, Snapshot);
-
 function createBaseMetadata(): Metadata {
-  return { $type: 'cosmos.base.snapshots.v1beta1.Metadata', chunkHashes: [] };
+  return { chunkHashes: [] };
 }
 
 export const Metadata = {
-  $type: 'cosmos.base.snapshots.v1beta1.Metadata' as const,
-
   encode(
     message: Metadata,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -215,7 +199,6 @@ export const Metadata = {
 
   fromJSON(object: any): Metadata {
     return {
-      $type: Metadata.$type,
       chunkHashes: Array.isArray(object?.chunkHashes)
         ? object.chunkHashes.map((e: any) => bytesFromBase64(e))
         : [],
@@ -241,11 +224,8 @@ export const Metadata = {
   },
 };
 
-messageTypeRegistry.set(Metadata.$type, Metadata);
-
 function createBaseSnapshotItem(): SnapshotItem {
   return {
-    $type: 'cosmos.base.snapshots.v1beta1.SnapshotItem',
     store: undefined,
     iavl: undefined,
     extension: undefined,
@@ -254,8 +234,6 @@ function createBaseSnapshotItem(): SnapshotItem {
 }
 
 export const SnapshotItem = {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotItem' as const,
-
   encode(
     message: SnapshotItem,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -319,7 +297,6 @@ export const SnapshotItem = {
 
   fromJSON(object: any): SnapshotItem {
     return {
-      $type: SnapshotItem.$type,
       store: isSet(object.store)
         ? SnapshotStoreItem.fromJSON(object.store)
         : undefined,
@@ -380,15 +357,11 @@ export const SnapshotItem = {
   },
 };
 
-messageTypeRegistry.set(SnapshotItem.$type, SnapshotItem);
-
 function createBaseSnapshotStoreItem(): SnapshotStoreItem {
-  return { $type: 'cosmos.base.snapshots.v1beta1.SnapshotStoreItem', name: '' };
+  return { name: '' };
 }
 
 export const SnapshotStoreItem = {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotStoreItem' as const,
-
   encode(
     message: SnapshotStoreItem,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -419,7 +392,6 @@ export const SnapshotStoreItem = {
 
   fromJSON(object: any): SnapshotStoreItem {
     return {
-      $type: SnapshotStoreItem.$type,
       name: isSet(object.name) ? String(object.name) : '',
     };
   },
@@ -439,11 +411,8 @@ export const SnapshotStoreItem = {
   },
 };
 
-messageTypeRegistry.set(SnapshotStoreItem.$type, SnapshotStoreItem);
-
 function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
   return {
-    $type: 'cosmos.base.snapshots.v1beta1.SnapshotIAVLItem',
     key: new Uint8Array(),
     value: new Uint8Array(),
     version: Long.ZERO,
@@ -452,8 +421,6 @@ function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
 }
 
 export const SnapshotIAVLItem = {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotIAVLItem' as const,
-
   encode(
     message: SnapshotIAVLItem,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -502,7 +469,6 @@ export const SnapshotIAVLItem = {
 
   fromJSON(object: any): SnapshotIAVLItem {
     return {
-      $type: SnapshotIAVLItem.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value)
         ? bytesFromBase64(object.value)
@@ -545,19 +511,11 @@ export const SnapshotIAVLItem = {
   },
 };
 
-messageTypeRegistry.set(SnapshotIAVLItem.$type, SnapshotIAVLItem);
-
 function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
-  return {
-    $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta',
-    name: '',
-    format: 0,
-  };
+  return { name: '', format: 0 };
 }
 
 export const SnapshotExtensionMeta = {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta' as const,
-
   encode(
     message: SnapshotExtensionMeta,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -597,7 +555,6 @@ export const SnapshotExtensionMeta = {
 
   fromJSON(object: any): SnapshotExtensionMeta {
     return {
-      $type: SnapshotExtensionMeta.$type,
       name: isSet(object.name) ? String(object.name) : '',
       format: isSet(object.format) ? Number(object.format) : 0,
     };
@@ -620,18 +577,11 @@ export const SnapshotExtensionMeta = {
   },
 };
 
-messageTypeRegistry.set(SnapshotExtensionMeta.$type, SnapshotExtensionMeta);
-
 function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
-  return {
-    $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload',
-    payload: new Uint8Array(),
-  };
+  return { payload: new Uint8Array() };
 }
 
 export const SnapshotExtensionPayload = {
-  $type: 'cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload' as const,
-
   encode(
     message: SnapshotExtensionPayload,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -665,7 +615,6 @@ export const SnapshotExtensionPayload = {
 
   fromJSON(object: any): SnapshotExtensionPayload {
     return {
-      $type: SnapshotExtensionPayload.$type,
       payload: isSet(object.payload)
         ? bytesFromBase64(object.payload)
         : new Uint8Array(),
@@ -689,11 +638,6 @@ export const SnapshotExtensionPayload = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  SnapshotExtensionPayload.$type,
-  SnapshotExtensionPayload,
-);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -749,14 +693,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

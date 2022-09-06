@@ -1,18 +1,14 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
 export const protobufPackage = 'cosmos.base.reflection.v1beta1';
 
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
-export interface ListAllInterfacesRequest {
-  $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesRequest';
-}
+export interface ListAllInterfacesRequest {}
 
 /** ListAllInterfacesResponse is the response type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesResponse {
-  $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesResponse';
   /** interface_names is an array of all the registered interfaces. */
   interfaceNames: string[];
 }
@@ -22,7 +18,6 @@ export interface ListAllInterfacesResponse {
  * RPC.
  */
 export interface ListImplementationsRequest {
-  $type: 'cosmos.base.reflection.v1beta1.ListImplementationsRequest';
   /** interface_name defines the interface to query the implementations for. */
   interfaceName: string;
 }
@@ -32,17 +27,14 @@ export interface ListImplementationsRequest {
  * RPC.
  */
 export interface ListImplementationsResponse {
-  $type: 'cosmos.base.reflection.v1beta1.ListImplementationsResponse';
   implementationMessageNames: string[];
 }
 
 function createBaseListAllInterfacesRequest(): ListAllInterfacesRequest {
-  return { $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesRequest' };
+  return {};
 }
 
 export const ListAllInterfacesRequest = {
-  $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesRequest' as const,
-
   encode(
     _: ListAllInterfacesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -69,9 +61,7 @@ export const ListAllInterfacesRequest = {
   },
 
   fromJSON(_: any): ListAllInterfacesRequest {
-    return {
-      $type: ListAllInterfacesRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: ListAllInterfacesRequest): unknown {
@@ -87,21 +77,11 @@ export const ListAllInterfacesRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  ListAllInterfacesRequest.$type,
-  ListAllInterfacesRequest,
-);
-
 function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
-  return {
-    $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesResponse',
-    interfaceNames: [],
-  };
+  return { interfaceNames: [] };
 }
 
 export const ListAllInterfacesResponse = {
-  $type: 'cosmos.base.reflection.v1beta1.ListAllInterfacesResponse' as const,
-
   encode(
     message: ListAllInterfacesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -135,7 +115,6 @@ export const ListAllInterfacesResponse = {
 
   fromJSON(object: any): ListAllInterfacesResponse {
     return {
-      $type: ListAllInterfacesResponse.$type,
       interfaceNames: Array.isArray(object?.interfaceNames)
         ? object.interfaceNames.map((e: any) => String(e))
         : [],
@@ -161,21 +140,11 @@ export const ListAllInterfacesResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  ListAllInterfacesResponse.$type,
-  ListAllInterfacesResponse,
-);
-
 function createBaseListImplementationsRequest(): ListImplementationsRequest {
-  return {
-    $type: 'cosmos.base.reflection.v1beta1.ListImplementationsRequest',
-    interfaceName: '',
-  };
+  return { interfaceName: '' };
 }
 
 export const ListImplementationsRequest = {
-  $type: 'cosmos.base.reflection.v1beta1.ListImplementationsRequest' as const,
-
   encode(
     message: ListImplementationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -209,7 +178,6 @@ export const ListImplementationsRequest = {
 
   fromJSON(object: any): ListImplementationsRequest {
     return {
-      $type: ListImplementationsRequest.$type,
       interfaceName: isSet(object.interfaceName)
         ? String(object.interfaceName)
         : '',
@@ -232,21 +200,11 @@ export const ListImplementationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  ListImplementationsRequest.$type,
-  ListImplementationsRequest,
-);
-
 function createBaseListImplementationsResponse(): ListImplementationsResponse {
-  return {
-    $type: 'cosmos.base.reflection.v1beta1.ListImplementationsResponse',
-    implementationMessageNames: [],
-  };
+  return { implementationMessageNames: [] };
 }
 
 export const ListImplementationsResponse = {
-  $type: 'cosmos.base.reflection.v1beta1.ListImplementationsResponse' as const,
-
   encode(
     message: ListImplementationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -280,7 +238,6 @@ export const ListImplementationsResponse = {
 
   fromJSON(object: any): ListImplementationsResponse {
     return {
-      $type: ListImplementationsResponse.$type,
       implementationMessageNames: Array.isArray(
         object?.implementationMessageNames,
       )
@@ -310,11 +267,6 @@ export const ListImplementationsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  ListImplementationsResponse.$type,
-  ListImplementationsResponse,
-);
 
 /** ReflectionService defines a service for interface reflection. */
 export interface ReflectionService {
@@ -396,14 +348,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

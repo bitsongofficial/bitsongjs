@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import { DecCoin, Coin } from '../../base/v1beta1/coin';
 import _m0 from 'protobufjs/minimal';
@@ -8,7 +7,6 @@ export const protobufPackage = 'cosmos.distribution.v1beta1';
 
 /** Params defines the set of params for the distribution module. */
 export interface Params {
-  $type: 'cosmos.distribution.v1beta1.Params';
   communityTax: string;
   baseProposerReward: string;
   bonusProposerReward: string;
@@ -30,7 +28,6 @@ export interface Params {
  *  + one per validator for the zeroeth period, set on initialization
  */
 export interface ValidatorHistoricalRewards {
-  $type: 'cosmos.distribution.v1beta1.ValidatorHistoricalRewards';
   cumulativeRewardRatio: DecCoin[];
   referenceCount: number;
 }
@@ -41,7 +38,6 @@ export interface ValidatorHistoricalRewards {
  * each block as long as the validator's tokens remain constant.
  */
 export interface ValidatorCurrentRewards {
-  $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewards';
   rewards: DecCoin[];
   period: Long;
 }
@@ -51,7 +47,6 @@ export interface ValidatorCurrentRewards {
  * for a validator kept as a running counter, can be withdrawn at any time.
  */
 export interface ValidatorAccumulatedCommission {
-  $type: 'cosmos.distribution.v1beta1.ValidatorAccumulatedCommission';
   commission: DecCoin[];
 }
 
@@ -60,7 +55,6 @@ export interface ValidatorAccumulatedCommission {
  * for a validator inexpensive to track, allows simple sanity checks.
  */
 export interface ValidatorOutstandingRewards {
-  $type: 'cosmos.distribution.v1beta1.ValidatorOutstandingRewards';
   rewards: DecCoin[];
 }
 
@@ -71,20 +65,17 @@ export interface ValidatorOutstandingRewards {
  * for delegations which are withdrawn after a slash has occurred.
  */
 export interface ValidatorSlashEvent {
-  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvent';
   validatorPeriod: Long;
   fraction: string;
 }
 
 /** ValidatorSlashEvents is a collection of ValidatorSlashEvent messages. */
 export interface ValidatorSlashEvents {
-  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvents';
   validatorSlashEvents: ValidatorSlashEvent[];
 }
 
 /** FeePool is the global fee pool for distribution. */
 export interface FeePool {
-  $type: 'cosmos.distribution.v1beta1.FeePool';
   communityPool: DecCoin[];
 }
 
@@ -94,7 +85,6 @@ export interface FeePool {
  * recipient account.
  */
 export interface CommunityPoolSpendProposal {
-  $type: 'cosmos.distribution.v1beta1.CommunityPoolSpendProposal';
   title: string;
   description: string;
   recipient: string;
@@ -110,7 +100,6 @@ export interface CommunityPoolSpendProposal {
  * thus sdk.Dec is used.
  */
 export interface DelegatorStartingInfo {
-  $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfo';
   previousPeriod: Long;
   stake: string;
   height: Long;
@@ -121,7 +110,6 @@ export interface DelegatorStartingInfo {
  * of a delegator's delegation reward.
  */
 export interface DelegationDelegatorReward {
-  $type: 'cosmos.distribution.v1beta1.DelegationDelegatorReward';
   validatorAddress: string;
   reward: DecCoin[];
 }
@@ -131,7 +119,6 @@ export interface DelegationDelegatorReward {
  * with a deposit
  */
 export interface CommunityPoolSpendProposalWithDeposit {
-  $type: 'cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit';
   title: string;
   description: string;
   recipient: string;
@@ -141,7 +128,6 @@ export interface CommunityPoolSpendProposalWithDeposit {
 
 function createBaseParams(): Params {
   return {
-    $type: 'cosmos.distribution.v1beta1.Params',
     communityTax: '',
     baseProposerReward: '',
     bonusProposerReward: '',
@@ -150,8 +136,6 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: 'cosmos.distribution.v1beta1.Params' as const,
-
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -200,7 +184,6 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       communityTax: isSet(object.communityTax)
         ? String(object.communityTax)
         : '',
@@ -239,19 +222,11 @@ export const Params = {
   },
 };
 
-messageTypeRegistry.set(Params.$type, Params);
-
 function createBaseValidatorHistoricalRewards(): ValidatorHistoricalRewards {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorHistoricalRewards',
-    cumulativeRewardRatio: [],
-    referenceCount: 0,
-  };
+  return { cumulativeRewardRatio: [], referenceCount: 0 };
 }
 
 export const ValidatorHistoricalRewards = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorHistoricalRewards' as const,
-
   encode(
     message: ValidatorHistoricalRewards,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -293,7 +268,6 @@ export const ValidatorHistoricalRewards = {
 
   fromJSON(object: any): ValidatorHistoricalRewards {
     return {
-      $type: ValidatorHistoricalRewards.$type,
       cumulativeRewardRatio: Array.isArray(object?.cumulativeRewardRatio)
         ? object.cumulativeRewardRatio.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -328,22 +302,11 @@ export const ValidatorHistoricalRewards = {
   },
 };
 
-messageTypeRegistry.set(
-  ValidatorHistoricalRewards.$type,
-  ValidatorHistoricalRewards,
-);
-
 function createBaseValidatorCurrentRewards(): ValidatorCurrentRewards {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewards',
-    rewards: [],
-    period: Long.UZERO,
-  };
+  return { rewards: [], period: Long.UZERO };
 }
 
 export const ValidatorCurrentRewards = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorCurrentRewards' as const,
-
   encode(
     message: ValidatorCurrentRewards,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -383,7 +346,6 @@ export const ValidatorCurrentRewards = {
 
   fromJSON(object: any): ValidatorCurrentRewards {
     return {
-      $type: ValidatorCurrentRewards.$type,
       rewards: Array.isArray(object?.rewards)
         ? object.rewards.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -418,18 +380,11 @@ export const ValidatorCurrentRewards = {
   },
 };
 
-messageTypeRegistry.set(ValidatorCurrentRewards.$type, ValidatorCurrentRewards);
-
 function createBaseValidatorAccumulatedCommission(): ValidatorAccumulatedCommission {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorAccumulatedCommission',
-    commission: [],
-  };
+  return { commission: [] };
 }
 
 export const ValidatorAccumulatedCommission = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorAccumulatedCommission' as const,
-
   encode(
     message: ValidatorAccumulatedCommission,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -463,7 +418,6 @@ export const ValidatorAccumulatedCommission = {
 
   fromJSON(object: any): ValidatorAccumulatedCommission {
     return {
-      $type: ValidatorAccumulatedCommission.$type,
       commission: Array.isArray(object?.commission)
         ? object.commission.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -492,21 +446,11 @@ export const ValidatorAccumulatedCommission = {
   },
 };
 
-messageTypeRegistry.set(
-  ValidatorAccumulatedCommission.$type,
-  ValidatorAccumulatedCommission,
-);
-
 function createBaseValidatorOutstandingRewards(): ValidatorOutstandingRewards {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorOutstandingRewards',
-    rewards: [],
-  };
+  return { rewards: [] };
 }
 
 export const ValidatorOutstandingRewards = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorOutstandingRewards' as const,
-
   encode(
     message: ValidatorOutstandingRewards,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -540,7 +484,6 @@ export const ValidatorOutstandingRewards = {
 
   fromJSON(object: any): ValidatorOutstandingRewards {
     return {
-      $type: ValidatorOutstandingRewards.$type,
       rewards: Array.isArray(object?.rewards)
         ? object.rewards.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -568,22 +511,11 @@ export const ValidatorOutstandingRewards = {
   },
 };
 
-messageTypeRegistry.set(
-  ValidatorOutstandingRewards.$type,
-  ValidatorOutstandingRewards,
-);
-
 function createBaseValidatorSlashEvent(): ValidatorSlashEvent {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvent',
-    validatorPeriod: Long.UZERO,
-    fraction: '',
-  };
+  return { validatorPeriod: Long.UZERO, fraction: '' };
 }
 
 export const ValidatorSlashEvent = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvent' as const,
-
   encode(
     message: ValidatorSlashEvent,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -620,7 +552,6 @@ export const ValidatorSlashEvent = {
 
   fromJSON(object: any): ValidatorSlashEvent {
     return {
-      $type: ValidatorSlashEvent.$type,
       validatorPeriod: isSet(object.validatorPeriod)
         ? Long.fromValue(object.validatorPeriod)
         : Long.UZERO,
@@ -651,18 +582,11 @@ export const ValidatorSlashEvent = {
   },
 };
 
-messageTypeRegistry.set(ValidatorSlashEvent.$type, ValidatorSlashEvent);
-
 function createBaseValidatorSlashEvents(): ValidatorSlashEvents {
-  return {
-    $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvents',
-    validatorSlashEvents: [],
-  };
+  return { validatorSlashEvents: [] };
 }
 
 export const ValidatorSlashEvents = {
-  $type: 'cosmos.distribution.v1beta1.ValidatorSlashEvents' as const,
-
   encode(
     message: ValidatorSlashEvents,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -698,7 +622,6 @@ export const ValidatorSlashEvents = {
 
   fromJSON(object: any): ValidatorSlashEvents {
     return {
-      $type: ValidatorSlashEvents.$type,
       validatorSlashEvents: Array.isArray(object?.validatorSlashEvents)
         ? object.validatorSlashEvents.map((e: any) =>
             ValidatorSlashEvent.fromJSON(e),
@@ -731,15 +654,11 @@ export const ValidatorSlashEvents = {
   },
 };
 
-messageTypeRegistry.set(ValidatorSlashEvents.$type, ValidatorSlashEvents);
-
 function createBaseFeePool(): FeePool {
-  return { $type: 'cosmos.distribution.v1beta1.FeePool', communityPool: [] };
+  return { communityPool: [] };
 }
 
 export const FeePool = {
-  $type: 'cosmos.distribution.v1beta1.FeePool' as const,
-
   encode(
     message: FeePool,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -770,7 +689,6 @@ export const FeePool = {
 
   fromJSON(object: any): FeePool {
     return {
-      $type: FeePool.$type,
       communityPool: Array.isArray(object?.communityPool)
         ? object.communityPool.map((e: any) => DecCoin.fromJSON(e))
         : [],
@@ -797,21 +715,11 @@ export const FeePool = {
   },
 };
 
-messageTypeRegistry.set(FeePool.$type, FeePool);
-
 function createBaseCommunityPoolSpendProposal(): CommunityPoolSpendProposal {
-  return {
-    $type: 'cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
-    title: '',
-    description: '',
-    recipient: '',
-    amount: [],
-  };
+  return { title: '', description: '', recipient: '', amount: [] };
 }
 
 export const CommunityPoolSpendProposal = {
-  $type: 'cosmos.distribution.v1beta1.CommunityPoolSpendProposal' as const,
-
   encode(
     message: CommunityPoolSpendProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -863,7 +771,6 @@ export const CommunityPoolSpendProposal = {
 
   fromJSON(object: any): CommunityPoolSpendProposal {
     return {
-      $type: CommunityPoolSpendProposal.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       recipient: isSet(object.recipient) ? String(object.recipient) : '',
@@ -899,23 +806,11 @@ export const CommunityPoolSpendProposal = {
   },
 };
 
-messageTypeRegistry.set(
-  CommunityPoolSpendProposal.$type,
-  CommunityPoolSpendProposal,
-);
-
 function createBaseDelegatorStartingInfo(): DelegatorStartingInfo {
-  return {
-    $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfo',
-    previousPeriod: Long.UZERO,
-    stake: '',
-    height: Long.UZERO,
-  };
+  return { previousPeriod: Long.UZERO, stake: '', height: Long.UZERO };
 }
 
 export const DelegatorStartingInfo = {
-  $type: 'cosmos.distribution.v1beta1.DelegatorStartingInfo' as const,
-
   encode(
     message: DelegatorStartingInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -961,7 +856,6 @@ export const DelegatorStartingInfo = {
 
   fromJSON(object: any): DelegatorStartingInfo {
     return {
-      $type: DelegatorStartingInfo.$type,
       previousPeriod: isSet(object.previousPeriod)
         ? Long.fromValue(object.previousPeriod)
         : Long.UZERO,
@@ -997,19 +891,11 @@ export const DelegatorStartingInfo = {
   },
 };
 
-messageTypeRegistry.set(DelegatorStartingInfo.$type, DelegatorStartingInfo);
-
 function createBaseDelegationDelegatorReward(): DelegationDelegatorReward {
-  return {
-    $type: 'cosmos.distribution.v1beta1.DelegationDelegatorReward',
-    validatorAddress: '',
-    reward: [],
-  };
+  return { validatorAddress: '', reward: [] };
 }
 
 export const DelegationDelegatorReward = {
-  $type: 'cosmos.distribution.v1beta1.DelegationDelegatorReward' as const,
-
   encode(
     message: DelegationDelegatorReward,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1049,7 +935,6 @@ export const DelegationDelegatorReward = {
 
   fromJSON(object: any): DelegationDelegatorReward {
     return {
-      $type: DelegationDelegatorReward.$type,
       validatorAddress: isSet(object.validatorAddress)
         ? String(object.validatorAddress)
         : '',
@@ -1081,26 +966,11 @@ export const DelegationDelegatorReward = {
   },
 };
 
-messageTypeRegistry.set(
-  DelegationDelegatorReward.$type,
-  DelegationDelegatorReward,
-);
-
 function createBaseCommunityPoolSpendProposalWithDeposit(): CommunityPoolSpendProposalWithDeposit {
-  return {
-    $type: 'cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit',
-    title: '',
-    description: '',
-    recipient: '',
-    amount: '',
-    deposit: '',
-  };
+  return { title: '', description: '', recipient: '', amount: '', deposit: '' };
 }
 
 export const CommunityPoolSpendProposalWithDeposit = {
-  $type:
-    'cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit' as const,
-
   encode(
     message: CommunityPoolSpendProposalWithDeposit,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1158,7 +1028,6 @@ export const CommunityPoolSpendProposalWithDeposit = {
 
   fromJSON(object: any): CommunityPoolSpendProposalWithDeposit {
     return {
-      $type: CommunityPoolSpendProposalWithDeposit.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       recipient: isSet(object.recipient) ? String(object.recipient) : '',
@@ -1191,11 +1060,6 @@ export const CommunityPoolSpendProposalWithDeposit = {
   },
 };
 
-messageTypeRegistry.set(
-  CommunityPoolSpendProposalWithDeposit.$type,
-  CommunityPoolSpendProposalWithDeposit,
-);
-
 type Builtin =
   | Date
   | Function
@@ -1214,14 +1078,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

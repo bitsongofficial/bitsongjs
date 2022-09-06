@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import { DenomTrace, Params } from './transfer';
 import {
   PageRequest,
@@ -15,7 +14,6 @@ export const protobufPackage = 'ibc.applications.transfer.v1';
  * method
  */
 export interface QueryDenomTraceRequest {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTraceRequest';
   /** hash (in hex format) of the denomination trace information. */
   hash: string;
 }
@@ -25,7 +23,6 @@ export interface QueryDenomTraceRequest {
  * method.
  */
 export interface QueryDenomTraceResponse {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTraceResponse';
   /** denom_trace returns the requested denomination trace information. */
   denomTrace?: DenomTrace;
 }
@@ -35,7 +32,6 @@ export interface QueryDenomTraceResponse {
  * method
  */
 export interface QueryDenomTracesRequest {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTracesRequest';
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
@@ -45,7 +41,6 @@ export interface QueryDenomTracesRequest {
  * method.
  */
 export interface QueryDenomTracesResponse {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTracesResponse';
   /** denom_traces returns all denominations trace information. */
   denomTraces: DenomTrace[];
   /** pagination defines the pagination in the response. */
@@ -53,27 +48,19 @@ export interface QueryDenomTracesResponse {
 }
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {
-  $type: 'ibc.applications.transfer.v1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
-  $type: 'ibc.applications.transfer.v1.QueryParamsResponse';
   /** params defines the parameters of the module. */
   params?: Params;
 }
 
 function createBaseQueryDenomTraceRequest(): QueryDenomTraceRequest {
-  return {
-    $type: 'ibc.applications.transfer.v1.QueryDenomTraceRequest',
-    hash: '',
-  };
+  return { hash: '' };
 }
 
 export const QueryDenomTraceRequest = {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTraceRequest' as const,
-
   encode(
     message: QueryDenomTraceRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -107,7 +94,6 @@ export const QueryDenomTraceRequest = {
 
   fromJSON(object: any): QueryDenomTraceRequest {
     return {
-      $type: QueryDenomTraceRequest.$type,
       hash: isSet(object.hash) ? String(object.hash) : '',
     };
   },
@@ -127,18 +113,11 @@ export const QueryDenomTraceRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryDenomTraceRequest.$type, QueryDenomTraceRequest);
-
 function createBaseQueryDenomTraceResponse(): QueryDenomTraceResponse {
-  return {
-    $type: 'ibc.applications.transfer.v1.QueryDenomTraceResponse',
-    denomTrace: undefined,
-  };
+  return { denomTrace: undefined };
 }
 
 export const QueryDenomTraceResponse = {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTraceResponse' as const,
-
   encode(
     message: QueryDenomTraceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -172,7 +151,6 @@ export const QueryDenomTraceResponse = {
 
   fromJSON(object: any): QueryDenomTraceResponse {
     return {
-      $type: QueryDenomTraceResponse.$type,
       denomTrace: isSet(object.denomTrace)
         ? DenomTrace.fromJSON(object.denomTrace)
         : undefined,
@@ -200,18 +178,11 @@ export const QueryDenomTraceResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryDenomTraceResponse.$type, QueryDenomTraceResponse);
-
 function createBaseQueryDenomTracesRequest(): QueryDenomTracesRequest {
-  return {
-    $type: 'ibc.applications.transfer.v1.QueryDenomTracesRequest',
-    pagination: undefined,
-  };
+  return { pagination: undefined };
 }
 
 export const QueryDenomTracesRequest = {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTracesRequest' as const,
-
   encode(
     message: QueryDenomTracesRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -245,7 +216,6 @@ export const QueryDenomTracesRequest = {
 
   fromJSON(object: any): QueryDenomTracesRequest {
     return {
-      $type: QueryDenomTracesRequest.$type,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -273,19 +243,11 @@ export const QueryDenomTracesRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryDenomTracesRequest.$type, QueryDenomTracesRequest);
-
 function createBaseQueryDenomTracesResponse(): QueryDenomTracesResponse {
-  return {
-    $type: 'ibc.applications.transfer.v1.QueryDenomTracesResponse',
-    denomTraces: [],
-    pagination: undefined,
-  };
+  return { denomTraces: [], pagination: undefined };
 }
 
 export const QueryDenomTracesResponse = {
-  $type: 'ibc.applications.transfer.v1.QueryDenomTracesResponse' as const,
-
   encode(
     message: QueryDenomTracesResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -328,7 +290,6 @@ export const QueryDenomTracesResponse = {
 
   fromJSON(object: any): QueryDenomTracesResponse {
     return {
-      $type: QueryDenomTracesResponse.$type,
       denomTraces: Array.isArray(object?.denomTraces)
         ? object.denomTraces.map((e: any) => DenomTrace.fromJSON(e))
         : [],
@@ -368,18 +329,11 @@ export const QueryDenomTracesResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDenomTracesResponse.$type,
-  QueryDenomTracesResponse,
-);
-
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'ibc.applications.transfer.v1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'ibc.applications.transfer.v1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -403,9 +357,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -421,18 +373,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'ibc.applications.transfer.v1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'ibc.applications.transfer.v1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -463,7 +408,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -486,8 +430,6 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
 
 /** Query provides defines the gRPC querier service. */
 export interface Query {
@@ -576,14 +518,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

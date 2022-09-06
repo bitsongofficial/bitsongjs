@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
 import _m0 from 'protobufjs/minimal';
@@ -11,7 +10,6 @@ export const protobufPackage = 'cosmos.vesting.v1beta1';
  * account.
  */
 export interface MsgCreateVestingAccount {
-  $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccount';
   fromAddress: string;
   toAddress: string;
   amount: Coin[];
@@ -20,13 +18,10 @@ export interface MsgCreateVestingAccount {
 }
 
 /** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
-export interface MsgCreateVestingAccountResponse {
-  $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse';
-}
+export interface MsgCreateVestingAccountResponse {}
 
 function createBaseMsgCreateVestingAccount(): MsgCreateVestingAccount {
   return {
-    $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccount',
     fromAddress: '',
     toAddress: '',
     amount: [],
@@ -36,8 +31,6 @@ function createBaseMsgCreateVestingAccount(): MsgCreateVestingAccount {
 }
 
 export const MsgCreateVestingAccount = {
-  $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccount' as const,
-
   encode(
     message: MsgCreateVestingAccount,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -95,7 +88,6 @@ export const MsgCreateVestingAccount = {
 
   fromJSON(object: any): MsgCreateVestingAccount {
     return {
-      $type: MsgCreateVestingAccount.$type,
       fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : '',
       toAddress: isSet(object.toAddress) ? String(object.toAddress) : '',
       amount: Array.isArray(object?.amount)
@@ -140,15 +132,11 @@ export const MsgCreateVestingAccount = {
   },
 };
 
-messageTypeRegistry.set(MsgCreateVestingAccount.$type, MsgCreateVestingAccount);
-
 function createBaseMsgCreateVestingAccountResponse(): MsgCreateVestingAccountResponse {
-  return { $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse' };
+  return {};
 }
 
 export const MsgCreateVestingAccountResponse = {
-  $type: 'cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse' as const,
-
   encode(
     _: MsgCreateVestingAccountResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -175,9 +163,7 @@ export const MsgCreateVestingAccountResponse = {
   },
 
   fromJSON(_: any): MsgCreateVestingAccountResponse {
-    return {
-      $type: MsgCreateVestingAccountResponse.$type,
-    };
+    return {};
   },
 
   toJSON(_: MsgCreateVestingAccountResponse): unknown {
@@ -192,11 +178,6 @@ export const MsgCreateVestingAccountResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  MsgCreateVestingAccountResponse.$type,
-  MsgCreateVestingAccountResponse,
-);
 
 /** Msg defines the bank Msg service. */
 export interface Msg {
@@ -256,14 +237,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

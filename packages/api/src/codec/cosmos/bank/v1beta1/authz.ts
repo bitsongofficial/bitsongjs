@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
 import _m0 from 'protobufjs/minimal';
@@ -13,17 +12,14 @@ export const protobufPackage = 'cosmos.bank.v1beta1';
  * Since: cosmos-sdk 0.43
  */
 export interface SendAuthorization {
-  $type: 'cosmos.bank.v1beta1.SendAuthorization';
   spendLimit: Coin[];
 }
 
 function createBaseSendAuthorization(): SendAuthorization {
-  return { $type: 'cosmos.bank.v1beta1.SendAuthorization', spendLimit: [] };
+  return { spendLimit: [] };
 }
 
 export const SendAuthorization = {
-  $type: 'cosmos.bank.v1beta1.SendAuthorization' as const,
-
   encode(
     message: SendAuthorization,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -54,7 +50,6 @@ export const SendAuthorization = {
 
   fromJSON(object: any): SendAuthorization {
     return {
-      $type: SendAuthorization.$type,
       spendLimit: Array.isArray(object?.spendLimit)
         ? object.spendLimit.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -82,8 +77,6 @@ export const SendAuthorization = {
   },
 };
 
-messageTypeRegistry.set(SendAuthorization.$type, SendAuthorization);
-
 type Builtin =
   | Date
   | Function
@@ -102,14 +95,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

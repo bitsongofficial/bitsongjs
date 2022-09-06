@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../../cosmos/base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -7,7 +6,6 @@ import _m0 from 'protobufjs/minimal';
 export const protobufPackage = 'bitsong.merkledrop.v1beta1';
 
 export interface MsgCreate {
-  $type: 'bitsong.merkledrop.v1beta1.MsgCreate';
   /** owner of the merkledrop */
   owner: string;
   /** merkle_root used to compute proofs */
@@ -21,13 +19,11 @@ export interface MsgCreate {
 }
 
 export interface MsgCreateResponse {
-  $type: 'bitsong.merkledrop.v1beta1.MsgCreateResponse';
   owner: string;
   id: Long;
 }
 
 export interface MsgClaim {
-  $type: 'bitsong.merkledrop.v1beta1.MsgClaim';
   sender: string;
   merkledropId: Long;
   index: Long;
@@ -36,7 +32,6 @@ export interface MsgClaim {
 }
 
 export interface MsgClaimResponse {
-  $type: 'bitsong.merkledrop.v1beta1.MsgClaimResponse';
   id: Long;
   index: Long;
   amount: string;
@@ -44,7 +39,6 @@ export interface MsgClaimResponse {
 
 function createBaseMsgCreate(): MsgCreate {
   return {
-    $type: 'bitsong.merkledrop.v1beta1.MsgCreate',
     owner: '',
     merkleRoot: '',
     startHeight: Long.ZERO,
@@ -54,8 +48,6 @@ function createBaseMsgCreate(): MsgCreate {
 }
 
 export const MsgCreate = {
-  $type: 'bitsong.merkledrop.v1beta1.MsgCreate' as const,
-
   encode(
     message: MsgCreate,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -110,7 +102,6 @@ export const MsgCreate = {
 
   fromJSON(object: any): MsgCreate {
     return {
-      $type: MsgCreate.$type,
       owner: isSet(object.owner) ? String(object.owner) : '',
       merkleRoot: isSet(object.merkleRoot) ? String(object.merkleRoot) : '',
       startHeight: isSet(object.startHeight)
@@ -158,19 +149,11 @@ export const MsgCreate = {
   },
 };
 
-messageTypeRegistry.set(MsgCreate.$type, MsgCreate);
-
 function createBaseMsgCreateResponse(): MsgCreateResponse {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.MsgCreateResponse',
-    owner: '',
-    id: Long.UZERO,
-  };
+  return { owner: '', id: Long.UZERO };
 }
 
 export const MsgCreateResponse = {
-  $type: 'bitsong.merkledrop.v1beta1.MsgCreateResponse' as const,
-
   encode(
     message: MsgCreateResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -207,7 +190,6 @@ export const MsgCreateResponse = {
 
   fromJSON(object: any): MsgCreateResponse {
     return {
-      $type: MsgCreateResponse.$type,
       owner: isSet(object.owner) ? String(object.owner) : '',
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
@@ -234,11 +216,8 @@ export const MsgCreateResponse = {
   },
 };
 
-messageTypeRegistry.set(MsgCreateResponse.$type, MsgCreateResponse);
-
 function createBaseMsgClaim(): MsgClaim {
   return {
-    $type: 'bitsong.merkledrop.v1beta1.MsgClaim',
     sender: '',
     merkledropId: Long.UZERO,
     index: Long.UZERO,
@@ -248,8 +227,6 @@ function createBaseMsgClaim(): MsgClaim {
 }
 
 export const MsgClaim = {
-  $type: 'bitsong.merkledrop.v1beta1.MsgClaim' as const,
-
   encode(
     message: MsgClaim,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -304,7 +281,6 @@ export const MsgClaim = {
 
   fromJSON(object: any): MsgClaim {
     return {
-      $type: MsgClaim.$type,
       sender: isSet(object.sender) ? String(object.sender) : '',
       merkledropId: isSet(object.merkledropId)
         ? Long.fromValue(object.merkledropId)
@@ -350,20 +326,11 @@ export const MsgClaim = {
   },
 };
 
-messageTypeRegistry.set(MsgClaim.$type, MsgClaim);
-
 function createBaseMsgClaimResponse(): MsgClaimResponse {
-  return {
-    $type: 'bitsong.merkledrop.v1beta1.MsgClaimResponse',
-    id: Long.UZERO,
-    index: Long.UZERO,
-    amount: '',
-  };
+  return { id: Long.UZERO, index: Long.UZERO, amount: '' };
 }
 
 export const MsgClaimResponse = {
-  $type: 'bitsong.merkledrop.v1beta1.MsgClaimResponse' as const,
-
   encode(
     message: MsgClaimResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -406,7 +373,6 @@ export const MsgClaimResponse = {
 
   fromJSON(object: any): MsgClaimResponse {
     return {
-      $type: MsgClaimResponse.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : '',
@@ -439,8 +405,6 @@ export const MsgClaimResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(MsgClaimResponse.$type, MsgClaimResponse);
 
 export interface Msg {
   Create(request: MsgCreate): Promise<MsgCreateResponse>;
@@ -501,14 +465,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

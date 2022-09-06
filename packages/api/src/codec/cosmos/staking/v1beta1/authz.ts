@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Coin } from '../../base/v1beta1/coin';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -66,7 +65,6 @@ export function authorizationTypeToJSON(object: AuthorizationType): string {
  * Since: cosmos-sdk 0.43
  */
 export interface StakeAuthorization {
-  $type: 'cosmos.staking.v1beta1.StakeAuthorization';
   /**
    * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
    * empty, there is no spend limit and any amount of coins can be delegated.
@@ -85,13 +83,11 @@ export interface StakeAuthorization {
 
 /** Validators defines list of validator addresses. */
 export interface StakeAuthorization_Validators {
-  $type: 'cosmos.staking.v1beta1.StakeAuthorization.Validators';
   address: string[];
 }
 
 function createBaseStakeAuthorization(): StakeAuthorization {
   return {
-    $type: 'cosmos.staking.v1beta1.StakeAuthorization',
     maxTokens: undefined,
     allowList: undefined,
     denyList: undefined,
@@ -100,8 +96,6 @@ function createBaseStakeAuthorization(): StakeAuthorization {
 }
 
 export const StakeAuthorization = {
-  $type: 'cosmos.staking.v1beta1.StakeAuthorization' as const,
-
   encode(
     message: StakeAuthorization,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -162,7 +156,6 @@ export const StakeAuthorization = {
 
   fromJSON(object: any): StakeAuthorization {
     return {
-      $type: StakeAuthorization.$type,
       maxTokens: isSet(object.maxTokens)
         ? Coin.fromJSON(object.maxTokens)
         : undefined,
@@ -220,18 +213,11 @@ export const StakeAuthorization = {
   },
 };
 
-messageTypeRegistry.set(StakeAuthorization.$type, StakeAuthorization);
-
 function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validators {
-  return {
-    $type: 'cosmos.staking.v1beta1.StakeAuthorization.Validators',
-    address: [],
-  };
+  return { address: [] };
 }
 
 export const StakeAuthorization_Validators = {
-  $type: 'cosmos.staking.v1beta1.StakeAuthorization.Validators' as const,
-
   encode(
     message: StakeAuthorization_Validators,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -265,7 +251,6 @@ export const StakeAuthorization_Validators = {
 
   fromJSON(object: any): StakeAuthorization_Validators {
     return {
-      $type: StakeAuthorization_Validators.$type,
       address: Array.isArray(object?.address)
         ? object.address.map((e: any) => String(e))
         : [],
@@ -291,11 +276,6 @@ export const StakeAuthorization_Validators = {
   },
 };
 
-messageTypeRegistry.set(
-  StakeAuthorization_Validators.$type,
-  StakeAuthorization_Validators,
-);
-
 type Builtin =
   | Date
   | Function
@@ -314,14 +294,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

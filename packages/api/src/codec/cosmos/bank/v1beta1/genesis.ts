@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Params, Metadata } from './bank';
 import Long from 'long';
 import { Coin } from '../../base/v1beta1/coin';
@@ -9,7 +8,6 @@ export const protobufPackage = 'cosmos.bank.v1beta1';
 
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
-  $type: 'cosmos.bank.v1beta1.GenesisState';
   /** params defines all the paramaters of the module. */
   params?: Params;
   /** balances is an array containing the balances of all the accounts. */
@@ -28,7 +26,6 @@ export interface GenesisState {
  * genesis state.
  */
 export interface Balance {
-  $type: 'cosmos.bank.v1beta1.Balance';
   /** address is the address of the balance holder. */
   address: string;
   /** coins defines the different coins this balance holds. */
@@ -36,18 +33,10 @@ export interface Balance {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    $type: 'cosmos.bank.v1beta1.GenesisState',
-    params: undefined,
-    balances: [],
-    supply: [],
-    denomMetadata: [],
-  };
+  return { params: undefined, balances: [], supply: [], denomMetadata: [] };
 }
 
 export const GenesisState = {
-  $type: 'cosmos.bank.v1beta1.GenesisState' as const,
-
   encode(
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -96,7 +85,6 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       balances: Array.isArray(object?.balances)
         ? object.balances.map((e: any) => Balance.fromJSON(e))
@@ -152,15 +140,11 @@ export const GenesisState = {
   },
 };
 
-messageTypeRegistry.set(GenesisState.$type, GenesisState);
-
 function createBaseBalance(): Balance {
-  return { $type: 'cosmos.bank.v1beta1.Balance', address: '', coins: [] };
+  return { address: '', coins: [] };
 }
 
 export const Balance = {
-  $type: 'cosmos.bank.v1beta1.Balance' as const,
-
   encode(
     message: Balance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -197,7 +181,6 @@ export const Balance = {
 
   fromJSON(object: any): Balance {
     return {
-      $type: Balance.$type,
       address: isSet(object.address) ? String(object.address) : '',
       coins: Array.isArray(object?.coins)
         ? object.coins.map((e: any) => Coin.fromJSON(e))
@@ -224,8 +207,6 @@ export const Balance = {
   },
 };
 
-messageTypeRegistry.set(Balance.$type, Balance);
-
 type Builtin =
   | Date
   | Function
@@ -244,14 +225,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

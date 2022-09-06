@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Timestamp } from '../../../google/protobuf/timestamp';
 import { Duration } from '../../../google/protobuf/duration';
 import { Any } from '../../../google/protobuf/any';
@@ -16,7 +15,6 @@ export const protobufPackage = 'cosmos.feegrant.v1beta1';
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
  */
 export interface BasicAllowance {
-  $type: 'cosmos.feegrant.v1beta1.BasicAllowance';
   /**
    * spend_limit specifies the maximum amount of tokens that can be spent
    * by this allowance and will be updated as tokens are spent. If it is
@@ -32,7 +30,6 @@ export interface BasicAllowance {
  * as well as a limit per time period.
  */
 export interface PeriodicAllowance {
-  $type: 'cosmos.feegrant.v1beta1.PeriodicAllowance';
   /** basic specifies a struct of `BasicAllowance` */
   basic?: BasicAllowance;
   /**
@@ -57,7 +54,6 @@ export interface PeriodicAllowance {
 
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 export interface AllowedMsgAllowance {
-  $type: 'cosmos.feegrant.v1beta1.AllowedMsgAllowance';
   /** allowance can be any of basic and filtered fee allowance. */
   allowance?: Any;
   /** allowed_messages are the messages for which the grantee has the access. */
@@ -66,7 +62,6 @@ export interface AllowedMsgAllowance {
 
 /** Grant is stored in the KVStore to record a grant with full context */
 export interface Grant {
-  $type: 'cosmos.feegrant.v1beta1.Grant';
   /** granter is the address of the user granting an allowance of their funds. */
   granter: string;
   /** grantee is the address of the user being granted an allowance of another user's funds. */
@@ -76,16 +71,10 @@ export interface Grant {
 }
 
 function createBaseBasicAllowance(): BasicAllowance {
-  return {
-    $type: 'cosmos.feegrant.v1beta1.BasicAllowance',
-    spendLimit: [],
-    expiration: undefined,
-  };
+  return { spendLimit: [], expiration: undefined };
 }
 
 export const BasicAllowance = {
-  $type: 'cosmos.feegrant.v1beta1.BasicAllowance' as const,
-
   encode(
     message: BasicAllowance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -122,7 +111,6 @@ export const BasicAllowance = {
 
   fromJSON(object: any): BasicAllowance {
     return {
-      $type: BasicAllowance.$type,
       spendLimit: Array.isArray(object?.spendLimit)
         ? object.spendLimit.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -159,11 +147,8 @@ export const BasicAllowance = {
   },
 };
 
-messageTypeRegistry.set(BasicAllowance.$type, BasicAllowance);
-
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
-    $type: 'cosmos.feegrant.v1beta1.PeriodicAllowance',
     basic: undefined,
     period: undefined,
     periodSpendLimit: [],
@@ -173,8 +158,6 @@ function createBasePeriodicAllowance(): PeriodicAllowance {
 }
 
 export const PeriodicAllowance = {
-  $type: 'cosmos.feegrant.v1beta1.PeriodicAllowance' as const,
-
   encode(
     message: PeriodicAllowance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -229,7 +212,6 @@ export const PeriodicAllowance = {
 
   fromJSON(object: any): PeriodicAllowance {
     return {
-      $type: PeriodicAllowance.$type,
       basic: isSet(object.basic)
         ? BasicAllowance.fromJSON(object.basic)
         : undefined,
@@ -301,19 +283,11 @@ export const PeriodicAllowance = {
   },
 };
 
-messageTypeRegistry.set(PeriodicAllowance.$type, PeriodicAllowance);
-
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
-  return {
-    $type: 'cosmos.feegrant.v1beta1.AllowedMsgAllowance',
-    allowance: undefined,
-    allowedMessages: [],
-  };
+  return { allowance: undefined, allowedMessages: [] };
 }
 
 export const AllowedMsgAllowance = {
-  $type: 'cosmos.feegrant.v1beta1.AllowedMsgAllowance' as const,
-
   encode(
     message: AllowedMsgAllowance,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -350,7 +324,6 @@ export const AllowedMsgAllowance = {
 
   fromJSON(object: any): AllowedMsgAllowance {
     return {
-      $type: AllowedMsgAllowance.$type,
       allowance: isSet(object.allowance)
         ? Any.fromJSON(object.allowance)
         : undefined,
@@ -387,20 +360,11 @@ export const AllowedMsgAllowance = {
   },
 };
 
-messageTypeRegistry.set(AllowedMsgAllowance.$type, AllowedMsgAllowance);
-
 function createBaseGrant(): Grant {
-  return {
-    $type: 'cosmos.feegrant.v1beta1.Grant',
-    granter: '',
-    grantee: '',
-    allowance: undefined,
-  };
+  return { granter: '', grantee: '', allowance: undefined };
 }
 
 export const Grant = {
-  $type: 'cosmos.feegrant.v1beta1.Grant' as const,
-
   encode(message: Grant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.granter !== '') {
       writer.uint32(10).string(message.granter);
@@ -440,7 +404,6 @@ export const Grant = {
 
   fromJSON(object: any): Grant {
     return {
-      $type: Grant.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       allowance: isSet(object.allowance)
@@ -472,8 +435,6 @@ export const Grant = {
   },
 };
 
-messageTypeRegistry.set(Grant.$type, Grant);
-
 type Builtin =
   | Date
   | Function
@@ -492,20 +453,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
+  return { seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

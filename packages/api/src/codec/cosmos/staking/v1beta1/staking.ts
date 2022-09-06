@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Header } from '../../../tendermint/types/types';
 import { Timestamp } from '../../../google/protobuf/timestamp';
 import { Any } from '../../../google/protobuf/any';
@@ -67,7 +66,6 @@ export function bondStatusToJSON(object: BondStatus): string {
  * (`n` is set by the staking module's `historical_entries` parameter).
  */
 export interface HistoricalInfo {
-  $type: 'cosmos.staking.v1beta1.HistoricalInfo';
   header?: Header;
   valset: Validator[];
 }
@@ -77,7 +75,6 @@ export interface HistoricalInfo {
  * a validator.
  */
 export interface CommissionRates {
-  $type: 'cosmos.staking.v1beta1.CommissionRates';
   /** rate is the commission rate charged to delegators, as a fraction. */
   rate: string;
   /** max_rate defines the maximum commission rate which validator can ever charge, as a fraction. */
@@ -88,7 +85,6 @@ export interface CommissionRates {
 
 /** Commission defines commission parameters for a given validator. */
 export interface Commission {
-  $type: 'cosmos.staking.v1beta1.Commission';
   /** commission_rates defines the initial commission rates to be used for creating a validator. */
   commissionRates?: CommissionRates;
   /** update_time is the last time the commission rate was changed. */
@@ -97,7 +93,6 @@ export interface Commission {
 
 /** Description defines a validator description. */
 export interface Description {
-  $type: 'cosmos.staking.v1beta1.Description';
   /** moniker defines a human-readable name for the validator. */
   moniker: string;
   /** identity defines an optional identity signature (ex. UPort or Keybase). */
@@ -121,7 +116,6 @@ export interface Description {
  * multiplied by exchange rate.
  */
 export interface Validator {
-  $type: 'cosmos.staking.v1beta1.Validator';
   /** operator_address defines the address of the validator's operator; bech encoded in JSON. */
   operatorAddress: string;
   /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
@@ -148,7 +142,6 @@ export interface Validator {
 
 /** ValAddresses defines a repeated set of validator addresses. */
 export interface ValAddresses {
-  $type: 'cosmos.staking.v1beta1.ValAddresses';
   addresses: string[];
 }
 
@@ -158,14 +151,12 @@ export interface ValAddresses {
  * be used to construct the key to getting an UnbondingDelegation from state.
  */
 export interface DVPair {
-  $type: 'cosmos.staking.v1beta1.DVPair';
   delegatorAddress: string;
   validatorAddress: string;
 }
 
 /** DVPairs defines an array of DVPair objects. */
 export interface DVPairs {
-  $type: 'cosmos.staking.v1beta1.DVPairs';
   pairs: DVPair[];
 }
 
@@ -176,7 +167,6 @@ export interface DVPairs {
  * Redelegation from state.
  */
 export interface DVVTriplet {
-  $type: 'cosmos.staking.v1beta1.DVVTriplet';
   delegatorAddress: string;
   validatorSrcAddress: string;
   validatorDstAddress: string;
@@ -184,7 +174,6 @@ export interface DVVTriplet {
 
 /** DVVTriplets defines an array of DVVTriplet objects. */
 export interface DVVTriplets {
-  $type: 'cosmos.staking.v1beta1.DVVTriplets';
   triplets: DVVTriplet[];
 }
 
@@ -194,7 +183,6 @@ export interface DVVTriplets {
  * validator.
  */
 export interface Delegation {
-  $type: 'cosmos.staking.v1beta1.Delegation';
   /** delegator_address is the bech32-encoded address of the delegator. */
   delegatorAddress: string;
   /** validator_address is the bech32-encoded address of the validator. */
@@ -208,7 +196,6 @@ export interface Delegation {
  * for a single validator in an time-ordered list.
  */
 export interface UnbondingDelegation {
-  $type: 'cosmos.staking.v1beta1.UnbondingDelegation';
   /** delegator_address is the bech32-encoded address of the delegator. */
   delegatorAddress: string;
   /** validator_address is the bech32-encoded address of the validator. */
@@ -219,7 +206,6 @@ export interface UnbondingDelegation {
 
 /** UnbondingDelegationEntry defines an unbonding object with relevant metadata. */
 export interface UnbondingDelegationEntry {
-  $type: 'cosmos.staking.v1beta1.UnbondingDelegationEntry';
   /** creation_height is the height which the unbonding took place. */
   creationHeight: Long;
   /** completion_time is the unix time for unbonding completion. */
@@ -232,7 +218,6 @@ export interface UnbondingDelegationEntry {
 
 /** RedelegationEntry defines a redelegation object with relevant metadata. */
 export interface RedelegationEntry {
-  $type: 'cosmos.staking.v1beta1.RedelegationEntry';
   /** creation_height  defines the height which the redelegation took place. */
   creationHeight: Long;
   /** completion_time defines the unix time for redelegation completion. */
@@ -248,7 +233,6 @@ export interface RedelegationEntry {
  * from a particular source validator to a particular destination validator.
  */
 export interface Redelegation {
-  $type: 'cosmos.staking.v1beta1.Redelegation';
   /** delegator_address is the bech32-encoded address of the delegator. */
   delegatorAddress: string;
   /** validator_src_address is the validator redelegation source operator address. */
@@ -261,7 +245,6 @@ export interface Redelegation {
 
 /** Params defines the parameters for the staking module. */
 export interface Params {
-  $type: 'cosmos.staking.v1beta1.Params';
   /** unbonding_time is the time duration of unbonding. */
   unbondingTime?: Duration;
   /** max_validators is the maximum number of validators. */
@@ -279,7 +262,6 @@ export interface Params {
  * balance in addition to shares which is more suitable for client responses.
  */
 export interface DelegationResponse {
-  $type: 'cosmos.staking.v1beta1.DelegationResponse';
   delegation?: Delegation;
   balance?: Coin;
 }
@@ -290,7 +272,6 @@ export interface DelegationResponse {
  * responses.
  */
 export interface RedelegationEntryResponse {
-  $type: 'cosmos.staking.v1beta1.RedelegationEntryResponse';
   redelegationEntry?: RedelegationEntry;
   balance: string;
 }
@@ -301,7 +282,6 @@ export interface RedelegationEntryResponse {
  * responses.
  */
 export interface RedelegationResponse {
-  $type: 'cosmos.staking.v1beta1.RedelegationResponse';
   redelegation?: Redelegation;
   entries: RedelegationEntryResponse[];
 }
@@ -311,22 +291,15 @@ export interface RedelegationResponse {
  * denomination.
  */
 export interface Pool {
-  $type: 'cosmos.staking.v1beta1.Pool';
   notBondedTokens: string;
   bondedTokens: string;
 }
 
 function createBaseHistoricalInfo(): HistoricalInfo {
-  return {
-    $type: 'cosmos.staking.v1beta1.HistoricalInfo',
-    header: undefined,
-    valset: [],
-  };
+  return { header: undefined, valset: [] };
 }
 
 export const HistoricalInfo = {
-  $type: 'cosmos.staking.v1beta1.HistoricalInfo' as const,
-
   encode(
     message: HistoricalInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -363,7 +336,6 @@ export const HistoricalInfo = {
 
   fromJSON(object: any): HistoricalInfo {
     return {
-      $type: HistoricalInfo.$type,
       header: isSet(object.header) ? Header.fromJSON(object.header) : undefined,
       valset: Array.isArray(object?.valset)
         ? object.valset.map((e: any) => Validator.fromJSON(e))
@@ -398,20 +370,11 @@ export const HistoricalInfo = {
   },
 };
 
-messageTypeRegistry.set(HistoricalInfo.$type, HistoricalInfo);
-
 function createBaseCommissionRates(): CommissionRates {
-  return {
-    $type: 'cosmos.staking.v1beta1.CommissionRates',
-    rate: '',
-    maxRate: '',
-    maxChangeRate: '',
-  };
+  return { rate: '', maxRate: '', maxChangeRate: '' };
 }
 
 export const CommissionRates = {
-  $type: 'cosmos.staking.v1beta1.CommissionRates' as const,
-
   encode(
     message: CommissionRates,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -454,7 +417,6 @@ export const CommissionRates = {
 
   fromJSON(object: any): CommissionRates {
     return {
-      $type: CommissionRates.$type,
       rate: isSet(object.rate) ? String(object.rate) : '',
       maxRate: isSet(object.maxRate) ? String(object.maxRate) : '',
       maxChangeRate: isSet(object.maxChangeRate)
@@ -483,19 +445,11 @@ export const CommissionRates = {
   },
 };
 
-messageTypeRegistry.set(CommissionRates.$type, CommissionRates);
-
 function createBaseCommission(): Commission {
-  return {
-    $type: 'cosmos.staking.v1beta1.Commission',
-    commissionRates: undefined,
-    updateTime: undefined,
-  };
+  return { commissionRates: undefined, updateTime: undefined };
 }
 
 export const Commission = {
-  $type: 'cosmos.staking.v1beta1.Commission' as const,
-
   encode(
     message: Commission,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -538,7 +492,6 @@ export const Commission = {
 
   fromJSON(object: any): Commission {
     return {
-      $type: Commission.$type,
       commissionRates: isSet(object.commissionRates)
         ? CommissionRates.fromJSON(object.commissionRates)
         : undefined,
@@ -575,11 +528,8 @@ export const Commission = {
   },
 };
 
-messageTypeRegistry.set(Commission.$type, Commission);
-
 function createBaseDescription(): Description {
   return {
-    $type: 'cosmos.staking.v1beta1.Description',
     moniker: '',
     identity: '',
     website: '',
@@ -589,8 +539,6 @@ function createBaseDescription(): Description {
 }
 
 export const Description = {
-  $type: 'cosmos.staking.v1beta1.Description' as const,
-
   encode(
     message: Description,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -645,7 +593,6 @@ export const Description = {
 
   fromJSON(object: any): Description {
     return {
-      $type: Description.$type,
       moniker: isSet(object.moniker) ? String(object.moniker) : '',
       identity: isSet(object.identity) ? String(object.identity) : '',
       website: isSet(object.website) ? String(object.website) : '',
@@ -680,11 +627,8 @@ export const Description = {
   },
 };
 
-messageTypeRegistry.set(Description.$type, Description);
-
 function createBaseValidator(): Validator {
   return {
-    $type: 'cosmos.staking.v1beta1.Validator',
     operatorAddress: '',
     consensusPubkey: undefined,
     jailed: false,
@@ -700,8 +644,6 @@ function createBaseValidator(): Validator {
 }
 
 export const Validator = {
-  $type: 'cosmos.staking.v1beta1.Validator' as const,
-
   encode(
     message: Validator,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -798,7 +740,6 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
-      $type: Validator.$type,
       operatorAddress: isSet(object.operatorAddress)
         ? String(object.operatorAddress)
         : '',
@@ -894,15 +835,11 @@ export const Validator = {
   },
 };
 
-messageTypeRegistry.set(Validator.$type, Validator);
-
 function createBaseValAddresses(): ValAddresses {
-  return { $type: 'cosmos.staking.v1beta1.ValAddresses', addresses: [] };
+  return { addresses: [] };
 }
 
 export const ValAddresses = {
-  $type: 'cosmos.staking.v1beta1.ValAddresses' as const,
-
   encode(
     message: ValAddresses,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -933,7 +870,6 @@ export const ValAddresses = {
 
   fromJSON(object: any): ValAddresses {
     return {
-      $type: ValAddresses.$type,
       addresses: Array.isArray(object?.addresses)
         ? object.addresses.map((e: any) => String(e))
         : [],
@@ -959,19 +895,11 @@ export const ValAddresses = {
   },
 };
 
-messageTypeRegistry.set(ValAddresses.$type, ValAddresses);
-
 function createBaseDVPair(): DVPair {
-  return {
-    $type: 'cosmos.staking.v1beta1.DVPair',
-    delegatorAddress: '',
-    validatorAddress: '',
-  };
+  return { delegatorAddress: '', validatorAddress: '' };
 }
 
 export const DVPair = {
-  $type: 'cosmos.staking.v1beta1.DVPair' as const,
-
   encode(
     message: DVPair,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1008,7 +936,6 @@ export const DVPair = {
 
   fromJSON(object: any): DVPair {
     return {
-      $type: DVPair.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -1035,15 +962,11 @@ export const DVPair = {
   },
 };
 
-messageTypeRegistry.set(DVPair.$type, DVPair);
-
 function createBaseDVPairs(): DVPairs {
-  return { $type: 'cosmos.staking.v1beta1.DVPairs', pairs: [] };
+  return { pairs: [] };
 }
 
 export const DVPairs = {
-  $type: 'cosmos.staking.v1beta1.DVPairs' as const,
-
   encode(
     message: DVPairs,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1074,7 +997,6 @@ export const DVPairs = {
 
   fromJSON(object: any): DVPairs {
     return {
-      $type: DVPairs.$type,
       pairs: Array.isArray(object?.pairs)
         ? object.pairs.map((e: any) => DVPair.fromJSON(e))
         : [],
@@ -1098,11 +1020,8 @@ export const DVPairs = {
   },
 };
 
-messageTypeRegistry.set(DVPairs.$type, DVPairs);
-
 function createBaseDVVTriplet(): DVVTriplet {
   return {
-    $type: 'cosmos.staking.v1beta1.DVVTriplet',
     delegatorAddress: '',
     validatorSrcAddress: '',
     validatorDstAddress: '',
@@ -1110,8 +1029,6 @@ function createBaseDVVTriplet(): DVVTriplet {
 }
 
 export const DVVTriplet = {
-  $type: 'cosmos.staking.v1beta1.DVVTriplet' as const,
-
   encode(
     message: DVVTriplet,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1154,7 +1071,6 @@ export const DVVTriplet = {
 
   fromJSON(object: any): DVVTriplet {
     return {
-      $type: DVVTriplet.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -1189,15 +1105,11 @@ export const DVVTriplet = {
   },
 };
 
-messageTypeRegistry.set(DVVTriplet.$type, DVVTriplet);
-
 function createBaseDVVTriplets(): DVVTriplets {
-  return { $type: 'cosmos.staking.v1beta1.DVVTriplets', triplets: [] };
+  return { triplets: [] };
 }
 
 export const DVVTriplets = {
-  $type: 'cosmos.staking.v1beta1.DVVTriplets' as const,
-
   encode(
     message: DVVTriplets,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1228,7 +1140,6 @@ export const DVVTriplets = {
 
   fromJSON(object: any): DVVTriplets {
     return {
-      $type: DVVTriplets.$type,
       triplets: Array.isArray(object?.triplets)
         ? object.triplets.map((e: any) => DVVTriplet.fromJSON(e))
         : [],
@@ -1257,20 +1168,11 @@ export const DVVTriplets = {
   },
 };
 
-messageTypeRegistry.set(DVVTriplets.$type, DVVTriplets);
-
 function createBaseDelegation(): Delegation {
-  return {
-    $type: 'cosmos.staking.v1beta1.Delegation',
-    delegatorAddress: '',
-    validatorAddress: '',
-    shares: '',
-  };
+  return { delegatorAddress: '', validatorAddress: '', shares: '' };
 }
 
 export const Delegation = {
-  $type: 'cosmos.staking.v1beta1.Delegation' as const,
-
   encode(
     message: Delegation,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1313,7 +1215,6 @@ export const Delegation = {
 
   fromJSON(object: any): Delegation {
     return {
-      $type: Delegation.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -1345,20 +1246,11 @@ export const Delegation = {
   },
 };
 
-messageTypeRegistry.set(Delegation.$type, Delegation);
-
 function createBaseUnbondingDelegation(): UnbondingDelegation {
-  return {
-    $type: 'cosmos.staking.v1beta1.UnbondingDelegation',
-    delegatorAddress: '',
-    validatorAddress: '',
-    entries: [],
-  };
+  return { delegatorAddress: '', validatorAddress: '', entries: [] };
 }
 
 export const UnbondingDelegation = {
-  $type: 'cosmos.staking.v1beta1.UnbondingDelegation' as const,
-
   encode(
     message: UnbondingDelegation,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1403,7 +1295,6 @@ export const UnbondingDelegation = {
 
   fromJSON(object: any): UnbondingDelegation {
     return {
-      $type: UnbondingDelegation.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -1444,11 +1335,8 @@ export const UnbondingDelegation = {
   },
 };
 
-messageTypeRegistry.set(UnbondingDelegation.$type, UnbondingDelegation);
-
 function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
   return {
-    $type: 'cosmos.staking.v1beta1.UnbondingDelegationEntry',
     creationHeight: Long.ZERO,
     completionTime: undefined,
     initialBalance: '',
@@ -1457,8 +1345,6 @@ function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
 }
 
 export const UnbondingDelegationEntry = {
-  $type: 'cosmos.staking.v1beta1.UnbondingDelegationEntry' as const,
-
   encode(
     message: UnbondingDelegationEntry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1513,7 +1399,6 @@ export const UnbondingDelegationEntry = {
 
   fromJSON(object: any): UnbondingDelegationEntry {
     return {
-      $type: UnbondingDelegationEntry.$type,
       creationHeight: isSet(object.creationHeight)
         ? Long.fromValue(object.creationHeight)
         : Long.ZERO,
@@ -1559,14 +1444,8 @@ export const UnbondingDelegationEntry = {
   },
 };
 
-messageTypeRegistry.set(
-  UnbondingDelegationEntry.$type,
-  UnbondingDelegationEntry,
-);
-
 function createBaseRedelegationEntry(): RedelegationEntry {
   return {
-    $type: 'cosmos.staking.v1beta1.RedelegationEntry',
     creationHeight: Long.ZERO,
     completionTime: undefined,
     initialBalance: '',
@@ -1575,8 +1454,6 @@ function createBaseRedelegationEntry(): RedelegationEntry {
 }
 
 export const RedelegationEntry = {
-  $type: 'cosmos.staking.v1beta1.RedelegationEntry' as const,
-
   encode(
     message: RedelegationEntry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1628,7 +1505,6 @@ export const RedelegationEntry = {
 
   fromJSON(object: any): RedelegationEntry {
     return {
-      $type: RedelegationEntry.$type,
       creationHeight: isSet(object.creationHeight)
         ? Long.fromValue(object.creationHeight)
         : Long.ZERO,
@@ -1674,11 +1550,8 @@ export const RedelegationEntry = {
   },
 };
 
-messageTypeRegistry.set(RedelegationEntry.$type, RedelegationEntry);
-
 function createBaseRedelegation(): Redelegation {
   return {
-    $type: 'cosmos.staking.v1beta1.Redelegation',
     delegatorAddress: '',
     validatorSrcAddress: '',
     validatorDstAddress: '',
@@ -1687,8 +1560,6 @@ function createBaseRedelegation(): Redelegation {
 }
 
 export const Redelegation = {
-  $type: 'cosmos.staking.v1beta1.Redelegation' as const,
-
   encode(
     message: Redelegation,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1739,7 +1610,6 @@ export const Redelegation = {
 
   fromJSON(object: any): Redelegation {
     return {
-      $type: Redelegation.$type,
       delegatorAddress: isSet(object.delegatorAddress)
         ? String(object.delegatorAddress)
         : '',
@@ -1786,11 +1656,8 @@ export const Redelegation = {
   },
 };
 
-messageTypeRegistry.set(Redelegation.$type, Redelegation);
-
 function createBaseParams(): Params {
   return {
-    $type: 'cosmos.staking.v1beta1.Params',
     unbondingTime: undefined,
     maxValidators: 0,
     maxEntries: 0,
@@ -1800,8 +1667,6 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
-  $type: 'cosmos.staking.v1beta1.Params' as const,
-
   encode(
     message: Params,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1856,7 +1721,6 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      $type: Params.$type,
       unbondingTime: isSet(object.unbondingTime)
         ? Duration.fromJSON(object.unbondingTime)
         : undefined,
@@ -1901,19 +1765,11 @@ export const Params = {
   },
 };
 
-messageTypeRegistry.set(Params.$type, Params);
-
 function createBaseDelegationResponse(): DelegationResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.DelegationResponse',
-    delegation: undefined,
-    balance: undefined,
-  };
+  return { delegation: undefined, balance: undefined };
 }
 
 export const DelegationResponse = {
-  $type: 'cosmos.staking.v1beta1.DelegationResponse' as const,
-
   encode(
     message: DelegationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1950,7 +1806,6 @@ export const DelegationResponse = {
 
   fromJSON(object: any): DelegationResponse {
     return {
-      $type: DelegationResponse.$type,
       delegation: isSet(object.delegation)
         ? Delegation.fromJSON(object.delegation)
         : undefined,
@@ -1989,19 +1844,11 @@ export const DelegationResponse = {
   },
 };
 
-messageTypeRegistry.set(DelegationResponse.$type, DelegationResponse);
-
 function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.RedelegationEntryResponse',
-    redelegationEntry: undefined,
-    balance: '',
-  };
+  return { redelegationEntry: undefined, balance: '' };
 }
 
 export const RedelegationEntryResponse = {
-  $type: 'cosmos.staking.v1beta1.RedelegationEntryResponse' as const,
-
   encode(
     message: RedelegationEntryResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2047,7 +1894,6 @@ export const RedelegationEntryResponse = {
 
   fromJSON(object: any): RedelegationEntryResponse {
     return {
-      $type: RedelegationEntryResponse.$type,
       redelegationEntry: isSet(object.redelegationEntry)
         ? RedelegationEntry.fromJSON(object.redelegationEntry)
         : undefined,
@@ -2079,22 +1925,11 @@ export const RedelegationEntryResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  RedelegationEntryResponse.$type,
-  RedelegationEntryResponse,
-);
-
 function createBaseRedelegationResponse(): RedelegationResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.RedelegationResponse',
-    redelegation: undefined,
-    entries: [],
-  };
+  return { redelegation: undefined, entries: [] };
 }
 
 export const RedelegationResponse = {
-  $type: 'cosmos.staking.v1beta1.RedelegationResponse' as const,
-
   encode(
     message: RedelegationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2139,7 +1974,6 @@ export const RedelegationResponse = {
 
   fromJSON(object: any): RedelegationResponse {
     return {
-      $type: RedelegationResponse.$type,
       redelegation: isSet(object.redelegation)
         ? Redelegation.fromJSON(object.redelegation)
         : undefined,
@@ -2179,19 +2013,11 @@ export const RedelegationResponse = {
   },
 };
 
-messageTypeRegistry.set(RedelegationResponse.$type, RedelegationResponse);
-
 function createBasePool(): Pool {
-  return {
-    $type: 'cosmos.staking.v1beta1.Pool',
-    notBondedTokens: '',
-    bondedTokens: '',
-  };
+  return { notBondedTokens: '', bondedTokens: '' };
 }
 
 export const Pool = {
-  $type: 'cosmos.staking.v1beta1.Pool' as const,
-
   encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.notBondedTokens !== '') {
       writer.uint32(10).string(message.notBondedTokens);
@@ -2225,7 +2051,6 @@ export const Pool = {
 
   fromJSON(object: any): Pool {
     return {
-      $type: Pool.$type,
       notBondedTokens: isSet(object.notBondedTokens)
         ? String(object.notBondedTokens)
         : '',
@@ -2252,8 +2077,6 @@ export const Pool = {
   },
 };
 
-messageTypeRegistry.set(Pool.$type, Pool);
-
 type Builtin =
   | Date
   | Function
@@ -2272,20 +2095,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
+  return { seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

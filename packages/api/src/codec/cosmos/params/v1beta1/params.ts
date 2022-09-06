@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -7,7 +6,6 @@ export const protobufPackage = 'cosmos.params.v1beta1';
 
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposal {
-  $type: 'cosmos.params.v1beta1.ParameterChangeProposal';
   title: string;
   description: string;
   changes: ParamChange[];
@@ -18,24 +16,16 @@ export interface ParameterChangeProposal {
  * ParameterChangeProposal.
  */
 export interface ParamChange {
-  $type: 'cosmos.params.v1beta1.ParamChange';
   subspace: string;
   key: string;
   value: string;
 }
 
 function createBaseParameterChangeProposal(): ParameterChangeProposal {
-  return {
-    $type: 'cosmos.params.v1beta1.ParameterChangeProposal',
-    title: '',
-    description: '',
-    changes: [],
-  };
+  return { title: '', description: '', changes: [] };
 }
 
 export const ParameterChangeProposal = {
-  $type: 'cosmos.params.v1beta1.ParameterChangeProposal' as const,
-
   encode(
     message: ParameterChangeProposal,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -81,7 +71,6 @@ export const ParameterChangeProposal = {
 
   fromJSON(object: any): ParameterChangeProposal {
     return {
-      $type: ParameterChangeProposal.$type,
       title: isSet(object.title) ? String(object.title) : '',
       description: isSet(object.description) ? String(object.description) : '',
       changes: Array.isArray(object?.changes)
@@ -117,20 +106,11 @@ export const ParameterChangeProposal = {
   },
 };
 
-messageTypeRegistry.set(ParameterChangeProposal.$type, ParameterChangeProposal);
-
 function createBaseParamChange(): ParamChange {
-  return {
-    $type: 'cosmos.params.v1beta1.ParamChange',
-    subspace: '',
-    key: '',
-    value: '',
-  };
+  return { subspace: '', key: '', value: '' };
 }
 
 export const ParamChange = {
-  $type: 'cosmos.params.v1beta1.ParamChange' as const,
-
   encode(
     message: ParamChange,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -173,7 +153,6 @@ export const ParamChange = {
 
   fromJSON(object: any): ParamChange {
     return {
-      $type: ParamChange.$type,
       subspace: isSet(object.subspace) ? String(object.subspace) : '',
       key: isSet(object.key) ? String(object.key) : '',
       value: isSet(object.value) ? String(object.value) : '',
@@ -199,8 +178,6 @@ export const ParamChange = {
   },
 };
 
-messageTypeRegistry.set(ParamChange.$type, ParamChange);
-
 type Builtin =
   | Date
   | Function
@@ -219,14 +196,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

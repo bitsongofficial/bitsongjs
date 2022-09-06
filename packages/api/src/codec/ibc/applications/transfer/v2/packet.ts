@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -11,7 +10,6 @@ export const protobufPackage = 'ibc.applications.transfer.v2';
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
  */
 export interface FungibleTokenPacketData {
-  $type: 'ibc.applications.transfer.v2.FungibleTokenPacketData';
   /** the token denomination to be transferred */
   denom: string;
   /** the token amount to be transferred */
@@ -23,18 +21,10 @@ export interface FungibleTokenPacketData {
 }
 
 function createBaseFungibleTokenPacketData(): FungibleTokenPacketData {
-  return {
-    $type: 'ibc.applications.transfer.v2.FungibleTokenPacketData',
-    denom: '',
-    amount: '',
-    sender: '',
-    receiver: '',
-  };
+  return { denom: '', amount: '', sender: '', receiver: '' };
 }
 
 export const FungibleTokenPacketData = {
-  $type: 'ibc.applications.transfer.v2.FungibleTokenPacketData' as const,
-
   encode(
     message: FungibleTokenPacketData,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -86,7 +76,6 @@ export const FungibleTokenPacketData = {
 
   fromJSON(object: any): FungibleTokenPacketData {
     return {
-      $type: FungibleTokenPacketData.$type,
       denom: isSet(object.denom) ? String(object.denom) : '',
       amount: isSet(object.amount) ? String(object.amount) : '',
       sender: isSet(object.sender) ? String(object.sender) : '',
@@ -115,8 +104,6 @@ export const FungibleTokenPacketData = {
   },
 };
 
-messageTypeRegistry.set(FungibleTokenPacketData.$type, FungibleTokenPacketData);
-
 type Builtin =
   | Date
   | Function
@@ -135,14 +122,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

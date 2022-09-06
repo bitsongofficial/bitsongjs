@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination';
 import Long from 'long';
 import { Grant, GrantAuthorization } from './authz';
@@ -11,7 +10,6 @@ export const protobufPackage = 'cosmos.authz.v1beta1';
 
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 export interface QueryGrantsRequest {
-  $type: 'cosmos.authz.v1beta1.QueryGrantsRequest';
   granter: string;
   grantee: string;
   /** Optional, msg_type_url, when set, will query only grants matching given msg type. */
@@ -22,7 +20,6 @@ export interface QueryGrantsRequest {
 
 /** QueryGrantsResponse is the response type for the Query/Authorizations RPC method. */
 export interface QueryGrantsResponse {
-  $type: 'cosmos.authz.v1beta1.QueryGrantsResponse';
   /** authorizations is a list of grants granted for grantee by granter. */
   grants: Grant[];
   /** pagination defines an pagination for the response. */
@@ -31,7 +28,6 @@ export interface QueryGrantsResponse {
 
 /** QueryGranterGrantsRequest is the request type for the Query/GranterGrants RPC method. */
 export interface QueryGranterGrantsRequest {
-  $type: 'cosmos.authz.v1beta1.QueryGranterGrantsRequest';
   granter: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
@@ -39,7 +35,6 @@ export interface QueryGranterGrantsRequest {
 
 /** QueryGranterGrantsResponse is the response type for the Query/GranterGrants RPC method. */
 export interface QueryGranterGrantsResponse {
-  $type: 'cosmos.authz.v1beta1.QueryGranterGrantsResponse';
   /** grants is a list of grants granted by the granter. */
   grants: GrantAuthorization[];
   /** pagination defines an pagination for the response. */
@@ -48,7 +43,6 @@ export interface QueryGranterGrantsResponse {
 
 /** QueryGranteeGrantsRequest is the request type for the Query/IssuedGrants RPC method. */
 export interface QueryGranteeGrantsRequest {
-  $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsRequest';
   grantee: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
@@ -56,7 +50,6 @@ export interface QueryGranteeGrantsRequest {
 
 /** QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method. */
 export interface QueryGranteeGrantsResponse {
-  $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsResponse';
   /** grants is a list of grants granted to the grantee. */
   grants: GrantAuthorization[];
   /** pagination defines an pagination for the response. */
@@ -64,18 +57,10 @@ export interface QueryGranteeGrantsResponse {
 }
 
 function createBaseQueryGrantsRequest(): QueryGrantsRequest {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGrantsRequest',
-    granter: '',
-    grantee: '',
-    msgTypeUrl: '',
-    pagination: undefined,
-  };
+  return { granter: '', grantee: '', msgTypeUrl: '', pagination: undefined };
 }
 
 export const QueryGrantsRequest = {
-  $type: 'cosmos.authz.v1beta1.QueryGrantsRequest' as const,
-
   encode(
     message: QueryGrantsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -124,7 +109,6 @@ export const QueryGrantsRequest = {
 
   fromJSON(object: any): QueryGrantsRequest {
     return {
-      $type: QueryGrantsRequest.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : '',
@@ -161,19 +145,11 @@ export const QueryGrantsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryGrantsRequest.$type, QueryGrantsRequest);
-
 function createBaseQueryGrantsResponse(): QueryGrantsResponse {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGrantsResponse',
-    grants: [],
-    pagination: undefined,
-  };
+  return { grants: [], pagination: undefined };
 }
 
 export const QueryGrantsResponse = {
-  $type: 'cosmos.authz.v1beta1.QueryGrantsResponse' as const,
-
   encode(
     message: QueryGrantsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -213,7 +189,6 @@ export const QueryGrantsResponse = {
 
   fromJSON(object: any): QueryGrantsResponse {
     return {
-      $type: QueryGrantsResponse.$type,
       grants: Array.isArray(object?.grants)
         ? object.grants.map((e: any) => Grant.fromJSON(e))
         : [],
@@ -250,19 +225,11 @@ export const QueryGrantsResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryGrantsResponse.$type, QueryGrantsResponse);
-
 function createBaseQueryGranterGrantsRequest(): QueryGranterGrantsRequest {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGranterGrantsRequest',
-    granter: '',
-    pagination: undefined,
-  };
+  return { granter: '', pagination: undefined };
 }
 
 export const QueryGranterGrantsRequest = {
-  $type: 'cosmos.authz.v1beta1.QueryGranterGrantsRequest' as const,
-
   encode(
     message: QueryGranterGrantsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -302,7 +269,6 @@ export const QueryGranterGrantsRequest = {
 
   fromJSON(object: any): QueryGranterGrantsRequest {
     return {
-      $type: QueryGranterGrantsRequest.$type,
       granter: isSet(object.granter) ? String(object.granter) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -333,22 +299,11 @@ export const QueryGranterGrantsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryGranterGrantsRequest.$type,
-  QueryGranterGrantsRequest,
-);
-
 function createBaseQueryGranterGrantsResponse(): QueryGranterGrantsResponse {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGranterGrantsResponse',
-    grants: [],
-    pagination: undefined,
-  };
+  return { grants: [], pagination: undefined };
 }
 
 export const QueryGranterGrantsResponse = {
-  $type: 'cosmos.authz.v1beta1.QueryGranterGrantsResponse' as const,
-
   encode(
     message: QueryGranterGrantsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -393,7 +348,6 @@ export const QueryGranterGrantsResponse = {
 
   fromJSON(object: any): QueryGranterGrantsResponse {
     return {
-      $type: QueryGranterGrantsResponse.$type,
       grants: Array.isArray(object?.grants)
         ? object.grants.map((e: any) => GrantAuthorization.fromJSON(e))
         : [],
@@ -433,22 +387,11 @@ export const QueryGranterGrantsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryGranterGrantsResponse.$type,
-  QueryGranterGrantsResponse,
-);
-
 function createBaseQueryGranteeGrantsRequest(): QueryGranteeGrantsRequest {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsRequest',
-    grantee: '',
-    pagination: undefined,
-  };
+  return { grantee: '', pagination: undefined };
 }
 
 export const QueryGranteeGrantsRequest = {
-  $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsRequest' as const,
-
   encode(
     message: QueryGranteeGrantsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -488,7 +431,6 @@ export const QueryGranteeGrantsRequest = {
 
   fromJSON(object: any): QueryGranteeGrantsRequest {
     return {
-      $type: QueryGranteeGrantsRequest.$type,
       grantee: isSet(object.grantee) ? String(object.grantee) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -519,22 +461,11 @@ export const QueryGranteeGrantsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryGranteeGrantsRequest.$type,
-  QueryGranteeGrantsRequest,
-);
-
 function createBaseQueryGranteeGrantsResponse(): QueryGranteeGrantsResponse {
-  return {
-    $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsResponse',
-    grants: [],
-    pagination: undefined,
-  };
+  return { grants: [], pagination: undefined };
 }
 
 export const QueryGranteeGrantsResponse = {
-  $type: 'cosmos.authz.v1beta1.QueryGranteeGrantsResponse' as const,
-
   encode(
     message: QueryGranteeGrantsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -579,7 +510,6 @@ export const QueryGranteeGrantsResponse = {
 
   fromJSON(object: any): QueryGranteeGrantsResponse {
     return {
-      $type: QueryGranteeGrantsResponse.$type,
       grants: Array.isArray(object?.grants)
         ? object.grants.map((e: any) => GrantAuthorization.fromJSON(e))
         : [],
@@ -618,11 +548,6 @@ export const QueryGranteeGrantsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  QueryGranteeGrantsResponse.$type,
-  QueryGranteeGrantsResponse,
-);
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -721,14 +646,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

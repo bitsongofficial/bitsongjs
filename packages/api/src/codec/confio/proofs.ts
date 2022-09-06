@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -176,7 +175,6 @@ export function lengthOpToJSON(object: LengthOp): string {
  * length-prefix the data before hashing it.
  */
 export interface ExistenceProof {
-  $type: 'ics23.ExistenceProof';
   key: Uint8Array;
   value: Uint8Array;
   leaf?: LeafOp;
@@ -189,7 +187,6 @@ export interface ExistenceProof {
  * then there is no valid proof for the given key.
  */
 export interface NonExistenceProof {
-  $type: 'ics23.NonExistenceProof';
   /** TODO: remove this as unnecessary??? we prove a range */
   key: Uint8Array;
   left?: ExistenceProof;
@@ -198,7 +195,6 @@ export interface NonExistenceProof {
 
 /** CommitmentProof is either an ExistenceProof or a NonExistenceProof, or a Batch of such messages */
 export interface CommitmentProof {
-  $type: 'ics23.CommitmentProof';
   exist?: ExistenceProof | undefined;
   nonexist?: NonExistenceProof | undefined;
   batch?: BatchProof | undefined;
@@ -222,7 +218,6 @@ export interface CommitmentProof {
  * output = hash(prefix || length(hkey) || hkey || length(hvalue) || hvalue)
  */
 export interface LeafOp {
-  $type: 'ics23.LeafOp';
   hash: HashOp;
   prehashKey: HashOp;
   prehashValue: HashOp;
@@ -252,7 +247,6 @@ export interface LeafOp {
  * If either of prefix or suffix is empty, we just treat it as an empty string
  */
 export interface InnerOp {
-  $type: 'ics23.InnerOp';
   hash: HashOp;
   prefix: Uint8Array;
   suffix: Uint8Array;
@@ -271,7 +265,6 @@ export interface InnerOp {
  * tree format server uses. But not in code, rather a configuration object.
  */
 export interface ProofSpec {
-  $type: 'ics23.ProofSpec';
   /**
    * any field in the ExistenceProof must be the same as in this spec.
    * except Prefix, which is just the first bytes of prefix (spec can be longer)
@@ -295,7 +288,6 @@ export interface ProofSpec {
  * isLeftNeighbor(spec: InnerSpec, left: InnerOp, right: InnerOp)
  */
 export interface InnerSpec {
-  $type: 'ics23.InnerSpec';
   /**
    * Child order is the ordering of the children node, must count from 0
    * iavl tree is [0, 1] (left then right)
@@ -313,32 +305,27 @@ export interface InnerSpec {
 
 /** BatchProof is a group of multiple proof types than can be compressed */
 export interface BatchProof {
-  $type: 'ics23.BatchProof';
   entries: BatchEntry[];
 }
 
 /** Use BatchEntry not CommitmentProof, to avoid recursion */
 export interface BatchEntry {
-  $type: 'ics23.BatchEntry';
   exist?: ExistenceProof | undefined;
   nonexist?: NonExistenceProof | undefined;
 }
 
 export interface CompressedBatchProof {
-  $type: 'ics23.CompressedBatchProof';
   entries: CompressedBatchEntry[];
   lookupInners: InnerOp[];
 }
 
 /** Use BatchEntry not CommitmentProof, to avoid recursion */
 export interface CompressedBatchEntry {
-  $type: 'ics23.CompressedBatchEntry';
   exist?: CompressedExistenceProof | undefined;
   nonexist?: CompressedNonExistenceProof | undefined;
 }
 
 export interface CompressedExistenceProof {
-  $type: 'ics23.CompressedExistenceProof';
   key: Uint8Array;
   value: Uint8Array;
   leaf?: LeafOp;
@@ -347,7 +334,6 @@ export interface CompressedExistenceProof {
 }
 
 export interface CompressedNonExistenceProof {
-  $type: 'ics23.CompressedNonExistenceProof';
   /** TODO: remove this as unnecessary??? we prove a range */
   key: Uint8Array;
   left?: CompressedExistenceProof;
@@ -356,7 +342,6 @@ export interface CompressedNonExistenceProof {
 
 function createBaseExistenceProof(): ExistenceProof {
   return {
-    $type: 'ics23.ExistenceProof',
     key: new Uint8Array(),
     value: new Uint8Array(),
     leaf: undefined,
@@ -365,8 +350,6 @@ function createBaseExistenceProof(): ExistenceProof {
 }
 
 export const ExistenceProof = {
-  $type: 'ics23.ExistenceProof' as const,
-
   encode(
     message: ExistenceProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -415,7 +398,6 @@ export const ExistenceProof = {
 
   fromJSON(object: any): ExistenceProof {
     return {
-      $type: ExistenceProof.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value)
         ? bytesFromBase64(object.value)
@@ -462,20 +444,11 @@ export const ExistenceProof = {
   },
 };
 
-messageTypeRegistry.set(ExistenceProof.$type, ExistenceProof);
-
 function createBaseNonExistenceProof(): NonExistenceProof {
-  return {
-    $type: 'ics23.NonExistenceProof',
-    key: new Uint8Array(),
-    left: undefined,
-    right: undefined,
-  };
+  return { key: new Uint8Array(), left: undefined, right: undefined };
 }
 
 export const NonExistenceProof = {
-  $type: 'ics23.NonExistenceProof' as const,
-
   encode(
     message: NonExistenceProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -518,7 +491,6 @@ export const NonExistenceProof = {
 
   fromJSON(object: any): NonExistenceProof {
     return {
-      $type: NonExistenceProof.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       left: isSet(object.left)
         ? ExistenceProof.fromJSON(object.left)
@@ -563,11 +535,8 @@ export const NonExistenceProof = {
   },
 };
 
-messageTypeRegistry.set(NonExistenceProof.$type, NonExistenceProof);
-
 function createBaseCommitmentProof(): CommitmentProof {
   return {
-    $type: 'ics23.CommitmentProof',
     exist: undefined,
     nonexist: undefined,
     batch: undefined,
@@ -576,8 +545,6 @@ function createBaseCommitmentProof(): CommitmentProof {
 }
 
 export const CommitmentProof = {
-  $type: 'ics23.CommitmentProof' as const,
-
   encode(
     message: CommitmentProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -635,7 +602,6 @@ export const CommitmentProof = {
 
   fromJSON(object: any): CommitmentProof {
     return {
-      $type: CommitmentProof.$type,
       exist: isSet(object.exist)
         ? ExistenceProof.fromJSON(object.exist)
         : undefined,
@@ -696,11 +662,8 @@ export const CommitmentProof = {
   },
 };
 
-messageTypeRegistry.set(CommitmentProof.$type, CommitmentProof);
-
 function createBaseLeafOp(): LeafOp {
   return {
-    $type: 'ics23.LeafOp',
     hash: 0,
     prehashKey: 0,
     prehashValue: 0,
@@ -710,8 +673,6 @@ function createBaseLeafOp(): LeafOp {
 }
 
 export const LeafOp = {
-  $type: 'ics23.LeafOp' as const,
-
   encode(
     message: LeafOp,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -766,7 +727,6 @@ export const LeafOp = {
 
   fromJSON(object: any): LeafOp {
     return {
-      $type: LeafOp.$type,
       hash: isSet(object.hash) ? hashOpFromJSON(object.hash) : 0,
       prehashKey: isSet(object.prehashKey)
         ? hashOpFromJSON(object.prehashKey)
@@ -808,20 +768,11 @@ export const LeafOp = {
   },
 };
 
-messageTypeRegistry.set(LeafOp.$type, LeafOp);
-
 function createBaseInnerOp(): InnerOp {
-  return {
-    $type: 'ics23.InnerOp',
-    hash: 0,
-    prefix: new Uint8Array(),
-    suffix: new Uint8Array(),
-  };
+  return { hash: 0, prefix: new Uint8Array(), suffix: new Uint8Array() };
 }
 
 export const InnerOp = {
-  $type: 'ics23.InnerOp' as const,
-
   encode(
     message: InnerOp,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -864,7 +815,6 @@ export const InnerOp = {
 
   fromJSON(object: any): InnerOp {
     return {
-      $type: InnerOp.$type,
       hash: isSet(object.hash) ? hashOpFromJSON(object.hash) : 0,
       prefix: isSet(object.prefix)
         ? bytesFromBase64(object.prefix)
@@ -898,11 +848,8 @@ export const InnerOp = {
   },
 };
 
-messageTypeRegistry.set(InnerOp.$type, InnerOp);
-
 function createBaseProofSpec(): ProofSpec {
   return {
-    $type: 'ics23.ProofSpec',
     leafSpec: undefined,
     innerSpec: undefined,
     maxDepth: 0,
@@ -911,8 +858,6 @@ function createBaseProofSpec(): ProofSpec {
 }
 
 export const ProofSpec = {
-  $type: 'ics23.ProofSpec' as const,
-
   encode(
     message: ProofSpec,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -961,7 +906,6 @@ export const ProofSpec = {
 
   fromJSON(object: any): ProofSpec {
     return {
-      $type: ProofSpec.$type,
       leafSpec: isSet(object.leafSpec)
         ? LeafOp.fromJSON(object.leafSpec)
         : undefined,
@@ -1008,11 +952,8 @@ export const ProofSpec = {
   },
 };
 
-messageTypeRegistry.set(ProofSpec.$type, ProofSpec);
-
 function createBaseInnerSpec(): InnerSpec {
   return {
-    $type: 'ics23.InnerSpec',
     childOrder: [],
     childSize: 0,
     minPrefixLength: 0,
@@ -1023,8 +964,6 @@ function createBaseInnerSpec(): InnerSpec {
 }
 
 export const InnerSpec = {
-  $type: 'ics23.InnerSpec' as const,
-
   encode(
     message: InnerSpec,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1094,7 +1033,6 @@ export const InnerSpec = {
 
   fromJSON(object: any): InnerSpec {
     return {
-      $type: InnerSpec.$type,
       childOrder: Array.isArray(object?.childOrder)
         ? object.childOrder.map((e: any) => Number(e))
         : [],
@@ -1149,15 +1087,11 @@ export const InnerSpec = {
   },
 };
 
-messageTypeRegistry.set(InnerSpec.$type, InnerSpec);
-
 function createBaseBatchProof(): BatchProof {
-  return { $type: 'ics23.BatchProof', entries: [] };
+  return { entries: [] };
 }
 
 export const BatchProof = {
-  $type: 'ics23.BatchProof' as const,
-
   encode(
     message: BatchProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1188,7 +1122,6 @@ export const BatchProof = {
 
   fromJSON(object: any): BatchProof {
     return {
-      $type: BatchProof.$type,
       entries: Array.isArray(object?.entries)
         ? object.entries.map((e: any) => BatchEntry.fromJSON(e))
         : [],
@@ -1216,15 +1149,11 @@ export const BatchProof = {
   },
 };
 
-messageTypeRegistry.set(BatchProof.$type, BatchProof);
-
 function createBaseBatchEntry(): BatchEntry {
-  return { $type: 'ics23.BatchEntry', exist: undefined, nonexist: undefined };
+  return { exist: undefined, nonexist: undefined };
 }
 
 export const BatchEntry = {
-  $type: 'ics23.BatchEntry' as const,
-
   encode(
     message: BatchEntry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1264,7 +1193,6 @@ export const BatchEntry = {
 
   fromJSON(object: any): BatchEntry {
     return {
-      $type: BatchEntry.$type,
       exist: isSet(object.exist)
         ? ExistenceProof.fromJSON(object.exist)
         : undefined,
@@ -1303,15 +1231,11 @@ export const BatchEntry = {
   },
 };
 
-messageTypeRegistry.set(BatchEntry.$type, BatchEntry);
-
 function createBaseCompressedBatchProof(): CompressedBatchProof {
-  return { $type: 'ics23.CompressedBatchProof', entries: [], lookupInners: [] };
+  return { entries: [], lookupInners: [] };
 }
 
 export const CompressedBatchProof = {
-  $type: 'ics23.CompressedBatchProof' as const,
-
   encode(
     message: CompressedBatchProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1353,7 +1277,6 @@ export const CompressedBatchProof = {
 
   fromJSON(object: any): CompressedBatchProof {
     return {
-      $type: CompressedBatchProof.$type,
       entries: Array.isArray(object?.entries)
         ? object.entries.map((e: any) => CompressedBatchEntry.fromJSON(e))
         : [],
@@ -1394,19 +1317,11 @@ export const CompressedBatchProof = {
   },
 };
 
-messageTypeRegistry.set(CompressedBatchProof.$type, CompressedBatchProof);
-
 function createBaseCompressedBatchEntry(): CompressedBatchEntry {
-  return {
-    $type: 'ics23.CompressedBatchEntry',
-    exist: undefined,
-    nonexist: undefined,
-  };
+  return { exist: undefined, nonexist: undefined };
 }
 
 export const CompressedBatchEntry = {
-  $type: 'ics23.CompressedBatchEntry' as const,
-
   encode(
     message: CompressedBatchEntry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1458,7 +1373,6 @@ export const CompressedBatchEntry = {
 
   fromJSON(object: any): CompressedBatchEntry {
     return {
-      $type: CompressedBatchEntry.$type,
       exist: isSet(object.exist)
         ? CompressedExistenceProof.fromJSON(object.exist)
         : undefined,
@@ -1497,11 +1411,8 @@ export const CompressedBatchEntry = {
   },
 };
 
-messageTypeRegistry.set(CompressedBatchEntry.$type, CompressedBatchEntry);
-
 function createBaseCompressedExistenceProof(): CompressedExistenceProof {
   return {
-    $type: 'ics23.CompressedExistenceProof',
     key: new Uint8Array(),
     value: new Uint8Array(),
     leaf: undefined,
@@ -1510,8 +1421,6 @@ function createBaseCompressedExistenceProof(): CompressedExistenceProof {
 }
 
 export const CompressedExistenceProof = {
-  $type: 'ics23.CompressedExistenceProof' as const,
-
   encode(
     message: CompressedExistenceProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1572,7 +1481,6 @@ export const CompressedExistenceProof = {
 
   fromJSON(object: any): CompressedExistenceProof {
     return {
-      $type: CompressedExistenceProof.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value)
         ? bytesFromBase64(object.value)
@@ -1619,23 +1527,11 @@ export const CompressedExistenceProof = {
   },
 };
 
-messageTypeRegistry.set(
-  CompressedExistenceProof.$type,
-  CompressedExistenceProof,
-);
-
 function createBaseCompressedNonExistenceProof(): CompressedNonExistenceProof {
-  return {
-    $type: 'ics23.CompressedNonExistenceProof',
-    key: new Uint8Array(),
-    left: undefined,
-    right: undefined,
-  };
+  return { key: new Uint8Array(), left: undefined, right: undefined };
 }
 
 export const CompressedNonExistenceProof = {
-  $type: 'ics23.CompressedNonExistenceProof' as const,
-
   encode(
     message: CompressedNonExistenceProof,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1693,7 +1589,6 @@ export const CompressedNonExistenceProof = {
 
   fromJSON(object: any): CompressedNonExistenceProof {
     return {
-      $type: CompressedNonExistenceProof.$type,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       left: isSet(object.left)
         ? CompressedExistenceProof.fromJSON(object.left)
@@ -1737,11 +1632,6 @@ export const CompressedNonExistenceProof = {
     return message;
   },
 };
-
-messageTypeRegistry.set(
-  CompressedNonExistenceProof.$type,
-  CompressedNonExistenceProof,
-);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -1797,14 +1687,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination';
 import {
   Validator,
@@ -17,7 +16,6 @@ export const protobufPackage = 'cosmos.staking.v1beta1';
 
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorsRequest';
   /** status enables to query for validators matching a given status. */
   status: string;
   /** pagination defines an optional pagination for the request. */
@@ -26,7 +24,6 @@ export interface QueryValidatorsRequest {
 
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorsResponse';
   /** validators contains all the queried validators. */
   validators: Validator[];
   /** pagination defines the pagination in the response. */
@@ -35,14 +32,12 @@ export interface QueryValidatorsResponse {
 
 /** QueryValidatorRequest is response type for the Query/Validator RPC method */
 export interface QueryValidatorRequest {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorRequest';
   /** validator_addr defines the validator address to query for. */
   validatorAddr: string;
 }
 
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 export interface QueryValidatorResponse {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorResponse';
   /** validator defines the the validator info. */
   validator?: Validator;
 }
@@ -52,7 +47,6 @@ export interface QueryValidatorResponse {
  * Query/ValidatorDelegations RPC method
  */
 export interface QueryValidatorDelegationsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsRequest';
   /** validator_addr defines the validator address to query for. */
   validatorAddr: string;
   /** pagination defines an optional pagination for the request. */
@@ -64,7 +58,6 @@ export interface QueryValidatorDelegationsRequest {
  * Query/ValidatorDelegations RPC method
  */
 export interface QueryValidatorDelegationsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsResponse';
   delegationResponses: DelegationResponse[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
@@ -75,7 +68,6 @@ export interface QueryValidatorDelegationsResponse {
  * Query/ValidatorUnbondingDelegations RPC method
  */
 export interface QueryValidatorUnbondingDelegationsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest';
   /** validator_addr defines the validator address to query for. */
   validatorAddr: string;
   /** pagination defines an optional pagination for the request. */
@@ -87,7 +79,6 @@ export interface QueryValidatorUnbondingDelegationsRequest {
  * Query/ValidatorUnbondingDelegations RPC method.
  */
 export interface QueryValidatorUnbondingDelegationsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse';
   unbondingResponses: UnbondingDelegation[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
@@ -95,7 +86,6 @@ export interface QueryValidatorUnbondingDelegationsResponse {
 
 /** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
 export interface QueryDelegationRequest {
-  $type: 'cosmos.staking.v1beta1.QueryDelegationRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** validator_addr defines the validator address to query for. */
@@ -104,7 +94,6 @@ export interface QueryDelegationRequest {
 
 /** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
 export interface QueryDelegationResponse {
-  $type: 'cosmos.staking.v1beta1.QueryDelegationResponse';
   /** delegation_responses defines the delegation info of a delegation. */
   delegationResponse?: DelegationResponse;
 }
@@ -114,7 +103,6 @@ export interface QueryDelegationResponse {
  * Query/UnbondingDelegation RPC method.
  */
 export interface QueryUnbondingDelegationRequest {
-  $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** validator_addr defines the validator address to query for. */
@@ -126,7 +114,6 @@ export interface QueryUnbondingDelegationRequest {
  * RPC method.
  */
 export interface QueryUnbondingDelegationResponse {
-  $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationResponse';
   /** unbond defines the unbonding information of a delegation. */
   unbond?: UnbondingDelegation;
 }
@@ -136,7 +123,6 @@ export interface QueryUnbondingDelegationResponse {
  * Query/DelegatorDelegations RPC method.
  */
 export interface QueryDelegatorDelegationsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
@@ -148,7 +134,6 @@ export interface QueryDelegatorDelegationsRequest {
  * Query/DelegatorDelegations RPC method.
  */
 export interface QueryDelegatorDelegationsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse';
   /** delegation_responses defines all the delegations' info of a delegator. */
   delegationResponses: DelegationResponse[];
   /** pagination defines the pagination in the response. */
@@ -160,7 +145,6 @@ export interface QueryDelegatorDelegationsResponse {
  * Query/DelegatorUnbondingDelegations RPC method.
  */
 export interface QueryDelegatorUnbondingDelegationsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
@@ -172,7 +156,6 @@ export interface QueryDelegatorUnbondingDelegationsRequest {
  * Query/UnbondingDelegatorDelegations RPC method.
  */
 export interface QueryDelegatorUnbondingDelegationsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse';
   unbondingResponses: UnbondingDelegation[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
@@ -183,7 +166,6 @@ export interface QueryDelegatorUnbondingDelegationsResponse {
  * method.
  */
 export interface QueryRedelegationsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryRedelegationsRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** src_validator_addr defines the validator address to redelegate from. */
@@ -199,7 +181,6 @@ export interface QueryRedelegationsRequest {
  * method.
  */
 export interface QueryRedelegationsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryRedelegationsResponse';
   redelegationResponses: RedelegationResponse[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
@@ -210,7 +191,6 @@ export interface QueryRedelegationsResponse {
  * Query/DelegatorValidators RPC method.
  */
 export interface QueryDelegatorValidatorsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
@@ -222,7 +202,6 @@ export interface QueryDelegatorValidatorsRequest {
  * Query/DelegatorValidators RPC method.
  */
 export interface QueryDelegatorValidatorsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse';
   /** validators defines the the validators' info of a delegator. */
   validators: Validator[];
   /** pagination defines the pagination in the response. */
@@ -234,7 +213,6 @@ export interface QueryDelegatorValidatorsResponse {
  * Query/DelegatorValidator RPC method.
  */
 export interface QueryDelegatorValidatorRequest {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorRequest';
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** validator_addr defines the validator address to query for. */
@@ -246,7 +224,6 @@ export interface QueryDelegatorValidatorRequest {
  * Query/DelegatorValidator RPC method.
  */
 export interface QueryDelegatorValidatorResponse {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorResponse';
   /** validator defines the the validator info. */
   validator?: Validator;
 }
@@ -256,7 +233,6 @@ export interface QueryDelegatorValidatorResponse {
  * method.
  */
 export interface QueryHistoricalInfoRequest {
-  $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoRequest';
   /** height defines at which height to query the historical info. */
   height: Long;
 }
@@ -266,46 +242,33 @@ export interface QueryHistoricalInfoRequest {
  * method.
  */
 export interface QueryHistoricalInfoResponse {
-  $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoResponse';
   /** hist defines the historical info at the given height. */
   hist?: HistoricalInfo;
 }
 
 /** QueryPoolRequest is request type for the Query/Pool RPC method. */
-export interface QueryPoolRequest {
-  $type: 'cosmos.staking.v1beta1.QueryPoolRequest';
-}
+export interface QueryPoolRequest {}
 
 /** QueryPoolResponse is response type for the Query/Pool RPC method. */
 export interface QueryPoolResponse {
-  $type: 'cosmos.staking.v1beta1.QueryPoolResponse';
   /** pool defines the pool info. */
   pool?: Pool;
 }
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {
-  $type: 'cosmos.staking.v1beta1.QueryParamsRequest';
-}
+export interface QueryParamsRequest {}
 
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
-  $type: 'cosmos.staking.v1beta1.QueryParamsResponse';
   /** params holds all the parameters of this module. */
   params?: Params;
 }
 
 function createBaseQueryValidatorsRequest(): QueryValidatorsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorsRequest',
-    status: '',
-    pagination: undefined,
-  };
+  return { status: '', pagination: undefined };
 }
 
 export const QueryValidatorsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorsRequest' as const,
-
   encode(
     message: QueryValidatorsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -345,7 +308,6 @@ export const QueryValidatorsRequest = {
 
   fromJSON(object: any): QueryValidatorsRequest {
     return {
-      $type: QueryValidatorsRequest.$type,
       status: isSet(object.status) ? String(object.status) : '',
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -376,19 +338,11 @@ export const QueryValidatorsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryValidatorsRequest.$type, QueryValidatorsRequest);
-
 function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorsResponse',
-    validators: [],
-    pagination: undefined,
-  };
+  return { validators: [], pagination: undefined };
 }
 
 export const QueryValidatorsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorsResponse' as const,
-
   encode(
     message: QueryValidatorsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -431,7 +385,6 @@ export const QueryValidatorsResponse = {
 
   fromJSON(object: any): QueryValidatorsResponse {
     return {
-      $type: QueryValidatorsResponse.$type,
       validators: Array.isArray(object?.validators)
         ? object.validators.map((e: any) => Validator.fromJSON(e))
         : [],
@@ -471,18 +424,11 @@ export const QueryValidatorsResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryValidatorsResponse.$type, QueryValidatorsResponse);
-
 function createBaseQueryValidatorRequest(): QueryValidatorRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorRequest',
-    validatorAddr: '',
-  };
+  return { validatorAddr: '' };
 }
 
 export const QueryValidatorRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorRequest' as const,
-
   encode(
     message: QueryValidatorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -516,7 +462,6 @@ export const QueryValidatorRequest = {
 
   fromJSON(object: any): QueryValidatorRequest {
     return {
-      $type: QueryValidatorRequest.$type,
       validatorAddr: isSet(object.validatorAddr)
         ? String(object.validatorAddr)
         : '',
@@ -539,18 +484,11 @@ export const QueryValidatorRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryValidatorRequest.$type, QueryValidatorRequest);
-
 function createBaseQueryValidatorResponse(): QueryValidatorResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorResponse',
-    validator: undefined,
-  };
+  return { validator: undefined };
 }
 
 export const QueryValidatorResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorResponse' as const,
-
   encode(
     message: QueryValidatorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -584,7 +522,6 @@ export const QueryValidatorResponse = {
 
   fromJSON(object: any): QueryValidatorResponse {
     return {
-      $type: QueryValidatorResponse.$type,
       validator: isSet(object.validator)
         ? Validator.fromJSON(object.validator)
         : undefined,
@@ -612,19 +549,11 @@ export const QueryValidatorResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryValidatorResponse.$type, QueryValidatorResponse);
-
 function createBaseQueryValidatorDelegationsRequest(): QueryValidatorDelegationsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsRequest',
-    validatorAddr: '',
-    pagination: undefined,
-  };
+  return { validatorAddr: '', pagination: undefined };
 }
 
 export const QueryValidatorDelegationsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsRequest' as const,
-
   encode(
     message: QueryValidatorDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -664,7 +593,6 @@ export const QueryValidatorDelegationsRequest = {
 
   fromJSON(object: any): QueryValidatorDelegationsRequest {
     return {
-      $type: QueryValidatorDelegationsRequest.$type,
       validatorAddr: isSet(object.validatorAddr)
         ? String(object.validatorAddr)
         : '',
@@ -698,22 +626,11 @@ export const QueryValidatorDelegationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryValidatorDelegationsRequest.$type,
-  QueryValidatorDelegationsRequest,
-);
-
 function createBaseQueryValidatorDelegationsResponse(): QueryValidatorDelegationsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsResponse',
-    delegationResponses: [],
-    pagination: undefined,
-  };
+  return { delegationResponses: [], pagination: undefined };
 }
 
 export const QueryValidatorDelegationsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryValidatorDelegationsResponse' as const,
-
   encode(
     message: QueryValidatorDelegationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -758,7 +675,6 @@ export const QueryValidatorDelegationsResponse = {
 
   fromJSON(object: any): QueryValidatorDelegationsResponse {
     return {
-      $type: QueryValidatorDelegationsResponse.$type,
       delegationResponses: Array.isArray(object?.delegationResponses)
         ? object.delegationResponses.map((e: any) =>
             DelegationResponse.fromJSON(e),
@@ -801,23 +717,11 @@ export const QueryValidatorDelegationsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryValidatorDelegationsResponse.$type,
-  QueryValidatorDelegationsResponse,
-);
-
 function createBaseQueryValidatorUnbondingDelegationsRequest(): QueryValidatorUnbondingDelegationsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest',
-    validatorAddr: '',
-    pagination: undefined,
-  };
+  return { validatorAddr: '', pagination: undefined };
 }
 
 export const QueryValidatorUnbondingDelegationsRequest = {
-  $type:
-    'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest' as const,
-
   encode(
     message: QueryValidatorUnbondingDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -857,7 +761,6 @@ export const QueryValidatorUnbondingDelegationsRequest = {
 
   fromJSON(object: any): QueryValidatorUnbondingDelegationsRequest {
     return {
-      $type: QueryValidatorUnbondingDelegationsRequest.$type,
       validatorAddr: isSet(object.validatorAddr)
         ? String(object.validatorAddr)
         : '',
@@ -891,23 +794,11 @@ export const QueryValidatorUnbondingDelegationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryValidatorUnbondingDelegationsRequest.$type,
-  QueryValidatorUnbondingDelegationsRequest,
-);
-
 function createBaseQueryValidatorUnbondingDelegationsResponse(): QueryValidatorUnbondingDelegationsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse',
-    unbondingResponses: [],
-    pagination: undefined,
-  };
+  return { unbondingResponses: [], pagination: undefined };
 }
 
 export const QueryValidatorUnbondingDelegationsResponse = {
-  $type:
-    'cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse' as const,
-
   encode(
     message: QueryValidatorUnbondingDelegationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -952,7 +843,6 @@ export const QueryValidatorUnbondingDelegationsResponse = {
 
   fromJSON(object: any): QueryValidatorUnbondingDelegationsResponse {
     return {
-      $type: QueryValidatorUnbondingDelegationsResponse.$type,
       unbondingResponses: Array.isArray(object?.unbondingResponses)
         ? object.unbondingResponses.map((e: any) =>
             UnbondingDelegation.fromJSON(e),
@@ -995,22 +885,11 @@ export const QueryValidatorUnbondingDelegationsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryValidatorUnbondingDelegationsResponse.$type,
-  QueryValidatorUnbondingDelegationsResponse,
-);
-
 function createBaseQueryDelegationRequest(): QueryDelegationRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegationRequest',
-    delegatorAddr: '',
-    validatorAddr: '',
-  };
+  return { delegatorAddr: '', validatorAddr: '' };
 }
 
 export const QueryDelegationRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegationRequest' as const,
-
   encode(
     message: QueryDelegationRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1050,7 +929,6 @@ export const QueryDelegationRequest = {
 
   fromJSON(object: any): QueryDelegationRequest {
     return {
-      $type: QueryDelegationRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -1079,18 +957,11 @@ export const QueryDelegationRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryDelegationRequest.$type, QueryDelegationRequest);
-
 function createBaseQueryDelegationResponse(): QueryDelegationResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegationResponse',
-    delegationResponse: undefined,
-  };
+  return { delegationResponse: undefined };
 }
 
 export const QueryDelegationResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegationResponse' as const,
-
   encode(
     message: QueryDelegationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1130,7 +1001,6 @@ export const QueryDelegationResponse = {
 
   fromJSON(object: any): QueryDelegationResponse {
     return {
-      $type: QueryDelegationResponse.$type,
       delegationResponse: isSet(object.delegationResponse)
         ? DelegationResponse.fromJSON(object.delegationResponse)
         : undefined,
@@ -1159,19 +1029,11 @@ export const QueryDelegationResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryDelegationResponse.$type, QueryDelegationResponse);
-
 function createBaseQueryUnbondingDelegationRequest(): QueryUnbondingDelegationRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationRequest',
-    delegatorAddr: '',
-    validatorAddr: '',
-  };
+  return { delegatorAddr: '', validatorAddr: '' };
 }
 
 export const QueryUnbondingDelegationRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationRequest' as const,
-
   encode(
     message: QueryUnbondingDelegationRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1211,7 +1073,6 @@ export const QueryUnbondingDelegationRequest = {
 
   fromJSON(object: any): QueryUnbondingDelegationRequest {
     return {
-      $type: QueryUnbondingDelegationRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -1240,21 +1101,11 @@ export const QueryUnbondingDelegationRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryUnbondingDelegationRequest.$type,
-  QueryUnbondingDelegationRequest,
-);
-
 function createBaseQueryUnbondingDelegationResponse(): QueryUnbondingDelegationResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationResponse',
-    unbond: undefined,
-  };
+  return { unbond: undefined };
 }
 
 export const QueryUnbondingDelegationResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryUnbondingDelegationResponse' as const,
-
   encode(
     message: QueryUnbondingDelegationResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1291,7 +1142,6 @@ export const QueryUnbondingDelegationResponse = {
 
   fromJSON(object: any): QueryUnbondingDelegationResponse {
     return {
-      $type: QueryUnbondingDelegationResponse.$type,
       unbond: isSet(object.unbond)
         ? UnbondingDelegation.fromJSON(object.unbond)
         : undefined,
@@ -1319,22 +1169,11 @@ export const QueryUnbondingDelegationResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryUnbondingDelegationResponse.$type,
-  QueryUnbondingDelegationResponse,
-);
-
 function createBaseQueryDelegatorDelegationsRequest(): QueryDelegatorDelegationsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest',
-    delegatorAddr: '',
-    pagination: undefined,
-  };
+  return { delegatorAddr: '', pagination: undefined };
 }
 
 export const QueryDelegatorDelegationsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest' as const,
-
   encode(
     message: QueryDelegatorDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1374,7 +1213,6 @@ export const QueryDelegatorDelegationsRequest = {
 
   fromJSON(object: any): QueryDelegatorDelegationsRequest {
     return {
-      $type: QueryDelegatorDelegationsRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -1408,22 +1246,11 @@ export const QueryDelegatorDelegationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorDelegationsRequest.$type,
-  QueryDelegatorDelegationsRequest,
-);
-
 function createBaseQueryDelegatorDelegationsResponse(): QueryDelegatorDelegationsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse',
-    delegationResponses: [],
-    pagination: undefined,
-  };
+  return { delegationResponses: [], pagination: undefined };
 }
 
 export const QueryDelegatorDelegationsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse' as const,
-
   encode(
     message: QueryDelegatorDelegationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1468,7 +1295,6 @@ export const QueryDelegatorDelegationsResponse = {
 
   fromJSON(object: any): QueryDelegatorDelegationsResponse {
     return {
-      $type: QueryDelegatorDelegationsResponse.$type,
       delegationResponses: Array.isArray(object?.delegationResponses)
         ? object.delegationResponses.map((e: any) =>
             DelegationResponse.fromJSON(e),
@@ -1511,23 +1337,11 @@ export const QueryDelegatorDelegationsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorDelegationsResponse.$type,
-  QueryDelegatorDelegationsResponse,
-);
-
 function createBaseQueryDelegatorUnbondingDelegationsRequest(): QueryDelegatorUnbondingDelegationsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest',
-    delegatorAddr: '',
-    pagination: undefined,
-  };
+  return { delegatorAddr: '', pagination: undefined };
 }
 
 export const QueryDelegatorUnbondingDelegationsRequest = {
-  $type:
-    'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest' as const,
-
   encode(
     message: QueryDelegatorUnbondingDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1567,7 +1381,6 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
 
   fromJSON(object: any): QueryDelegatorUnbondingDelegationsRequest {
     return {
-      $type: QueryDelegatorUnbondingDelegationsRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -1601,23 +1414,11 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorUnbondingDelegationsRequest.$type,
-  QueryDelegatorUnbondingDelegationsRequest,
-);
-
 function createBaseQueryDelegatorUnbondingDelegationsResponse(): QueryDelegatorUnbondingDelegationsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse',
-    unbondingResponses: [],
-    pagination: undefined,
-  };
+  return { unbondingResponses: [], pagination: undefined };
 }
 
 export const QueryDelegatorUnbondingDelegationsResponse = {
-  $type:
-    'cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse' as const,
-
   encode(
     message: QueryDelegatorUnbondingDelegationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1662,7 +1463,6 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
 
   fromJSON(object: any): QueryDelegatorUnbondingDelegationsResponse {
     return {
-      $type: QueryDelegatorUnbondingDelegationsResponse.$type,
       unbondingResponses: Array.isArray(object?.unbondingResponses)
         ? object.unbondingResponses.map((e: any) =>
             UnbondingDelegation.fromJSON(e),
@@ -1705,14 +1505,8 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorUnbondingDelegationsResponse.$type,
-  QueryDelegatorUnbondingDelegationsResponse,
-);
-
 function createBaseQueryRedelegationsRequest(): QueryRedelegationsRequest {
   return {
-    $type: 'cosmos.staking.v1beta1.QueryRedelegationsRequest',
     delegatorAddr: '',
     srcValidatorAddr: '',
     dstValidatorAddr: '',
@@ -1721,8 +1515,6 @@ function createBaseQueryRedelegationsRequest(): QueryRedelegationsRequest {
 }
 
 export const QueryRedelegationsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryRedelegationsRequest' as const,
-
   encode(
     message: QueryRedelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1774,7 +1566,6 @@ export const QueryRedelegationsRequest = {
 
   fromJSON(object: any): QueryRedelegationsRequest {
     return {
-      $type: QueryRedelegationsRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -1820,22 +1611,11 @@ export const QueryRedelegationsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryRedelegationsRequest.$type,
-  QueryRedelegationsRequest,
-);
-
 function createBaseQueryRedelegationsResponse(): QueryRedelegationsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryRedelegationsResponse',
-    redelegationResponses: [],
-    pagination: undefined,
-  };
+  return { redelegationResponses: [], pagination: undefined };
 }
 
 export const QueryRedelegationsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryRedelegationsResponse' as const,
-
   encode(
     message: QueryRedelegationsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1880,7 +1660,6 @@ export const QueryRedelegationsResponse = {
 
   fromJSON(object: any): QueryRedelegationsResponse {
     return {
-      $type: QueryRedelegationsResponse.$type,
       redelegationResponses: Array.isArray(object?.redelegationResponses)
         ? object.redelegationResponses.map((e: any) =>
             RedelegationResponse.fromJSON(e),
@@ -1924,22 +1703,11 @@ export const QueryRedelegationsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryRedelegationsResponse.$type,
-  QueryRedelegationsResponse,
-);
-
 function createBaseQueryDelegatorValidatorsRequest(): QueryDelegatorValidatorsRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest',
-    delegatorAddr: '',
-    pagination: undefined,
-  };
+  return { delegatorAddr: '', pagination: undefined };
 }
 
 export const QueryDelegatorValidatorsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest' as const,
-
   encode(
     message: QueryDelegatorValidatorsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1979,7 +1747,6 @@ export const QueryDelegatorValidatorsRequest = {
 
   fromJSON(object: any): QueryDelegatorValidatorsRequest {
     return {
-      $type: QueryDelegatorValidatorsRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -2013,22 +1780,11 @@ export const QueryDelegatorValidatorsRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorValidatorsRequest.$type,
-  QueryDelegatorValidatorsRequest,
-);
-
 function createBaseQueryDelegatorValidatorsResponse(): QueryDelegatorValidatorsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse',
-    validators: [],
-    pagination: undefined,
-  };
+  return { validators: [], pagination: undefined };
 }
 
 export const QueryDelegatorValidatorsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse' as const,
-
   encode(
     message: QueryDelegatorValidatorsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2071,7 +1827,6 @@ export const QueryDelegatorValidatorsResponse = {
 
   fromJSON(object: any): QueryDelegatorValidatorsResponse {
     return {
-      $type: QueryDelegatorValidatorsResponse.$type,
       validators: Array.isArray(object?.validators)
         ? object.validators.map((e: any) => Validator.fromJSON(e))
         : [],
@@ -2111,22 +1866,11 @@ export const QueryDelegatorValidatorsResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorValidatorsResponse.$type,
-  QueryDelegatorValidatorsResponse,
-);
-
 function createBaseQueryDelegatorValidatorRequest(): QueryDelegatorValidatorRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorRequest',
-    delegatorAddr: '',
-    validatorAddr: '',
-  };
+  return { delegatorAddr: '', validatorAddr: '' };
 }
 
 export const QueryDelegatorValidatorRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorRequest' as const,
-
   encode(
     message: QueryDelegatorValidatorRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2166,7 +1910,6 @@ export const QueryDelegatorValidatorRequest = {
 
   fromJSON(object: any): QueryDelegatorValidatorRequest {
     return {
-      $type: QueryDelegatorValidatorRequest.$type,
       delegatorAddr: isSet(object.delegatorAddr)
         ? String(object.delegatorAddr)
         : '',
@@ -2195,21 +1938,11 @@ export const QueryDelegatorValidatorRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorValidatorRequest.$type,
-  QueryDelegatorValidatorRequest,
-);
-
 function createBaseQueryDelegatorValidatorResponse(): QueryDelegatorValidatorResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorResponse',
-    validator: undefined,
-  };
+  return { validator: undefined };
 }
 
 export const QueryDelegatorValidatorResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryDelegatorValidatorResponse' as const,
-
   encode(
     message: QueryDelegatorValidatorResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2243,7 +1976,6 @@ export const QueryDelegatorValidatorResponse = {
 
   fromJSON(object: any): QueryDelegatorValidatorResponse {
     return {
-      $type: QueryDelegatorValidatorResponse.$type,
       validator: isSet(object.validator)
         ? Validator.fromJSON(object.validator)
         : undefined,
@@ -2271,21 +2003,11 @@ export const QueryDelegatorValidatorResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryDelegatorValidatorResponse.$type,
-  QueryDelegatorValidatorResponse,
-);
-
 function createBaseQueryHistoricalInfoRequest(): QueryHistoricalInfoRequest {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoRequest',
-    height: Long.ZERO,
-  };
+  return { height: Long.ZERO };
 }
 
 export const QueryHistoricalInfoRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoRequest' as const,
-
   encode(
     message: QueryHistoricalInfoRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2319,7 +2041,6 @@ export const QueryHistoricalInfoRequest = {
 
   fromJSON(object: any): QueryHistoricalInfoRequest {
     return {
-      $type: QueryHistoricalInfoRequest.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
     };
   },
@@ -2343,21 +2064,11 @@ export const QueryHistoricalInfoRequest = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryHistoricalInfoRequest.$type,
-  QueryHistoricalInfoRequest,
-);
-
 function createBaseQueryHistoricalInfoResponse(): QueryHistoricalInfoResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoResponse',
-    hist: undefined,
-  };
+  return { hist: undefined };
 }
 
 export const QueryHistoricalInfoResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryHistoricalInfoResponse' as const,
-
   encode(
     message: QueryHistoricalInfoResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2391,7 +2102,6 @@ export const QueryHistoricalInfoResponse = {
 
   fromJSON(object: any): QueryHistoricalInfoResponse {
     return {
-      $type: QueryHistoricalInfoResponse.$type,
       hist: isSet(object.hist)
         ? HistoricalInfo.fromJSON(object.hist)
         : undefined,
@@ -2419,18 +2129,11 @@ export const QueryHistoricalInfoResponse = {
   },
 };
 
-messageTypeRegistry.set(
-  QueryHistoricalInfoResponse.$type,
-  QueryHistoricalInfoResponse,
-);
-
 function createBaseQueryPoolRequest(): QueryPoolRequest {
-  return { $type: 'cosmos.staking.v1beta1.QueryPoolRequest' };
+  return {};
 }
 
 export const QueryPoolRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryPoolRequest' as const,
-
   encode(
     _: QueryPoolRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2454,9 +2157,7 @@ export const QueryPoolRequest = {
   },
 
   fromJSON(_: any): QueryPoolRequest {
-    return {
-      $type: QueryPoolRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryPoolRequest): unknown {
@@ -2472,15 +2173,11 @@ export const QueryPoolRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryPoolRequest.$type, QueryPoolRequest);
-
 function createBaseQueryPoolResponse(): QueryPoolResponse {
-  return { $type: 'cosmos.staking.v1beta1.QueryPoolResponse', pool: undefined };
+  return { pool: undefined };
 }
 
 export const QueryPoolResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryPoolResponse' as const,
-
   encode(
     message: QueryPoolResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2511,7 +2208,6 @@ export const QueryPoolResponse = {
 
   fromJSON(object: any): QueryPoolResponse {
     return {
-      $type: QueryPoolResponse.$type,
       pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
     };
   },
@@ -2535,15 +2231,11 @@ export const QueryPoolResponse = {
   },
 };
 
-messageTypeRegistry.set(QueryPoolResponse.$type, QueryPoolResponse);
-
 function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { $type: 'cosmos.staking.v1beta1.QueryParamsRequest' };
+  return {};
 }
 
 export const QueryParamsRequest = {
-  $type: 'cosmos.staking.v1beta1.QueryParamsRequest' as const,
-
   encode(
     _: QueryParamsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2567,9 +2259,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    return {
-      $type: QueryParamsRequest.$type,
-    };
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -2585,18 +2275,11 @@ export const QueryParamsRequest = {
   },
 };
 
-messageTypeRegistry.set(QueryParamsRequest.$type, QueryParamsRequest);
-
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return {
-    $type: 'cosmos.staking.v1beta1.QueryParamsResponse',
-    params: undefined,
-  };
+  return { params: undefined };
 }
 
 export const QueryParamsResponse = {
-  $type: 'cosmos.staking.v1beta1.QueryParamsResponse' as const,
-
   encode(
     message: QueryParamsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -2627,7 +2310,6 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     return {
-      $type: QueryParamsResponse.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -2650,8 +2332,6 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-
-messageTypeRegistry.set(QueryParamsResponse.$type, QueryParamsResponse);
 
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -2953,14 +2633,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

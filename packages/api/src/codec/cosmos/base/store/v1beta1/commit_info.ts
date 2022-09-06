@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../../typeRegistry';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
 
@@ -10,7 +9,6 @@ export const protobufPackage = 'cosmos.base.store.v1beta1';
  * a version/height.
  */
 export interface CommitInfo {
-  $type: 'cosmos.base.store.v1beta1.CommitInfo';
   version: Long;
   storeInfos: StoreInfo[];
 }
@@ -20,7 +18,6 @@ export interface CommitInfo {
  * between a store name and the commit ID.
  */
 export interface StoreInfo {
-  $type: 'cosmos.base.store.v1beta1.StoreInfo';
   name: string;
   commitId?: CommitID;
 }
@@ -30,22 +27,15 @@ export interface StoreInfo {
  * committed.
  */
 export interface CommitID {
-  $type: 'cosmos.base.store.v1beta1.CommitID';
   version: Long;
   hash: Uint8Array;
 }
 
 function createBaseCommitInfo(): CommitInfo {
-  return {
-    $type: 'cosmos.base.store.v1beta1.CommitInfo',
-    version: Long.ZERO,
-    storeInfos: [],
-  };
+  return { version: Long.ZERO, storeInfos: [] };
 }
 
 export const CommitInfo = {
-  $type: 'cosmos.base.store.v1beta1.CommitInfo' as const,
-
   encode(
     message: CommitInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -82,7 +72,6 @@ export const CommitInfo = {
 
   fromJSON(object: any): CommitInfo {
     return {
-      $type: CommitInfo.$type,
       version: isSet(object.version)
         ? Long.fromValue(object.version)
         : Long.ZERO,
@@ -120,19 +109,11 @@ export const CommitInfo = {
   },
 };
 
-messageTypeRegistry.set(CommitInfo.$type, CommitInfo);
-
 function createBaseStoreInfo(): StoreInfo {
-  return {
-    $type: 'cosmos.base.store.v1beta1.StoreInfo',
-    name: '',
-    commitId: undefined,
-  };
+  return { name: '', commitId: undefined };
 }
 
 export const StoreInfo = {
-  $type: 'cosmos.base.store.v1beta1.StoreInfo' as const,
-
   encode(
     message: StoreInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -169,7 +150,6 @@ export const StoreInfo = {
 
   fromJSON(object: any): StoreInfo {
     return {
-      $type: StoreInfo.$type,
       name: isSet(object.name) ? String(object.name) : '',
       commitId: isSet(object.commitId)
         ? CommitID.fromJSON(object.commitId)
@@ -200,19 +180,11 @@ export const StoreInfo = {
   },
 };
 
-messageTypeRegistry.set(StoreInfo.$type, StoreInfo);
-
 function createBaseCommitID(): CommitID {
-  return {
-    $type: 'cosmos.base.store.v1beta1.CommitID',
-    version: Long.ZERO,
-    hash: new Uint8Array(),
-  };
+  return { version: Long.ZERO, hash: new Uint8Array() };
 }
 
 export const CommitID = {
-  $type: 'cosmos.base.store.v1beta1.CommitID' as const,
-
   encode(
     message: CommitID,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -249,7 +221,6 @@ export const CommitID = {
 
   fromJSON(object: any): CommitID {
     return {
-      $type: CommitID.$type,
       version: isSet(object.version)
         ? Long.fromValue(object.version)
         : Long.ZERO,
@@ -280,8 +251,6 @@ export const CommitID = {
     return message;
   },
 };
-
-messageTypeRegistry.set(CommitID.$type, CommitID);
 
 declare var self: any | undefined;
 declare var window: any | undefined;
@@ -337,14 +306,14 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 if (_m0.util.Long !== Long) {

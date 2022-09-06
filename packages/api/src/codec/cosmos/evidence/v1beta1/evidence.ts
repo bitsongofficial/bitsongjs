@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { messageTypeRegistry } from '../../../typeRegistry';
 import { Timestamp } from '../../../google/protobuf/timestamp';
 import Long from 'long';
 import _m0 from 'protobufjs/minimal';
@@ -11,7 +10,6 @@ export const protobufPackage = 'cosmos.evidence.v1beta1';
  * signing misbehavior.
  */
 export interface Equivocation {
-  $type: 'cosmos.evidence.v1beta1.Equivocation';
   height: Long;
   time?: Timestamp;
   power: Long;
@@ -20,7 +18,6 @@ export interface Equivocation {
 
 function createBaseEquivocation(): Equivocation {
   return {
-    $type: 'cosmos.evidence.v1beta1.Equivocation',
     height: Long.ZERO,
     time: undefined,
     power: Long.ZERO,
@@ -29,8 +26,6 @@ function createBaseEquivocation(): Equivocation {
 }
 
 export const Equivocation = {
-  $type: 'cosmos.evidence.v1beta1.Equivocation' as const,
-
   encode(
     message: Equivocation,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -79,7 +74,6 @@ export const Equivocation = {
 
   fromJSON(object: any): Equivocation {
     return {
-      $type: Equivocation.$type,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
       power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
@@ -123,8 +117,6 @@ export const Equivocation = {
   },
 };
 
-messageTypeRegistry.set(Equivocation.$type, Equivocation);
-
 type Builtin =
   | Date
   | Function
@@ -143,20 +135,20 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in Exclude<keyof T, '$type'>]?: DeepPartial<T[K]> }
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
-      [K in Exclude<keyof I, KeysOfUnion<P> | '$type'>]: never;
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
     };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { $type: 'google.protobuf.Timestamp', seconds, nanos };
+  return { seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {
