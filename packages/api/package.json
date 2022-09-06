@@ -1,6 +1,6 @@
 {
 	"name": "@bitsonjs/api",
-	"version": "1.0.0-testnet.1",
+	"version": "1.0.0-dev-1",
 	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
 	"description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
 	"license": "Apache-2.0",
