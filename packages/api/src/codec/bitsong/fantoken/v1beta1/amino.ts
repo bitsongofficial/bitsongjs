@@ -1,10 +1,19 @@
-import { AminoMsg } from "@cosmjs/amino";
-import Long from "long";
-import { MicroDenom } from "../../../../constants";
-import { MsgIssue, MsgMint, MsgBurn, MsgDisableMint, MsgSetMinter, MsgSetAuthority, MsgSetUri } from "./tx";
+import { MicroDenom } from '../../../../constants';
+import { AminoMsg } from '@cosmjs/amino';
+import { AminoConverter } from '@cosmjs/stargate';
+import {
+  MsgIssue,
+  MsgMint,
+  MsgBurn,
+  MsgDisableMint,
+  MsgSetMinter,
+  MsgSetAuthority,
+  MsgSetUri,
+} from './tx';
+import Long from 'long';
 
 export interface AminoMsgIssue extends AminoMsg {
-  type: "/bitsong.fantoken.MsgIssue";
+  type: '/bitsong.fantoken.MsgIssue';
   value: {
     symbol: string;
     name: string;
@@ -15,7 +24,7 @@ export interface AminoMsgIssue extends AminoMsg {
   };
 }
 export interface AminoMsgMint extends AminoMsg {
-  type: "/bitsong.fantoken.MsgMint";
+  type: '/bitsong.fantoken.MsgMint';
   value: {
     recipient: string;
     coin: {
@@ -26,7 +35,7 @@ export interface AminoMsgMint extends AminoMsg {
   };
 }
 export interface AminoMsgBurn extends AminoMsg {
-  type: "/bitsong.fantoken.MsgBurn";
+  type: '/bitsong.fantoken.MsgBurn';
   value: {
     coin: {
       denom: string;
@@ -36,14 +45,14 @@ export interface AminoMsgBurn extends AminoMsg {
   };
 }
 export interface AminoMsgDisableMint extends AminoMsg {
-  type: "/bitsong.fantoken.MsgDisableMint";
+  type: '/bitsong.fantoken.MsgDisableMint';
   value: {
     denom: string;
     minter: string;
   };
 }
 export interface AminoMsgSetMinter extends AminoMsg {
-  type: "/bitsong.fantoken.MsgSetMinter";
+  type: '/bitsong.fantoken.MsgSetMinter';
   value: {
     denom: string;
     old_minter: string;
@@ -51,7 +60,7 @@ export interface AminoMsgSetMinter extends AminoMsg {
   };
 }
 export interface AminoMsgSetAuthority extends AminoMsg {
-  type: "/bitsong.fantoken.MsgSetAuthority";
+  type: '/bitsong.fantoken.MsgSetAuthority';
   value: {
     denom: string;
     old_authority: string;
@@ -59,31 +68,31 @@ export interface AminoMsgSetAuthority extends AminoMsg {
   };
 }
 export interface AminoMsgSetUri extends AminoMsg {
-  type: "/bitsong.fantoken.MsgSetUri";
+  type: '/bitsong.fantoken.MsgSetUri';
   value: {
     authority: string;
     denom: string;
     uri: string;
   };
 }
-export const AminoConverter = {
-  "/bitsong.fantoken.MsgIssue": {
-    aminoType: "go-bitsong/fantoken/MsgIssue",
+export const aminoConverter: { [key: string]: AminoConverter } = {
+  '/bitsong.fantoken.MsgIssue': {
+    aminoType: 'go-bitsong/fantoken/MsgIssue',
     toAmino: ({
       symbol,
       name,
       maxSupply,
       authority,
       minter,
-      uri
-    }: MsgIssue): AminoMsgIssue["value"] => {
+      uri,
+    }: MsgIssue): AminoMsgIssue['value'] => {
       return {
         symbol,
         name,
         max_supply: maxSupply,
         authority,
         minter,
-        uri
+        uri,
       };
     },
     fromAmino: ({
@@ -92,179 +101,169 @@ export const AminoConverter = {
       max_supply,
       authority,
       minter,
-      uri
-    }: AminoMsgIssue["value"]): MsgIssue => {
+      uri,
+    }: AminoMsgIssue['value']): MsgIssue => {
       return {
-        $type: "bitsong.fantoken.MsgIssue",
+        $type: 'bitsong.fantoken.MsgIssue',
         symbol,
         name,
         maxSupply: max_supply,
         authority,
         minter,
-        uri
+        uri,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgMint": {
-    aminoType: "go-bitsong/fantoken/MsgMint",
-    toAmino: ({
-      recipient,
-      coin,
-      minter
-    }: MsgMint): AminoMsgMint["value"] => {
+  '/bitsong.fantoken.MsgMint': {
+    aminoType: 'go-bitsong/fantoken/MsgMint',
+    toAmino: ({ recipient, coin, minter }: MsgMint): AminoMsgMint['value'] => {
       return {
         recipient,
         coin: {
-          denom:  coin ? coin.denom : MicroDenom,
-          amount: Long.fromString(coin ? coin.amount : "0").toString()
+          denom: coin ? coin.denom : MicroDenom,
+          amount: Long.fromString(coin ? coin.amount : '0').toString(),
         },
-        minter
+        minter,
       };
     },
     fromAmino: ({
       recipient,
       coin,
-      minter
-    }: AminoMsgMint["value"]): MsgMint => {
+      minter,
+    }: AminoMsgMint['value']): MsgMint => {
       return {
-        $type: "bitsong.fantoken.MsgMint",
+        $type: 'bitsong.fantoken.MsgMint',
         recipient,
         coin: {
-          $type: "cosmos.base.v1beta1.Coin",
+          $type: 'cosmos.base.v1beta1.Coin',
           denom: coin.denom,
-          amount: coin.amount
+          amount: coin.amount,
         },
-        minter
+        minter,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgBurn": {
-    aminoType: "go-bitsong/fantoken/MsgBurn",
-    toAmino: ({
-      coin,
-      sender
-    }: MsgBurn): AminoMsgBurn["value"] => {
+  '/bitsong.fantoken.MsgBurn': {
+    aminoType: 'go-bitsong/fantoken/MsgBurn',
+    toAmino: ({ coin, sender }: MsgBurn): AminoMsgBurn['value'] => {
       return {
         coin: {
           denom: coin ? coin.denom : MicroDenom,
-          amount: Long.fromString(coin ? coin.amount : "0").toString()
+          amount: Long.fromString(coin ? coin.amount : '0').toString(),
         },
-        sender
+        sender,
       };
     },
-    fromAmino: ({
-      coin,
-      sender
-    }: AminoMsgBurn["value"]): MsgBurn => {
+    fromAmino: ({ coin, sender }: AminoMsgBurn['value']): MsgBurn => {
       return {
-        $type: "bitsong.fantoken.MsgBurn",
+        $type: 'bitsong.fantoken.MsgBurn',
         coin: {
-          $type: "cosmos.base.v1beta1.Coin",
+          $type: 'cosmos.base.v1beta1.Coin',
           denom: coin.denom,
-          amount: coin.amount
+          amount: coin.amount,
         },
-        sender
+        sender,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgDisableMint": {
-    aminoType: "go-bitsong/fantoken/MsgDisableMint",
+  '/bitsong.fantoken.MsgDisableMint': {
+    aminoType: 'go-bitsong/fantoken/MsgDisableMint',
     toAmino: ({
       denom,
-      minter
-    }: MsgDisableMint): AminoMsgDisableMint["value"] => {
+      minter,
+    }: MsgDisableMint): AminoMsgDisableMint['value'] => {
       return {
         denom,
-        minter
+        minter,
       };
     },
     fromAmino: ({
       denom,
-      minter
-    }: AminoMsgDisableMint["value"]): MsgDisableMint => {
+      minter,
+    }: AminoMsgDisableMint['value']): MsgDisableMint => {
       return {
-        $type: "bitsong.fantoken.MsgDisableMint",
+        $type: 'bitsong.fantoken.MsgDisableMint',
         denom,
-        minter
+        minter,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgSetMinter": {
-    aminoType: "go-bitsong/fantoken/MsgSetMinter",
+  '/bitsong.fantoken.MsgSetMinter': {
+    aminoType: 'go-bitsong/fantoken/MsgSetMinter',
     toAmino: ({
       denom,
       oldMinter,
-      newMinter
-    }: MsgSetMinter): AminoMsgSetMinter["value"] => {
+      newMinter,
+    }: MsgSetMinter): AminoMsgSetMinter['value'] => {
       return {
         denom,
         old_minter: oldMinter,
-        new_minter: newMinter
+        new_minter: newMinter,
       };
     },
     fromAmino: ({
       denom,
       old_minter,
-      new_minter
-    }: AminoMsgSetMinter["value"]): MsgSetMinter => {
+      new_minter,
+    }: AminoMsgSetMinter['value']): MsgSetMinter => {
       return {
-        $type: "bitsong.fantoken.MsgSetMinter",
+        $type: 'bitsong.fantoken.MsgSetMinter',
         denom,
         oldMinter: old_minter,
-        newMinter: new_minter
+        newMinter: new_minter,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgSetAuthority": {
-    aminoType: "go-bitsong/fantoken/MsgSetAuthority",
+  '/bitsong.fantoken.MsgSetAuthority': {
+    aminoType: 'go-bitsong/fantoken/MsgSetAuthority',
     toAmino: ({
       denom,
       oldAuthority,
-      newAuthority
-    }: MsgSetAuthority): AminoMsgSetAuthority["value"] => {
+      newAuthority,
+    }: MsgSetAuthority): AminoMsgSetAuthority['value'] => {
       return {
         denom,
         old_authority: oldAuthority,
-        new_authority: newAuthority
+        new_authority: newAuthority,
       };
     },
     fromAmino: ({
       denom,
       old_authority,
-      new_authority
-    }: AminoMsgSetAuthority["value"]): MsgSetAuthority => {
+      new_authority,
+    }: AminoMsgSetAuthority['value']): MsgSetAuthority => {
       return {
-        $type: "bitsong.fantoken.MsgSetAuthority",
+        $type: 'bitsong.fantoken.MsgSetAuthority',
         denom,
         oldAuthority: old_authority,
-        newAuthority: new_authority
+        newAuthority: new_authority,
       };
-    }
+    },
   },
-  "/bitsong.fantoken.MsgSetUri": {
-    aminoType: "go-bitsong/fantoken/MsgSetUri",
+  '/bitsong.fantoken.MsgSetUri': {
+    aminoType: 'go-bitsong/fantoken/MsgSetUri',
     toAmino: ({
       authority,
       denom,
-      uri
-    }: MsgSetUri): AminoMsgSetUri["value"] => {
+      uri,
+    }: MsgSetUri): AminoMsgSetUri['value'] => {
       return {
         authority,
         denom,
-        uri
+        uri,
       };
     },
     fromAmino: ({
       authority,
       denom,
-      uri
-    }: AminoMsgSetUri["value"]): MsgSetUri => {
+      uri,
+    }: AminoMsgSetUri['value']): MsgSetUri => {
       return {
-        $type: "bitsong.fantoken.MsgSetUri",
+        $type: 'bitsong.fantoken.MsgSetUri',
         authority,
         denom,
-        uri
+        uri,
       };
-    }
-  }
+    },
+  },
 };

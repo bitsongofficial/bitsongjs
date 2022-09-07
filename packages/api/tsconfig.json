@@ -3,9 +3,7 @@
 		"declaration": true,
 		"esModuleInterop": true,
 		"outDir": "lib",
-		"paths": {
-			"@/*": ["./src/*"]
-		},
+		"baseUrl": "./",
 	},
 	"extends": "../../tsconfig",
 	"include": ["src"]

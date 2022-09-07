@@ -3,11 +3,12 @@ import {
     defaultRegistryTypes,
     StdFee,
     DeliverTxResponse,
+    AminoTypes,
 } from '@cosmjs/stargate';
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
 import { SigningConnectionOptions } from './client';
-import { messageTypeRegistry } from './codec/typeRegistry';
+import { messageTypeRegistry, aminoTypesRegistry } from './codec';
 import { createStargateSigningClient } from './signing';
 
 export interface TxClient {
@@ -24,15 +25,24 @@ export async function setupTxExtension(
     connection: SigningConnectionOptions,
 ): Promise<TxClient> {
     const customRegistry: Array<[string, GeneratedType]> = [];
+
     messageTypeRegistry.forEach((value, key) => {
         customRegistry.push([`/${key}`, value]);
     });
+
     const registry = new Registry([...defaultRegistryTypes, ...customRegistry]);
+
+    const aminoTypesObj = Array.from(aminoTypesRegistry.values()).reduce((prev, next) => ({
+        ...prev,
+        ...next,
+    }), {});
+
+    const aminoTypes = new AminoTypes(aminoTypesObj);
 
     const signingClient = await createStargateSigningClient(
         connection.endpoint,
         connection.signer,
-        { ...connection.clientOptions, registry },
+        { ...connection.clientOptions, registry, aminoTypes },
     );
 
     /**
