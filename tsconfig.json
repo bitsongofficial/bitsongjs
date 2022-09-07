@@ -16,7 +16,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"downlevelIteration": true,
-		"typeRoots": ["./node_modules/@types"]
+		"typeRoots": ["./node_modules/@types"],
 	},
 	"exclude": ["**/lib/**/*"],
 	"ecmaVersion": 6,
