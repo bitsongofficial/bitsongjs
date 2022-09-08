@@ -10,12 +10,13 @@
 	},
 	"repository": "https://github.com/bitsongofficial/bitsongjs/tree/testnet/packages/api",
 	"dependencies": {
-		"@cosmjs/stargate": "^0.27.0"
+		"@cosmjs/stargate": "^0.27.0",
+		"dotenv": "^16.0.2"
 	},
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.18.6",
 		"@types/jest": "^28.1.8",
-		"jest": "^28.1.8",
+		"jest": "^28.1.3",
 		"ts-jest": "^28.0.8",
 		"ts-proto": "^1.104.0"
 	},
