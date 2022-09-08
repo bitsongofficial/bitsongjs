@@ -1,4 +1,3 @@
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
 import { BitsongClient } from '../lib/client';
 import {
@@ -8,45 +7,16 @@ import {
   MsgDisableMint,
   MsgSetMinter,
   MsgSetAuthority,
-  MsgSetUri
+  MsgSetUri,
 } from '../lib/codec/bitsong/fantoken/v1beta1/tx';
-import { stringToPath } from '@cosmjs/crypto';
-import * as Constants from '../lib/constants';
-import * as dotenv from 'dotenv';
-
-const config = dotenv.config();
-const parsed = config.parsed ? config.parsed : {};
-
-const TEST_ADDRESS = parsed.TEST_ADDRESS;
-const OTHER_TEST_ADDRESS = parsed.OTHER_TEST_ADDRESS;
-const NODE_TM_URL = parsed.NODE_TM_URL;
-const TEST_MNEMONIC = parsed.TEST_MNEMONIC;
-const OTHER_TEST_MNEMONIC = parsed.OTHER_TEST_MNEMONIC;
-
-const TEST_FEE = {
-  amount: [
-    {
-      denom: Constants.MicroDenom,
-      amount: '5000',
-    },
-  ],
-  gas: '200000',
-};
-
-const connect = async (mnemonic: string): Promise<BitsongClient> => {
-  const signer = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-    prefix: Constants.Bech32PrefixAccAddr,
-    hdPaths: [stringToPath(Constants.getHdPath())],
-  });
-
-  return BitsongClient.connect({
-    connection: {
-      type: 'tendermint',
-      endpoint: NODE_TM_URL,
-      signer,
-    },
-  });
-};
+import {
+  TEST_ADDRESS,
+  OTHER_TEST_ADDRESS,
+  TEST_MNEMONIC,
+  OTHER_TEST_MNEMONIC,
+  TEST_FEE,
+  connect,
+} from './config';
 
 let api: BitsongClient;
 let apiOther: BitsongClient;
@@ -85,7 +55,7 @@ describe('BitSongApi with tendermint connection', () => {
         if (txRes) {
           console.log(txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
 
           const parsedLogs = logs.parseLogs(logs.parseRawLog(txRes.rawLog));
 
@@ -126,11 +96,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Fantoken minted: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -157,11 +127,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Fantoken burned: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -187,11 +157,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Set a new minter: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -217,11 +187,14 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
-        if (txRes) {
-          console.log('Set a new minter back to original: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+        if (txRes) {
+          console.log(
+            'Set a new minter back to original: ',
+            txRes.transactionHash,
+          );
+
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -246,11 +219,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Minting disabled: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -261,7 +234,7 @@ describe('BitSongApi with tendermint connection', () => {
       const msg = MsgSetUri.fromPartial({
         denom: ftDenom,
         authority: TEST_ADDRESS,
-        uri: "https://test.bitsong.io"
+        uri: 'https://test.bitsong.io',
       });
 
       const signedTxBytes = await api.txClient?.sign(
@@ -276,11 +249,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Set a new URI: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
@@ -306,11 +279,11 @@ describe('BitSongApi with tendermint connection', () => {
       if (signedTxBytes) {
         txRes = await api.txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
-        
+
         if (txRes) {
           console.log('Set a new authority: ', txRes.transactionHash);
 
-          expect(txRes.rawLog).not.toContain("failed");
+          expect(txRes.rawLog).not.toContain('failed');
         }
       }
     }, 10000);
