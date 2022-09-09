@@ -12,18 +12,16 @@ describe('Bitsong merkledrop tests', () => {
     expect(accounts.length).toBeGreaterThan(0);
     expect(merkledrop.getMerkleRoot()).toBeTruthy();
 
-    const account = accounts.pop();
+    const account = [...merkledrop.getAccountsWithProofs()].pop();
+    console.log(merkledrop.getAccountsWithProofs());
     expect(account).toBeTruthy();
 
     if (account) {
-        const proofs = merkledrop.getMerkleProof(account);
+      expect(account.proofs.length).toBeGreaterThan(0);
 
-        expect(proofs.length).toBeGreaterThan(0);
-
-        expect(merkledrop.verify(proofs, account)).toBeTruthy();
-
-        console.log(proofs);
-        console.log(account);
+      /* expect(
+        merkledrop.verify(account.proofs, account, account.index),
+      ).toBeTruthy(); */
     }
   });
 });

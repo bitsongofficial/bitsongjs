@@ -1,4 +1,4 @@
-import keccak256 from 'keccak256';
+import sha256 from 'crypto-js/sha256';
 import { MerkleTree } from 'merkletreejs';
 import { Account, AccountWithProofs } from 'src/types';
 
@@ -8,40 +8,28 @@ export class Merkledrop {
 
   constructor(accounts: Account[]) {
     this.accounts = accounts;
-    const leaves = accounts.map(a => keccak256(a.address + a.amount));
-    this.tree = new MerkleTree(leaves, keccak256, { sort: true });
+    const leaves = accounts.map((a, index) => {
+      return sha256(`${index}${a.address}${a.amount}`).toString()
+    });
+
+    this.tree = new MerkleTree(leaves, sha256);
   }
 
   public getMerkleRoot(): string {
     return this.tree.getHexRoot().replace('0x', '');
   }
 
-  public getMerkleProof(account: Account): string[] {
+  public getMerkleProof(account: Account, index: number): string[] {
     return this.tree
-      .getHexProof(keccak256(account.address + account.amount))
+      .getHexProof(sha256(`${index}${account.address}${account.amount}`).toString())
       .map(v => v.replace('0x', ''));
   }
 
   public getAccountsWithProofs(): AccountWithProofs[] {
-    return this.accounts.map((account) => ({
+    return this.accounts.map((account, index) => ({
       ...account,
-      proofs: this.getMerkleProof(account),
-    }))
-  }
-
-  public verify(proof: string[], account: Account): boolean {
-    let hashBuf = keccak256(account.address + account.amount);
-
-    proof.forEach(proofElem => {
-      const proofBuf = Buffer.from(proofElem, 'hex');
-
-      if (Buffer.compare(hashBuf, proofBuf) === -1) {
-        hashBuf = keccak256(Buffer.concat([hashBuf, proofBuf]));
-      } else {
-        hashBuf = keccak256(Buffer.concat([proofBuf, hashBuf]));
-      }
-    });
-
-    return this.getMerkleRoot() === hashBuf.toString('hex');
+      proofs: this.getMerkleProof(account, index),
+      index,
+    }));
   }
 }

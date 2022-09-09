@@ -5,4 +5,5 @@ export interface Account {
 
 export interface AccountWithProofs extends Account {
     proofs: string[];
+    index: number;
 }
