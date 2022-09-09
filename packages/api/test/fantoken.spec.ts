@@ -23,7 +23,7 @@ let apiOther: BitsongClient;
 
 let ftDenom: string;
 
-describe('BitSongApi with tendermint connection', () => {
+describe('BitSongApi Fantoken with tendermint connection', () => {
   beforeAll(async () => {
     api = await connect(TEST_MNEMONIC);
     apiOther = await connect(OTHER_TEST_MNEMONIC);

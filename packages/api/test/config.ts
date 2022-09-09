@@ -3,6 +3,7 @@ import { MicroDenom, Bech32PrefixAccAddr, getHdPath } from '../lib/constants';
 import { BitsongClient } from '../lib/client';
 import { stringToPath } from '@cosmjs/crypto';
 import * as dotenv from 'dotenv';
+import { Account } from '@bitsongjs/utils';
 
 const config = dotenv.config();
 const parsed = config.parsed ? config.parsed : {};
@@ -24,6 +25,17 @@ const {
   TEST_MNEMONIC,
   OTHER_TEST_MNEMONIC,
 } = parsed;
+
+const accounts: Account[] = [
+  {
+    address: TEST_ADDRESS,
+    amount: '1000000',
+  },
+  {
+    address: OTHER_TEST_ADDRESS,
+    amount: '1000000',
+  },
+];
 
 const connect = async (mnemonic: string): Promise<BitsongClient> => {
   const signer = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
@@ -47,5 +59,6 @@ export {
   TEST_MNEMONIC,
   OTHER_TEST_MNEMONIC,
   TEST_FEE,
+  accounts,
   connect,
 };

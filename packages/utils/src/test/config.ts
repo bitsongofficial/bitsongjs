@@ -4,8 +4,6 @@ import { Account } from 'src/types';
 const config = dotenv.config();
 const parsed = config.parsed ? config.parsed : {};
 
-console.log(parsed);
-
 const { TEST_ADDRESS, OTHER_TEST_ADDRESS } = parsed;
 
 const accounts: Account[] = [
