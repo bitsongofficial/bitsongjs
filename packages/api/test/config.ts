@@ -2,11 +2,7 @@ import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { MicroDenom, Bech32PrefixAccAddr, getHdPath } from '../lib/constants';
 import { BitsongClient } from '../lib/client';
 import { stringToPath } from '@cosmjs/crypto';
-import * as dotenv from 'dotenv';
 import { Account } from '@bitsongjs/utils';
-
-const config = dotenv.config();
-const parsed = config.parsed ? config.parsed : {};
 
 const TEST_FEE = {
   amount: [
@@ -18,13 +14,11 @@ const TEST_FEE = {
   gas: '200000',
 };
 
-const {
-  TEST_ADDRESS,
-  OTHER_TEST_ADDRESS,
-  RPC_NODE_URL,
-  TEST_MNEMONIC,
-  OTHER_TEST_MNEMONIC,
-} = parsed;
+const TEST_ADDRESS="<YOUR ADDRESS FOR TESTS>"
+const OTHER_TEST_ADDRESS="<ANOTHER ADDRESS FOR TESTS>"
+const RPC_NODE_URL="https://rpc.nft-devnet.bitsong.network/"
+const TEST_MNEMONIC="<YOUR MNEMONIC RELATED WITH TEST_ADDRESS FOR TESTS>"
+const OTHER_TEST_MNEMONIC="<YOUR MNEMONIC RELATED WITH OTHER_TEST_ADDRESS FOR TESTS>"
 
 const accounts: Account[] = [
   {
