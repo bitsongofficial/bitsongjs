@@ -1,4 +1,4 @@
-import { Merkledrop } from '../merkledrop';
+import { Merkledrop } from '../lib';
 import { accounts } from './config';
 
 let merkledrop: Merkledrop;

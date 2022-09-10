@@ -2,6 +2,15 @@ import {
   SigningStargateClient,
   SigningStargateClientOptions,
 } from '@cosmjs/stargate';
+import {
+  BehaviorSubject,
+  from,
+  lastValueFrom,
+  of,
+  retry,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { OfflineSigner } from '@cosmjs/proto-signing';
 
 /**
@@ -13,10 +22,12 @@ import { OfflineSigner } from '@cosmjs/proto-signing';
  * @param clientOptions - SigningStargateClientOptions.
  */
 export async function createStargateSigningClient(
-  endpoint: string,
+  endpoints: string[],
   signer: OfflineSigner,
   clientOptions: SigningStargateClientOptions,
 ): Promise<SigningStargateClient> {
+  const connectionRetry = new BehaviorSubject<number>(0);
+
   const defaultClientOptions = {
     broadcastPollIntervalMs: 300,
     broadcastTimeoutMs: 600000,
@@ -28,10 +39,31 @@ export async function createStargateSigningClient(
   };
 
   try {
-    const signingClient = await SigningStargateClient.connectWithSigner(
-      endpoint,
-      signer,
-      options,
+    const signingClient = lastValueFrom(
+      connectionRetry.pipe(
+        switchMap(attempt => {
+          return from(
+            SigningStargateClient.connectWithSigner(
+              endpoints[attempt],
+              signer,
+              options,
+            ),
+          ).pipe(
+            tap(() => {
+              connectionRetry.complete();
+            }),
+          );
+        }),
+        retry({
+          count: endpoints.length,
+          delay: (_, retryCount) => {
+            connectionRetry.next(retryCount);
+
+            return of(retryCount);
+          },
+          resetOnSuccess: true,
+        }),
+      ),
     );
 
     return signingClient;

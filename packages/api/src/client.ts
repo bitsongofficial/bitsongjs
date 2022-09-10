@@ -2,33 +2,19 @@ import {
   createProtobufRpcClient,
   QueryClient,
   ProtobufRpcClient,
-  SigningStargateClientOptions,
 } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
-
-import { OfflineSigner } from '@cosmjs/proto-signing';
+import {
+  BehaviorSubject,
+  from,
+  lastValueFrom,
+  of,
+  retry,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { setupTxExtension, TxClient } from './tx';
-
-interface DefaultConnectionOptions {
-  type: 'tendermint';
-  endpoint: string;
-  clientOptions?: SigningStargateClientOptions;
-}
-
-export interface ConnectionOptions extends DefaultConnectionOptions {
-  signer?: OfflineSigner;
-}
-
-export interface SigningConnectionOptions extends DefaultConnectionOptions {
-  signer: OfflineSigner;
-}
-
-/**
- * Options to pass into the BitsongClient constructor.
- */
-export interface BitsongClientOptions {
-  connection: ConnectionOptions;
-}
+import { BitsongClientOptions, SigningConnectionOptions } from './types';
 
 /**
  * The main entry point for interacting with the BitSong Blockchain. The class needs
@@ -51,12 +37,34 @@ export class BitsongClient {
   public static async connect(
     options: BitsongClientOptions,
   ): Promise<BitsongClient> {
+    const connectionRetry = new BehaviorSubject<number>(0);
+
     const { connection } = options;
+
     switch (connection.type) {
-      case 'tendermint': {
+      case 'tendermint':
         // The Tendermint client knows how to talk to the Tendermint RPC endpoint
-        const tendermintClient = await Tendermint34Client.connect(
-          connection.endpoint,
+        const tendermintClient = await lastValueFrom(
+          connectionRetry.pipe(
+            switchMap(attempt => {
+              return from(
+                Tendermint34Client.connect(connection.endpoints[attempt]),
+              ).pipe(
+                tap(() => {
+                  connectionRetry.complete();
+                }),
+              );
+            }),
+            retry({
+              count: connection.endpoints.length,
+              delay: (_, retryCount) => {
+                connectionRetry.next(retryCount);
+
+                return of(retryCount);
+              },
+              resetOnSuccess: true,
+            }),
+          ),
         );
 
         // The generic Stargate query client knows how to use the Tendermint client to submit unverified ABCI queries
@@ -74,7 +82,6 @@ export class BitsongClient {
         }
 
         return new BitsongClient(rpcClient);
-      }
     }
   }
 }

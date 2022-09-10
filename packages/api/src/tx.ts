@@ -7,7 +7,7 @@ import {
 } from '@cosmjs/stargate';
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
-import { SigningConnectionOptions } from './client';
+import { SigningConnectionOptions } from './types';
 import { messageTypeRegistry, aminoTypesRegistry } from './codec';
 import { createStargateSigningClient } from './signing';
 
@@ -40,7 +40,7 @@ export async function setupTxExtension(
     const aminoTypes = new AminoTypes(aminoTypesObj);
 
     const signingClient = await createStargateSigningClient(
-        connection.endpoint,
+        connection.endpoints,
         connection.signer,
         { ...connection.clientOptions, registry, aminoTypes },
     );

@@ -1,4 +1,4 @@
-import { Account } from 'src/types';
+import { Account } from '../lib';
 
 const TEST_ADDRESS="<YOUR ADDRESS FOR TESTS>"
 const OTHER_TEST_ADDRESS="<ANOTHER ADDRESS FOR TESTS>"

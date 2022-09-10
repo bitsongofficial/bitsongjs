@@ -14,11 +14,11 @@ const TEST_FEE = {
   gas: '200000',
 };
 
-const TEST_ADDRESS="<YOUR ADDRESS FOR TESTS>"
-const OTHER_TEST_ADDRESS="<ANOTHER ADDRESS FOR TESTS>"
+const TEST_ADDRESS="bitsong1dhqmhaksj5qw4ays64pp9mff3fwkxtugvn0at5"
+const OTHER_TEST_ADDRESS="bitsong1s0aj6f7hgzr3gfcmm9xz0lg0442qdq9su9llq0"
 const RPC_NODE_URL="https://rpc.nft-devnet.bitsong.network/"
-const TEST_MNEMONIC="<YOUR MNEMONIC RELATED WITH TEST_ADDRESS FOR TESTS>"
-const OTHER_TEST_MNEMONIC="<YOUR MNEMONIC RELATED WITH OTHER_TEST_ADDRESS FOR TESTS>"
+const TEST_MNEMONIC="brief number pudding flock timber coast drive street body torch enact erupt"
+const OTHER_TEST_MNEMONIC="drastic upset unlock rich patch liberty stereo move enroll undo avocado arrive"
 
 const accounts: Account[] = [
   {
@@ -40,7 +40,7 @@ const connect = async (mnemonic: string): Promise<BitsongClient> => {
   return BitsongClient.connect({
     connection: {
       type: 'tendermint',
-      endpoint: RPC_NODE_URL,
+      endpoints: [RPC_NODE_URL],
       signer,
     },
   });

@@ -59,8 +59,6 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
 
           const parsedLogs = logs.parseLogs(logs.parseRawLog(txRes.rawLog));
 
-          console.log(txRes.rawLog, parsedLogs);
-
           const merkledropIdAttr = logs.findAttribute(
             parsedLogs,
             'bitsong.merkledrop.v1beta1.EventCreate',
