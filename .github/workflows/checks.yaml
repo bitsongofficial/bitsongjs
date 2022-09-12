@@ -26,5 +26,7 @@ jobs: # A workflow can have multiple jobs
 
     - name: Install dependencies
       run: | # Install and link dependencies
-        npm ci
-        npx lerna bootstrap
+        npm install --global yarn
+        yarn cache clean
+        yarn
+        yarn bootstrap
