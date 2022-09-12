@@ -1,6 +1,12 @@
 # 📡 @bitsongjs/api
 
-This package defines an rpc client to interact with the bitsong chain, inside it there are also the definitions of the proto files.
+This package defines an query client and tx client to interact with the bitsong chain, inside it there are also the definitions of the proto and amino files.
+
+Feature list:
+- Query client
+- Tx client
+- Proto definitions
+- Amino definitions (compatibility with ledgers)
 
 ## 🚀 Tech Stack
 
