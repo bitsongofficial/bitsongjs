@@ -6,9 +6,13 @@
 	"license": "Apache-2.0",
 	"main": "lib",
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial"
 	},
-	"repository": "https://github.com/bitsongofficial/bitsongjs/tree/testnet/packages/utils",
+	"bugs": {
+		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
+	},
+	"repository": "https://github.com/bitsongofficial/bitsongjs/packages/utils",
 	"dependencies": {
 		"crypto-js": "^4.1.1",
 		"merkletreejs": "^0.2.32"

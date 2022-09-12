@@ -5,10 +5,17 @@
 	"description": "Javascript library to interact with BitSong Blockchain",
 	"license": "Apache-2.0",
 	"private": true,
-	"repository": "https://github.com/bitsongofficial/bitsongjs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bitsongofficial/bitsongjs"
+	},
 	"workspaces": [
 		"packages/*"
 	],
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://npm.pkg.github.com"
+	},
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
 		"build": "lerna run build",

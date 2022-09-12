@@ -1,0 +1,20 @@
+name: Checks # Workflow name
+
+on:
+  pull_request:
+    types: [opened, synchronize] # Workflow triggering events
+
+jobs: # A workflow can have multiple jobs
+  checks: # Name of the job
+    runs-on: ubuntu-latest # Instance type where job will run
+
+    steps:
+    - name: "Checkout" # Download code from the repository
+      uses: actions/checkout@v3 # Public action
+      with:
+        fetch-depth: 0 # Checkout all branches and tags
+
+    - name: "Use NodeJS 16.16.0" # Setup node using version 14
+      uses: actions/setup-node@v3 # Public action
+      with: 
+        node-version: '16.16.0'

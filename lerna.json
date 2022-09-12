@@ -1,7 +1,7 @@
 {
 	"command": {
-		"version": {
-			"message": "chore(release): Publish %s"
+		"publish": {
+		  "registry": "https://npm.pkg.github.com/bitsongofficial"
 		}
 	},
 	"npmClient": "yarn",
@@ -11,6 +11,6 @@
 		"packages/*"
 	],
 	"registry": "https://registry.npmjs.org",
-	"version": "2.0.0",
+	"version": "independent",
 	"$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
