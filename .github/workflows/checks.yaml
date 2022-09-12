@@ -30,3 +30,7 @@ jobs: # A workflow can have multiple jobs
         yarn cache clean
         yarn
         yarn bootstrap
+
+    # TODO: Add workflow for automation tests
+    #- name: Run tests # Run tests of all packages
+    #  run: npx lerna exec npm run test
