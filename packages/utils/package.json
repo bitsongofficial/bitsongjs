@@ -12,7 +12,7 @@
 	"bugs": {
 		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
 	},
-	"repository": "https://github.com/bitsongofficial/bitsongjs/packages/utils",
+	"repository": "https://github.com/bitsongofficial/bitsongjs",
 	"dependencies": {
 		"crypto-js": "^4.1.1",
 		"merkletreejs": "^0.2.32"
