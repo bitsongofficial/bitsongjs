@@ -4,7 +4,7 @@
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "A Javascript utility lib for BitSong Blockchain.",
 	"license": "Apache-2.0",
-	"main": "lib",
+	"main": "dist",
 	"publishConfig": {
 		"access": "public",
 		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial"
@@ -26,7 +26,7 @@
 		"ts-proto": "^1.104.0"
 	},
 	"scripts": {
-		"build": "rimraf lib && tsc",
+		"build": "rimraf dist && tsc",
 		"test": "jest"
 	}
 }

@@ -1,5 +1,5 @@
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
-import { BitsongClient } from '../lib/client';
+import { BitsongClient } from '../dist/client';
 import {
   MsgBurn,
   MsgIssue,
@@ -8,7 +8,7 @@ import {
   MsgSetMinter,
   MsgSetAuthority,
   MsgSetUri,
-} from '../lib/codec/bitsong/fantoken/v1beta1/tx';
+} from '../dist/codec/bitsong/fantoken/v1beta1/tx';
 import {
   TEST_ADDRESS,
   OTHER_TEST_ADDRESS,

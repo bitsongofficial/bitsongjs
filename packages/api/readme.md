@@ -77,7 +77,7 @@ Here is an example of fetching the user's balance:
 
 ```ts
 import { BitsongClient, Bech32PrefixAccAddr, MicroDenom } from '@bitsongjs/api';
-import { QueryClientImpl } from '@bitsongjs/api/lib/codec/cosmos/bank/v1beta1/query';
+import { QueryClientImpl } from '@bitsongjs/api/dist/codec/cosmos/bank/v1beta1/query';
 
 const signer = await DirectSecp256k1HdWallet.fromMnemonic('YOUR MNEMONIC', {
     prefix: Bech32PrefixAccAddr,
