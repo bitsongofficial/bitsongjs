@@ -1,0 +1,32 @@
+{
+	"name": "@bitsongjs/utils",
+	"version": "2.0.0",
+	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
+	"description": "A Javascript utility lib for BitSong Blockchain.",
+	"license": "Apache-2.0",
+	"main": "lib",
+	"publishConfig": {
+		"access": "public",
+		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial"
+	},
+	"bugs": {
+		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
+	},
+	"repository": "https://github.com/bitsongofficial/bitsongjs/packages/utils",
+	"dependencies": {
+		"crypto-js": "^4.1.1",
+		"merkletreejs": "^0.2.32"
+	},
+	"devDependencies": {
+		"@babel/preset-typescript": "^7.18.6",
+		"@types/crypto-js": "^4.1.1",
+		"@types/jest": "^28.1.8",
+		"jest": "^28.1.3",
+		"ts-jest": "^28.0.8",
+		"ts-proto": "^1.104.0"
+	},
+	"scripts": {
+		"build": "rimraf lib && tsc",
+		"test": "jest"
+	}
+}

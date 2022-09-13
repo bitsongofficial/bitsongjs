@@ -1,0 +1,44 @@
+name: Publish
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - dev
+      - main
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true # Condition
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout" # Download code from the repository
+        uses: actions/checkout@v3 # Public action
+        with:
+          fetch-depth: 0 # Checkout all branches and tags
+
+      - name: "Use NodeJS 16.16.0" # Setup node using version 14
+        uses: actions/setup-node@v3 # Public action
+        with: 
+          node-version: '16.16.0'
+
+      - name: "Setup npm" # Add our registry to npm config
+        run: | # Custom action
+          npm set @bitsongjs:registry=https://npm.pkg.github.com/bitsongofficial
+          npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
+      - name: "Version and publish" # Interesting step
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor}}@users.noreply.github.com"
+
+          if [ ${{ github.base_ref }} = dev ]; then
+            npx lerna version --conventional-commits --conventional-prerelease --preid beta --yes
+          else
+            npx lerna version --conventional-commits --conventional-graduate --yes
+          fi
+
+          npx lerna publish from-git --yes
