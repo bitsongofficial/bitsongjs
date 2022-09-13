@@ -8,17 +8,16 @@ on:
       - main
 
 jobs:
-  publish:
+  build:
     if: github.event.pull_request.merged == true # Condition
     runs-on: ubuntu-latest
-
     steps:
       - name: "Checkout" # Download code from the repository
         uses: actions/checkout@v3 # Public action
         with:
           fetch-depth: 0 # Checkout all branches and tags
 
-      - name: "Use NodeJS 16.16.0" # Setup node using version 14
+      - name: "Use NodeJS 16.16.0" # Setup node using version 16.16.0
         uses: actions/setup-node@v3 # Public action
         with: 
           node-version: '16.16.0'
@@ -28,6 +27,21 @@ jobs:
           npm set @bitsongjs:registry=https://npm.pkg.github.com/bitsongofficial
           npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Install dependencies
+        run: | # Install and link dependencies
+          npm install --global yarn
+          yarn install --frozen-lockfile
+          yarn bootstrap
+          yarn build
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+        packages: write
+        contents: read
+
+    steps:
       - name: "Version and publish" # Interesting step
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
