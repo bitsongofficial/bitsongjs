@@ -1,5 +1,5 @@
 {
-	"name": "bitsonjs-monorepo",
+	"name": "bitsongjs-monorepo",
 	"version": "2.0.0",
 	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
 	"description": "Javascript library to interact with BitSong Blockchain",
