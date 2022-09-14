@@ -13,7 +13,19 @@
 	"bugs": {
 		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
 	},
-	"repository": "https://github.com/bitsongofficial/bitsongjs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bitsongofficial/bitsongjs",
+		"directory": "packages/api"
+	},
+	"files": [
+		"dist/",
+		"test/"
+	],
+	"directories": {
+		"dist": "dist",
+		"test": "test"
+	},
 	"dependencies": {
 		"@bitsongjs/utils": "^2.1.0-beta.0",
 		"@cosmjs/stargate": "^0.27.0",
