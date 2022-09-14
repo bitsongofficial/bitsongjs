@@ -1,0 +1,35 @@
+name: Checks # Workflow name
+
+on:
+  pull_request:
+    types: [opened, synchronize] # Workflow triggering events
+
+jobs: # A workflow can have multiple jobs
+  checks: # Name of the job
+    runs-on: ubuntu-latest # Instance type where job will run
+
+    steps:
+    - name: "Checkout" # Download code from the repository
+      uses: actions/checkout@v3 # Public action
+      with:
+        fetch-depth: 0 # Checkout all branches and tags
+
+    - name: "Use NodeJS 16.16.0" # Setup node using version 16.16.0
+      uses: actions/setup-node@v3 # Public action
+      with: 
+        node-version: '16.16.0'
+
+    - name: "Setup npm" # Add our registry to npm config
+      run: | # Custom action
+        npm set @bitsongjs:registry=https://registry.npmjs.com
+        npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
+    - name: Install dependencies
+      run: | # Install and link dependencies
+        npm install --global yarn
+        yarn install --frozen-lockfile
+        yarn bootstrap
+
+    # TODO: Add workflow for automation tests
+    #- name: Run tests # Run tests of all packages
+    #  run: npx lerna exec npm run test

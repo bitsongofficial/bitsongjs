@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"esModuleInterop": true,
+		"allowJs": true,
+		"outDir": "dist",
+		"baseUrl": "./",
+	},
+	"extends": "../../tsconfig",
+	"include": ["src"]
+}

@@ -1,0 +1,55 @@
+name: Publish
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - dev
+      - main
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true # Condition
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # for checkout and tag
+      pull-requests: write  # for comments
+      packages: write # for publish
+
+    steps:
+      - name: "Checkout" # Download code from the repository
+        uses: actions/checkout@v3 # Public action
+        with:
+          fetch-depth: 0 # Checkout all branches and tags
+
+      - name: "Use NodeJS 16.16.0" # Setup node using version 16.16.0
+        uses: actions/setup-node@v3 # Public action
+        with: 
+          node-version: '16.16.0'
+          registry-url: 'https://registry.npmjs.com'
+
+      - name: Ensure access
+        run: npm whoami --registry https://registry.npmjs.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+      - name: Install dependencies
+        run: | # Install and link dependencies
+          yarn install --frozen-lockfile
+          yarn bootstrap
+          yarn build
+
+      - name: "Version and publish" # Interesting step
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor}}@users.noreply.github.com"
+
+          if [ ${{ github.base_ref }} = dev ]; then
+            npx lerna version --conventional-commits --conventional-prerelease --preid beta --yes
+          else
+            npx lerna version --conventional-commits --conventional-graduate --yes
+          fi
+
+          npx lerna publish from-package --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
