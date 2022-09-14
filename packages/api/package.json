@@ -1,6 +1,6 @@
 {
 	"name": "@bitsongjs/api",
-	"version": "2.1.0-beta.6",
+	"version": "2.1.0-beta.7",
 	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
 	"description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
 	"license": "Apache-2.0",
@@ -26,7 +26,7 @@
 		"test": "test"
 	},
 	"dependencies": {
-		"@bitsongjs/utils": "^2.1.0-beta.5",
+		"@bitsongjs/utils": "^2.1.0-beta.6",
 		"@cosmjs/proto-signing": "^0.28.13",
 		"@cosmjs/stargate": "^0.28.13",
 		"rxjs": "^7.5.6"
