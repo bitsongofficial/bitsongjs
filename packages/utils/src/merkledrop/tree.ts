@@ -7,6 +7,13 @@ import { Account, AccountWithProofs } from 'src/types';
 
   It can be used to generate a merkledrop for airdrop purpose,
   using bitsong chain module: https://docs.bitsong.io/features-and-modules/merkledrop
+
+  accounts = [
+    {
+      address: 'bitsong1...',
+      amount: '1000000' // ubtsg
+    }
+  ]
 */
 export class Merkledrop {
   private tree: MerkleTree;
