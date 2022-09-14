@@ -39,6 +39,9 @@ export async function createStargateSigningClient(
   };
 
   try {
+    /*
+      We use rxjs utils to try different endpoints, until we get a connection
+    */
     const signingClient = lastValueFrom(
       connectionRetry.pipe(
         switchMap(attempt => {
