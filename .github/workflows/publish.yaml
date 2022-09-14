@@ -40,12 +40,11 @@ jobs:
       - name: "Setup yarn configs" # Add our registry to npm config
         run: | # Custom action
           yarn config set @bitsongjs:registry=https://npm.pkg.github.com
-          yarn config set "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}"
+          yarn config set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
       - name: "Version and publish" # Interesting step
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
         run: |
           git config user.name "${{ github.actor }}"
@@ -57,4 +56,4 @@ jobs:
             npx lerna version --conventional-commits --conventional-graduate --yes
           fi
 
-          npx lerna publish from-git --yes
+          npx lerna publish from-git --yes --force-publish
