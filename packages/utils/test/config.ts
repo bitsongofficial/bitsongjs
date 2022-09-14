@@ -1,4 +1,4 @@
-import { Account } from '../lib';
+import { Account } from '../dist';
 
 const TEST_ADDRESS="<YOUR ADDRESS FOR TESTS>"
 const OTHER_TEST_ADDRESS="<ANOTHER ADDRESS FOR TESTS>"

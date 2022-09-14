@@ -4,15 +4,28 @@
 	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
 	"description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain.",
 	"license": "Apache-2.0",
-	"main": "lib",
+	"main": "dist",
 	"publishConfig": {
 		"access": "public",
-		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial"
+		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial",
+		"directory": "dist"
 	},
 	"bugs": {
 		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
 	},
-	"repository": "https://github.com/bitsongofficial/bitsongjs/packages/api",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bitsongofficial/bitsongjs",
+		"directory": "packages/api"
+	},
+	"files": [
+		"dist/",
+		"test/"
+	],
+	"directories": {
+		"dist": "dist",
+		"test": "test"
+	},
 	"dependencies": {
 		"@bitsongjs/utils": "^2.1.0-beta.0",
 		"@cosmjs/stargate": "^0.27.0",
@@ -30,7 +43,7 @@
 		"get-proto": "CREF=v0.45.6 IBCREF=v2.0.0 BREF=v0.11.0 ./scripts/get-proto.sh",
 		"define-proto": "./scripts/define-proto.sh",
 		"postdefine-proto": "prettier --write \"src/codec/**/*.ts\"",
-		"build": "rimraf lib && tsc",
+		"build": "rimraf dist && tsc",
 		"test": "jest"
 	}
 }

@@ -1,7 +1,7 @@
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
 import { AccountWithProofs, Merkledrop } from '@bitsongjs/utils';
-import { BitsongClient } from '../lib/client';
-import { MsgCreate, MsgClaim } from '../lib/codec/bitsong/merkledrop/v1beta1/tx';
+import { BitsongClient } from '../dist/client';
+import { MsgCreate, MsgClaim } from '../dist/codec/bitsong/merkledrop/v1beta1/tx';
 import {
   TEST_ADDRESS,
   TEST_MNEMONIC,
@@ -11,7 +11,7 @@ import {
   accounts,
   connect,
 } from './config';
-import { MicroDenom } from '../lib/constants';
+import { MicroDenom } from '../dist/constants';
 
 let api: BitsongClient;
 let apiOther: BitsongClient;

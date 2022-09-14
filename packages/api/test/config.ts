@@ -1,6 +1,6 @@
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
-import { MicroDenom, Bech32PrefixAccAddr, getHdPath } from '../lib/constants';
-import { BitsongClient } from '../lib/client';
+import { MicroDenom, Bech32PrefixAccAddr, getHdPath } from '../dist/constants';
+import { BitsongClient } from '../dist/client';
 import { stringToPath } from '@cosmjs/crypto';
 import { Account } from '@bitsongjs/utils';
 
