@@ -7,7 +7,7 @@
 	"main": "dist",
 	"publishConfig": {
 		"access": "public",
-		"@bitsongjs:registry": "https://npm.pkg.github.com/bitsongofficial"
+		"@bitsongjs:registry": "https://registry.npmjs.org/bitsongofficial"
 	},
 	"bugs": {
 		"url": "https://github.com/bitsongofficial/bitsongjs/issues"

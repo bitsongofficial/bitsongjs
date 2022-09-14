@@ -21,7 +21,7 @@ jobs: # A workflow can have multiple jobs
 
     - name: "Setup npm" # Add our registry to npm config
       run: | # Custom action
-        npm set @bitsongjs:registry=https://npm.pkg.github.com/bitsongofficial
+        npm set @bitsongjs:registry=https://registry.npmjs.org/bitsongofficial
         npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
     - name: Install dependencies

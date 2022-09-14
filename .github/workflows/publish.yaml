@@ -26,12 +26,12 @@ jobs:
         uses: actions/setup-node@v3 # Public action
         with: 
           node-version: '16.16.0'
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Ensure access
-        run: npm whoami --registry https://npm.pkg.github.com/
+        run: npm whoami --registry https://registry.npmjs.org/
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
       - name: Install dependencies
         run: | # Install and link dependencies
@@ -50,7 +50,6 @@ jobs:
             npx lerna version --conventional-commits --conventional-graduate --yes
           fi
 
-          npx lerna publish from-git --yes --force-publish
+          npx lerna publish from-package --yes
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
