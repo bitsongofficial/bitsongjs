@@ -27,7 +27,8 @@
 	},
 	"dependencies": {
 		"@bitsongjs/utils": "^2.1.0-beta.2",
-		"@cosmjs/stargate": "^0.27.0",
+		"@cosmjs/proto-signing": "^0.28.13",
+		"@cosmjs/stargate": "^0.28.13",
 		"rxjs": "^7.5.6"
 	},
 	"devDependencies": {
