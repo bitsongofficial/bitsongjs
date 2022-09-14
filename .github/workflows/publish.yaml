@@ -32,15 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: | # Install and link dependencies
-          npm install --global yarn
           yarn install --frozen-lockfile
           yarn bootstrap
           yarn build
-
-      - name: "Setup yarn configs" # Add our registry to npm config
-        run: | # Custom action
-          yarn config set @bitsongjs:registry=https://npm.pkg.github.com/bitsong
-          yarn config set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
 
       - name: "Version and publish" # Interesting step
         env:
