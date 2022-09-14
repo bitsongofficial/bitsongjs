@@ -30,16 +30,18 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@bitsongjs'
 
-      - name: "Setup npm" # Add our registry to npm config
-        run: | # Custom action
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-
       - name: Install dependencies
         run: | # Install and link dependencies
           npm install --global yarn
           yarn install --frozen-lockfile
           yarn bootstrap
           yarn build
+
+      - name: "Setup yarn configs" # Add our registry to npm config
+        run: | # Custom action
+          yarn config set @bitsongjs:registry=https://npm.pkg.github.com
+          yarn config set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+
       - name: "Version and publish" # Interesting step
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
