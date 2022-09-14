@@ -1,6 +1,6 @@
 {
 	"name": "@bitsongjs/utils",
-	"version": "2.1.0-beta.8",
+	"version": "2.1.0-beta.9",
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "A Javascript utility lib for BitSong Blockchain",
 	"license": "Apache-2.0",
