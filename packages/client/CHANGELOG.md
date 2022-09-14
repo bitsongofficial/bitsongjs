@@ -3,97 +3,97 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [2.1.0-beta.12](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.11...@bitsongjs/api@2.1.0-beta.12) (2022-09-14)
+# [2.1.0-beta.12](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.11...@bitsongjs/client@2.1.0-beta.12) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.11](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.10...@bitsongjs/api@2.1.0-beta.11) (2022-09-14)
+# [2.1.0-beta.11](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.10...@bitsongjs/client@2.1.0-beta.11) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.10](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.9...@bitsongjs/api@2.1.0-beta.10) (2022-09-14)
+# [2.1.0-beta.10](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.9...@bitsongjs/client@2.1.0-beta.10) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.9](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.8...@bitsongjs/api@2.1.0-beta.9) (2022-09-14)
+# [2.1.0-beta.9](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.8...@bitsongjs/client@2.1.0-beta.9) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.7...@bitsongjs/api@2.1.0-beta.8) (2022-09-14)
+# [2.1.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.7...@bitsongjs/client@2.1.0-beta.8) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.6...@bitsongjs/api@2.1.0-beta.7) (2022-09-14)
+# [2.1.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.6...@bitsongjs/client@2.1.0-beta.7) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.6](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.5...@bitsongjs/api@2.1.0-beta.6) (2022-09-14)
+# [2.1.0-beta.6](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.5...@bitsongjs/client@2.1.0-beta.6) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.4...@bitsongjs/api@2.1.0-beta.5) (2022-09-14)
+# [2.1.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.4...@bitsongjs/client@2.1.0-beta.5) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.3...@bitsongjs/api@2.1.0-beta.4) (2022-09-14)
+# [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.3...@bitsongjs/client@2.1.0-beta.4) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.2...@bitsongjs/api@2.1.0-beta.3) (2022-09-14)
+# [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.2...@bitsongjs/client@2.1.0-beta.3) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.1...@bitsongjs/api@2.1.0-beta.2) (2022-09-14)
+# [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.1...@bitsongjs/client@2.1.0-beta.2) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
 
 
-# [2.1.0-beta.1](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/api@2.1.0-beta.0...@bitsongjs/api@2.1.0-beta.1) (2022-09-14)
+# [2.1.0-beta.1](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.0...@bitsongjs/client@2.1.0-beta.1) (2022-09-14)
 
-**Note:** Version bump only for package @bitsongjs/api
+**Note:** Version bump only for package @bitsongjs/client
 
 
 
