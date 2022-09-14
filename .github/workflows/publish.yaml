@@ -26,11 +26,13 @@ jobs:
         uses: actions/setup-node@v3 # Public action
         with: 
           node-version: '16.16.0'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@bitsongjs'
 
       - name: "Setup npm" # Add our registry to npm config
         run: | # Custom action
-          npm set @bitsongjs:registry=https://npm.pkg.github.com/bitsongofficial
-          npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
 
       - name: Install dependencies
         run: | # Install and link dependencies
