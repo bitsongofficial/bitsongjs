@@ -8,9 +8,14 @@ on:
       - main
 
 jobs:
-  build:
+  publish:
     if: github.event.pull_request.merged == true # Condition
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # for checkout and tag
+      pull-requests: write  # for comments
+      packages: write # for publish
+
     steps:
       - name: "Checkout" # Download code from the repository
         uses: actions/checkout@v3 # Public action
@@ -33,19 +38,11 @@ jobs:
           yarn install --frozen-lockfile
           yarn bootstrap
           yarn build
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-        packages: write
-        contents: read
-
-    steps:
       - name: "Version and publish" # Interesting step
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          ls -l
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor}}@users.noreply.github.com"
 
