@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/utils@2.1.0-beta.4...@bitsongjs/utils@2.1.0-beta.5) (2022-09-14)
+
+**Note:** Version bump only for package @bitsongjs/utils
+
+
+
+
+
+# [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/utils@2.1.0-beta.3...@bitsongjs/utils@2.1.0-beta.4) (2022-09-14)
+
+**Note:** Version bump only for package @bitsongjs/utils
+
+
+
+
+
+# [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/utils@2.1.0-beta.2...@bitsongjs/utils@2.1.0-beta.3) (2022-09-14)
+
+**Note:** Version bump only for package @bitsongjs/utils
+
+
+
+
+
 # [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/utils@2.1.0-beta.1...@bitsongjs/utils@2.1.0-beta.2) (2022-09-14)
 
 **Note:** Version bump only for package @bitsongjs/utils
