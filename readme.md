@@ -4,7 +4,7 @@ This monorepo contains a series of packages to interact with the Bitsong chain.
 
 In particular, there are the following packages:
 
-- [@bitsongjs/api](./packages/api/readme.md)
+- [@bitsongjs/client](./packages/client/readme.md)
 - [@bitsongjs/utils](./packages/utils/readme.md)
 
 ## 🚀 Tech Stack
