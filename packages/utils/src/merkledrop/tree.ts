@@ -2,6 +2,12 @@ import sha256 from 'crypto-js/sha256';
 import { MerkleTree } from 'merkletreejs';
 import { Account, AccountWithProofs } from 'src/types';
 
+/*
+  Utility class for Merkledrop tree generation.
+
+  It can be used to generate a merkledrop for airdrop purpose,
+  using bitsong chain module: https://docs.bitsong.io/features-and-modules/merkledrop
+*/
 export class Merkledrop {
   private tree: MerkleTree;
   private accounts: Account[];

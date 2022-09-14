@@ -43,7 +43,11 @@ export class BitsongClient {
 
     switch (connection.type) {
       case 'tendermint':
-        // The Tendermint client knows how to talk to the Tendermint RPC endpoint
+        /*
+          The Tendermint client knows how to talk to the Tendermint RPC endpoint
+
+          We use rxjs utils to try different endpoints, until we get a connection
+        */
         const tendermintClient = await lastValueFrom(
           connectionRetry.pipe(
             switchMap(attempt => {
