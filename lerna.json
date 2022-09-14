@@ -1,7 +1,7 @@
 {
 	"command": {
 		"publish": {
-		  "registry": "https://npm.pkg.github.com/bitsongofficial"
+		  "registry": "https://npm.pkg.github.com/"
 		}
 	},
 	"npmClient": "yarn",
@@ -10,7 +10,6 @@
 	"packages": [
 		"packages/*"
 	],
-	"registry": "https://registry.npmjs.org",
 	"version": "independent",
 	"$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
