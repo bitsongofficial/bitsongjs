@@ -7,7 +7,7 @@
 	"main": "dist",
 	"publishConfig": {
 		"access": "public",
-		"@bitsongjs:registry": "https://registry.npmjs.org"
+		"@bitsongjs:registry": "https://registry.npmjs.com"
 	},
 	"bugs": {
 		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
@@ -45,5 +45,6 @@
 		"postdefine-proto": "prettier --write \"src/codec/**/*.ts\"",
 		"build": "rimraf dist && tsc",
 		"test": "jest"
-	}
+	},
+	"gitHead": "df77c409e95979dacc70ad75c242614137c4a601"
 }
