@@ -43,6 +43,9 @@ export class BitsongClient {
     this._txClient = txClient;
   }
 
+  /*
+    Currently it is a workaround, it would be ideal to move this logic into the requests made with the tendermint client
+  */
   public setQueryHeight(desiredHeight?: number) {
     this._queryClient = createBitsongProtobufRpcClient(this._tendermintQueryClient, desiredHeight);
   }
