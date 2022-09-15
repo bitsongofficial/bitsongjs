@@ -13,7 +13,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { setupTxExtension, TxClient } from './tx';
+import { setupTxExtension, TxClient, createBitsongProtobufRpcClient } from './tx';
 import { BitsongClientOptions, SigningConnectionOptions } from './types';
 
 /**
@@ -21,12 +21,33 @@ import { BitsongClientOptions, SigningConnectionOptions } from './types';
  * a client connection
  */
 export class BitsongClient {
-  readonly queryClient: ProtobufRpcClient;
-  readonly txClient?: TxClient;
+  private _queryClient: ProtobufRpcClient;
+  private _tendermintQueryClient: QueryClient;
+  private _txClient?: TxClient;
 
-  constructor(queryClient: ProtobufRpcClient, txClient?: TxClient) {
-    this.queryClient = queryClient;
-    this.txClient = txClient;
+  public get queryClient() {
+    return this._queryClient;
+  }
+
+  public get tendermintQueryClient() {
+    return this._tendermintQueryClient;
+  }
+
+  public get txClient() {
+    return this._txClient;
+  }
+
+  constructor(queryClient: ProtobufRpcClient, tendermintQueryClient: QueryClient, txClient?: TxClient) {
+    this._queryClient = queryClient;
+    this._tendermintQueryClient = tendermintQueryClient;
+    this._txClient = txClient;
+  }
+
+  /*
+    Currently it is a workaround, it would be ideal to move this logic into the requests made with the tendermint client
+  */
+  public setQueryHeight(desiredHeight?: number) {
+    this._queryClient = createBitsongProtobufRpcClient(this._tendermintQueryClient, desiredHeight);
   }
 
   /**
@@ -75,17 +96,17 @@ export class BitsongClient {
         const queryClient = new QueryClient(tendermintClient);
 
         // This helper function wraps the generic Stargate query client for use by the specific generated query client
-        const rpcClient = createProtobufRpcClient(queryClient);
+        const rpcClient = createBitsongProtobufRpcClient(queryClient);
 
         if (connection.signer) {
           const txClient = await setupTxExtension(
             connection as SigningConnectionOptions,
           );
 
-          return new BitsongClient(rpcClient, txClient);
+          return new BitsongClient(rpcClient, queryClient, txClient);
         }
 
-        return new BitsongClient(rpcClient);
+        return new BitsongClient(rpcClient, queryClient);
     }
   }
 }

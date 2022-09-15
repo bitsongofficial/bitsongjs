@@ -4,6 +4,8 @@ import {
     StdFee,
     DeliverTxResponse,
     AminoTypes,
+    QueryClient,
+    ProtobufRpcClient,
 } from '@cosmjs/stargate';
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
@@ -20,6 +22,16 @@ export interface TxClient {
     ) => Promise<Uint8Array>;
     readonly broadcast: (signedTxBytes: Uint8Array) => Promise<DeliverTxResponse>;
 }
+
+export function createBitsongProtobufRpcClient(base: QueryClient, desiredHeight?: number): ProtobufRpcClient {
+    return {
+      request: (service: string, method: string, data: Uint8Array): Promise<Uint8Array> => {
+        const path = `/${service}/${method}`;
+
+        return base.queryUnverified(path, data, desiredHeight);
+      },
+    };
+  }
 
 export async function setupTxExtension(
     connection: SigningConnectionOptions,

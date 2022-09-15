@@ -16,7 +16,9 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"downlevelIteration": true,
-		"typeRoots": ["./node_modules/@types"]
+		"typeRoots": ["./node_modules/@types"],
+		"lib": ["es2018"],
+    	"target": "es2018"
 	},
 	"exclude": ["**/dist/**/*"],
 	"ecmaVersion": 6,

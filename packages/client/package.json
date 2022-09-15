@@ -27,8 +27,9 @@
 	},
 	"dependencies": {
 		"@bitsongjs/utils": "^2.1.0",
-		"@cosmjs/proto-signing": "^0.28.13",
-		"@cosmjs/stargate": "^0.28.13",
+		"@cosmjs/proto-signing": "^0.29.0",
+		"@cosmjs/stargate": "^0.29.0",
+		"@cosmjs/tendermint-rpc": "^0.29.0",
 		"rxjs": "^7.5.6"
 	},
 	"devDependencies": {

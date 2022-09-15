@@ -31,11 +31,11 @@ const accounts: Account[] = [
   },
 ];
 
-const connect = async (mnemonic: string): Promise<BitsongClient> => {
-  const signer = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+const connect = async (mnemonic?: string): Promise<BitsongClient> => {
+  const signer = mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: Bech32PrefixAccAddr,
     hdPaths: [stringToPath(getHdPath())],
-  });
+  }) : undefined;
 
   return BitsongClient.connect({
     connection: {
