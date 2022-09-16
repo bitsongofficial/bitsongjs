@@ -13,17 +13,32 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { setupTxExtension, TxClient, createBitsongProtobufRpcClient } from './tx';
-import { BitsongClientOptions, SigningConnectionOptions } from './types';
+import {
+  setupTxExtension,
+  TxClient,
+  createBitsongProtobufRpcClient,
+} from './tx';
+import {
+  BitsongClientOptions,
+  SigningConnectionOptions,
+  InstanceTypeMap,
+  QueryRpcClient,
+} from './types';
 
 /**
  * The main entry point for interacting with the BitSong Blockchain. The class needs
  * a client connection
  */
-export class BitsongClient {
+export class BitsongClient<T extends object> {
   private _queryClient: ProtobufRpcClient;
   private _tendermintQueryClient: QueryClient;
   private _txClient?: TxClient;
+  private _modules: Record<string, QueryRpcClient>;
+  private _query!: InstanceTypeMap<T>;
+
+  public get query() {
+    return this._query;
+  }
 
   public get queryClient() {
     return this._queryClient;
@@ -37,17 +52,41 @@ export class BitsongClient {
     return this._txClient;
   }
 
-  constructor(queryClient: ProtobufRpcClient, tendermintQueryClient: QueryClient, txClient?: TxClient) {
+  constructor(
+    queryClient: ProtobufRpcClient,
+    tendermintQueryClient: QueryClient,
+    modules: Record<string, QueryRpcClient>,
+    txClient?: TxClient,
+  ) {
     this._queryClient = queryClient;
     this._tendermintQueryClient = tendermintQueryClient;
     this._txClient = txClient;
+    this._modules = modules;
+
+    this.initModules();
   }
 
   /*
     Currently it is a workaround, it would be ideal to move this logic into the requests made with the tendermint client
   */
   public setQueryHeight(desiredHeight?: number) {
-    this._queryClient = createBitsongProtobufRpcClient(this._tendermintQueryClient, desiredHeight);
+    this._queryClient = createBitsongProtobufRpcClient(
+      this._tendermintQueryClient,
+      desiredHeight,
+    );
+    this.initModules();
+  }
+
+  private initModules() {
+    const queryClients: any = {};
+
+    for (const moduleName in this._modules) {
+      queryClients[moduleName] = new this._modules[moduleName](
+        this._queryClient,
+      );
+    }
+
+    this._query = queryClients;
   }
 
   /**
@@ -55,9 +94,10 @@ export class BitsongClient {
    *
    * @param options - Options to pass into BitsongClient.
    */
-  public static async connect(
+  public static async connect<K extends object>(
     options: BitsongClientOptions,
-  ): Promise<BitsongClient> {
+    modules: Record<string, QueryRpcClient>,
+  ): Promise<BitsongClient<K>> {
     const connectionRetry = new BehaviorSubject<number>(0);
 
     const { connection } = options;
@@ -103,10 +143,10 @@ export class BitsongClient {
             connection as SigningConnectionOptions,
           );
 
-          return new BitsongClient(rpcClient, queryClient, txClient);
+          return new BitsongClient(rpcClient, queryClient, modules, txClient);
         }
 
-        return new BitsongClient(rpcClient, queryClient);
+        return new BitsongClient(rpcClient, queryClient, modules);
     }
   }
 }
