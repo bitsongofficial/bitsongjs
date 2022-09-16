@@ -1,13 +1,11 @@
-import {
-  createProtobufRpcClient,
-  QueryClient,
-  ProtobufRpcClient,
-} from '@cosmjs/stargate';
+import { QueryClient, ProtobufRpcClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import {
+  AsyncSubject,
   BehaviorSubject,
   from,
   lastValueFrom,
+  Observable,
   of,
   retry,
   switchMap,
@@ -30,11 +28,12 @@ import {
  * a client connection
  */
 export class BitsongClient<T extends object> {
-  private _queryClient: ProtobufRpcClient;
-  private _tendermintQueryClient: QueryClient;
+  private _queryClient!: ProtobufRpcClient;
+  private _tendermintQueryClient!: QueryClient;
   private _txClient?: TxClient;
-  private _modules: Record<string, QueryRpcClient>;
-  private _query!: InstanceTypeMap<T>;
+  private _modules!: Record<string, QueryRpcClient>;
+  private _query!: Observable<InstanceTypeMap<T>>;
+  private _connectionSubject = new AsyncSubject<boolean>();
 
   public get query() {
     return this._query;
@@ -53,15 +52,10 @@ export class BitsongClient<T extends object> {
   }
 
   constructor(
-    queryClient: ProtobufRpcClient,
-    tendermintQueryClient: QueryClient,
+    options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
-    txClient?: TxClient,
   ) {
-    this._queryClient = queryClient;
-    this._tendermintQueryClient = tendermintQueryClient;
-    this._txClient = txClient;
-    this._modules = modules;
+    this.connect(options, modules);
 
     this.initModules();
   }
@@ -74,19 +68,26 @@ export class BitsongClient<T extends object> {
       this._tendermintQueryClient,
       desiredHeight,
     );
+
     this.initModules();
   }
 
   private initModules() {
-    const queryClients: any = {};
+    this._query = this._connectionSubject.asObservable().pipe(
+      switchMap(() => {
+        const queryClients: any = {};
 
-    for (const moduleName in this._modules) {
-      queryClients[moduleName] = new this._modules[moduleName](
-        this._queryClient,
-      );
-    }
+        for (const moduleName in this._modules) {
+          const queryClientInstance = new this._modules[moduleName](
+            this._queryClient,
+          );
 
-    this._query = queryClients;
+          queryClients[moduleName] = queryClientInstance as unknown;
+        }
+
+        return of(queryClients);
+      })
+    );
   }
 
   /**
@@ -94,10 +95,10 @@ export class BitsongClient<T extends object> {
    *
    * @param options - Options to pass into BitsongClient.
    */
-  public static async connect<K extends object>(
+  private async connect(
     options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
-  ): Promise<BitsongClient<K>> {
+  ) {
     const connectionRetry = new BehaviorSubject<number>(0);
 
     const { connection } = options;
@@ -143,10 +144,15 @@ export class BitsongClient<T extends object> {
             connection as SigningConnectionOptions,
           );
 
-          return new BitsongClient(rpcClient, queryClient, modules, txClient);
+          this._txClient = txClient;
         }
 
-        return new BitsongClient(rpcClient, queryClient, modules);
+        this._queryClient = rpcClient;
+        this._tendermintQueryClient = queryClient;
+        this._modules = modules;
+
+        this._connectionSubject.next(true);
+        this._connectionSubject.complete();
     }
   }
 }
