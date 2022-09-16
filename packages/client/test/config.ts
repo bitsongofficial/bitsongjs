@@ -38,13 +38,13 @@ const modules = {
   bank: BankQueryClientImpl,
 }
 
-const connect = async (mnemonic?: string): Promise<BitsongClient<typeof modules>> => {
+const connect = async (mnemonic?: string) => {
   const signer = mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: Bech32PrefixAccAddr,
     hdPaths: [stringToPath(getHdPath())],
   }) : undefined;
 
-  return BitsongClient.connect({
+  return new BitsongClient<typeof modules>({
     connection: {
       type: 'tendermint',
       endpoints: [RPC_NODE_URL],
