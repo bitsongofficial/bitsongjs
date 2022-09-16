@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0...@bitsongjs/client@2.2.0) (2022-09-16)
+
+
+### Features
+
+* :arrow_up: upgrade cosmjs deps from 0.28 to 0.29 ([0790f30](https://github.com/bitsongofficial/bitsongjs/commit/0790f30fcd314aaa09569540511be44302657cd4))
+* :sparkles: add setQueryHeight utility inside BitsongClient ([92c62f4](https://github.com/bitsongofficial/bitsongjs/commit/92c62f492f2918457c78b22c3ab9775c1b9b2464))
+
+
+
+
+
 # [2.1.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0-beta.13...@bitsongjs/client@2.1.0) (2022-09-14)
 
 **Note:** Version bump only for package @bitsongjs/client
