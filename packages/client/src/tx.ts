@@ -6,6 +6,7 @@ import {
   AminoTypes,
   QueryClient,
   ProtobufRpcClient,
+  SigningStargateClient,
 } from '@cosmjs/stargate';
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
@@ -21,6 +22,7 @@ export interface TxClient {
     memo: string,
   ) => Promise<Uint8Array>;
   readonly broadcast: (signedTxBytes: Uint8Array) => Promise<DeliverTxResponse>;
+  signingClient: SigningStargateClient
 }
 
 export function createBitsongProtobufRpcClient(
@@ -111,5 +113,6 @@ export async function setupTxExtension(
   return {
     sign,
     broadcast,
+    signingClient
   };
 }
