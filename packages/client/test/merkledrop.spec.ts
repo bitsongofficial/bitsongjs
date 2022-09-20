@@ -10,11 +10,12 @@ import {
   TEST_FEE,
   accounts,
   connect,
+  modules
 } from './config';
 import { MicroDenom } from '../dist/constants';
 
-let api: BitsongClient;
-let apiOther: BitsongClient;
+let api: BitsongClient<typeof modules>;
+let apiOther: BitsongClient<typeof modules>;
 let merkledrop: Merkledrop;
 
 let merkledropId: string;
