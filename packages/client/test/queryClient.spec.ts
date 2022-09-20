@@ -8,6 +8,7 @@ let api: BitsongClient<typeof modules>;
 describe('BitSong QueryClient', () => {
   beforeAll(async () => {
     api = await connect();
+    await api.reconnect(api.clientOptions, api.modules);
   });
   describe('Banks Module', () => {
     test('should get account balances', async () => {
