@@ -95,6 +95,7 @@ export class BitsongClient<T extends object> {
 
   public async reconnect(options: BitsongClientOptions = this._clientOptions, modules: Record<string, QueryRpcClient> = this._modules) {
     this.disconnect();
+    this._connectionSubject = new AsyncSubject<boolean>();
     await this.connect(options, modules);
   }
 
