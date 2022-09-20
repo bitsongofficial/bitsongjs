@@ -38,11 +38,15 @@ const modules = {
   bank: BankQueryClientImpl,
 }
 
-const connect = async (mnemonic?: string) => {
-  const signer = mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+const getSigner = async (mnemonic?: string) => {
+  return mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: Bech32PrefixAccAddr,
     hdPaths: [stringToPath(getHdPath())],
   }) : undefined;
+}
+
+const connect = async (mnemonic?: string) => {
+  const signer = await getSigner(mnemonic);
 
   return new BitsongClient<typeof modules>({
     connection: {
@@ -63,4 +67,5 @@ export {
   modules,
   accounts,
   connect,
+  getSigner,
 };
