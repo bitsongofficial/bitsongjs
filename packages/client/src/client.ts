@@ -21,6 +21,7 @@ import {
   SigningConnectionOptions,
   InstanceTypeMap,
   QueryRpcClient,
+  ConnectionOptions,
 } from './types';
 
 /**
@@ -112,8 +113,22 @@ export class BitsongClient<T extends object> {
       this._tendermintClient.disconnect();
     }
 
+    this.disconnectSigner();
+  }
+
+  public disconnectSigner() {
     if (this._txClient) {
       this._txClient.signingClient.disconnect();
+    }
+  }
+
+  public async connectSigner(connection: ConnectionOptions) {
+    if (connection.signer) {
+      this.disconnectSigner();
+
+      const txClient = await setupTxExtension(connection as SigningConnectionOptions);
+
+      this._txClient = txClient;
     }
   }
 
@@ -168,13 +183,7 @@ export class BitsongClient<T extends object> {
         // This helper function wraps the generic Stargate query client for use by the specific generated query client
         const rpcClient = createBitsongProtobufRpcClient(queryClient);
 
-        if (connection.signer) {
-          const txClient = await setupTxExtension(
-            connection as SigningConnectionOptions,
-          );
-
-          this._txClient = txClient;
-        }
+        this.connectSigner(connection);
 
         this._queryClient = rpcClient;
         this._tendermintQueryClient = queryClient;
