@@ -37,6 +37,14 @@ export class BitsongClient<T extends object> {
   private _query!: Observable<InstanceTypeMap<T>>;
   private _connectionSubject = new AsyncSubject<boolean>();
 
+  public get modules() {
+    return this._modules;
+  }
+
+  public get clientOptions() {
+    return this._clientOptions;
+  }
+
   public get query() {
     return this._query;
   }
@@ -57,7 +65,6 @@ export class BitsongClient<T extends object> {
     options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
   ) {
-    this._clientOptions = options;
     this.connect(options, modules);
 
     this.initModules();
@@ -93,10 +100,11 @@ export class BitsongClient<T extends object> {
     );
   }
 
-  public async reconnect(options: BitsongClientOptions = this._clientOptions, modules: Record<string, QueryRpcClient> = this._modules) {
+  public async reconnect(options: BitsongClientOptions, modules: Record<string, QueryRpcClient>) {
     this.disconnect();
     this._connectionSubject = new AsyncSubject<boolean>();
-    await this.connect(options, modules);
+    this.connect(options, modules);
+    this.initModules();
   }
 
   public disconnect() {
@@ -118,6 +126,8 @@ export class BitsongClient<T extends object> {
     options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
   ) {
+    this._modules = modules;
+    this._clientOptions = options;
     const connectionRetry = new BehaviorSubject<number>(0);
 
     const { connection } = options;
@@ -168,7 +178,6 @@ export class BitsongClient<T extends object> {
 
         this._queryClient = rpcClient;
         this._tendermintQueryClient = queryClient;
-        this._modules = modules;
 
         this._connectionSubject.next(true);
         this._connectionSubject.complete();
