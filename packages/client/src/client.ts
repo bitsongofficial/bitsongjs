@@ -30,8 +30,10 @@ import {
 export class BitsongClient<T extends object> {
   private _queryClient!: ProtobufRpcClient;
   private _tendermintQueryClient!: QueryClient;
+  private _tendermintClient!: Tendermint34Client
   private _txClient?: TxClient;
   private _modules!: Record<string, QueryRpcClient>;
+  private _clientOptions!: BitsongClientOptions;
   private _query!: Observable<InstanceTypeMap<T>>;
   private _connectionSubject = new AsyncSubject<boolean>();
 
@@ -55,6 +57,7 @@ export class BitsongClient<T extends object> {
     options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
   ) {
+    this._clientOptions = options;
     this.connect(options, modules);
 
     this.initModules();
@@ -88,6 +91,21 @@ export class BitsongClient<T extends object> {
         return of(queryClients);
       })
     );
+  }
+
+  public async reconnect(options: BitsongClientOptions = this._clientOptions, modules: Record<string, QueryRpcClient> = this._modules) {
+    this.disconnect();
+    await this.connect(options, modules);
+  }
+
+  public disconnect() {
+    if (this._tendermintClient) {
+      this._tendermintClient.disconnect();
+    }
+
+    if (this._txClient) {
+      this._txClient.signingClient.disconnect();
+    }
   }
 
   /**
