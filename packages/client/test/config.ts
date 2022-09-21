@@ -3,6 +3,9 @@ import { MicroDenom, Bech32PrefixAccAddr, getHdPath } from '../dist/constants';
 import { BitsongClient } from '../dist/client';
 import { stringToPath } from '@cosmjs/crypto';
 import { Account } from '@bitsongjs/utils';
+import {
+  QueryClientImpl as BankQueryClientImpl,
+} from '../dist/codec/cosmos/bank/v1beta1/query';
 
 const TEST_FEE = {
   amount: [
@@ -31,19 +34,27 @@ const accounts: Account[] = [
   },
 ];
 
-const connect = async (mnemonic?: string): Promise<BitsongClient> => {
-  const signer = mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+const modules = {
+  bank: BankQueryClientImpl,
+}
+
+const getSigner = async (mnemonic?: string) => {
+  return mnemonic ? await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: Bech32PrefixAccAddr,
     hdPaths: [stringToPath(getHdPath())],
   }) : undefined;
+}
 
-  return BitsongClient.connect({
+const connect = async (mnemonic?: string) => {
+  const signer = await getSigner(mnemonic);
+
+  return new BitsongClient<typeof modules>({
     connection: {
       type: 'tendermint',
       endpoints: [RPC_NODE_URL],
       signer,
     },
-  });
+  }, modules);
 };
 
 export {
@@ -53,6 +64,8 @@ export {
   TEST_MNEMONIC,
   OTHER_TEST_MNEMONIC,
   TEST_FEE,
+  modules,
   accounts,
   connect,
+  getSigner,
 };

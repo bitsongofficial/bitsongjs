@@ -7,14 +7,17 @@ import {
   TEST_MNEMONIC,
   OTHER_TEST_ADDRESS,
   OTHER_TEST_MNEMONIC,
+  RPC_NODE_URL,
   TEST_FEE,
   accounts,
   connect,
+  modules,
+  getSigner
 } from './config';
 import { MicroDenom } from '../dist/constants';
 
-let api: BitsongClient;
-let apiOther: BitsongClient;
+let api: BitsongClient<typeof modules>;
+let apiOther: BitsongClient<typeof modules>;
 let merkledrop: Merkledrop;
 
 let merkledropId: string;
@@ -22,6 +25,14 @@ let merkledropId: string;
 describe('BitSongApi Merkledrop with tendermint connection', () => {
   beforeAll(async () => {
     api = await connect(TEST_MNEMONIC);
+    const signer = await getSigner(TEST_MNEMONIC);
+
+    await api.connectSigner({
+      type: 'tendermint',
+      endpoints: [RPC_NODE_URL],
+      signer,
+    })
+
     apiOther = await connect(OTHER_TEST_MNEMONIC);
     merkledrop = new Merkledrop(accounts);
   });
@@ -38,7 +49,7 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
         },
         owner: TEST_ADDRESS,
         merkleRoot: merkledrop.getMerkleRoot(),
-        endHeight: 600000,
+        endHeight: 800000,
       });
 
       const signedTxBytes = await api.txClient?.sign(

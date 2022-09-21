@@ -77,31 +77,41 @@ Here is an example of fetching the user's balance:
 
 ```ts
 import { BitsongClient, Bech32PrefixAccAddr, MicroDenom } from '@bitsongjs/client';
-import { QueryClientImpl } from '@bitsongjs/client/dist/codec/cosmos/bank/v1beta1/query';
+import { QueryClientImpl as BankQueryClientImpl, QueryAllBalancesRequest } from '@bitsongjs/client/dist/codec/cosmos/bank/v1beta1/query';
+import { lastValueFrom, switchMap } from 'rxjs';
+
+const modules = {
+  bank: BankQueryClientImpl,
+}
 
 const signer = await DirectSecp256k1HdWallet.fromMnemonic('YOUR MNEMONIC', {
-    prefix: Bech32PrefixAccAddr,
-    hdPaths: [stringToPath(getHdPath())],
+  prefix: Bech32PrefixAccAddr,
+  hdPaths: [stringToPath(getHdPath())],
 });
 
-const api = BitsongClient.connect({
-    connection: {
-        type: 'tendermint',
-        endpoints: ['<YOUR RPC URL>'],
-        signer, // OfflineSigner from @cosmjs/proto-signing
-    },
-});
-
-const bankClient = new QueryClientImpl(api.queryClient);
+const api = new BitsongClient<typeof modules>({
+  connection: {
+    type: 'tendermint',
+    endpoints: ['<YOUR RPC URL>'],
+    signer, // OfflineSigner from @cosmjs/proto-signing
+  },
+}, modules);
 
 const [firstAccount] = await signer.getAccounts();
 const myAddress = firstAccount.address;
 
-const balances = await bankClient.AllBalances({
-	address: myAddress,
-});
+const balancesResponse = await lastValueFrom(
+  api.query.pipe(
+    switchMap(query =>
+      query.bank.AllBalances({
+        $type: QueryAllBalancesRequest.$type,
+        address: myAddress,
+      }),
+    ),
+  ),
+);
 
-console.log(balances);
+console.log(balancesResponse);
 /*
     Prints example: `{
         "balances":[{"denom":"ubtsg","amount":"10000000000"}],
