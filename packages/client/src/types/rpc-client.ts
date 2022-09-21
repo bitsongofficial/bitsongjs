@@ -21,3 +21,15 @@ export interface SigningConnectionOptions extends DefaultConnectionOptions {
 export interface BitsongClientOptions {
   connection: ConnectionOptions;
 }
+
+export interface Rpc {
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array,
+  ): Promise<Uint8Array>;
+}
+
+export interface QueryRpcClient {
+  new (rpc: Rpc): unknown;
+}

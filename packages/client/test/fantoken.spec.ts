@@ -16,10 +16,11 @@ import {
   OTHER_TEST_MNEMONIC,
   TEST_FEE,
   connect,
+  modules,
 } from './config';
 
-let api: BitsongClient;
-let apiOther: BitsongClient;
+let api: BitsongClient<typeof modules>;
+let apiOther: BitsongClient<typeof modules>;
 
 let ftDenom: string;
 
