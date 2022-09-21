@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.2.0...@bitsongjs/client@2.3.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* :bug: add types export from index ([f93a5b0](https://github.com/bitsongofficial/bitsongjs/commit/f93a5b0984e6e5f7cd8b789f6bdb13860da81b6e))
+* :bug: fix reconnect behaviour ([2addd44](https://github.com/bitsongofficial/bitsongjs/commit/2addd44103ec8ff073868b9202e1748f900e3ba7))
+
+
+### Features
+
+* :sparkles: add connection subject check on reconnect ([b44f321](https://github.com/bitsongofficial/bitsongjs/commit/b44f321515d24535699025369e653b37265d6438))
+* :sparkles: add connectSigner and disconnectSigner features ([6a0510e](https://github.com/bitsongofficial/bitsongjs/commit/6a0510e314f4b243182b317ef4567ebaf6d3748d))
+* :sparkles: add reconnect and disconnect methods for BitsongClient ([c50eed8](https://github.com/bitsongofficial/bitsongjs/commit/c50eed822adb0a6190ffd0a07ac6dabb52429fcc))
+* :sparkles: added asynchronous client initialization using rxjs ([f3e0d83](https://github.com/bitsongofficial/bitsongjs/commit/f3e0d83a0940c125ceb9f2c4c40a6093c1ed5535))
+* :sparkles: added new modular system for query clients ([9178472](https://github.com/bitsongofficial/bitsongjs/commit/9178472c57d73b8f209625d97472efd0db15ba0d))
+* :sparkles: expose public SigningStargateClient in TxClient ([a57f26b](https://github.com/bitsongofficial/bitsongjs/commit/a57f26b70bca91d63f06656d67b5dd4db87ea426))
+
+
+
+
+
 # [2.2.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.1.0...@bitsongjs/client@2.2.0) (2022-09-16)
 
 
