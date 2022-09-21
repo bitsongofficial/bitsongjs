@@ -6,6 +6,9 @@ import { Account } from '@bitsongjs/utils';
 import {
   QueryClientImpl as BankQueryClientImpl,
 } from '../dist/codec/cosmos/bank/v1beta1/query';
+import {
+  QueryClientImpl as NFTQueryClientImpl,
+} from '../dist/codec/bitsong/nft/v1beta1/query';
 
 const TEST_FEE = {
   amount: [
@@ -17,10 +20,10 @@ const TEST_FEE = {
   gas: '200000',
 };
 
-const TEST_ADDRESS="bitsong1dhqmhaksj5qw4ays64pp9mff3fwkxtugvn0at5"
+const TEST_ADDRESS="bitsong1nclngydxkufn0xnz446ft0678h7tel5d6ge4q0"
 const OTHER_TEST_ADDRESS="bitsong1s0aj6f7hgzr3gfcmm9xz0lg0442qdq9su9llq0"
-const RPC_NODE_URL="https://rpc.nft-devnet.bitsong.network/"
-const TEST_MNEMONIC="brief number pudding flock timber coast drive street body torch enact erupt"
+const RPC_NODE_URL="http://localhost:26657/"
+const TEST_MNEMONIC="harsh shed left pumpkin skin orient agree normal army route alarm gate figure typical symbol tower syrup assault equal photo double river luxury relief"
 const OTHER_TEST_MNEMONIC="drastic upset unlock rich patch liberty stereo move enroll undo avocado arrive"
 
 const accounts: Account[] = [
@@ -36,6 +39,7 @@ const accounts: Account[] = [
 
 const modules = {
   bank: BankQueryClientImpl,
+  nft: NFTQueryClientImpl,
 }
 
 const getSigner = async (mnemonic?: string) => {
