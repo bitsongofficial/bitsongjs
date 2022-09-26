@@ -31,12 +31,15 @@ import {
 export class BitsongClient<T extends object> {
   private _queryClient!: ProtobufRpcClient;
   private _tendermintQueryClient!: QueryClient;
-  private _tendermintClient!: Tendermint34Client
+  private _tendermintClient!: Tendermint34Client;
   private _txClient?: TxClient;
   private _modules!: Record<string, QueryRpcClient>;
   private _clientOptions!: BitsongClientOptions;
   private _query!: Observable<InstanceTypeMap<T>>;
   private _connectionSubject = new AsyncSubject<boolean>();
+  private _signerConnectionSubject = new AsyncSubject<boolean>();
+
+  public txClient!: Observable<TxClient | undefined>;
 
   public get modules() {
     return this._modules;
@@ -58,10 +61,6 @@ export class BitsongClient<T extends object> {
     return this._tendermintQueryClient;
   }
 
-  public get txClient() {
-    return this._txClient;
-  }
-
   constructor(
     options: BitsongClientOptions,
     modules: Record<string, QueryRpcClient>,
@@ -69,6 +68,7 @@ export class BitsongClient<T extends object> {
     this.connect(options, modules);
 
     this.initModules();
+    this.initTxClient();
   }
 
   /*
@@ -81,6 +81,14 @@ export class BitsongClient<T extends object> {
     );
 
     this.initModules();
+  }
+
+  private initTxClient() {
+    this.txClient = this._signerConnectionSubject.asObservable().pipe(
+      switchMap(() => {
+        return of(this._txClient);
+      }),
+    );
   }
 
   private initModules() {
@@ -97,15 +105,20 @@ export class BitsongClient<T extends object> {
         }
 
         return of(queryClients);
-      })
+      }),
     );
   }
 
-  public async reconnect(options: BitsongClientOptions, modules: Record<string, QueryRpcClient>) {
+  public async reconnect(
+    options: BitsongClientOptions,
+    modules: Record<string, QueryRpcClient>,
+  ) {
     this.disconnect();
     this._connectionSubject = new AsyncSubject<boolean>();
+    this._signerConnectionSubject = new AsyncSubject<boolean>();
     this.connect(options, modules);
     this.initModules();
+    this.initTxClient();
   }
 
   public disconnect() {
@@ -126,9 +139,13 @@ export class BitsongClient<T extends object> {
     if (connection.signer) {
       this.disconnectSigner();
 
-      const txClient = await setupTxExtension(connection as SigningConnectionOptions);
+      const txClient = await setupTxExtension(
+        connection as SigningConnectionOptions,
+      );
 
       this._txClient = txClient;
+      this._signerConnectionSubject.next(true);
+      this._signerConnectionSubject.complete();
     }
   }
 
