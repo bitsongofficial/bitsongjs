@@ -22,6 +22,7 @@ import {
   InstanceTypeMap,
   QueryRpcClient,
   ConnectionOptions,
+  QueryRpcClientExtension,
 } from './types';
 
 /**
@@ -71,18 +72,6 @@ export class BitsongClient<T extends object> {
     this.initTxClient();
   }
 
-  /*
-    Currently it is a workaround, it would be ideal to move this logic into the requests made with the tendermint client
-  */
-  public setQueryHeight(desiredHeight?: number) {
-    this._queryClient = createBitsongProtobufRpcClient(
-      this._tendermintQueryClient,
-      desiredHeight,
-    );
-
-    this.initModules();
-  }
-
   private initTxClient() {
     this.txClient = this._signerConnectionSubject.asObservable().pipe(
       switchMap(() => {
@@ -97,6 +86,17 @@ export class BitsongClient<T extends object> {
         const queryClients: any = {};
 
         for (const moduleName in this._modules) {
+          this._modules[moduleName].prototype.setHeight = (height: number) => {
+            const queryClient = createBitsongProtobufRpcClient(
+              this._tendermintQueryClient,
+              height,
+            );
+      
+            return new this._modules[moduleName](
+              queryClient,
+            );
+          }
+
           const queryClientInstance = new this._modules[moduleName](
             this._queryClient,
           );
