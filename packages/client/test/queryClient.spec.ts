@@ -1,4 +1,4 @@
-import { BitsongClient } from '../dist/client';
+import { BitsongClient } from '../dist';
 import { TEST_ADDRESS, connect, modules } from './config';
 import { QueryAllBalancesRequest } from '../dist/codec/cosmos/bank/v1beta1/query';
 import { lastValueFrom, switchMap } from 'rxjs';
@@ -26,16 +26,14 @@ describe('BitSong QueryClient', () => {
       expect(bankResponse).toBeTruthy();
     });
     test('should get account balances on a specific height', async () => {
-      api.setQueryHeight(6700000);
-
       const bankResponse = await lastValueFrom(
         api.query.pipe(
-          switchMap(query =>
-            query.bank.AllBalances({
+          switchMap(query => {
+            return query.bank.setHeight(7609330).AllBalances({
               $type: QueryAllBalancesRequest.$type,
               address: TEST_ADDRESS,
-            }),
-          ),
+            });
+          }),
         ),
       );
 

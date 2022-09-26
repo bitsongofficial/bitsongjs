@@ -1,4 +1,5 @@
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
+import { lastValueFrom } from 'rxjs';
 import { BitsongClient } from '../dist/client';
 import {
   MsgBurn,
@@ -27,6 +28,7 @@ let ftDenom: string;
 describe('BitSongApi Fantoken with tendermint connection', () => {
   beforeAll(async () => {
     api = await connect(TEST_MNEMONIC);
+    await api.reconnect(api.clientOptions, api.modules);
     apiOther = await connect(OTHER_TEST_MNEMONIC);
   });
   describe('Fantoken Module', () => {
@@ -40,7 +42,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         minter: TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -49,8 +53,10 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
 
       let txRes: DeliverTxResponse | undefined;
 
+      expect(signedTxBytes).toBeTruthy();
+
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -85,7 +91,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         minter: TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -95,7 +103,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -117,7 +125,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         sender: TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -126,7 +136,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
 
       let txRes: DeliverTxResponse | undefined;
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -146,7 +156,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         newMinter: OTHER_TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -156,7 +168,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -176,7 +188,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         newMinter: TEST_ADDRESS,
       });
 
-      const signedTxBytes = await apiOther.txClient?.sign(
+      const txClient = await lastValueFrom(apiOther.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         OTHER_TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -186,7 +200,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -208,7 +222,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         minter: TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -218,7 +234,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -238,7 +254,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         uri: 'https://test.bitsong.io',
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -248,7 +266,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -268,7 +286,9 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
         newAuthority: OTHER_TEST_ADDRESS,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -278,7 +298,7 @@ describe('BitSongApi Fantoken with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {

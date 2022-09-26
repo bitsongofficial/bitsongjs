@@ -33,3 +33,7 @@ export interface Rpc {
 export interface QueryRpcClient {
   new (rpc: Rpc): unknown;
 }
+
+export interface QueryRpcClientExtension {
+  setHeight(height: number): this;
+}
