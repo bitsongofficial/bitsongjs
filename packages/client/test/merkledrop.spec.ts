@@ -15,6 +15,7 @@ import {
   getSigner
 } from './config';
 import { MicroDenom } from '../dist/constants';
+import { lastValueFrom } from 'rxjs';
 
 let api: BitsongClient<typeof modules>;
 let apiOther: BitsongClient<typeof modules>;
@@ -52,7 +53,9 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
         endHeight: 800000,
       });
 
-      const signedTxBytes = await api.txClient?.sign(
+      const txClient = await lastValueFrom(api.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -62,7 +65,7 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
@@ -106,7 +109,9 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
         proofs: accountWithProof.proofs,
       });
 
-      const signedTxBytes = await apiOther.txClient?.sign(
+      const txClient = await lastValueFrom(apiOther.txClient);
+
+      const signedTxBytes = await txClient?.sign(
         OTHER_TEST_ADDRESS,
         [msg],
         TEST_FEE,
@@ -116,7 +121,7 @@ describe('BitSongApi Merkledrop with tendermint connection', () => {
       let txRes: DeliverTxResponse | undefined;
 
       if (signedTxBytes) {
-        txRes = await api.txClient?.broadcast(signedTxBytes);
+        txRes = await txClient?.broadcast(signedTxBytes);
         expect(txRes).toBeTruthy();
 
         if (txRes) {
