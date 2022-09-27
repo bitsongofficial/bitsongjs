@@ -1,15 +1,13 @@
-import { NftStorageProvider } from '../dist';
-import { nftStorageApiKey } from './config';
+import { PinataStorageProvider } from '../dist';
+import { pinataApiKey, pinataSecretApiKey } from './config';
 import { getFilesFromPath } from 'files-from-path';
 import path from 'path';
 
-let provider: NftStorageProvider;
+let provider: PinataStorageProvider;
 
-describe('NFT.storage tests', () => {
+describe('Pinata tests', () => {
 	beforeAll(async () => {
-		provider = new NftStorageProvider({
-			token: nftStorageApiKey,
-		});
+		provider = new PinataStorageProvider(pinataApiKey, pinataSecretApiKey);
 	});
 	test('Should upload files to the storage', async () => {
 		const imagesBasePath = path.join(__dirname, 'data/images');
