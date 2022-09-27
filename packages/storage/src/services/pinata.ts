@@ -25,7 +25,7 @@ export class PinataService {
 			files.forEach(file => {
 				//for each file stream, we need to include the correct relative file path
 				data.append('file', file.stream(), {
-					filepath: file.name,
+					filepath: `data${file.name}`,
 				});
 			});
 
