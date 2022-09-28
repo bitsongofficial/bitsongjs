@@ -1,4 +1,4 @@
-import { FileObject } from 'files-from-path';
+import { FileObject } from './files';
 
 export abstract class StorageProvider {
 	/**

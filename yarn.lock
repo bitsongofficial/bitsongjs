@@ -501,6 +501,16 @@
     multiformats "^9.5.4"
     varint "^6.0.0"
 
+"@ipld/car@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@ipld/car/-/car-4.1.5.tgz#f0ae25121201a7681877c5bc35698f7f8c93e56e"
+  integrity sha512-PFj4XsKOsxu5h12JUoBJ+mrAVqeA8YYq2bZbcE2sAIopJTwJIB5sBVTmc8ylkUsFXEysZQ4xQD+rZb3Ct0lbjQ==
+  dependencies:
+    "@ipld/dag-cbor" "^7.0.0"
+    cborg "^1.9.0"
+    multiformats "^9.5.4"
+    varint "^6.0.0"
+
 "@ipld/dag-cbor@^6.0.13", "@ipld/dag-cbor@^6.0.3":
   version "6.0.15"
   resolved "https://registry.yarnpkg.com/@ipld/dag-cbor/-/dag-cbor-6.0.15.tgz#aebe7a26c391cae98c32faedb681b1519e3d2372"
@@ -2716,7 +2726,7 @@ carbites@^1.0.6:
     "@ipld/dag-pb" "^2.0.2"
     multiformats "^9.0.4"
 
-cborg@^1.5.4, cborg@^1.6.0:
+cborg@^1.5.4, cborg@^1.6.0, cborg@^1.9.0:
   version "1.9.5"
   resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.9.5.tgz#1e3b8a8407b3665566001f8841c9d72d7a80b2d5"
   integrity sha512-fLBv8wmqtlXqy1Yu+pHzevAIkW6k2K0ZtMujNzWphLsA34vzzg9BHn+5GmZqOJkSA9V7EMKsWrf6K976c1QMjQ==
@@ -4304,6 +4314,33 @@ ipfs-car@^0.6.2:
     streaming-iterables "^6.0.0"
     uint8arrays "^3.0.0"
 
+ipfs-car@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ipfs-car/-/ipfs-car-0.8.1.tgz#09835c52f2124933b8a058c1e4b14ccbb2fa9599"
+  integrity sha512-ntRXBK5ZTaXgxAkSLvC6mXupJcwxxX9tusKoOJR+SRZWGfA+5j+WeJa5gCgdHEsGixIX93rZH8DSzdUUTYjNJg==
+  dependencies:
+    "@ipld/car" "^3.2.3"
+    "@web-std/blob" "^3.0.1"
+    bl "^5.0.0"
+    blockstore-core "^1.0.2"
+    browser-readablestream-to-it "^1.0.2"
+    idb-keyval "^6.0.3"
+    interface-blockstore "^2.0.2"
+    ipfs-core-types "^0.8.3"
+    ipfs-core-utils "^0.12.1"
+    ipfs-unixfs-exporter "^7.0.4"
+    ipfs-unixfs-importer "^9.0.4"
+    ipfs-utils "^9.0.2"
+    it-all "^1.0.5"
+    it-last "^1.0.5"
+    it-pipe "^1.1.0"
+    meow "^9.0.0"
+    move-file "^2.1.0"
+    multiformats "^9.6.3"
+    stream-to-it "^0.2.3"
+    streaming-iterables "^6.0.0"
+    uint8arrays "^3.0.0"
+
 ipfs-core-types@^0.8.3, ipfs-core-types@^0.8.4:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.8.4.tgz#4d483dc6035714ea48a0b02e3f82b6c6d55c8525"
@@ -4771,6 +4808,13 @@ it-map@^1.0.4:
   resolved "https://registry.yarnpkg.com/it-map/-/it-map-1.0.6.tgz#6aa547e363eedcf8d4f69d8484b450bc13c9882c"
   integrity sha512-XT4/RM6UHIFG9IobGlQPFQUrlEKkU4eBUFG3qhWhfAdh1JfF2x11ShCrKCdmZ0OiZppPfoLuzcfA4cey6q3UAQ==
 
+it-merge@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/it-merge/-/it-merge-1.0.4.tgz#81c8d427b389b1cd039c25015edb804cd1a60545"
+  integrity sha512-DcL6GksTD2HQ7+5/q3JznXaLNfwjyG3/bObaF98da+oHfUiPmdo64oJlT9J8R8G5sJRU7thwaY5zxoAKCn7FJw==
+  dependencies:
+    it-pushable "^1.4.0"
+
 it-parallel-batch@^1.0.9:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/it-parallel-batch/-/it-parallel-batch-1.0.10.tgz#43aa348e30cc360fa6bedc183b631d6f9c81e20e"
@@ -4787,6 +4831,32 @@ it-pipe@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/it-pipe/-/it-pipe-1.1.0.tgz#f5964c6bb785dd776f11a62d1e75964787ab95ce"
   integrity sha512-lF0/3qTVeth13TOnHVs0BTFaziwQF7m5Gg+E6JV0BXcLKutC92YjSi7bASgkPOXaLEb+YvNZrPorGMBIJvZfxg==
+
+it-pipe@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/it-pipe/-/it-pipe-2.0.4.tgz#fa72c2fdb3c7a467ff21d109e746ebfadfe9c749"
+  integrity sha512-lK0BV0egwfc64DFJva+0Jh1z8UxwmYBpAHDwq21s0OenRCaEDIntx/iOyWH/jg5efBU6Xa8igzmOqm2CPPNDgg==
+  dependencies:
+    it-merge "^1.0.4"
+    it-pushable "^3.1.0"
+    it-stream-types "^1.0.3"
+
+it-pushable@^1.4.0:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/it-pushable/-/it-pushable-1.4.2.tgz#fb127a53ec99b35a3a455a775abc85ab193c220b"
+  integrity sha512-vVPu0CGRsTI8eCfhMknA7KIBqqGFolbRx+1mbQ6XuZ7YCz995Qj7L4XUviwClFunisDq96FdxzF5FnAbw15afg==
+  dependencies:
+    fast-fifo "^1.0.0"
+
+it-pushable@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/it-pushable/-/it-pushable-3.1.0.tgz#2fba7aaca189595e64e042ac947c6748ece2eb6b"
+  integrity sha512-sEAdT86u6aIWvLkH4hlOmgvHpRyUOUG22HD365H+Dh67zYpaPdILmT4Om7Wjdb+m/SjEB81z3nYCoIrgVYpOFA==
+
+it-stream-types@^1.0.3:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/it-stream-types/-/it-stream-types-1.0.4.tgz#6e66a11abfd98abab4894c30da15829a0a56bb43"
+  integrity sha512-0F3CqTIcIHwtnmIgqd03a7sw8BegAmE32N2w7anIGdALea4oAN4ltqPgDMZ7zn4XPLZifXEZlBXSzgg64L1Ebw==
 
 it-take@^1.0.1:
   version "1.0.2"

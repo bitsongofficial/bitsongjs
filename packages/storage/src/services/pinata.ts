@@ -3,9 +3,8 @@ import axios, {
 	AxiosRequestHeaders,
 	AxiosRequestConfig,
 } from 'axios';
-import { FileObject } from 'files-from-path';
 import NodeFormData from 'form-data';
-import { PinataPinResponse, PinataPinOptions } from '../types';
+import { PinataPinResponse, PinataPinOptions, FileObject } from '../types';
 import { pinataBaseUrl } from '../configs';
 
 export class PinataService {

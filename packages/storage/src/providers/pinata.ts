@@ -1,6 +1,5 @@
-import { StorageProvider } from '../types';
+import { StorageProvider, FileObject } from '../types';
 import { validateUploadPayload } from '../utils';
-import { FileObject } from 'files-from-path';
 import { PinataService } from '../services';
 
 export class PinataStorageProvider implements StorageProvider {

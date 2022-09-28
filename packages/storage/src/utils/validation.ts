@@ -1,5 +1,4 @@
-import { FileObject } from 'files-from-path';
-import { StorageError } from '../types';
+import { StorageError, FileObject } from '../types';
 
 export const validateUploadPayload = (files: FileObject[]) => {
 	if (files.length === 0) {

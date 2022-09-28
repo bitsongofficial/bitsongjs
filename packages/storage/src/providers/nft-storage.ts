@@ -1,7 +1,6 @@
-import { NftStorageOptions, StorageProvider } from '../types';
+import { NftStorageOptions, StorageProvider, FileObject } from '../types';
 import { NFTStorage } from 'nft.storage';
 import { validateUploadPayload } from '../utils';
-import { FileObject } from 'files-from-path';
 
 export class NftStorageProvider implements StorageProvider {
 	client: NFTStorage;
