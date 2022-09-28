@@ -1,13 +1,12 @@
-import { IpfsStorageProvider } from '../dist';
-import { pinataApiKey, pinataSecretApiKey } from './config';
+import { IPFSStorageProvider } from '../dist';
 import { getFilesFromPath } from 'files-from-path';
 import path from 'path';
 
-let provider: IpfsStorageProvider;
+let provider: IPFSStorageProvider;
 
 describe('IPFS tests', () => {
 	beforeAll(async () => {
-		provider = new IpfsStorageProvider('');
+		provider = new IPFSStorageProvider('https://ipfs.bitsong.io');
 	});
 	test('Should upload files to the storage', async () => {
 		const imagesBasePath = path.join(__dirname, 'data/images');

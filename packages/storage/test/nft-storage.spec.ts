@@ -1,13 +1,13 @@
-import { NftStorageProvider } from '../dist';
+import { NFTStorageProvider } from '../dist';
 import { nftStorageApiKey } from './config';
 import { getFilesFromPath } from 'files-from-path';
 import path from 'path';
 
-let provider: NftStorageProvider;
+let provider: NFTStorageProvider;
 
 describe('NFT.storage tests', () => {
 	beforeAll(async () => {
-		provider = new NftStorageProvider({
+		provider = new NFTStorageProvider({
 			token: nftStorageApiKey,
 		});
 	});
