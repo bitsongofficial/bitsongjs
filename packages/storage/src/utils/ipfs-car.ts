@@ -1,30 +1,32 @@
-import { FileObject } from '../types';
+import { CarResult, FileObject } from '../types';
 import { ImportCandidateStream, pack } from 'ipfs-car/pack';
-import { FsBlockStore as Blockstore } from 'ipfs-car/blockstore/fs';
+import { MemoryBlockStore } from 'ipfs-car/blockstore/memory';
 import { pipe } from 'it-pipe';
 import { BlockstoreCarReader } from './bs-card-reader';
 
-export const filesToCar = async (files: FileObject[]) => {
-	const blockstore = new Blockstore();
+export const filesToCar = async (files: FileObject[]): Promise<CarResult> => {
+	const blockstore = new MemoryBlockStore();
 	let carOut: BlockstoreCarReader;
+	let output: AsyncIterable<Uint8Array>;
 
 	let cidString = '';
 
 	try {
-		const { cid, car } = await encodeDirectory(files, blockstore);
+		const { packed } = await encodeDirectory(files, blockstore);
 
-		carOut = car;
-		cidString = cid.toString();
+		carOut = packed.car;
+		cidString = packed.cid.toString();
+		output = packed.out;
 	} finally {
 		await blockstore.close();
 	}
 
-	return { cidString, carOut };
+	return { cidString, carOut, output };
 };
 
 export const encodeDirectory = async (
 	files: FileObject[],
-	blockstore: Blockstore,
+	blockstore: MemoryBlockStore,
 ) => {
 	let size = 0;
 
@@ -43,18 +45,22 @@ export const encodeDirectory = async (
 		);
 	}
 
-	return packed;
+	return { packed, input };
 };
 
 export const packCar = async (
 	input: ImportCandidateStream,
-	blockstore: Blockstore,
+	blockstore: MemoryBlockStore,
 	wrapWithDirectory: boolean,
 ) => {
-	blockstore = blockstore || new Blockstore();
-	const { root: cid } = await pack({ input, blockstore, wrapWithDirectory });
+	blockstore = blockstore || new MemoryBlockStore();
+	const { root: cid, out } = await pack({
+		input,
+		blockstore,
+		wrapWithDirectory,
+	});
 	const car = new BlockstoreCarReader(1, [cid], blockstore);
-	return { cid, car };
+	return { cid, car, out };
 };
 
 export const toImportCandidate = (

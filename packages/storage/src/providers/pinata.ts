@@ -12,8 +12,8 @@ export class PinataStorageProvider implements StorageProvider {
 	async upload(files: FileObject[]): Promise<string> {
 		validateUploadPayload(files);
 
-		const filesBaseUri = await this.client.pinFileToIPFS(files);
+		const data = await this.client.pinFileToIPFS(files);
 
-		return filesBaseUri.IpfsHash;
+		return data.IpfsHash;
 	}
 }

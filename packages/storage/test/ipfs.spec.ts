@@ -20,5 +20,5 @@ describe('IPFS tests', () => {
 		expect(cid).toBeTruthy();
 
 		console.info(cid);
-	});
+	}, 10000);
 });
