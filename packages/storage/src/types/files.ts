@@ -1,5 +1,5 @@
 export interface FileObject {
 	name: string;
-	size?: number;
+	size: number;
 	stream: () => AsyncIterable<any>;
 }

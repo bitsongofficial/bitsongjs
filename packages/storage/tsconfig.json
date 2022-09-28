@@ -5,6 +5,7 @@
 		"allowJs": true,
 		"outDir": "dist",
 		"baseUrl": "./",
+		"lib": ["ESNext", "DOM"],
 	},
 	"extends": "../../tsconfig",
 	"include": ["src"]

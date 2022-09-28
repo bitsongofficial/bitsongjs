@@ -17,7 +17,7 @@ export class IPFSStorageProvider implements StorageProvider {
 
 		console.log(data);
 
-		console.log('Block: ', data.carOut.blockstore);
+		/* console.log('Block: ', data.carOut.blockstore);
 
 		const carParts: Block[] = [];
 
@@ -31,7 +31,7 @@ export class IPFSStorageProvider implements StorageProvider {
 
 		const response = await this.client.add(carParts);
 
-		console.log(response);
+		console.log(response); */
 
 		return data.cidString;
 	}
