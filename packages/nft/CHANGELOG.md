@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.1](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.0...@bitsongjs/nft@2.1.0-beta.1) (2022-09-29)
+
+
+### Bug Fixes
+
+* :heavy_minus_sign: remove fs dependency ([10fdf1d](https://github.com/bitsongofficial/bitsongjs/commit/10fdf1dfa182c5753dcd435bac652590ff7bb345))
+
+
+
+
+
 # 2.1.0-beta.0 (2022-09-29)
 
 
