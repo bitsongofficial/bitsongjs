@@ -3,8 +3,7 @@ import axios, {
 	AxiosRequestHeaders,
 	AxiosRequestConfig,
 } from 'axios';
-import NodeFormData from 'form-data';
-import { PinataPinResponse, PinataPinOptions, FileObject } from '../types';
+import { PinataPinResponse, PinataPinOptions } from '../types';
 import { pinataBaseUrl } from '../configs';
 
 export class PinataService {
@@ -15,17 +14,15 @@ export class PinataService {
 	}
 
 	async pinFileToIPFS(
-		files: FileObject[],
+		files: File[],
 		options?: PinataPinOptions,
 	): Promise<PinataPinResponse> {
 		try {
-			let data = new NodeFormData();
+			let data = new FormData();
 
 			files.forEach(file => {
 				//for each file stream, we need to include the correct relative file path
-				data.append('file', file.stream(), {
-					filepath: `data${file.name}`,
-				});
+				data.append('file', file, file.name);
 			});
 
 			if (options) {
@@ -40,12 +37,6 @@ export class PinataService {
 			const response = await this.client.post<PinataPinResponse>(
 				'pinning/pinFileToIPFS',
 				data,
-				{
-					headers: {
-						'Content-type': `multipart/form-data; boundary= ${data.getBoundary()}`,
-						...this.headers,
-					},
-				},
 			);
 
 			if (response.status !== 200) {
@@ -66,6 +57,7 @@ export class PinataService {
 			withCredentials: true,
 			maxContentLength: Infinity,
 			maxBodyLength: Infinity,
+			headers: this.headers,
 			responseType: 'json',
 			timeout: 15000,
 			baseURL: pinataBaseUrl,

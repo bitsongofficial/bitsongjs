@@ -3,4 +3,4 @@ export interface FSFileObject extends FilesObjectFromPath {
 	size: number;
 }
 
-export type FileObject = FSFileObject | File;
+export type FileObject = File;
