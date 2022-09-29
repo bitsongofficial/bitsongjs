@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.3.0...@bitsongjs/client@2.4.0-beta.0) (2022-09-29)
+
+
+### Features
+
+* :sparkles: add amino types for nft, launchpad and marketplace modules ([ba13752](https://github.com/bitsongofficial/bitsongjs/commit/ba13752670e8cfd2e32ed5a721afdd13b8c1d2ef)), closes [#37](https://github.com/bitsongofficial/bitsongjs/issues/37)
+* :sparkles: add codecs for nft, marketplace and launchpad ([8ab51db](https://github.com/bitsongofficial/bitsongjs/commit/8ab51db2ddc5e2c9e3f1b52a8b2fc62ce281c8b7)), closes [#38](https://github.com/bitsongofficial/bitsongjs/issues/38)
+
+
+
+
+
 # [2.3.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.2.0...@bitsongjs/client@2.3.0) (2022-09-21)
 
 
