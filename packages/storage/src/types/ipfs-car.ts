@@ -1,4 +1,3 @@
-import { ImportCandidateStream } from 'ipfs-car/pack';
 import { BlockstoreCarReader } from '../utils/bs-card-reader';
 
 export interface CarResult {

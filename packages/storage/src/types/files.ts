@@ -1,5 +1,6 @@
-export interface FileObject {
-	name: string;
+import { FileObject as FilesObjectFromPath } from 'files-from-path';
+export interface FSFileObject extends FilesObjectFromPath {
 	size: number;
-	stream: () => AsyncIterable<any>;
 }
+
+export type FileObject = FSFileObject | File;

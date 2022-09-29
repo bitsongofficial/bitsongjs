@@ -1,4 +1,4 @@
-import { FileObject } from 'files-from-path';
+import { FileObject } from '@bitsongjs/storage';
 import { imagePrefix, metadataPrefix } from '../configs';
 import { NftStorageError } from '../types';
 

@@ -36,7 +36,10 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@bitsongjs/storage": "*",
 		"ajv": "^8.11.0",
-		"files-from-path": "^0.2.6"
+		"files-from-path": "^0.2.6",
+		"fs": "^0.0.1-security",
+		"stream": "^0.0.2"
 	}
 }

@@ -11,7 +11,11 @@ describe('IPFS tests', () => {
 	test('Should upload files to the storage', async () => {
 		const imagesBasePath = path.join(__dirname, 'data/images');
 
-		const imageFiles = await getFilesFromPath(imagesBasePath);
+		const imageFiles = (await getFilesFromPath(imagesBasePath)).map(file => ({
+			...file,
+			// @ts-ignore
+			size: file.size ? file.size : 0,
+		}));
 
 		expect(imageFiles.length).toBeGreaterThan(0);
 
