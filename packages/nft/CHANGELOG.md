@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.3...@bitsongjs/nft@2.1.0-beta.4) (2022-09-30)
+
+
+### Features
+
+* :sparkles: refactor images to assets for nft package ([4d434df](https://github.com/bitsongofficial/bitsongjs/commit/4d434df6acb0359bbf0641df3b2235a06e5bbb30))
+
+
+
+
+
 # [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.2...@bitsongjs/nft@2.1.0-beta.3) (2022-09-30)
 
 
