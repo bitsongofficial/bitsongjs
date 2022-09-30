@@ -22,7 +22,9 @@ export class PinataService {
 
 			files.forEach(file => {
 				//for each file stream, we need to include the correct relative file path
-				data.append('file', file, file.name);
+				const prefix = file.name.startsWith('/') ? 'bitsong' : 'bitsong/';
+
+				data.append('file', file, `${prefix}${file.name}`);
 			});
 
 			if (options) {
