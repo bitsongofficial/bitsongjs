@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.1...@bitsongjs/storage@2.1.0-beta.2) (2022-09-30)
+
+
+### Bug Fixes
+
+* :bug: fix pinata upload path ([1be4d02](https://github.com/bitsongofficial/bitsongjs/commit/1be4d0249805be31bd50cf4e8d10bf4392ad5c56)), closes [#45](https://github.com/bitsongofficial/bitsongjs/issues/45)
+
+
+
+
+
 # [2.1.0-beta.1](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.0...@bitsongjs/storage@2.1.0-beta.1) (2022-09-29)
 
 

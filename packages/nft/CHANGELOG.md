@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.2...@bitsongjs/nft@2.1.0-beta.3) (2022-09-30)
+
+
+### Features
+
+* :sparkles: add support for multiple type of assets upload for NFT ([7b0933d](https://github.com/bitsongofficial/bitsongjs/commit/7b0933dd76a08847b228afdacdf48b04dfe02999))
+
+
+
+
+
 # [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.1...@bitsongjs/nft@2.1.0-beta.2) (2022-09-29)
 
 
