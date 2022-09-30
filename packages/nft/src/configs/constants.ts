@@ -1,2 +1,2 @@
-export const imagePrefix = /^((images\/)|(\/images\/))/gm;
+export const assetPrefix = /^((assets\/)|(\/assets\/))/gm;
 export const metadataPrefix = /^((metadata\/)|(\/metadata\/))/gm;

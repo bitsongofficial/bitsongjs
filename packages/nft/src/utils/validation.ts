@@ -1,28 +1,28 @@
 import { FileObject } from '@bitsongjs/storage';
-import { imagePrefix, metadataPrefix } from '../configs';
+import { assetPrefix, metadataPrefix } from '../configs';
 import { NftStorageError } from '../types';
 
 export const validateUploadPayload = (
-	images: FileObject[],
+	assets: FileObject[],
 	metadata: FileObject[],
 ) => {
-	if (images.length === 0) {
-		throw Error(NftStorageError.EMPTY_IMAGES);
+	if (assets.length === 0) {
+		throw Error(NftStorageError.EMPTY_ASSETS);
 	}
 
 	if (metadata.length === 0) {
 		throw Error(NftStorageError.EMPTY_METADATA);
 	}
 
-	if (metadata.length !== images.length) {
+	if (metadata.length !== assets.length) {
 		throw Error(NftStorageError.INVALID_MATCH);
 	}
 
-	const invalidImage = images.findIndex(image => !image.name.match(imagePrefix));
+	const invalidAsset = assets.findIndex(asset => !asset.name.match(assetPrefix));
 
-	if (invalidImage !== -1) {
+	if (invalidAsset !== -1) {
 		throw Error(
-			`${NftStorageError.INVALID_IMAGE} at index: ${invalidImage} on images array.`,
+			`${NftStorageError.INVALID_ASSET} at index: ${invalidAsset} on assets array.`,
 		);
 	}
 
