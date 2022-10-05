@@ -3,13 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [2.4.0-beta.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.3.0...@bitsongjs/client@2.4.0-beta.0) (2022-09-29)
+# [2.4.0](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.3.0...@bitsongjs/client@2.4.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* :bug: fix signer loading ([97253f6](https://github.com/bitsongofficial/bitsongjs/commit/97253f6d6bca70f8ed3c3e4affb4ad82d364bc89)), closes [#43](https://github.com/bitsongofficial/bitsongjs/issues/43)
 
 
 ### Features
 
 * :sparkles: add amino types for nft, launchpad and marketplace modules ([ba13752](https://github.com/bitsongofficial/bitsongjs/commit/ba13752670e8cfd2e32ed5a721afdd13b8c1d2ef)), closes [#37](https://github.com/bitsongofficial/bitsongjs/issues/37)
 * :sparkles: add codecs for nft, marketplace and launchpad ([8ab51db](https://github.com/bitsongofficial/bitsongjs/commit/8ab51db2ddc5e2c9e3f1b52a8b2fc62ce281c8b7)), closes [#38](https://github.com/bitsongofficial/bitsongjs/issues/38)
+* :sparkles: improve query by height syntax ([cfb393b](https://github.com/bitsongofficial/bitsongjs/commit/cfb393bf451256bd0863b15588303fa65d8f70e2)), closes [#35](https://github.com/bitsongofficial/bitsongjs/issues/35)
 
 
 
