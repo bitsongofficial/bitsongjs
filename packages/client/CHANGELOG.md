@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.1...@bitsongjs/client@2.4.0-beta.2) (2022-10-05)
+
+
+### Features
+
+* :sparkles: add amino types for ibc messages ([de40e61](https://github.com/bitsongofficial/bitsongjs/commit/de40e614281f92a7b27d934294a857c2591384b6))
+
+
+
+
+
 # [2.4.0-beta.1](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.0...@bitsongjs/client@2.4.0-beta.1) (2022-10-05)
 
 
