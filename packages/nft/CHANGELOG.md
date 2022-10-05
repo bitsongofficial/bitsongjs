@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.4...@bitsongjs/nft@2.1.0-beta.5) (2022-10-05)
+
+
+### Features
+
+* :sparkles: add natural sorting ([173201c](https://github.com/bitsongofficial/bitsongjs/commit/173201cafc6529c4e1c74fb349d9dd38dd338e87)), closes [#40](https://github.com/bitsongofficial/bitsongjs/issues/40)
+
+
+
+
+
 # [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.3...@bitsongjs/nft@2.1.0-beta.4) (2022-09-30)
 
 
