@@ -1,6 +1,6 @@
 {
 	"name": "@bitsongjs/client",
-	"version": "2.4.0-beta.0",
+	"version": "2.4.0-beta.1",
 	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
 	"description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain",
 	"license": "Apache-2.0",
