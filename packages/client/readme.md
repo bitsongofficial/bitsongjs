@@ -137,7 +137,9 @@ const fee = {
   gas: '200000',
 };
 
-const txBytes = await api.txClient?.sign(
+const txClient = await lastValueFrom(api.txClient);
+
+const txBytes = await txClient.sign(
 	myAddress,
 	[msg],
 	fee,
@@ -145,7 +147,7 @@ const txBytes = await api.txClient?.sign(
 );
 
 if (txBytes) {
-	const deliverTxRes = await api.txClient?.broadcast(txBytes);
+	const deliverTxRes = await txClient.broadcast(txBytes);
 }
 ```
 
