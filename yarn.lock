@@ -1108,6 +1108,14 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bitsongjs/utils@*":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@bitsongjs/utils/-/utils-2.1.0.tgz#5190bef27de99096938a9c881a01d2844a09dccb"
+  integrity sha512-ev/ln7dxubvl0w7l3nR4rydqRvv2DyzgcEMZzSP2q3c9d+TIU4tPHBfeigxyQFiXXyR1PQNpEqkkY1QuIhJsig==
+  dependencies:
+    crypto-js "^4.1.1"
+    merkletreejs "^0.2.32"
+
 "@confio/ics23@^0.6.8":
   version "0.6.8"
   resolved "https://registry.yarnpkg.com/@confio/ics23/-/ics23-0.6.8.tgz#2a6b4f1f2b7b20a35d9a0745bb5a446e72930b3d"

@@ -26,11 +26,14 @@
 		"test": "test"
 	},
 	"dependencies": {
-		"@bitsongjs/utils": "^2.1.1-beta.0",
+		"@bitsongjs/contracts": "*",
+		"@bitsongjs/utils": "*",
 		"@cosmjs/cosmwasm-stargate": "^0.29.2",
+		"@cosmjs/encoding": "^0.29.2",
 		"@cosmjs/proto-signing": "^0.29.2",
 		"@cosmjs/stargate": "^0.29.2",
 		"@cosmjs/tendermint-rpc": "^0.29.2",
+		"cosmjs-types": "^0.5.2",
 		"rxjs": "^7.5.6"
 	},
 	"devDependencies": {

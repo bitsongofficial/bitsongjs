@@ -9,15 +9,13 @@ import {
 	SigningStargateClient,
 	createIbcAminoConverters,
 } from '@cosmjs/stargate';
-import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
+import { createWasmAminoConverters } from '@cosmjs/cosmwasm-stargate';
+import { Registry, EncodeObject } from '@cosmjs/proto-signing';
 
 import { SigningConnectionOptions } from './types';
-import {
-	messageTypeRegistry,
-	bitsongAminoTypes,
-	bitsongRegistry,
-} from './codec';
+import { bitsongAminoTypes, bitsongRegistry } from './codec';
 import { createStargateSigningClient } from './signing';
+import { wasmTypes } from '@cosmjs/cosmwasm-stargate/build/modules';
 
 export interface TxClient {
 	readonly sign: (
@@ -50,11 +48,16 @@ export function createBitsongProtobufRpcClient(
 export async function setupTxExtension(
 	connection: SigningConnectionOptions,
 ): Promise<TxClient> {
-	const registry = new Registry([...defaultRegistryTypes, ...bitsongRegistry]);
+	const registry = new Registry([
+		...defaultRegistryTypes,
+		...bitsongRegistry,
+		...wasmTypes,
+	]);
 
 	const aminoTypes = new AminoTypes({
 		...bitsongAminoTypes,
 		...createIbcAminoConverters(),
+		...createWasmAminoConverters(),
 	});
 
 	const signingClient = await createStargateSigningClient(
