@@ -12,7 +12,11 @@ import {
 import { Registry, GeneratedType, EncodeObject } from '@cosmjs/proto-signing';
 
 import { SigningConnectionOptions } from './types';
-import { messageTypeRegistry, aminoTypesRegistry } from './codec';
+import {
+	messageTypeRegistry,
+	bitsongAminoTypes,
+	bitsongRegistry,
+} from './codec';
 import { createStargateSigningClient } from './signing';
 
 export interface TxClient {
@@ -46,24 +50,10 @@ export function createBitsongProtobufRpcClient(
 export async function setupTxExtension(
 	connection: SigningConnectionOptions,
 ): Promise<TxClient> {
-	const customRegistry: Array<[string, GeneratedType]> = [];
-
-	messageTypeRegistry.forEach((value, key) => {
-		customRegistry.push([`/${key}`, value]);
-	});
-
-	const registry = new Registry([...defaultRegistryTypes, ...customRegistry]);
-
-	const aminoTypesObj = Array.from(aminoTypesRegistry.values()).reduce(
-		(prev, next) => ({
-			...prev,
-			...next,
-		}),
-		{},
-	);
+	const registry = new Registry([...defaultRegistryTypes, ...bitsongRegistry]);
 
 	const aminoTypes = new AminoTypes({
-		...aminoTypesObj,
+		...bitsongAminoTypes,
 		...createIbcAminoConverters(),
 	});
 
