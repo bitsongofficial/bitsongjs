@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.2...@bitsongjs/client@2.4.0-beta.3) (2022-10-14)
+
+
+### Features
+
+* :sparkles: expose amino and registry types to index ([6847354](https://github.com/bitsongofficial/bitsongjs/commit/68473548c06b70f362acf222d8396c0e08728688))
+
+
+
+
+
 # [2.4.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.1...@bitsongjs/client@2.4.0-beta.2) (2022-10-05)
 
 
