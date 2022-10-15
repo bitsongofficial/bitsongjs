@@ -77,9 +77,14 @@ export async function setupTxExtension(
 	): Promise<Uint8Array> => {
 		const msgsAny: EncodeObject[] = [];
 		for (const msg of msgs) {
+			const typeUrl = msg.$type ? `/${msg.$type}` : msg.typeUrl;
+			const value = msg.value
+				? msg.value
+				: (({ $type, typeUrl, ...rest }) => rest)(msg);
+
 			msgsAny.push({
-				typeUrl: `/${msg.$type}`,
-				value: (({ $type, ...rest }) => rest)(msg),
+				typeUrl,
+				value,
 			});
 		}
 		try {
