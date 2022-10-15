@@ -1,16 +1,12 @@
 import { toUtf8 } from '@cosmjs/encoding';
 import { DeliverTxResponse, logs } from '@cosmjs/stargate';
-import {
-	MsgInstantiateContractEncodeObject,
-	isMsgInstantiateContractEncodeObject,
-} from '@cosmjs/cosmwasm-stargate';
+import { MsgInstantiateContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
 import { lastValueFrom } from 'rxjs';
 import { BitsongClient } from '../dist/client';
 import { InstantiateMsg } from '@bitsongjs/contracts/dist/codegen/CW721Base.types';
 import { MsgInstantiateContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import {
 	TEST_ADDRESS,
-	OTHER_TEST_ADDRESS,
 	TEST_MNEMONIC,
 	OTHER_TEST_MNEMONIC,
 	TEST_FEE,
@@ -19,13 +15,18 @@ import {
 	getSigner,
 	RPC_NODE_URL,
 } from './config';
-import { Int53, Uint53 } from '@cosmjs/math';
+import { Uint53 } from '@cosmjs/math';
+import { contracts } from '@bitsongjs/contracts';
 import Long from 'long';
 
 let api: BitsongClient<typeof modules>;
 let apiOther: BitsongClient<typeof modules>;
 
 let contractAddress: string;
+
+const { CW721Base } = contracts;
+
+const { CW721BaseClient, CW721BaseMessageComposer } = CW721Base;
 
 describe('BitSongApi CosmWasm with tendermint connection', () => {
 	beforeAll(async () => {
@@ -62,7 +63,7 @@ describe('BitSongApi CosmWasm with tendermint connection', () => {
 
 			const txClient = await lastValueFrom(api.txClient);
 
-			const signedTxBytes = await txClient?.sign(
+			const signedTxBytes = await txClient?.signCosmWasm(
 				TEST_ADDRESS,
 				[message],
 				TEST_FEE,
@@ -74,7 +75,7 @@ describe('BitSongApi CosmWasm with tendermint connection', () => {
 			let txRes: DeliverTxResponse | undefined;
 
 			if (signedTxBytes) {
-				txRes = await txClient?.broadcast(signedTxBytes);
+				txRes = await txClient?.broadcastCosmWasm(signedTxBytes);
 				expect(txRes).toBeTruthy();
 
 				if (txRes) {
@@ -91,9 +92,36 @@ describe('BitSongApi CosmWasm with tendermint connection', () => {
 					);
 
 					contractAddress = contractAddressAttr.value;
-
-					console.log(contractAddress);
 				}
+			}
+		}, 10000);
+		test('should', async () => {
+			expect(contractAddress).toBeTruthy();
+
+			expect(api.txClient).toBeTruthy();
+
+			const txClient = await lastValueFrom(api.txClient);
+
+			if (txClient) {
+				const compose = new CW721BaseClient(
+					txClient.signingCosmWasmClient,
+					TEST_ADDRESS,
+					contractAddress,
+				);
+
+				const res = await compose.mint({
+					owner: TEST_ADDRESS,
+					sellerFee: 1,
+					tokenId: '10',
+					creatorsInfo: [
+						{
+							address: TEST_ADDRESS,
+							share: 100,
+						},
+					],
+				});
+
+				console.log(res);
 			}
 		}, 10000);
 	});
