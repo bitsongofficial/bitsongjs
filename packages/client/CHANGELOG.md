@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.3...@bitsongjs/client@2.4.0-beta.4) (2022-10-17)
+
+
+### Features
+
+* :arrow_up: upgrade cosmjs deps and add cosmwasm-stargate dep ([aa42ecb](https://github.com/bitsongofficial/bitsongjs/commit/aa42ecbbe4135a86418fb0f1528920eac73548f5))
+* :sparkles: add cosmwasm registry and amino converter ([f112dbd](https://github.com/bitsongofficial/bitsongjs/commit/f112dbd2e8fce4e5df487284bb0bd05840e4fc66))
+* :sparkles: add cosmwasm stargate client setup and config ([93aa72a](https://github.com/bitsongofficial/bitsongjs/commit/93aa72ad534f4207268ff661c91b33ffc81987b1))
+* :sparkles: add support for external message ([b3ae684](https://github.com/bitsongofficial/bitsongjs/commit/b3ae68434a3981527fd2854f0a04252477f8ed8a))
+
+
+
+
+
 # [2.4.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.2...@bitsongjs/client@2.4.0-beta.3) (2022-10-14)
 
 
