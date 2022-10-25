@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.6...@bitsongjs/nft@2.1.0-beta.7) (2022-10-25)
+
+
+### Bug Fixes
+
+* :heavy_minus_sign: remove stream dep from nft package ([e1e5a1d](https://github.com/bitsongofficial/bitsongjs/commit/e1e5a1d4e743acc175e1f83fb17c2279492fc5f6))
+
+
+
+
+
 # [2.1.0-beta.6](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.5...@bitsongjs/nft@2.1.0-beta.6) (2022-10-17)
 
 **Note:** Version bump only for package @bitsongjs/nft
