@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.4...@bitsongjs/client@2.4.0-beta.5) (2022-10-26)
+
+
+### Features
+
+* :sparkles: add cosmwasm query client standalone connection ([c100893](https://github.com/bitsongofficial/bitsongjs/commit/c100893061ee158e5e4e6dd497f75772e310a1c3))
+
+
+
+
+
 # [2.4.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.3...@bitsongjs/client@2.4.0-beta.4) (2022-10-17)
 
 
