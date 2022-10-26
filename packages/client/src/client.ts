@@ -1,3 +1,4 @@
+import { CosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { QueryClient, ProtobufRpcClient } from '@cosmjs/stargate';
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import {
@@ -15,6 +16,7 @@ import {
 	setupTxExtension,
 	TxClient,
 	createBitsongProtobufRpcClient,
+	setupQueryExtension,
 } from './tx';
 import {
 	BitsongClientOptions,
@@ -34,6 +36,7 @@ export class BitsongClient<T extends object> {
 	private _tendermintQueryClient!: QueryClient;
 	private _tendermintClient!: Tendermint34Client;
 	private _txClient?: TxClient;
+	private _cosmWasmQueryClient!: CosmWasmClient;
 	private _modules!: Record<string, QueryRpcClient>;
 	private _clientOptions!: BitsongClientOptions;
 	private _query!: Observable<InstanceTypeMap<T>>;
@@ -41,6 +44,7 @@ export class BitsongClient<T extends object> {
 	private _signerConnectionSubject = new AsyncSubject<boolean>();
 
 	public txClient!: Observable<TxClient | undefined>;
+	public cosmWasmQueryClient!: Observable<CosmWasmClient>;
 
 	public get modules() {
 		return this._modules;
@@ -70,6 +74,15 @@ export class BitsongClient<T extends object> {
 
 		this.initModules();
 		this.initTxClient();
+		this.initQueryClients();
+	}
+
+	private initQueryClients() {
+		this.cosmWasmQueryClient = this._connectionSubject.asObservable().pipe(
+			switchMap(() => {
+				return of(this._cosmWasmQueryClient);
+			}),
+		);
 	}
 
 	private initTxClient() {
@@ -117,6 +130,7 @@ export class BitsongClient<T extends object> {
 		this.connect(options, modules);
 		this.initModules();
 		this.initTxClient();
+		this.initQueryClients();
 	}
 
 	public disconnect() {
@@ -125,6 +139,13 @@ export class BitsongClient<T extends object> {
 		}
 
 		this.disconnectSigner();
+		this.disconnectQueries();
+	}
+
+	public disconnectQueries() {
+		if (this._txClient) {
+			this._cosmWasmQueryClient.disconnect();
+		}
 	}
 
 	public disconnectSigner() {
@@ -199,6 +220,10 @@ export class BitsongClient<T extends object> {
 				const rpcClient = createBitsongProtobufRpcClient(queryClient);
 
 				this.connectSigner(connection);
+
+				const queryClients = await setupQueryExtension(connection as SigningConnectionOptions);
+
+				this._cosmWasmQueryClient = queryClients.cosmWasmClient;
 
 				this._queryClient = rpcClient;
 				this._tendermintQueryClient = queryClient;

@@ -15,6 +15,7 @@ import { Registry, EncodeObject } from '@cosmjs/proto-signing';
 import { SigningConnectionOptions } from './types';
 import { bitsongAminoTypes, bitsongRegistry } from './codec';
 import {
+	createStargateCosmWasmQueryClient,
 	createStargateCosmWasmSigningClient,
 	createStargateSigningClient,
 } from './signing';
@@ -55,6 +56,16 @@ export function createBitsongProtobufRpcClient(
 			return base.queryUnverified(path, data, desiredHeight);
 		},
 	};
+}
+
+export async function setupQueryExtension(connection: SigningConnectionOptions) {
+	const cosmWasmClient = await createStargateCosmWasmQueryClient(
+		connection.endpoints,
+	);
+
+	return {
+		cosmWasmClient
+	}
 }
 
 export async function setupTxExtension(
