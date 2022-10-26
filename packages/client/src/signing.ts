@@ -4,8 +4,8 @@ import {
 	SigningStargateClientOptions,
 } from '@cosmjs/stargate';
 import {
+	CosmWasmClient,
 	SigningCosmWasmClient,
-	SigningCosmWasmClientOptions,
 } from '@cosmjs/cosmwasm-stargate';
 import {
 	BehaviorSubject,
@@ -78,6 +78,52 @@ export async function createStargateCosmWasmSigningClient(
 		);
 
 		return signingClient;
+	} catch (e) {
+		return Promise.reject(e);
+	}
+}
+
+/**
+ * createStargateCosmWasmQueryClient returns a CosmWasmClient
+ * to be used for queries.
+ *
+ * @param endpoints - strings array.
+ */
+ export async function createStargateCosmWasmQueryClient(
+	endpoints: string[],
+): Promise<CosmWasmClient> {
+	const connectionRetry = new BehaviorSubject<number>(0);
+
+	try {
+		/*
+      We use rxjs utils to try different endpoints, until we get a connection
+    */
+		const client = lastValueFrom(
+			connectionRetry.pipe(
+				switchMap(attempt => {
+					return from(
+						SigningCosmWasmClient.connect(
+							endpoints[attempt],
+						),
+					).pipe(
+						tap(() => {
+							connectionRetry.complete();
+						}),
+					);
+				}),
+				retry({
+					count: endpoints.length,
+					delay: (_, retryCount) => {
+						connectionRetry.next(retryCount);
+
+						return of(retryCount);
+					},
+					resetOnSuccess: true,
+				}),
+			),
+		);
+
+		return client;
 	} catch (e) {
 		return Promise.reject(e);
 	}
