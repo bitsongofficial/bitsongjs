@@ -8,6 +8,16 @@ import {
 	ProtobufRpcClient,
 	SigningStargateClient,
 	createIbcAminoConverters,
+	createBankAminoConverters,
+	createAuthzAminoConverters,
+	createStakingAminoConverters,
+	createCrysisAminoConverters,
+	createDistributionAminoConverters,
+	createEvidenceAminoConverters,
+	createFeegrantAminoConverters,
+	createGovAminoConverters,
+	createSlashingAminoConverters,
+	createVestingAminoConverters
 } from '@cosmjs/stargate';
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { Registry, EncodeObject } from '@cosmjs/proto-signing';
@@ -77,6 +87,11 @@ export async function setupTxExtension(
 	const aminoTypes = new AminoTypes({
 		...bitsongAminoTypes,
 		...createIbcAminoConverters(),
+		...createBankAminoConverters(),
+		...createAuthzAminoConverters(),
+		...createStakingAminoConverters(''),
+		...createGovAminoConverters(),
+		...createVestingAminoConverters()
 	});
 
 	const signingClient = await createStargateSigningClient(
