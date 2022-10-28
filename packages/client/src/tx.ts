@@ -72,7 +72,7 @@ export async function setupQueryExtension(connection: SigningConnectionOptions) 
 export async function setupTxExtension(
 	connection: SigningConnectionOptions,
 ): Promise<TxClient> {
-	const registry = new Registry([...defaultRegistryTypes, ...bitsongRegistry]);
+	const registry = new Registry([...defaultRegistryTypes, ...bitsongRegistry()]);
 
 	const aminoTypes = new AminoTypes({
 		...bitsongAminoTypes,
