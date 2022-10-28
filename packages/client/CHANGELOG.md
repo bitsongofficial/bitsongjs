@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.7...@bitsongjs/client@2.4.0-beta.8) (2022-10-28)
+
+
+### Features
+
+* :sparkles: add amino types support for Bank, Authz, Staking, Gov and Vesting modules ([583450d](https://github.com/bitsongofficial/bitsongjs/commit/583450d466103e37f75dd975ee4990a635677c90))
+
+
+
+
+
 # [2.4.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.6...@bitsongjs/client@2.4.0-beta.7) (2022-10-28)
 
 
