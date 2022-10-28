@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.6...@bitsongjs/client@2.4.0-beta.7) (2022-10-28)
+
+
+### Bug Fixes
+
+* :bug: improve bitsong registry bootstrap ([098d766](https://github.com/bitsongofficial/bitsongjs/commit/098d766df0c55678dc23a30f8050d17670c211cb))
+
+
+
+
+
 # [2.4.0-beta.6](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/client@2.4.0-beta.5...@bitsongjs/client@2.4.0-beta.6) (2022-10-28)
 
 
