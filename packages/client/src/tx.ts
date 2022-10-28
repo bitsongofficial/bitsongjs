@@ -13,7 +13,8 @@ import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { Registry, EncodeObject } from '@cosmjs/proto-signing';
 
 import { SigningConnectionOptions } from './types';
-import { bitsongAminoTypes, bitsongRegistry } from './codec';
+import { bitsongAminoTypes } from './codec';
+import { bitsongRegistry } from './codec/customRegistry';
 import {
 	createStargateCosmWasmQueryClient,
 	createStargateCosmWasmSigningClient,
