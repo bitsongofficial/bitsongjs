@@ -39,7 +39,7 @@ export class NFTUploader {
 
 		validateUploadPayload(assetsWithPrefix, metadataWithPrefix);
 
-		const imagesCID = await this.provider.upload(assetsWithPrefix);
+		const imagesCID = await this.provider.uploadAll(assetsWithPrefix);
 
 		const metadata: File[] = [];
 
@@ -63,7 +63,7 @@ export class NFTUploader {
 			metadata.push(file);
 		}
 
-		const metadataCID = await this.provider.upload(metadata);
+		const metadataCID = await this.provider.uploadAll(metadata);
 
 		const uri = `ipfs://${metadataCID}`;
 
