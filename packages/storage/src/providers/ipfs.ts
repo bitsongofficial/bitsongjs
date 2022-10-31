@@ -10,9 +10,7 @@ export class IPFSStorageProvider implements StorageProvider {
 		this.client = create({ url });
 	}
 
-	async upload(files: FileObject[]): Promise<string> {
-		validateUploadPayload(files);
-
+	async uploadAll(files: FileObject[]): Promise<string> {
 		const data = await filesToCar(files);
 
 		console.log(data);
@@ -34,5 +32,11 @@ export class IPFSStorageProvider implements StorageProvider {
 		console.log(response); */
 
 		return data.cidString;
+	}
+
+	async upload(file: FileObject): Promise<string> {
+		const data = await this.client.add(file)
+
+		return data.cid.toString();
 	}
 }
