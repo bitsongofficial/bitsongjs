@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.2...@bitsongjs/storage@2.1.0-beta.3) (2022-10-31)
+
+
+### Features
+
+* :sparkles: add ipfs and other provider single file upload ([a006987](https://github.com/bitsongofficial/bitsongjs/commit/a00698726b0682dacf42e025292746e472044b88))
+
+
+
+
+
 # [2.1.0-beta.2](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.1...@bitsongjs/storage@2.1.0-beta.2) (2022-09-30)
 
 

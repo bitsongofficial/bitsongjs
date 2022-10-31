@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.7...@bitsongjs/nft@2.1.0-beta.8) (2022-10-31)
+
+
+### Bug Fixes
+
+* :bug: fix storage dependency inside nft package ([4a76fb7](https://github.com/bitsongofficial/bitsongjs/commit/4a76fb7317b627c5c149b201ff99c9b7660d481d))
+
+
+
+
+
 # [2.1.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.6...@bitsongjs/nft@2.1.0-beta.7) (2022-10-25)
 
 
