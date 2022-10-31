@@ -9,10 +9,16 @@ export class NFTStorageProvider implements StorageProvider {
 		this.client = new NFTStorage(this.options);
 	}
 
-	async upload(files: FileObject[]): Promise<string> {
+	async uploadAll(files: FileObject[]): Promise<string> {
 		validateUploadPayload(files);
 
 		const filesBaseUri = await this.client.storeDirectory(files);
+
+		return filesBaseUri;
+	}
+
+	async upload(file: FileObject): Promise<string> {
+		const filesBaseUri = await this.client.storeBlob(file);
 
 		return filesBaseUri;
 	}
