@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.9](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.8...@bitsongjs/nft@2.1.0-beta.9) (2022-11-01)
+
+
+### Features
+
+* :sparkles: add nft and collection metadata validation schema ([70db8ca](https://github.com/bitsongofficial/bitsongjs/commit/70db8cab3e09e20572c3d07ae22a3407f5e1b406))
+
+
+
+
+
 # [2.1.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.7...@bitsongjs/nft@2.1.0-beta.8) (2022-10-31)
 
 
