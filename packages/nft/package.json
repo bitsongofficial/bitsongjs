@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@bitsongjs/storage": "^2.1.0-beta.2",
 		"ajv": "^8.11.0",
-		"files-from-path": "^0.2.6"
+		"files-from-path": "^0.2.6",
+		"zod": "^3.19.1"
 	}
 }
