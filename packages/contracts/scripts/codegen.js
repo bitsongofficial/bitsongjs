@@ -5,8 +5,8 @@ const contractsDir = resolve(join(__dirname, '/../schemas'));
 
 const contracts = [
 	{
-		name: 'CW721Base',
-		dir: join(contractsDir, 'cw721-base'),
+		name: 'BS721Base',
+		dir: join(contractsDir, 'bs721-base'),
 	},
 ];
 
