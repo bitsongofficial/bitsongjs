@@ -3,7 +3,7 @@ import { DeliverTxResponse, logs } from '@cosmjs/stargate';
 import { MsgInstantiateContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
 import { lastValueFrom } from 'rxjs';
 import { BitsongClient } from '../dist/client';
-import { InstantiateMsg } from '@bitsongjs/contracts/dist/codegen/CW721Base.types';
+import { InstantiateMsg } from '@bitsongjs/contracts/dist/codegen/BS721Base.types';
 import { MsgInstantiateContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
 import {
 	TEST_ADDRESS,
@@ -24,9 +24,9 @@ let apiOther: BitsongClient<typeof modules>;
 
 let contractAddress: string;
 
-const { CW721Base } = contracts;
+const { BS721Base } = contracts;
 
-const { CW721BaseClient, CW721BaseMessageComposer } = CW721Base;
+const { BS721BaseClient, BS721BaseMessageComposer } = BS721Base;
 
 describe('BitSongApi CosmWasm with tendermint connection', () => {
 	beforeAll(async () => {
@@ -103,7 +103,7 @@ describe('BitSongApi CosmWasm with tendermint connection', () => {
 			const txClient = await lastValueFrom(api.txClient);
 
 			if (txClient) {
-				const compose = new CW721BaseClient(
+				const compose = new BS721BaseClient(
 					txClient.signingCosmWasmClient,
 					TEST_ADDRESS,
 					contractAddress,
@@ -113,12 +113,6 @@ describe('BitSongApi CosmWasm with tendermint connection', () => {
 					owner: TEST_ADDRESS,
 					sellerFee: 1,
 					tokenId: '10',
-					creatorsInfo: [
-						{
-							address: TEST_ADDRESS,
-							share: 100,
-						},
-					],
 				});
 
 				console.log(res);
