@@ -4,6 +4,7 @@
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "Bitsong CosmWasm TS Classes",
 	"license": "Apache-2.0",
+	"type": "module",
 	"main": "dist",
 	"publishConfig": {
 		"access": "public",

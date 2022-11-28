@@ -4,6 +4,7 @@
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "A Javascript library for NFT metadata validation and creation, based on BitSong Blockchain.",
 	"license": "Apache-2.0",
+	"type": "module",
 	"main": "dist",
 	"publishConfig": {
 		"access": "public",
