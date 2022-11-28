@@ -1,6 +1,6 @@
 {
 	"name": "@bitsongjs/contracts",
-	"version": "2.1.0-beta.1",
+	"version": "2.1.0-beta.2",
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "Bitsong CosmWasm TS Classes",
 	"license": "Apache-2.0",

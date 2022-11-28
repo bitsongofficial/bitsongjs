@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.3...@bitsongjs/storage@2.1.0-beta.4) (2022-11-28)
+
+
+### Features
+
+* :sparkles: add bundlr provider for single file upload ([cb1f484](https://github.com/bitsongofficial/bitsongjs/commit/cb1f484e68ef8e02a92f65250df94feb1f961f6d))
+
+
+
+
+
 # [2.1.0-beta.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.2...@bitsongjs/storage@2.1.0-beta.3) (2022-10-31)
 
 
