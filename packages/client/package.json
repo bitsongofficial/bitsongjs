@@ -5,6 +5,7 @@
 	"description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain",
 	"license": "Apache-2.0",
 	"main": "dist",
+	"type": "module",
 	"publishConfig": {
 		"access": "public",
 		"@bitsongjs:registry": "https://registry.npmjs.com"
