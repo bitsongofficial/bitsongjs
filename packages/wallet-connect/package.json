@@ -28,6 +28,9 @@
 	},
 	"dependencies": {
 		"@cosmjs/amino": "^0.29.5",
+		"@walletconnect/client": "^1.8.0",
+		"@walletconnect/qrcode-modal": "^1.8.0",
+		"@walletconnect/types": "^2.1.4"
 	},
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.18.6",
