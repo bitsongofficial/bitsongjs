@@ -27,6 +27,7 @@
 		"test": "test"
 	},
 	"dependencies": {
+		"@cosmjs/amino": "^0.29.5",
 	},
 	"devDependencies": {
 		"@babel/preset-typescript": "^7.18.6",
