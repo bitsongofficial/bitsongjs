@@ -3,7 +3,7 @@ import WalletConnect from "@walletconnect/client";
 import { StdSignDoc, AminoSignResponse, StdSignature } from "@cosmjs/amino";
 import { EncodeObject } from "@cosmjs/proto-signing";
 import { StdFee, DeliverTxResponse } from "@cosmjs/stargate";
-import { ConnectorOptions, IConnector, WalletConnectTransactions, WalletConnectTransactionsMethod } from "src/types";
+import { ConnectorOptions, IConnector, WalletConnectTransactions, WalletConnectTransactionsMethod } from "../types/index.js";
 import { SignClientTypes } from "@walletconnect/types/dist/types/sign-client";
 
 export class Connector implements IConnector {

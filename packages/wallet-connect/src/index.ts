@@ -1,2 +1,2 @@
-export * from './types';
-export * from './walletconnect'
+export * from './types/index.js';
+export * from './walletconnect/index.js'
