@@ -16,16 +16,25 @@ export class Connector implements IConnector {
       bridge: "https://bridge.walletconnect.org",
       qrcodeModal: options.qrcodeModal,
     })
+    if(!connector.connected)
+    {
+      connector.createSession()
+    }
     this.connector = connector
-    connector.on("connect", (error, payload) => {
-      if (error) {
+    connector.on("connect", (error, payload) =>
+    {
+      if(error)
+      {
         throw error
       }
       this.updateAccounts(payload.params[0].accounts)
+      this.connector?.connect()
     })
 
-    connector.on("session_update", (error, payload) => {
-      if (error) {
+    connector.on("session_update", (error, payload) =>
+    {
+      if(error)
+      {
         throw error
       }
     
