@@ -70,8 +70,8 @@ export class Connector implements IConnector {
       signDoc
     })
   }
-  signAndBroadcast(chain: string, messages: readonly EncodeObject[], fee: number | StdFee | "auto", memo?: string | undefined, signerAddress?: string | undefined): Promise<DeliverTxResponse> {
-    return this.sendCustomRequest(WalletConnectTransactions.SIGN, chain, {
+  signAndBroadcast(chain: string, messages: readonly EncodeObject[], fee: number | StdFee | "auto" = "auto", memo?: string | undefined, signerAddress?: string | undefined): Promise<DeliverTxResponse> {
+    return this.sendCustomRequest(WalletConnectTransactions.SIGN_AND_BROADCAST, chain, {
       messages,
       fee,
       memo,
@@ -80,7 +80,7 @@ export class Connector implements IConnector {
   }
   signArbitrary(chain: string, payload: any, signerAddress?: string | undefined): Promise<StdSignature>
   {
-    return this.sendCustomRequest(WalletConnectTransactions.SIGN, chain, {
+    return this.sendCustomRequest(WalletConnectTransactions.SIGN_ARBITRARY, chain, {
       payload,
       signerAddress,
     })
