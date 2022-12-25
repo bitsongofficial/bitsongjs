@@ -57,7 +57,7 @@ export class Connector implements IConnector {
         data: params
       }]
     })
-    return result
+    return result[0]
   }
   on(event: SignClientTypes.Event, callback: (error: Error | null, payload: any) => void): void
   {
