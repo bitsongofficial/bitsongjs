@@ -5,16 +5,30 @@ import { EncodeObject } from "@cosmjs/proto-signing";
 import { StdFee, DeliverTxResponse } from "@cosmjs/stargate";
 import { ConnectorOptions, IConnector, WalletConnectTransactions, WalletConnectTransactionsMethod } from "../types/index.js";
 import { SignClientTypes } from "@walletconnect/types/dist/types/sign-client";
+import { baseConfigurations } from "./configs.js";
 
 export class Connector implements IConnector {
   private connector?: WalletConnect
   readonly accounts: string[] = []
   
-  constructor(options: ConnectorOptions)
+  constructor(options?: Partial<ConnectorOptions>)
   {
+    let constructedOptions = Object.assign({}, baseConfigurations)
+    if(window)
+    {
+      if(window.location && window.location.host) constructedOptions.url = window.location.host
+      if(window.document && window.document.title) constructedOptions.name = window.document.title
+    }
+    if(options) constructedOptions = Object.assign(constructedOptions, options)
     const connector = new WalletConnect({
       bridge: "https://bridge.walletconnect.org",
-      qrcodeModal: options.qrcodeModal,
+      clientMeta: {
+        name: constructedOptions.name,
+        description: constructedOptions.description,
+        url: constructedOptions.url,
+        icons: [constructedOptions.icon],
+      },
+      qrcodeModal: constructedOptions.qrcodeModal,
     })
     if(!connector.connected)
     {

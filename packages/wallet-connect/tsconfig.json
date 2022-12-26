@@ -1,10 +1,16 @@
 {
 	"compilerOptions": {
+		"lib": [
+			"DOM",
+			"ES2016"
+		],
 		"declaration": true,
 		"esModuleInterop": true,
 		"outDir": "dist",
 		"baseUrl": "./",
 	},
 	"extends": "../../tsconfig",
-	"include": ["src"]
+	"include": [
+		"src"
+	]
 }

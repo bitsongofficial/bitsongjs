@@ -4,9 +4,14 @@ import { AminoSignResponse } from "@cosmjs/amino/build/signer";
 import { EncodeObject } from "@cosmjs/proto-signing";
 import { DeliverTxResponse, StdFee } from "@cosmjs/stargate";
 import { SignClientTypes } from "@walletconnect/types";
+import QRCodeModal from "@walletconnect/qrcode-modal"
 
 export type ConnectorOptions = {
-  qrcodeModal: any,
+  qrcodeModal: typeof QRCodeModal,
+  name: string,
+  description: string,
+  url: string,
+  icon: string,
 }
 
 export interface IConnector {
