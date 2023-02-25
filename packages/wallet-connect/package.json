@@ -5,7 +5,7 @@
 	"description": "A Javascript Wallet Connect lib for BitSong Blockchain.",
 	"license": "Apache-2.0",
 	"type": "module",
-	"main": "dist",
+	"main": "dist/index.js",
 	"publishConfig": {
 		"access": "public",
 		"@bitsongjs:registry": "https://registry.npmjs.com"

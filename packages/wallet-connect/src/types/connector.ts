@@ -15,8 +15,9 @@ export type ConnectorOptions = {
 }
 
 export interface IConnector {
+  getAddress(chain: string): Promise<string>
   sign(chain: string, signDoc: StdSignDoc, signerAddress?: string): Promise<AminoSignResponse>
   signAndBroadcast(chain: string, messages: readonly EncodeObject[], fee: number | StdFee | "auto", memo?: string, signerAddress?: string): Promise<DeliverTxResponse>
   signArbitrary(chain: string, payload: any, signerAddress?: string): Promise<StdSignature>
-  on(event: SignClientTypes.Event, callback: (error: Error | null, payload: any) => void): void
+  on(event: SignClientTypes.Event | "connect" | "disconnect", callback: (error: Error | null, payload: any) => void): void
 }

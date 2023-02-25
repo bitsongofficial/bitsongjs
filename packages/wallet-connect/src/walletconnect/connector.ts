@@ -73,9 +73,13 @@ export class Connector implements IConnector {
     })
     return result[0]
   }
-  on(event: SignClientTypes.Event, callback: (error: Error | null, payload: any) => void): void
+  on(event: SignClientTypes.Event | "connect" | "disconnect", callback: (error: Error | null, payload: any) => void): void
   {
     this.connector?.on(event, callback)
+  }
+  getAddress(chain: string)
+  {
+    return this.sendCustomRequest(WalletConnectTransactions.GET_ADDRESS, chain, {})
   }
   sign(chain: string, signDoc: StdSignDoc, signerAddress?: string | undefined): Promise<AminoSignResponse>
   {
