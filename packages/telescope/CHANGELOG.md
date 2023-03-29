@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 3.0.0-dev.1 (2023-03-29)
+
+
+### Features
+
+* add telescope ([1c065dd](https://github.com/bitsongofficial/bitsongjs/commit/1c065ddb0ca72c3a09faf2e5a1830d0bc519f79b))
