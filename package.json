@@ -1,38 +1,38 @@
 {
-	"name": "bitsongjs-monorepo",
-	"version": "2.0.0",
-	"author": "Angelo Recca <angelorc@users.noreply.github.com>",
-	"description": "Javascript library to interact with BitSong Blockchain.",
-	"license": "Apache-2.0",
-	"private": true,
-	"bugs": {
-		"url": "https://github.com/bitsongofficial/bitsongjs/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/bitsongofficial/bitsongjs.git"
-	},
-	"workspaces": [
-		"packages/*"
-	],
-	"scripts": {
-		"bootstrap": "lerna bootstrap",
-		"build": "lerna run build",
-		"format": "yarn lint --fix",
-		"lerna:deploy": "yarn build && lerna version --conventional-commits && lerna publish from-git",
-		"lint": "tsc --noEmit && eslint --ext js,ts,tsx .",
-		"test": "lerna run test"
-	},
-	"devDependencies": {
-		"@types/jest": "27.0.3",
-		"@typescript-eslint/eslint-plugin": "^4.5.0",
-		"@typescript-eslint/parser": "^4.5.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^4.0.0",
-		"lerna": "^5.5.1",
-		"nx": "^14.7.3",
-		"prettier": "2.4.1",
-		"ts-jest": "^26.4.4",
-		"typescript": "^4.0.5"
-	}
+  "name": "bitsongjs-monorepo",
+  "version": "2.0.0",
+  "author": "Angelo Recca <angelorc@users.noreply.github.com>",
+  "description": "Javascript library to interact with BitSong Blockchain.",
+  "license": "Apache-2.0",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/bitsongofficial/bitsongjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "format": "yarn lint --fix",
+    "lerna:deploy": "yarn build && lerna version --conventional-commits && lerna publish from-git",
+    "lint": "tsc --noEmit && eslint --ext js,ts,tsx .",
+    "test": "lerna run test"
+  },
+  "devDependencies": {
+    "@types/jest": "27.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "lerna": "^5.5.1",
+    "nx": "^14.7.3",
+    "prettier": "2.4.1",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.0.5"
+  }
 }
