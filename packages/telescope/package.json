@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/telescope",
-  "version": "3.0.0-dev.1",
+  "version": "3.0.0-dev.2",
   "author": "Angelo Recca <angelorc@users.noreply.github.com>",
   "description": "Javascript API library for NodeJS and Web browsers to interact with the BitSong Blockchain",
   "main": "main/index.js",
