@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.4...@bitsongjs/telescope@3.0.0-dev.5) (2023-04-05)
+
+
+### Features
+
+* **wasm:** add cosmwasm proto ([171d711](https://github.com/bitsongofficial/bitsongjs/commit/171d711577a7857bbe924e394b3158c2cb94d341))
+
+
+
+
+
 # [3.0.0-dev.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.2...@bitsongjs/telescope@3.0.0-dev.4) (2023-04-05)
 
 **Note:** Version bump only for package @bitsongjs/telescope
