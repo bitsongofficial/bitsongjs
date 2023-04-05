@@ -114,7 +114,7 @@ export declare namespace bitsong {
                 };
             };
             AminoConverter: {
-                "/bitsong.fantoken.MsgIssue": {
+                "/bitsong.fantoken.v1beta1.MsgIssue": {
                     aminoType: string;
                     toAmino: ({ symbol, name, maxSupply, authority, minter, uri }: _6.MsgIssue) => {
                         symbol: string;
@@ -133,7 +133,7 @@ export declare namespace bitsong {
                         uri: string;
                     }) => _6.MsgIssue;
                 };
-                "/bitsong.fantoken.MsgMint": {
+                "/bitsong.fantoken.v1beta1.MsgMint": {
                     aminoType: string;
                     toAmino: ({ recipient, coin, minter }: _6.MsgMint) => {
                         recipient: string;
@@ -152,7 +152,7 @@ export declare namespace bitsong {
                         minter: string;
                     }) => _6.MsgMint;
                 };
-                "/bitsong.fantoken.MsgBurn": {
+                "/bitsong.fantoken.v1beta1.MsgBurn": {
                     aminoType: string;
                     toAmino: ({ coin, sender }: _6.MsgBurn) => {
                         coin: {
@@ -169,7 +169,7 @@ export declare namespace bitsong {
                         sender: string;
                     }) => _6.MsgBurn;
                 };
-                "/bitsong.fantoken.MsgDisableMint": {
+                "/bitsong.fantoken.v1beta1.MsgDisableMint": {
                     aminoType: string;
                     toAmino: ({ denom, minter }: _6.MsgDisableMint) => {
                         denom: string;
@@ -180,7 +180,7 @@ export declare namespace bitsong {
                         minter: string;
                     }) => _6.MsgDisableMint;
                 };
-                "/bitsong.fantoken.MsgSetMinter": {
+                "/bitsong.fantoken.v1beta1.MsgSetMinter": {
                     aminoType: string;
                     toAmino: ({ denom, oldMinter, newMinter }: _6.MsgSetMinter) => {
                         denom: string;
@@ -193,7 +193,7 @@ export declare namespace bitsong {
                         new_minter: string;
                     }) => _6.MsgSetMinter;
                 };
-                "/bitsong.fantoken.MsgSetAuthority": {
+                "/bitsong.fantoken.v1beta1.MsgSetAuthority": {
                     aminoType: string;
                     toAmino: ({ denom, oldAuthority, newAuthority }: _6.MsgSetAuthority) => {
                         denom: string;
@@ -206,7 +206,7 @@ export declare namespace bitsong {
                         new_authority: string;
                     }) => _6.MsgSetAuthority;
                 };
-                "/bitsong.fantoken.MsgSetUri": {
+                "/bitsong.fantoken.v1beta1.MsgSetUri": {
                     aminoType: string;
                     toAmino: ({ authority, denom, uri }: _6.MsgSetUri) => {
                         authority: string;

@@ -4,4 +4,10 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-export {};
+import * as _0 from "./Bs721Base.types";
+import * as _1 from "./Bs721Base.client";
+export namespace contracts {
+  export const Bs721Base = { ..._0,
+    ..._1
+  };
+}

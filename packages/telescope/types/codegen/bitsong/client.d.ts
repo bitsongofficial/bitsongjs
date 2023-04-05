@@ -2,7 +2,7 @@ import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 export declare const bitsongAminoConverters: {
-    "/bitsong.fantoken.MsgIssue": {
+    "/bitsong.fantoken.v1beta1.MsgIssue": {
         aminoType: string;
         toAmino: ({ symbol, name, maxSupply, authority, minter, uri }: import("./fantoken/v1beta1/tx").MsgIssue) => {
             symbol: string;
@@ -21,7 +21,7 @@ export declare const bitsongAminoConverters: {
             uri: string;
         }) => import("./fantoken/v1beta1/tx").MsgIssue;
     };
-    "/bitsong.fantoken.MsgMint": {
+    "/bitsong.fantoken.v1beta1.MsgMint": {
         aminoType: string;
         toAmino: ({ recipient, coin, minter }: import("./fantoken/v1beta1/tx").MsgMint) => {
             recipient: string;
@@ -40,7 +40,7 @@ export declare const bitsongAminoConverters: {
             minter: string;
         }) => import("./fantoken/v1beta1/tx").MsgMint;
     };
-    "/bitsong.fantoken.MsgBurn": {
+    "/bitsong.fantoken.v1beta1.MsgBurn": {
         aminoType: string;
         toAmino: ({ coin, sender }: import("./fantoken/v1beta1/tx").MsgBurn) => {
             coin: {
@@ -57,7 +57,7 @@ export declare const bitsongAminoConverters: {
             sender: string;
         }) => import("./fantoken/v1beta1/tx").MsgBurn;
     };
-    "/bitsong.fantoken.MsgDisableMint": {
+    "/bitsong.fantoken.v1beta1.MsgDisableMint": {
         aminoType: string;
         toAmino: ({ denom, minter }: import("./fantoken/v1beta1/tx").MsgDisableMint) => {
             denom: string;
@@ -68,7 +68,7 @@ export declare const bitsongAminoConverters: {
             minter: string;
         }) => import("./fantoken/v1beta1/tx").MsgDisableMint;
     };
-    "/bitsong.fantoken.MsgSetMinter": {
+    "/bitsong.fantoken.v1beta1.MsgSetMinter": {
         aminoType: string;
         toAmino: ({ denom, oldMinter, newMinter }: import("./fantoken/v1beta1/tx").MsgSetMinter) => {
             denom: string;
@@ -81,7 +81,7 @@ export declare const bitsongAminoConverters: {
             new_minter: string;
         }) => import("./fantoken/v1beta1/tx").MsgSetMinter;
     };
-    "/bitsong.fantoken.MsgSetAuthority": {
+    "/bitsong.fantoken.v1beta1.MsgSetAuthority": {
         aminoType: string;
         toAmino: ({ denom, oldAuthority, newAuthority }: import("./fantoken/v1beta1/tx").MsgSetAuthority) => {
             denom: string;
@@ -94,7 +94,7 @@ export declare const bitsongAminoConverters: {
             new_authority: string;
         }) => import("./fantoken/v1beta1/tx").MsgSetAuthority;
     };
-    "/bitsong.fantoken.MsgSetUri": {
+    "/bitsong.fantoken.v1beta1.MsgSetUri": {
         aminoType: string;
         toAmino: ({ authority, denom, uri }: import("./fantoken/v1beta1/tx").MsgSetUri) => {
             authority: string;

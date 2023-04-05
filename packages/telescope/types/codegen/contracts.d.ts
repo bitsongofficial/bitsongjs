@@ -3,4 +3,10 @@
 * DO NOT MODIFY IT BY HAND. Instead, modify the source JSONSchema file,
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
-export {};
+import * as _1 from "./Bs721Base.client";
+export declare namespace contracts {
+    const Bs721Base: {
+        Bs721BaseQueryClient: typeof _1.Bs721BaseQueryClient;
+        Bs721BaseClient: typeof _1.Bs721BaseClient;
+    };
+}

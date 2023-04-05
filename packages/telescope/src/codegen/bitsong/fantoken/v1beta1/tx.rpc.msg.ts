@@ -35,43 +35,43 @@ export class MsgClientImpl implements Msg {
 
   issue(request: MsgIssue): Promise<MsgIssueResponse> {
     const data = MsgIssue.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "Issue", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "Issue", data);
     return promise.then(data => MsgIssueResponse.decode(new _m0.Reader(data)));
   }
 
   mint(request: MsgMint): Promise<MsgMintResponse> {
     const data = MsgMint.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "Mint", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "Mint", data);
     return promise.then(data => MsgMintResponse.decode(new _m0.Reader(data)));
   }
 
   burn(request: MsgBurn): Promise<MsgBurnResponse> {
     const data = MsgBurn.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "Burn", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "Burn", data);
     return promise.then(data => MsgBurnResponse.decode(new _m0.Reader(data)));
   }
 
   disableMint(request: MsgDisableMint): Promise<MsgDisableMintResponse> {
     const data = MsgDisableMint.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "DisableMint", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "DisableMint", data);
     return promise.then(data => MsgDisableMintResponse.decode(new _m0.Reader(data)));
   }
 
   setMinter(request: MsgSetMinter): Promise<MsgSetMinterResponse> {
     const data = MsgSetMinter.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "SetMinter", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "SetMinter", data);
     return promise.then(data => MsgSetMinterResponse.decode(new _m0.Reader(data)));
   }
 
   setAuthority(request: MsgSetAuthority): Promise<MsgSetAuthorityResponse> {
     const data = MsgSetAuthority.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "SetAuthority", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "SetAuthority", data);
     return promise.then(data => MsgSetAuthorityResponse.decode(new _m0.Reader(data)));
   }
 
   setUri(request: MsgSetUri): Promise<MsgSetUriResponse> {
     const data = MsgSetUri.encode(request).finish();
-    const promise = this.rpc.request("bitsong.fantoken.Msg", "SetUri", data);
+    const promise = this.rpc.request("bitsong.fantoken.v1beta1.Msg", "SetUri", data);
     return promise.then(data => MsgSetUriResponse.decode(new _m0.Reader(data)));
   }
 

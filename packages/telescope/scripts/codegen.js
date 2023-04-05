@@ -48,7 +48,12 @@ telescope({
       },
     },
     cosmwasm: {
-      contracts: [],
+      contracts: [
+        {
+          name: 'bs721-base',
+          dir: join(__dirname, '../contracts/bs721-base/'),
+        },
+      ],
       outPath: join(__dirname, '../src/codegen'),
       options: {
         bundle: {
