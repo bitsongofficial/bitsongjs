@@ -1,4 +1,4 @@
-import { join, resolve } from 'path';
+import { join } from 'path';
 import telescope from '@osmonauts/telescope';
 
 const protoDirs = [join(__dirname, '/../proto')];

@@ -5,20 +5,20 @@ import * as _3 from "./fantoken/v1beta1/gov";
 import * as _4 from "./fantoken/v1beta1/params";
 import * as _5 from "./fantoken/v1beta1/query";
 import * as _6 from "./fantoken/v1beta1/tx";
-import * as _97 from "./fantoken/v1beta1/query.lcd";
-import * as _98 from "./fantoken/v1beta1/query.rpc.Query";
-import * as _99 from "./fantoken/v1beta1/tx.rpc.msg";
+import * as _103 from "./fantoken/v1beta1/query.lcd";
+import * as _104 from "./fantoken/v1beta1/query.rpc.Query";
+import * as _105 from "./fantoken/v1beta1/tx.rpc.msg";
 export declare namespace bitsong {
     namespace fantoken {
         const v1beta1: {
-            MsgClientImpl: typeof _99.MsgClientImpl;
-            QueryClientImpl: typeof _98.QueryClientImpl;
+            MsgClientImpl: typeof _105.MsgClientImpl;
+            QueryClientImpl: typeof _104.QueryClientImpl;
             createRpcQueryExtension: (base: import("@cosmjs/stargate").QueryClient) => {
                 fanToken(request: _5.QueryFanTokenRequest): Promise<_5.QueryFanTokenResponse>;
                 fanTokens(request: _5.QueryFanTokensRequest): Promise<_5.QueryFanTokensResponse>;
                 params(request?: _5.QueryParamsRequest): Promise<_5.QueryParamsResponse>;
             };
-            LCDQueryClient: typeof _97.LCDQueryClient;
+            LCDQueryClient: typeof _103.LCDQueryClient;
             registry: readonly [string, import("@cosmjs/proto-signing").GeneratedType][];
             load: (protoRegistry: import("@cosmjs/proto-signing").Registry) => void;
             MessageComposer: {
@@ -393,7 +393,7 @@ export declare namespace bitsong {
         }) => Promise<{
             bitsong: {
                 fantoken: {
-                    v1beta1: _99.MsgClientImpl;
+                    v1beta1: _105.MsgClientImpl;
                 };
             };
             cosmos: {
@@ -528,7 +528,7 @@ export declare namespace bitsong {
         }) => Promise<{
             bitsong: {
                 fantoken: {
-                    v1beta1: _97.LCDQueryClient;
+                    v1beta1: _103.LCDQueryClient;
                 };
             };
             cosmos: {

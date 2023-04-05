@@ -9,6 +9,8 @@ export * from "./ics23/bundle";
 export * from "./cosmos_proto/bundle";
 export * from "./cosmos/bundle";
 export * from "./cosmos/client";
+export * from "./cosmwasm/bundle";
+export * from "./cosmwasm/client";
 export * from "./gogoproto/bundle";
 export * from "./google/bundle";
 export * from "./ibc/bundle";
