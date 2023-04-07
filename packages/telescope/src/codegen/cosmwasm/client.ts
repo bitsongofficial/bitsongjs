@@ -1,9 +1,11 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { defaultRegistryTypes, AminoTypes } from "@cosmjs/stargate";
+import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate'
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import * as cosmwasmWasmV1TxRegistry from "./wasm/v1/tx.registry";
 import * as cosmwasmWasmV1TxAmino from "./wasm/v1/tx.amino";
-export const cosmwasmAminoConverters = { ...cosmwasmWasmV1TxAmino.AminoConverter
+export const cosmwasmAminoConverters = {
+  ...cosmwasmWasmV1TxAmino.AminoConverter
 };
 export const cosmwasmProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...cosmwasmWasmV1TxRegistry.registry];
 export const getSigningCosmwasmClientOptions = ({
@@ -15,7 +17,8 @@ export const getSigningCosmwasmClientOptions = ({
   aminoTypes: AminoTypes;
 } => {
   const registry = new Registry([...defaultTypes, ...cosmwasmProtoRegistry]);
-  const aminoTypes = new AminoTypes({ ...cosmwasmAminoConverters
+  const aminoTypes = new AminoTypes({
+    ...cosmwasmAminoConverters
   });
   return {
     registry,
@@ -37,7 +40,7 @@ export const getSigningCosmwasmClient = async ({
   } = getSigningCosmwasmClientOptions({
     defaultTypes
   });
-  const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, signer, {
+  const client = await SigningCosmWasmClient.connectWithSigner(rpcEndpoint, signer, {
     registry,
     aminoTypes
   });

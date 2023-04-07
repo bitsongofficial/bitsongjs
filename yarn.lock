@@ -3281,17 +3281,17 @@
   dependencies:
     "@octokit/openapi-types" "^13.9.1"
 
-"@osmonauts/ast@^0.68.0":
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/@osmonauts/ast/-/ast-0.68.0.tgz#5d5c89f750b6a5b8c2f77c82de56603434f6330b"
-  integrity sha512-kLTfVNtPtdaIWjvRp6BvCXYYtnMBxEq1fzGa5i2Hsqs7yhuC7E8kAJqj+ozbgs5ut/ix56D8Q3mxSX+2CMTzuw==
+"@osmonauts/ast@^0.77.0":
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/@osmonauts/ast/-/ast-0.77.0.tgz#42a036fbc34ce775944f7195f48a8a7c27353d5b"
+  integrity sha512-XNc2OysVrT3LBEa/s5CKkMwNVfa1gzNOttehSsqcPQNtIL4hIwwsMf5HVdaA9GTsPUGfStp2hkkyajZOFKO4eQ==
   dependencies:
     "@babel/parser" "^7.19.3"
     "@babel/runtime" "^7.19.0"
     "@babel/types" "7.19.3"
-    "@osmonauts/proto-parser" "^0.34.0"
-    "@osmonauts/types" "^0.26.0"
-    "@osmonauts/utils" "^0.8.0"
+    "@osmonauts/proto-parser" "^0.39.0"
+    "@osmonauts/types" "^0.31.0"
+    "@osmonauts/utils" "^0.10.0"
     case "1.6.3"
     dotty "0.1.2"
 
@@ -3303,22 +3303,23 @@
     "@babel/runtime" "^7.19.0"
     axios "0.27.2"
 
-"@osmonauts/proto-parser@^0.34.0":
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/@osmonauts/proto-parser/-/proto-parser-0.34.0.tgz#8d0215768c45efe1ac8518d5cd933c822ae82ecd"
-  integrity sha512-aUfrZO4aBm6me+jxHZcZdhrvlMQuJOhyDC96N0/mfHnUR2wY5iARZBMHMYwap8Dp6JZy2wwqQI8lKqAg2Mm9YQ==
+"@osmonauts/proto-parser@^0.39.0":
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/@osmonauts/proto-parser/-/proto-parser-0.39.0.tgz#19c6b159b7705fb0e5dc068beaa35694ded71f4b"
+  integrity sha512-eOotMtw6T+JRlibeoa6xeaNsfb5vafi5OiZSVSQhZXEGOPvBzUvZVYeHk4fFmEYLflZWsA0iXEUMMXl1URxLCg==
   dependencies:
     "@babel/runtime" "^7.19.0"
-    "@osmonauts/types" "^0.26.0"
+    "@osmonauts/types" "^0.31.0"
     "@pyramation/protobufjs" "6.11.5"
     dotty "0.1.2"
     glob "8.0.3"
+    minimatch "5.1.0"
     mkdirp "1.0.4"
 
-"@osmonauts/telescope@^0.80.0":
-  version "0.80.0"
-  resolved "https://registry.yarnpkg.com/@osmonauts/telescope/-/telescope-0.80.0.tgz#04c86e2db1a65e86e3989ec02021e01785bb22ba"
-  integrity sha512-HTNRVRomkX3+t0lQANyg2Sp21aCtoJjIUhrvNp2hdil6ZLvwPeI41Tt2ubnstBWLlEP7UzLBDzbZAfR7I3qqFg==
+"@osmonauts/telescope@^0.89.0":
+  version "0.89.0"
+  resolved "https://registry.yarnpkg.com/@osmonauts/telescope/-/telescope-0.89.0.tgz#3f1387826dd47f05421d91a872b4bdcb172b2139"
+  integrity sha512-Sg9flsUfBeuQ6qCvSX09FwXn5CyhdMZrJreByI0xatsVPrKvx50RT649TUWOe5Nf0m9AciLC27dkXD7jeJkHJQ==
   dependencies:
     "@babel/core" "7.19.3"
     "@babel/generator" "7.19.3"
@@ -3333,10 +3334,10 @@
     "@babel/traverse" "7.19.3"
     "@babel/types" "7.19.3"
     "@cosmwasm/ts-codegen" "0.21.1"
-    "@osmonauts/ast" "^0.68.0"
-    "@osmonauts/proto-parser" "^0.34.0"
-    "@osmonauts/types" "^0.26.0"
-    "@osmonauts/utils" "^0.8.0"
+    "@osmonauts/ast" "^0.77.0"
+    "@osmonauts/proto-parser" "^0.39.0"
+    "@osmonauts/types" "^0.31.0"
+    "@osmonauts/utils" "^0.10.0"
     "@types/parse-package-name" "0.1.0"
     case "1.6.3"
     dargs "7.0.0"
@@ -3353,19 +3354,19 @@
     rimraf "3.0.2"
     shelljs "0.8.5"
 
-"@osmonauts/types@^0.26.0":
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/@osmonauts/types/-/types-0.26.0.tgz#a4e75bb0f2d837f91b020bc77e754f6ee90c3c9f"
-  integrity sha512-mofknWnWhN2qaqCELRdWHbqU4sNNOSimag7FrGPtYMhJkRvU74/+zOu97F6oUlMv9B8jGwTVdmsqEyAvWQr7Lw==
+"@osmonauts/types@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/@osmonauts/types/-/types-0.31.0.tgz#d1e9904443bdeb8c467ccdd757555f14c06879df"
+  integrity sha512-TuXZTkgnWflYjXuEQZiJa8EHXG6aBg1o3kPj5QJTYIE1h1F/P9FfQh+VA6XyNEyWsj0UiFuJcKDmG9ahmNHNeg==
   dependencies:
     "@babel/runtime" "^7.19.0"
-    "@osmonauts/utils" "^0.8.0"
+    "@osmonauts/utils" "^0.10.0"
     case "1.6.3"
 
-"@osmonauts/utils@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@osmonauts/utils/-/utils-0.8.0.tgz#cab2a04d818284afcb3e99bc43a85b786aba6c45"
-  integrity sha512-EO6dSqr9pvczYzuVL/wEvdu4xub1tV4wttJcrgT8lrgq08PK6e7frX816OlBFUv7qQk8eEYPnIVpsN12ZxFwwQ==
+"@osmonauts/utils@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@osmonauts/utils/-/utils-0.10.0.tgz#ad7011327375bb1028daeca7ccab172bec084050"
+  integrity sha512-rPPTZ6CE6BCgac3yhXlJcP5315Ddf1pnVCmYxsZi1Y5Vcyzzd6u2bfjPzaa0JOKiDtKwEGXXlVLAT29OM4DMhg==
   dependencies:
     "@babel/runtime" "^7.19.0"
 

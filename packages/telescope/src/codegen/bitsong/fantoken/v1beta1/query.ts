@@ -12,7 +12,6 @@ export interface QueryFanTokenRequest {
 /** QueryFanTokenRequest is request type for the Query/FanToken RPC method */
 
 export interface QueryFanTokenRequestSDKType {
-  /** QueryFanTokenRequest is request type for the Query/FanToken RPC method */
   denom: string;
 }
 /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
@@ -24,7 +23,6 @@ export interface QueryFanTokenResponse {
 /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
 
 export interface QueryFanTokenResponseSDKType {
-  /** QueryFanTokenResponse is response type for the Query/FanToken RPC method */
   fantoken?: FanTokenSDKType;
 }
 /** QueryFanTokensRequest is request type for the Query/FanTokens RPC method */
@@ -39,8 +37,6 @@ export interface QueryFanTokensRequest {
 
 export interface QueryFanTokensRequestSDKType {
   authority: string;
-  /** pagination defines an optional pagination for the request. */
-
   pagination?: PageRequestSDKType;
 }
 /** QueryFanTokensResponse is response type for the Query/FanTokens RPC method */

@@ -1,7 +1,7 @@
 import { AminoMsg } from "@cosmjs/amino";
 import { Long } from "../../../helpers";
 import { MsgIssue, MsgMint, MsgBurn, MsgDisableMint, MsgSetMinter, MsgSetAuthority, MsgSetUri } from "./tx";
-export interface AminoMsgIssue extends AminoMsg {
+export interface MsgIssueAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgIssue";
   value: {
     symbol: string;
@@ -12,7 +12,7 @@ export interface AminoMsgIssue extends AminoMsg {
     uri: string;
   };
 }
-export interface AminoMsgMint extends AminoMsg {
+export interface MsgMintAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgMint";
   value: {
     recipient: string;
@@ -23,7 +23,7 @@ export interface AminoMsgMint extends AminoMsg {
     minter: string;
   };
 }
-export interface AminoMsgBurn extends AminoMsg {
+export interface MsgBurnAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgBurn";
   value: {
     coin: {
@@ -33,14 +33,14 @@ export interface AminoMsgBurn extends AminoMsg {
     sender: string;
   };
 }
-export interface AminoMsgDisableMint extends AminoMsg {
+export interface MsgDisableMintAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgDisableMint";
   value: {
     denom: string;
     minter: string;
   };
 }
-export interface AminoMsgSetMinter extends AminoMsg {
+export interface MsgSetMinterAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgSetMinter";
   value: {
     denom: string;
@@ -48,7 +48,7 @@ export interface AminoMsgSetMinter extends AminoMsg {
     new_minter: string;
   };
 }
-export interface AminoMsgSetAuthority extends AminoMsg {
+export interface MsgSetAuthorityAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgSetAuthority";
   value: {
     denom: string;
@@ -56,7 +56,7 @@ export interface AminoMsgSetAuthority extends AminoMsg {
     new_authority: string;
   };
 }
-export interface AminoMsgSetUri extends AminoMsg {
+export interface MsgSetUriAminoType extends AminoMsg {
   type: "/bitsong.fantoken.v1beta1.MsgSetUri";
   value: {
     authority: string;
@@ -74,7 +74,7 @@ export const AminoConverter = {
       authority,
       minter,
       uri
-    }: MsgIssue): AminoMsgIssue["value"] => {
+    }: MsgIssue): MsgIssueAminoType["value"] => {
       return {
         symbol,
         name,
@@ -91,7 +91,7 @@ export const AminoConverter = {
       authority,
       minter,
       uri
-    }: AminoMsgIssue["value"]): MsgIssue => {
+    }: MsgIssueAminoType["value"]): MsgIssue => {
       return {
         symbol,
         name,
@@ -108,7 +108,7 @@ export const AminoConverter = {
       recipient,
       coin,
       minter
-    }: MsgMint): AminoMsgMint["value"] => {
+    }: MsgMint): MsgMintAminoType["value"] => {
       return {
         recipient,
         coin: {
@@ -122,7 +122,7 @@ export const AminoConverter = {
       recipient,
       coin,
       minter
-    }: AminoMsgMint["value"]): MsgMint => {
+    }: MsgMintAminoType["value"]): MsgMint => {
       return {
         recipient,
         coin: {
@@ -138,7 +138,7 @@ export const AminoConverter = {
     toAmino: ({
       coin,
       sender
-    }: MsgBurn): AminoMsgBurn["value"] => {
+    }: MsgBurn): MsgBurnAminoType["value"] => {
       return {
         coin: {
           denom: coin.denom,
@@ -150,7 +150,7 @@ export const AminoConverter = {
     fromAmino: ({
       coin,
       sender
-    }: AminoMsgBurn["value"]): MsgBurn => {
+    }: MsgBurnAminoType["value"]): MsgBurn => {
       return {
         coin: {
           denom: coin.denom,
@@ -165,7 +165,7 @@ export const AminoConverter = {
     toAmino: ({
       denom,
       minter
-    }: MsgDisableMint): AminoMsgDisableMint["value"] => {
+    }: MsgDisableMint): MsgDisableMintAminoType["value"] => {
       return {
         denom,
         minter
@@ -174,7 +174,7 @@ export const AminoConverter = {
     fromAmino: ({
       denom,
       minter
-    }: AminoMsgDisableMint["value"]): MsgDisableMint => {
+    }: MsgDisableMintAminoType["value"]): MsgDisableMint => {
       return {
         denom,
         minter
@@ -187,7 +187,7 @@ export const AminoConverter = {
       denom,
       oldMinter,
       newMinter
-    }: MsgSetMinter): AminoMsgSetMinter["value"] => {
+    }: MsgSetMinter): MsgSetMinterAminoType["value"] => {
       return {
         denom,
         old_minter: oldMinter,
@@ -198,7 +198,7 @@ export const AminoConverter = {
       denom,
       old_minter,
       new_minter
-    }: AminoMsgSetMinter["value"]): MsgSetMinter => {
+    }: MsgSetMinterAminoType["value"]): MsgSetMinter => {
       return {
         denom,
         oldMinter: old_minter,
@@ -212,7 +212,7 @@ export const AminoConverter = {
       denom,
       oldAuthority,
       newAuthority
-    }: MsgSetAuthority): AminoMsgSetAuthority["value"] => {
+    }: MsgSetAuthority): MsgSetAuthorityAminoType["value"] => {
       return {
         denom,
         old_authority: oldAuthority,
@@ -223,7 +223,7 @@ export const AminoConverter = {
       denom,
       old_authority,
       new_authority
-    }: AminoMsgSetAuthority["value"]): MsgSetAuthority => {
+    }: MsgSetAuthorityAminoType["value"]): MsgSetAuthority => {
       return {
         denom,
         oldAuthority: old_authority,
@@ -237,7 +237,7 @@ export const AminoConverter = {
       authority,
       denom,
       uri
-    }: MsgSetUri): AminoMsgSetUri["value"] => {
+    }: MsgSetUri): MsgSetUriAminoType["value"] => {
       return {
         authority,
         denom,
@@ -248,7 +248,7 @@ export const AminoConverter = {
       authority,
       denom,
       uri
-    }: AminoMsgSetUri["value"]): MsgSetUri => {
+    }: MsgSetUriAminoType["value"]): MsgSetUri => {
       return {
         authority,
         denom,

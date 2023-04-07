@@ -14,19 +14,7 @@ export enum Type {
   TYPE_EXECUTE_TX = 1,
   UNRECOGNIZED = -1,
 }
-/**
- * Type defines a classification of message issued from a controller chain to its associated interchain accounts
- * host
- */
-
-export enum TypeSDKType {
-  /** TYPE_UNSPECIFIED - Default zero value enumeration */
-  TYPE_UNSPECIFIED = 0,
-
-  /** TYPE_EXECUTE_TX - Execute a transaction on an interchain accounts host chain */
-  TYPE_EXECUTE_TX = 1,
-  UNRECOGNIZED = -1,
-}
+export const TypeSDKType = Type;
 export function typeFromJSON(object: any): Type {
   switch (object) {
     case 0:
@@ -66,7 +54,7 @@ export interface InterchainAccountPacketData {
 /** InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field. */
 
 export interface InterchainAccountPacketDataSDKType {
-  type: TypeSDKType;
+  type: Type;
   data: Uint8Array;
   memo: string;
 }
