@@ -53,6 +53,10 @@ telescope({
           name: 'bs721-base',
           dir: join(__dirname, '../contracts/bs721-base/'),
         },
+        {
+          name: 'launchpad-fixed',
+          dir: join(__dirname, '../contracts/launchpad-fixed/'),
+        },
       ],
       outPath: join(__dirname, '../src/codegen'),
       options: {

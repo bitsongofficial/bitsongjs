@@ -6,8 +6,13 @@
 
 import * as _0 from "./Bs721Base.types";
 import * as _1 from "./Bs721Base.client";
+import * as _2 from "./LaunchpadFixed.types";
+import * as _3 from "./LaunchpadFixed.client";
 export namespace contracts {
   export const Bs721Base = { ..._0,
     ..._1
+  };
+  export const LaunchpadFixed = { ..._2,
+    ..._3
   };
 }
