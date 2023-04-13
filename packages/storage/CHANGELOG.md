@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.1.0-beta.5 (2023-04-13)
+
+
+### Features
+
+* add contracts and storage package ([8ee6e40](https://github.com/bitsongofficial/bitsongjs/commit/8ee6e40e2be86e8840759ab47b9be68dfb8787ad))
+
+
+
+
+
 # [2.1.0-beta.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.3...@bitsongjs/storage@2.1.0-beta.4) (2022-11-28)
 
 
