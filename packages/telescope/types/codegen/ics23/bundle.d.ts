@@ -5,9 +5,9 @@ export declare const ics23: {
     lengthOpFromJSON(object: any): _7.LengthOp;
     lengthOpToJSON(object: _7.LengthOp): string;
     HashOp: typeof _7.HashOp;
-    HashOpSDKType: typeof _7.HashOpSDKType;
+    HashOpSDKType: typeof _7.HashOp;
     LengthOp: typeof _7.LengthOp;
-    LengthOpSDKType: typeof _7.LengthOpSDKType;
+    LengthOpSDKType: typeof _7.LengthOp;
     ExistenceProof: {
         encode(message: _7.ExistenceProof, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
         decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _7.ExistenceProof;

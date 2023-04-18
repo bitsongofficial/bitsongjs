@@ -14,7 +14,6 @@ export interface GenericAuthorization {
  * the provided method on behalf of the granter's account.
  */
 export interface GenericAuthorizationSDKType {
-    /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
     msg: string;
 }
 /**

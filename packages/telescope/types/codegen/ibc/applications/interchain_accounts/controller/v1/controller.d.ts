@@ -13,7 +13,6 @@ export interface Params {
  * The following parameters may be used to disable the controller submodule.
  */
 export interface ParamsSDKType {
-    /** controller_enabled enables or disables the controller submodule. */
     controller_enabled: boolean;
 }
 export declare const Params: {

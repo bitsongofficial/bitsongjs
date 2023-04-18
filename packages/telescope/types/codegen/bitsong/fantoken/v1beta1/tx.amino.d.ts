@@ -1,6 +1,6 @@
 import { AminoMsg } from "@cosmjs/amino";
 import { MsgIssue, MsgMint, MsgBurn, MsgDisableMint, MsgSetMinter, MsgSetAuthority, MsgSetUri } from "./tx";
-export interface AminoMsgIssue extends AminoMsg {
+export interface MsgIssueAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgIssue";
     value: {
         symbol: string;
@@ -11,7 +11,7 @@ export interface AminoMsgIssue extends AminoMsg {
         uri: string;
     };
 }
-export interface AminoMsgMint extends AminoMsg {
+export interface MsgMintAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgMint";
     value: {
         recipient: string;
@@ -22,7 +22,7 @@ export interface AminoMsgMint extends AminoMsg {
         minter: string;
     };
 }
-export interface AminoMsgBurn extends AminoMsg {
+export interface MsgBurnAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgBurn";
     value: {
         coin: {
@@ -32,14 +32,14 @@ export interface AminoMsgBurn extends AminoMsg {
         sender: string;
     };
 }
-export interface AminoMsgDisableMint extends AminoMsg {
+export interface MsgDisableMintAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgDisableMint";
     value: {
         denom: string;
         minter: string;
     };
 }
-export interface AminoMsgSetMinter extends AminoMsg {
+export interface MsgSetMinterAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgSetMinter";
     value: {
         denom: string;
@@ -47,7 +47,7 @@ export interface AminoMsgSetMinter extends AminoMsg {
         new_minter: string;
     };
 }
-export interface AminoMsgSetAuthority extends AminoMsg {
+export interface MsgSetAuthorityAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgSetAuthority";
     value: {
         denom: string;
@@ -55,7 +55,7 @@ export interface AminoMsgSetAuthority extends AminoMsg {
         new_authority: string;
     };
 }
-export interface AminoMsgSetUri extends AminoMsg {
+export interface MsgSetUriAminoType extends AminoMsg {
     type: "/bitsong.fantoken.v1beta1.MsgSetUri";
     value: {
         authority: string;
@@ -66,37 +66,37 @@ export interface AminoMsgSetUri extends AminoMsg {
 export declare const AminoConverter: {
     "/bitsong.fantoken.v1beta1.MsgIssue": {
         aminoType: string;
-        toAmino: ({ symbol, name, maxSupply, authority, minter, uri }: MsgIssue) => AminoMsgIssue["value"];
-        fromAmino: ({ symbol, name, max_supply, authority, minter, uri }: AminoMsgIssue["value"]) => MsgIssue;
+        toAmino: ({ symbol, name, maxSupply, authority, minter, uri }: MsgIssue) => MsgIssueAminoType["value"];
+        fromAmino: ({ symbol, name, max_supply, authority, minter, uri }: MsgIssueAminoType["value"]) => MsgIssue;
     };
     "/bitsong.fantoken.v1beta1.MsgMint": {
         aminoType: string;
-        toAmino: ({ recipient, coin, minter }: MsgMint) => AminoMsgMint["value"];
-        fromAmino: ({ recipient, coin, minter }: AminoMsgMint["value"]) => MsgMint;
+        toAmino: ({ recipient, coin, minter }: MsgMint) => MsgMintAminoType["value"];
+        fromAmino: ({ recipient, coin, minter }: MsgMintAminoType["value"]) => MsgMint;
     };
     "/bitsong.fantoken.v1beta1.MsgBurn": {
         aminoType: string;
-        toAmino: ({ coin, sender }: MsgBurn) => AminoMsgBurn["value"];
-        fromAmino: ({ coin, sender }: AminoMsgBurn["value"]) => MsgBurn;
+        toAmino: ({ coin, sender }: MsgBurn) => MsgBurnAminoType["value"];
+        fromAmino: ({ coin, sender }: MsgBurnAminoType["value"]) => MsgBurn;
     };
     "/bitsong.fantoken.v1beta1.MsgDisableMint": {
         aminoType: string;
-        toAmino: ({ denom, minter }: MsgDisableMint) => AminoMsgDisableMint["value"];
-        fromAmino: ({ denom, minter }: AminoMsgDisableMint["value"]) => MsgDisableMint;
+        toAmino: ({ denom, minter }: MsgDisableMint) => MsgDisableMintAminoType["value"];
+        fromAmino: ({ denom, minter }: MsgDisableMintAminoType["value"]) => MsgDisableMint;
     };
     "/bitsong.fantoken.v1beta1.MsgSetMinter": {
         aminoType: string;
-        toAmino: ({ denom, oldMinter, newMinter }: MsgSetMinter) => AminoMsgSetMinter["value"];
-        fromAmino: ({ denom, old_minter, new_minter }: AminoMsgSetMinter["value"]) => MsgSetMinter;
+        toAmino: ({ denom, oldMinter, newMinter }: MsgSetMinter) => MsgSetMinterAminoType["value"];
+        fromAmino: ({ denom, old_minter, new_minter }: MsgSetMinterAminoType["value"]) => MsgSetMinter;
     };
     "/bitsong.fantoken.v1beta1.MsgSetAuthority": {
         aminoType: string;
-        toAmino: ({ denom, oldAuthority, newAuthority }: MsgSetAuthority) => AminoMsgSetAuthority["value"];
-        fromAmino: ({ denom, old_authority, new_authority }: AminoMsgSetAuthority["value"]) => MsgSetAuthority;
+        toAmino: ({ denom, oldAuthority, newAuthority }: MsgSetAuthority) => MsgSetAuthorityAminoType["value"];
+        fromAmino: ({ denom, old_authority, new_authority }: MsgSetAuthorityAminoType["value"]) => MsgSetAuthority;
     };
     "/bitsong.fantoken.v1beta1.MsgSetUri": {
         aminoType: string;
-        toAmino: ({ authority, denom, uri }: MsgSetUri) => AminoMsgSetUri["value"];
-        fromAmino: ({ authority, denom, uri }: AminoMsgSetUri["value"]) => MsgSetUri;
+        toAmino: ({ authority, denom, uri }: MsgSetUri) => MsgSetUriAminoType["value"];
+        fromAmino: ({ authority, denom, uri }: MsgSetUriAminoType["value"]) => MsgSetUri;
     };
 };

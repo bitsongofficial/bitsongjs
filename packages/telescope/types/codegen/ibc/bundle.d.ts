@@ -110,7 +110,7 @@ export declare namespace ibc {
                 typeFromJSON(object: any): _67.Type;
                 typeToJSON(object: _67.Type): string;
                 Type: typeof _67.Type;
-                TypeSDKType: typeof _67.TypeSDKType;
+                TypeSDKType: typeof _67.Type;
                 InterchainAccountPacketData: {
                     encode(message: _67.InterchainAccountPacketData, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _67.InterchainAccountPacketData;
@@ -740,7 +740,7 @@ export declare namespace ibc {
                 responseResultTypeFromJSON(object: any): _76.ResponseResultType;
                 responseResultTypeToJSON(object: _76.ResponseResultType): string;
                 ResponseResultType: typeof _76.ResponseResultType;
-                ResponseResultTypeSDKType: typeof _76.ResponseResultTypeSDKType;
+                ResponseResultTypeSDKType: typeof _76.ResponseResultType;
                 MsgChannelOpenInit: {
                     encode(message: _76.MsgChannelOpenInit, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _76.MsgChannelOpenInit;
@@ -986,9 +986,9 @@ export declare namespace ibc {
                 orderFromJSON(object: any): _73.Order;
                 orderToJSON(object: _73.Order): string;
                 State: typeof _73.State;
-                StateSDKType: typeof _73.StateSDKType;
+                StateSDKType: typeof _73.State;
                 Order: typeof _73.Order;
-                OrderSDKType: typeof _73.OrderSDKType;
+                OrderSDKType: typeof _73.Order;
                 Channel: {
                     encode(message: _73.Channel, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _73.Channel;
@@ -1711,7 +1711,7 @@ export declare namespace ibc {
                 stateFromJSON(object: any): _82.State;
                 stateToJSON(object: _82.State): string;
                 State: typeof _82.State;
-                StateSDKType: typeof _82.StateSDKType;
+                StateSDKType: typeof _82.State;
                 ConnectionEnd: {
                     encode(message: _82.ConnectionEnd, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _82.ConnectionEnd;
@@ -1765,7 +1765,7 @@ export declare namespace ibc {
                 dataTypeFromJSON(object: any): _87.DataType;
                 dataTypeToJSON(object: _87.DataType): string;
                 DataType: typeof _87.DataType;
-                DataTypeSDKType: typeof _87.DataTypeSDKType;
+                DataTypeSDKType: typeof _87.DataType;
                 ClientState: {
                     encode(message: _87.ClientState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _87.ClientState;
@@ -1851,7 +1851,7 @@ export declare namespace ibc {
                 dataTypeFromJSON(object: any): _88.DataType;
                 dataTypeToJSON(object: _88.DataType): string;
                 DataType: typeof _88.DataType;
-                DataTypeSDKType: typeof _88.DataTypeSDKType;
+                DataTypeSDKType: typeof _88.DataType;
                 ClientState: {
                     encode(message: _88.ClientState, writer?: import("protobufjs").Writer): import("protobufjs").Writer;
                     decode(input: Uint8Array | import("protobufjs").Reader, length?: number): _88.ClientState;

@@ -14,16 +14,9 @@ export interface Metadata {
     authority: string;
 }
 export interface MetadataSDKType {
-    /** name defines the name of the fantoken (eg: Kitty Punk) */
     name: string;
-    /** symbol is the token symbol usually shown on exchanges (eg: KITTY) */
     symbol: string;
-    /**
-     * URI to a document (on or off-chain) that contains additional
-     * information.Optional.
-     */
     uri: string;
-    /** sdk.AccAddress allowed to set a new uri */
     authority: string;
 }
 /** FanToken defines a standard for the fungible token */
@@ -37,10 +30,8 @@ export interface FanToken {
 }
 /** FanToken defines a standard for the fungible token */
 export interface FanTokenSDKType {
-    /** denom represents the string name of the given denom unit (e.g ft<hash>). */
     denom: string;
     max_supply: string;
-    /** sdk.AccAddress allowed to mint new fantoken */
     minter: string;
     meta_data?: MetadataSDKType;
 }

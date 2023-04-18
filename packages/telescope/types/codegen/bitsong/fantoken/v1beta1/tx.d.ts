@@ -18,17 +18,11 @@ export interface MsgIssue {
 }
 /** MsgIssue defines a message for issuing a new fan token */
 export interface MsgIssueSDKType {
-    /** symbol which corresponds to the symbol of the fan token. It is a string and cannot change for the whole life of the fan token */
     symbol: string;
-    /** name which corresponds to the name of the fan token. It is a string and cannot change for the whole life of the fan token */
     name: string;
-    /** max_supply that represents the maximum number of possible mintable tokens. It is an integer number, expressed in micro unit 10^6 */
     max_supply: string;
-    /** authority which is who can set a new uri metadata */
     authority: string;
-    /** minter who is who can mint new fantoken and disable the minter process, the minter key also pay the gas fee */
     minter: string;
-    /** URI which is the current uri of the fan token. It is a string can change during the fan token lifecycle thanks to the MsgEdit */
     uri: string;
 }
 /** MsgIssueResponse defines the MsgIssue response type */
@@ -63,7 +57,6 @@ export interface MsgMint {
 /** MsgMint defines a message for minting a new fan token */
 export interface MsgMintSDKType {
     recipient: string;
-    /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
     coin?: CoinSDKType;
     minter: string;
 }
@@ -81,7 +74,6 @@ export interface MsgBurn {
 }
 /** MsgBurn defines a message for burning some fan tokens */
 export interface MsgBurnSDKType {
-    /** coin mean the amount + denom, eg: 10000ftFADJID34MCDM */
     coin?: CoinSDKType;
     sender: string;
 }
@@ -102,11 +94,8 @@ export interface MsgSetMinter {
 }
 /** MsgSetMinter defines a message for changing the fan token minter address */
 export interface MsgSetMinterSDKType {
-    /** denom the fan token denom */
     denom: string;
-    /** old_minter, the actual minter */
     old_minter: string;
-    /** new_minter, the new fan token minter */
     new_minter: string;
 }
 /** MsgSetMinterResponse defines the MsgTransferAuthority response type */
@@ -126,11 +115,8 @@ export interface MsgSetAuthority {
 }
 /** MsgSetAuthority defines a message for changing the fan token minter address */
 export interface MsgSetAuthoritySDKType {
-    /** denom the fan token denom */
     denom: string;
-    /** old_authority, the actual metadata authority */
     old_authority: string;
-    /** new_authority, the new fan token metadata authority */
     new_authority: string;
 }
 /** MsgSetAuthorityResponse defines the MsgTransferAuthority response type */
