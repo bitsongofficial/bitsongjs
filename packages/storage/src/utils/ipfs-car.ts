@@ -68,8 +68,8 @@ export const toImportCandidate = (
 	blob:
 		| Pick<Blob, 'stream'>
 		| {
-				stream: () => AsyncIterable<Uint8Array>;
-		  },
+			stream: () => AsyncIterable<Uint8Array>;
+		},
 ) => {
 	return {
 		path,

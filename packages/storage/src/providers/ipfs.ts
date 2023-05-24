@@ -1,42 +1,54 @@
 import { create, IPFSHTTPClient } from 'ipfs-http-client';
-import { Block } from '@ipld/car/api';
+import { pack } from 'ipfs-car/pack'
 import { StorageProvider, FileObject } from '../types';
-import { filesToCar, validateUploadPayload } from '../utils';
+import { MemoryBlockStore } from 'ipfs-car/blockstore/memory';
+import all from '../utils/all';
+
+function toImportCandidate(file: { name: any; stream: () => any; }) {
+	/** @type {ReadableStream} */
+	let stream: any
+	return {
+		path: file.name,
+		get content() {
+			stream = stream || file.stream()
+			return stream
+		}
+	}
+}
 
 export class IPFSStorageProvider implements StorageProvider {
 	client: IPFSHTTPClient;
 
-	constructor(url: string) {
-		this.client = create({ url });
+	constructor(url: string, apikey?: string) {
+		this.client = create({
+			url,
+			headers: apikey ? { apikey, 'Authorization': `Bearer ${apikey}` } : {},
+		});
 	}
 
 	async uploadAll(files: FileObject[]): Promise<string> {
-		const data = await filesToCar(files);
+		try {
+			const blockstore = new MemoryBlockStore();
 
-		console.log(data);
+			const { out, root } = await pack({
+				input: Array.from(files).map(toImportCandidate),
+				blockstore,
+				wrapWithDirectory: true,
+				maxChunkSize: 1048576,
+				maxChildrenPerNode: 1024
+			});
 
-		/* console.log('Block: ', data.carOut.blockstore);
+			await all(this.client.dag.import(out, { pinRoots: true }))
 
-		const carParts: Block[] = [];
-
-		console.log(data.output);
-
-		for await (const part of data.carOut.blocks()) {
-			carParts.push(part);
+			return root.toV1().toString();
+		} catch (e) {
+			throw e;
 		}
-
-		console.log(carParts);
-
-		const response = await this.client.add(carParts);
-
-		console.log(response); */
-
-		return data.cidString;
 	}
 
 	async upload(file: FileObject): Promise<string> {
 		const data = await this.client.add(file)
 
-		return data.cid.toString();
+		return data.cid.toV1().toString();
 	}
 }
