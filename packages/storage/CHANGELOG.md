@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.7](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.4...@bitsongjs/storage@2.1.0-beta.7) (2023-05-24)
+
+
+### Features
+
+* imporve ipfs.uploadAll, upload a car file ([a70d63e](https://github.com/bitsongofficial/bitsongjs/commit/a70d63e709458e83af602065af932859d75295a7))
+
+
+
+
+
 # [2.1.0-beta.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.4...@bitsongjs/storage@2.1.0-beta.5) (2023-05-24)
 
 
