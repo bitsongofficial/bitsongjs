@@ -1,2 +1,2 @@
 export * from './validation';
-export * from './ipfs-car';
+export * from './file'

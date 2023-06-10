@@ -1,5 +1,4 @@
 import { StorageProvider, FileObject } from '../types';
-import { filesToCar, validateUploadPayload } from '../utils';
 import Bundlr from '@bundlr-network/client';
 
 export class IPFSStorageProvider implements StorageProvider {
