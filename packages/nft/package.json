@@ -1,6 +1,6 @@
 {
 	"name": "@bitsongjs/nft",
-	"version": "2.1.0-beta.12",
+	"version": "2.1.0-beta.13",
 	"author": "Davide Segullo <davidesegullo@users.noreply.github.com>",
 	"description": "A Javascript library for NFT metadata validation and creation, based on BitSong Blockchain.",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"@bitsongjs/storage": "^2.1.0-beta.7",
+		"@bitsongjs/storage": "^2.1.0-beta.8",
 		"ajv": "^8.11.0",
 		"files-from-path": "^0.2.6",
 		"zod": "^3.19.1"
