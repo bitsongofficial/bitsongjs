@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.9](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.8...@bitsongjs/storage@2.1.0-beta.9) (2023-06-16)
+
+
+### Bug Fixes
+
+* :wrench: fix commonjs build ext ([720404a](https://github.com/bitsongofficial/bitsongjs/commit/720404ab6a1089a45fa1ac522a87cb09836094a0))
+
+
+### Features
+
+* :sparkles: add polyfill for cross compatibility ([389eae7](https://github.com/bitsongofficial/bitsongjs/commit/389eae78cb211f45898649fe622eb330398074da))
+* :sparkles: add rollup build for storage package ([373edf9](https://github.com/bitsongofficial/bitsongjs/commit/373edf916228be143484784ade65288e5a326471))
+
+
+
+
+
 # [2.1.0-beta.8](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.7...@bitsongjs/storage@2.1.0-beta.8) (2023-06-10)
 
 **Note:** Version bump only for package @bitsongjs/storage
