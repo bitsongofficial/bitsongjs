@@ -1125,7 +1125,7 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bitsongjs/client@file:/Volumes/Data/Lavoro/Nabla/bitsongjs/packages/client":
+"@bitsongjs/client@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/client":
   version "2.4.0-beta.10"
   resolved "file:packages/client"
   dependencies:
@@ -1137,14 +1137,14 @@
     cosmjs-types "^0.5.2"
     rxjs "^7.5.6"
 
-"@bitsongjs/contracts@^2.1.0-beta.2", "@bitsongjs/contracts@file:/Volumes/Data/Lavoro/Nabla/bitsongjs/packages/contracts":
+"@bitsongjs/contracts@^2.1.0-beta.2", "@bitsongjs/contracts@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/contracts":
   version "2.1.0-beta.2"
   resolved "file:packages/contracts"
   dependencies:
     "@cosmwasm/ts-codegen" "^0.20.0"
     cosmwasm "^1.1.1"
 
-"@bitsongjs/nft@file:/Volumes/Data/Lavoro/Nabla/bitsongjs/packages/nft":
+"@bitsongjs/nft@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/nft":
   version "2.1.0-beta.13"
   resolved "file:packages/nft"
   dependencies:
@@ -1153,7 +1153,7 @@
     files-from-path "^0.2.6"
     zod "^3.19.1"
 
-"@bitsongjs/storage@^2.1.0-beta.8", "@bitsongjs/storage@file:/Volumes/Data/Lavoro/Nabla/bitsongjs/packages/storage":
+"@bitsongjs/storage@^2.1.0-beta.8", "@bitsongjs/storage@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/storage":
   version "2.1.0-beta.8"
   resolved "file:packages/storage"
   dependencies:
@@ -1169,7 +1169,7 @@
     node-fetch "^3.2.10"
     undici "^5.12.0"
 
-"@bitsongjs/utils@*", "@bitsongjs/utils@file:/Volumes/Data/Lavoro/Nabla/bitsongjs/packages/utils":
+"@bitsongjs/utils@*", "@bitsongjs/utils@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/utils":
   version "2.1.1-beta.1"
   resolved "file:packages/utils"
   dependencies:
@@ -3590,7 +3590,7 @@
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.7", "@types/babel__core@^7.1.9":
+"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.7":
   version "7.1.19"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.1.19.tgz"
   integrity sha512-WEOTgRsbYkvA/KCsDwVEGkd7WAr1e3g31VHQ8zy5gul/V1qKullU/BU5I68X5v7V3GnB9eotmom4v5a5gjxorw==
@@ -6677,11 +6677,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.1.2, fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
   version "1.1.1"
