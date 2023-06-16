@@ -1,5 +1,9 @@
 {
 	"compilerOptions": {
+    "declarationDir": "types",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDeclarationOnly": true,
 		"declaration": true,
 		"esModuleInterop": true,
 		"allowJs": true,
