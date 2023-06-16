@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import json from '@rollup/plugin-json';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 export default [
 	{
@@ -20,12 +21,10 @@ export default [
 			},
 		],
 		plugins: [
-			resolve({
-				preferBuiltins: true,
-				mainFields: ['browser'],
-			}),
-			commonjs(),
 			typescript({ tsconfig: './tsconfig.json' }),
+			nodePolyfills(),
+			/* resolve(), */
+			commonjs(),
 			json(),
 		],
 	},
