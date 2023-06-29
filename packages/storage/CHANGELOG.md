@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.12](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.11...@bitsongjs/storage@2.1.0-beta.12) (2023-06-29)
+
+**Note:** Version bump only for package @bitsongjs/storage
+
+
+
+
+
 # [2.1.0-beta.11](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.10...@bitsongjs/storage@2.1.0-beta.11) (2023-06-29)
 
 **Note:** Version bump only for package @bitsongjs/storage
