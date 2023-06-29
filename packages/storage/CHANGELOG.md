@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.10](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.9...@bitsongjs/storage@2.1.0-beta.10) (2023-06-29)
+
+
+### Features
+
+* add ipfs upload single ([14f389f](https://github.com/bitsongofficial/bitsongjs/commit/14f389f355dec246a96c0d4cf0205ee3bce1462e))
+
+
+
+
+
 # [2.1.0-beta.9](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/storage@2.1.0-beta.8...@bitsongjs/storage@2.1.0-beta.9) (2023-06-16)
 
 
