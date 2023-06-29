@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-beta.18](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.17...@bitsongjs/nft@2.1.0-beta.18) (2023-06-29)
+
+**Note:** Version bump only for package @bitsongjs/nft
+
+
+
+
+
 # [2.1.0-beta.17](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/nft@2.1.0-beta.16...@bitsongjs/nft@2.1.0-beta.17) (2023-06-29)
 
 **Note:** Version bump only for package @bitsongjs/nft
