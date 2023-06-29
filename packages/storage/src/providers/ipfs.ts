@@ -93,6 +93,29 @@ export class IPFSStorageProvider implements StorageProvider {
 	}
 
 	async upload(file: File): Promise<string> {
-		throw new Error('Method not implemented.');
+		const formdata = new FormData()
+		formdata.append('path', file)
+
+		let response
+		try {
+			response = await fetch(this.url + '/api/v0/add?pin=true', {
+				method: 'POST',
+				headers: this.headers,
+				body: formdata,
+			})
+		} catch (/** @type {any} */ err) {
+			if (err instanceof Error) {
+				throw err
+			} else {
+				throw new Error(err as string)
+			}
+		}
+
+		/* c8 ignore next 3 */
+		if (response.status === 429) {
+			throw new Error('rate limited')
+		}
+
+		return (await response.json()).Hash
 	}
 }

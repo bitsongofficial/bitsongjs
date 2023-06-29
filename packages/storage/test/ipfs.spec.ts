@@ -1,4 +1,4 @@
-import { IPFSStorageProvider } from '../dist';
+import { IPFSStorageProvider } from '../src/providers/ipfs';
 import { getFilesFromPath } from 'files-from-path';
 import path from 'path';
 import { ipfsApiKey, ipfsUrl } from './config';
@@ -26,6 +26,6 @@ describe('IPFS tests', () => {
 
 		const cid = await provider.upload(filePath as any);
 		expect(cid).toBeTruthy();
-		expect(cid).toEqual('bafybeibzn7gp3hdvb7axstwtsvnkpwgfm67bhchcbihwkbkccqnks4xjxe');
+		expect(cid).toEqual('QmSCrpq5xRUs694UM3XWjGZv7QNR5272NhE4tvLKKexsCC');
 	}, 10000);
 });
