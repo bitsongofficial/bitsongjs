@@ -46,16 +46,12 @@
 		"test": "tsc && jest ./test/ipfs.spec.ts --verbose"
 	},
 	"dependencies": {
-		"@bundlr-network/client": "^0.9.0",
 		"@ipld/car": "^4.1.5",
 		"@web-std/file": "^3.0.2",
 		"axios": "^0.27.2",
-		"cids": "^1.1.9",
 		"dotenv": "^16.0.2",
 		"files-from-path": "^0.2.6",
 		"ipfs-car": "^0.8.1",
-		"nft.storage": "^7.0.0",
-		"node-fetch": "^3.2.10",
-		"undici": "^5.12.0"
+		"node-fetch": "^3.2.10"
 	}
 }
