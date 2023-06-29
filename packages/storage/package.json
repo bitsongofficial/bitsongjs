@@ -49,6 +49,7 @@
 		"@ipld/car": "^4.1.5",
 		"@web-std/file": "^3.0.2",
 		"axios": "^0.27.2",
+		"carbites": "^1.0.6",
 		"dotenv": "^16.0.2",
 		"files-from-path": "^0.2.6",
 		"ipfs-car": "^0.8.1",

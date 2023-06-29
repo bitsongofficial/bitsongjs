@@ -1145,21 +1145,22 @@
     cosmwasm "^1.1.1"
 
 "@bitsongjs/nft@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/nft":
-  version "2.1.0-beta.16"
+  version "2.1.0-beta.18"
   resolved "file:packages/nft"
   dependencies:
-    "@bitsongjs/storage" "^2.1.0-beta.11"
+    "@bitsongjs/storage" "^2.1.0-beta.13"
     ajv "^8.11.0"
     files-from-path "^0.2.6"
     zod "^3.19.1"
 
-"@bitsongjs/storage@^2.1.0-beta.11", "@bitsongjs/storage@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/storage":
-  version "2.1.0-beta.11"
+"@bitsongjs/storage@^2.1.0-beta.13", "@bitsongjs/storage@file:/home/angelo/Progetti/BitSong/bitsongjs/packages/storage":
+  version "2.1.0-beta.13"
   resolved "file:packages/storage"
   dependencies:
     "@ipld/car" "^4.1.5"
     "@web-std/file" "^3.0.2"
     axios "^0.27.2"
+    carbites "^1.0.6"
     dotenv "^16.0.2"
     files-from-path "^0.2.6"
     ipfs-car "^0.8.1"

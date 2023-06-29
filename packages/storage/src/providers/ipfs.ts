@@ -1,7 +1,6 @@
 import { pack } from 'ipfs-car/pack'
-import { File } from '@web-std/file'
 import { CarReader } from '@ipld/car'
-import { StorageProvider, FileObject } from '../types';
+import { StorageProvider } from '../types';
 import { FsBlockStore as Blockstore } from 'ipfs-car/blockstore/fs';
 import { TreewalkCarSplitter } from 'carbites/treewalk'
 import { transform } from 'streaming-iterables'
