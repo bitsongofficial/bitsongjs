@@ -53,5 +53,6 @@
 		"files-from-path": "^0.2.6",
 		"ipfs-car": "^0.8.1",
 		"node-fetch": "^3.2.10"
-	}
+	},
+	"gitHead": "af5c988c076c3ed73892d6e5f9f9137054a7c5e9"
 }
