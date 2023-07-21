@@ -5,78 +5,171 @@
   "instantiate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "InstantiateMsg",
+    "description": "Structure required by the launchparty-fixed contract during its instantiation.",
     "type": "object",
     "required": [
       "base_token_uri",
+      "bs721_base_code_id",
+      "bs721_royalties_code_id",
       "collection_uri",
       "contributors",
-      "creator",
-      "max_editions",
       "name",
+      "party_type",
       "price",
+      "referral_fee_bps",
       "seller_fee_bps",
       "start_time",
       "symbol"
     ],
     "properties": {
       "base_token_uri": {
+        "description": "BS721 token uri.",
         "type": "string"
       },
+      "bs721_base_code_id": {
+        "description": "Code id used to instantiate a bs721 token contract.",
+        "type": "integer",
+        "format": "uint64",
+        "minimum": 0.0
+      },
+      "bs721_royalties_code_id": {
+        "description": "Code id used to instantiate bs721 royalties contract. The address of this contract will be used as the payment address for the NFT mint.",
+        "type": "integer",
+        "format": "uint64",
+        "minimum": 0.0
+      },
       "collection_uri": {
+        "description": "BS721 collection uri.",
         "type": "string"
       },
       "contributors": {
+        "description": "Contributors to the collection.",
         "type": "array",
         "items": {
-          "$ref": "#/definitions/Contributor"
+          "$ref": "#/definitions/ContributorMsg"
         }
       },
       "creator": {
-        "$ref": "#/definitions/Addr"
+        "description": "Creator of the collection. If not provided it will be the sender.",
+        "type": ["string", "null"]
       },
-      "max_editions": {
-        "type": "integer",
-        "format": "uint32",
+      "max_per_address": {
+        "description": "Maximum amount of tokens an address can mint.",
+        "type": ["integer", "null"],
+        "format": "uint16",
         "minimum": 0.0
       },
       "name": {
+        "description": "BS721 token name.",
         "type": "string"
       },
+      "party_type": {
+        "description": "End condition of the collection launchparty.",
+        "allOf": [
+          {
+            "$ref": "#/definitions/PartyType"
+          }
+        ]
+      },
       "price": {
-        "$ref": "#/definitions/Uint128"
+        "description": "Price of single nft minting.",
+        "allOf": [
+          {
+            "$ref": "#/definitions/Coin"
+          }
+        ]
+      },
+      "referral_fee_bps": {
+        "description": "Basis per point of the `price` sent to the referred address during mint. This payment is sent one-off.",
+        "type": "integer",
+        "format": "uint16",
+        "minimum": 0.0
       },
       "seller_fee_bps": {
+        "description": "Basis per point of the `price` sent to the referred address during mint. This payment is sent one-off.",
         "type": "integer",
         "format": "uint16",
         "minimum": 0.0
       },
       "start_time": {
-        "$ref": "#/definitions/Timestamp"
+        "description": "Start time of the launchparty.",
+        "allOf": [
+          {
+            "$ref": "#/definitions/Timestamp"
+          }
+        ]
       },
       "symbol": {
+        "description": "BS721 token symbol.",
         "type": "string"
       }
     },
     "additionalProperties": false,
     "definitions": {
-      "Addr": {
-        "description": "A human readable address.\n\nIn Cosmos, this is typically bech32 encoded. But for multi-chain smart contracts no assumptions should be made other than being UTF-8 encoded and of reasonable length.\n\nThis type represents a validated address. It can be created in the following ways 1. Use `Addr::unchecked(input)` 2. Use `let checked: Addr = deps.api.addr_validate(input)?` 3. Use `let checked: Addr = deps.api.addr_humanize(canonical_addr)?` 4. Deserialize from JSON. This must only be done from JSON that was validated before such as a contract's state. `Addr` must not be used in messages sent by the user because this would result in unvalidated instances.\n\nThis type is immutable. If you really need to mutate it (Really? Are you sure?), create a mutable copy using `let mut mutable = Addr::to_string()` and operate on that `String` instance.",
-        "type": "string"
-      },
-      "Contributor": {
+      "Coin": {
         "type": "object",
-        "required": ["addr", "weight"],
+        "required": ["amount", "denom"],
         "properties": {
-          "addr": {
+          "amount": {
+            "$ref": "#/definitions/Uint128"
+          },
+          "denom": {
+            "type": "string"
+          }
+        }
+      },
+      "ContributorMsg": {
+        "description": "Represents a contributor to the collection.",
+        "type": "object",
+        "required": ["address", "role", "shares"],
+        "properties": {
+          "address": {
+            "description": "Contributor's address.",
             "type": "string"
           },
-          "weight": {
+          "role": {
+            "description": "Contributor's role",
+            "type": "string"
+          },
+          "shares": {
+            "description": "Amount of share associated to the contributor.",
             "type": "integer",
-            "format": "uint64",
+            "format": "uint32",
             "minimum": 0.0
           }
         },
         "additionalProperties": false
+      },
+      "PartyType": {
+        "description": "Possible launchparty type. Each type defines how the party end.",
+        "oneOf": [
+          {
+            "description": "Maximum number of mintable tokens.",
+            "type": "object",
+            "required": ["max_edition"],
+            "properties": {
+              "max_edition": {
+                "type": "integer",
+                "format": "uint32",
+                "minimum": 0.0
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "description": "Number of blocks for which tokens are mintable.",
+            "type": "object",
+            "required": ["duration"],
+            "properties": {
+              "duration": {
+                "type": "integer",
+                "format": "uint32",
+                "minimum": 0.0
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
       },
       "Timestamp": {
         "description": "A point in time in nanosecond precision.\n\nThis type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.\n\n## Examples\n\n``` # use cosmwasm_std::Timestamp; let ts = Timestamp::from_nanos(1_000_000_202); assert_eq!(ts.nanos(), 1_000_000_202); assert_eq!(ts.seconds(), 1); assert_eq!(ts.subsec_nanos(), 202);\n\nlet ts = ts.plus_seconds(2); assert_eq!(ts.nanos(), 3_000_000_202); assert_eq!(ts.seconds(), 3); assert_eq!(ts.subsec_nanos(), 202); ```",
@@ -99,13 +192,28 @@
   "execute": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ExecuteMsg",
+    "description": "Possible state-changing messages that the launchparty-fixed contract can handle.",
     "oneOf": [
       {
+        "description": "Allows to mint a bs721 token and, optionally, to refer an address.",
         "type": "object",
         "required": ["mint"],
         "properties": {
           "mint": {
             "type": "object",
+            "required": ["amount"],
+            "properties": {
+              "amount": {
+                "description": "Amount of token to mint. The maximum number an address can mint can be limited by the field `maximum_per_address` defined in the `Config`.",
+                "type": "integer",
+                "format": "uint32",
+                "minimum": 0.0
+              },
+              "referral": {
+                "description": "Referral address used for minting.",
+                "type": ["string", "null"]
+              }
+            },
             "additionalProperties": false
           }
         },
@@ -116,8 +224,10 @@
   "query": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "QueryMsg",
+    "description": "Possible query messages that the launchparty-fixed contract can handle.",
     "oneOf": [
       {
+        "description": "Retrieves contract's configuration",
         "type": "object",
         "required": ["get_config"],
         "properties": {
@@ -140,10 +250,11 @@
       "required": [
         "base_token_uri",
         "creator",
-        "max_editions",
         "name",
         "next_token_id",
+        "party_type",
         "price",
+        "referral_fee_bps",
         "seller_fee_bps",
         "start_time",
         "symbol"
@@ -152,7 +263,19 @@
         "base_token_uri": {
           "type": "string"
         },
-        "bs721_address": {
+        "bs721_base": {
+          "description": "Address of the bs721 token contract.",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Addr"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bs721_royalties": {
+          "description": "Address of the bs721 royalties contract.",
           "anyOf": [
             {
               "$ref": "#/definitions/Addr"
@@ -163,33 +286,50 @@
           ]
         },
         "creator": {
-          "$ref": "#/definitions/Addr"
+          "description": "Creator of the collection. If not provided it will be the sender.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Addr"
+            }
+          ]
         },
-        "max_editions": {
-          "type": "integer",
-          "format": "uint32",
+        "max_per_address": {
+          "description": "Maximum amount of token an address can mint.",
+          "type": ["integer", "null"],
+          "format": "uint16",
           "minimum": 0.0
         },
         "name": {
+          "description": "BS721 token name.",
           "type": "string"
         },
         "next_token_id": {
+          "description": "ID that will be associated to the next NFT minted.",
           "type": "integer",
           "format": "uint32",
           "minimum": 0.0
         },
-        "price": {
-          "$ref": "#/definitions/Uint128"
-        },
-        "royalty_address": {
-          "anyOf": [
+        "party_type": {
+          "description": "End condition of the collection launchparty.",
+          "allOf": [
             {
-              "$ref": "#/definitions/Addr"
-            },
-            {
-              "type": "null"
+              "$ref": "#/definitions/PartyType"
             }
           ]
+        },
+        "price": {
+          "description": "Price of single nft minting.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Coin"
+            }
+          ]
+        },
+        "referral_fee_bps": {
+          "description": "BPS of the token price associated to the referral address.",
+          "type": "integer",
+          "format": "uint16",
+          "minimum": 0.0
         },
         "seller_fee_bps": {
           "type": "integer",
@@ -197,9 +337,15 @@
           "minimum": 0.0
         },
         "start_time": {
-          "$ref": "#/definitions/Timestamp"
+          "description": "Start time of the launchparty.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Timestamp"
+            }
+          ]
         },
         "symbol": {
+          "description": "BS721 token symbol.",
           "type": "string"
         }
       },
@@ -208,6 +354,49 @@
         "Addr": {
           "description": "A human readable address.\n\nIn Cosmos, this is typically bech32 encoded. But for multi-chain smart contracts no assumptions should be made other than being UTF-8 encoded and of reasonable length.\n\nThis type represents a validated address. It can be created in the following ways 1. Use `Addr::unchecked(input)` 2. Use `let checked: Addr = deps.api.addr_validate(input)?` 3. Use `let checked: Addr = deps.api.addr_humanize(canonical_addr)?` 4. Deserialize from JSON. This must only be done from JSON that was validated before such as a contract's state. `Addr` must not be used in messages sent by the user because this would result in unvalidated instances.\n\nThis type is immutable. If you really need to mutate it (Really? Are you sure?), create a mutable copy using `let mut mutable = Addr::to_string()` and operate on that `String` instance.",
           "type": "string"
+        },
+        "Coin": {
+          "type": "object",
+          "required": ["amount", "denom"],
+          "properties": {
+            "amount": {
+              "$ref": "#/definitions/Uint128"
+            },
+            "denom": {
+              "type": "string"
+            }
+          }
+        },
+        "PartyType": {
+          "description": "Possible launchparty type. Each type defines how the party end.",
+          "oneOf": [
+            {
+              "description": "Maximum number of mintable tokens.",
+              "type": "object",
+              "required": ["max_edition"],
+              "properties": {
+                "max_edition": {
+                  "type": "integer",
+                  "format": "uint32",
+                  "minimum": 0.0
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "description": "Number of blocks for which tokens are mintable.",
+              "type": "object",
+              "required": ["duration"],
+              "properties": {
+                "duration": {
+                  "type": "integer",
+                  "format": "uint32",
+                  "minimum": 0.0
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
         },
         "Timestamp": {
           "description": "A point in time in nanosecond precision.\n\nThis type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.\n\n## Examples\n\n``` # use cosmwasm_std::Timestamp; let ts = Timestamp::from_nanos(1_000_000_202); assert_eq!(ts.nanos(), 1_000_000_202); assert_eq!(ts.seconds(), 1); assert_eq!(ts.subsec_nanos(), 202);\n\nlet ts = ts.plus_seconds(2); assert_eq!(ts.nanos(), 3_000_000_202); assert_eq!(ts.seconds(), 3); assert_eq!(ts.subsec_nanos(), 202); ```",

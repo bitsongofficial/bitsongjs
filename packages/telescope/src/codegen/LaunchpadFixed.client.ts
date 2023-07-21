@@ -5,8 +5,8 @@
 */
 
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
-import { Addr, Uint128, Timestamp, Uint64, InstantiateMsg, Contributor, ExecuteMsg, QueryMsg, ConfigResponse } from "./LaunchpadFixed.types";
+import { StdFee } from "@cosmjs/amino";
+import { PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, ContributorMsg, Coin, ExecuteMsg, QueryMsg, Addr, ConfigResponse } from "./LaunchpadFixed.types";
 export interface LaunchpadFixedReadOnlyInterface {
   contractAddress: string;
   getConfig: () => Promise<ConfigResponse>;
@@ -30,7 +30,13 @@ export class LaunchpadFixedQueryClient implements LaunchpadFixedReadOnlyInterfac
 export interface LaunchpadFixedInterface extends LaunchpadFixedReadOnlyInterface {
   contractAddress: string;
   sender: string;
-  mint: (fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+  mint: ({
+    amount,
+    referral
+  }: {
+    amount: number;
+    referral?: string;
+  }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
 export class LaunchpadFixedClient extends LaunchpadFixedQueryClient implements LaunchpadFixedInterface {
   client: SigningCosmWasmClient;
@@ -45,9 +51,18 @@ export class LaunchpadFixedClient extends LaunchpadFixedQueryClient implements L
     this.mint = this.mint.bind(this);
   }
 
-  mint = async (fee: number | StdFee | "auto" = "auto", memo?: string, funds?: Coin[]): Promise<ExecuteResult> => {
+  mint = async ({
+    amount,
+    referral
+  }: {
+    amount: number;
+    referral?: string;
+  }, fee: number | StdFee | "auto" = "auto", memo?: string, funds?: Coin[]): Promise<ExecuteResult> => {
     return await this.client.execute(this.sender, this.contractAddress, {
-      mint: {}
+      mint: {
+        amount,
+        referral
+      }
     }, fee, memo, funds);
   };
 }
