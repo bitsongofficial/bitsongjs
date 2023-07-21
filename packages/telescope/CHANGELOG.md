@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.11](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.10...@bitsongjs/telescope@3.0.0-dev.11) (2023-07-21)
+
+
+### Features
+
+* add new launchpad schema and client ([403296e](https://github.com/bitsongofficial/bitsongjs/commit/403296e0596740266f8e20ebf1a7d5b401f0ac31))
+
+
+
+
+
 # [3.0.0-dev.10](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.9...@bitsongjs/telescope@3.0.0-dev.10) (2023-04-18)
 
 **Note:** Version bump only for package @bitsongjs/telescope
