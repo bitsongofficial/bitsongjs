@@ -17,7 +17,6 @@ export interface InstantiateMsg {
     bs721_royalties_code_id: number;
     collection_uri: string;
     contributors: ContributorMsg[];
-    creator?: string | null;
     max_per_address?: number | null;
     name: string;
     party_type: PartyType;

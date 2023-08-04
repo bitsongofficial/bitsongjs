@@ -54,8 +54,8 @@ telescope({
           dir: join(__dirname, '../contracts/bs721-base/'),
         },
         {
-          name: 'launchpad-fixed',
-          dir: join(__dirname, '../contracts/launchpad-fixed/'),
+          name: 'launchparty-fixed',
+          dir: join(__dirname, '../contracts/launchparty-fixed/'),
         },
       ],
       outPath: join(__dirname, '../src/codegen'),

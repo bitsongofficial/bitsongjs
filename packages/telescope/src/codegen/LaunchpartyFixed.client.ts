@@ -6,12 +6,12 @@
 
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
 import { StdFee } from "@cosmjs/amino";
-import { PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, ContributorMsg, Coin, ExecuteMsg, QueryMsg, Addr, ConfigResponse } from "./LaunchpadFixed.types";
-export interface LaunchpadFixedReadOnlyInterface {
+import { PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, ContributorMsg, Coin, ExecuteMsg, QueryMsg, Addr, ConfigResponse } from "./LaunchpartyFixed.types";
+export interface LaunchpartyFixedReadOnlyInterface {
   contractAddress: string;
   getConfig: () => Promise<ConfigResponse>;
 }
-export class LaunchpadFixedQueryClient implements LaunchpadFixedReadOnlyInterface {
+export class LaunchpartyFixedQueryClient implements LaunchpartyFixedReadOnlyInterface {
   client: CosmWasmClient;
   contractAddress: string;
 
@@ -27,7 +27,7 @@ export class LaunchpadFixedQueryClient implements LaunchpadFixedReadOnlyInterfac
     });
   };
 }
-export interface LaunchpadFixedInterface extends LaunchpadFixedReadOnlyInterface {
+export interface LaunchpartyFixedInterface extends LaunchpartyFixedReadOnlyInterface {
   contractAddress: string;
   sender: string;
   mint: ({
@@ -38,7 +38,7 @@ export interface LaunchpadFixedInterface extends LaunchpadFixedReadOnlyInterface
     referral?: string;
   }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
-export class LaunchpadFixedClient extends LaunchpadFixedQueryClient implements LaunchpadFixedInterface {
+export class LaunchpartyFixedClient extends LaunchpartyFixedQueryClient implements LaunchpartyFixedInterface {
   client: SigningCosmWasmClient;
   sender: string;
   contractAddress: string;
