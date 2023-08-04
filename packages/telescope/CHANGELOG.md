@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.12](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.11...@bitsongjs/telescope@3.0.0-dev.12) (2023-08-04)
+
+
+### Features
+
+* fix launchpad contract ([ccd2fad](https://github.com/bitsongofficial/bitsongjs/commit/ccd2fad765634c7a23ad3d5261057805eabffc48))
+
+
+
+
+
 # [3.0.0-dev.11](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.10...@bitsongjs/telescope@3.0.0-dev.11) (2023-07-21)
 
 
