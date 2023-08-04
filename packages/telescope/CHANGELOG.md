@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.13](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.12...@bitsongjs/telescope@3.0.0-dev.13) (2023-08-04)
+
+
+### Features
+
+* add the new launchparty schema.json ([aaae42b](https://github.com/bitsongofficial/bitsongjs/commit/aaae42bbf544f7241c57ebd8f1e7b235d47e31e3))
+* add the new launchparty schema.json ([56ffe21](https://github.com/bitsongofficial/bitsongjs/commit/56ffe218518e90e2759da34ac0434bb5e8e80a74))
+
+
+
+
+
 # [3.0.0-dev.12](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.11...@bitsongjs/telescope@3.0.0-dev.12) (2023-08-04)
 
 
