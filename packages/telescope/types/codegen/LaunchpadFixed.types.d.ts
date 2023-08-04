@@ -3,41 +3,61 @@
 * DO NOT MODIFY IT BY HAND. Instead, modify the source JSONSchema file,
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
-export type Addr = string;
+export type PartyType = {
+    max_edition: number;
+} | {
+    duration: number;
+};
 export type Uint128 = string;
 export type Timestamp = Uint64;
 export type Uint64 = string;
 export interface InstantiateMsg {
     base_token_uri: string;
+    bs721_base_code_id: number;
+    bs721_royalties_code_id: number;
     collection_uri: string;
-    contributors: Contributor[];
-    creator: Addr;
-    max_editions: number;
+    contributors: ContributorMsg[];
+    creator?: string | null;
+    max_per_address?: number | null;
     name: string;
-    price: Uint128;
+    party_type: PartyType;
+    price: Coin;
+    referral_fee_bps: number;
     seller_fee_bps: number;
     start_time: Timestamp;
     symbol: string;
 }
-export interface Contributor {
-    addr: string;
-    weight: number;
+export interface ContributorMsg {
+    address: string;
+    role: string;
+    shares: number;
+}
+export interface Coin {
+    amount: Uint128;
+    denom: string;
+    [k: string]: unknown;
 }
 export type ExecuteMsg = {
-    mint: {};
+    mint: {
+        amount: number;
+        referral?: string | null;
+    };
 };
 export type QueryMsg = {
     get_config: {};
 };
+export type Addr = string;
 export interface ConfigResponse {
     base_token_uri: string;
-    bs721_address?: Addr | null;
+    bs721_base?: Addr | null;
+    bs721_royalties?: Addr | null;
     creator: Addr;
-    max_editions: number;
+    max_per_address?: number | null;
     name: string;
     next_token_id: number;
-    price: Uint128;
-    royalty_address?: Addr | null;
+    party_type: PartyType;
+    price: Coin;
+    referral_fee_bps: number;
     seller_fee_bps: number;
     start_time: Timestamp;
     symbol: string;

@@ -4,8 +4,8 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
-import { ConfigResponse } from "./LaunchpadFixed.types";
+import { StdFee } from "@cosmjs/amino";
+import { Coin, ConfigResponse } from "./LaunchpadFixed.types";
 export interface LaunchpadFixedReadOnlyInterface {
     contractAddress: string;
     getConfig: () => Promise<ConfigResponse>;
@@ -19,12 +19,18 @@ export declare class LaunchpadFixedQueryClient implements LaunchpadFixedReadOnly
 export interface LaunchpadFixedInterface extends LaunchpadFixedReadOnlyInterface {
     contractAddress: string;
     sender: string;
-    mint: (fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+    mint: ({ amount, referral }: {
+        amount: number;
+        referral?: string;
+    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
 export declare class LaunchpadFixedClient extends LaunchpadFixedQueryClient implements LaunchpadFixedInterface {
     client: SigningCosmWasmClient;
     sender: string;
     contractAddress: string;
     constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string);
-    mint: (fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+    mint: ({ amount, referral }: {
+        amount: number;
+        referral?: string;
+    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
