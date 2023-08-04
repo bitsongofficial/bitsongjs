@@ -49,18 +49,17 @@
           "$ref": "#/definitions/ContributorMsg"
         }
       },
-      "creator": {
-        "description": "Creator of the collection. If not provided it will be the sender.",
-        "type": ["string", "null"]
-      },
       "max_per_address": {
         "description": "Maximum amount of tokens an address can mint.",
-        "type": ["integer", "null"],
+        "type": [
+          "integer",
+          "null"
+        ],
         "format": "uint16",
         "minimum": 0.0
       },
       "name": {
-        "description": "BS721 token name.",
+        "description": "Creator of the collection. If not provided it will be the sender. BS721 token name.",
         "type": "string"
       },
       "party_type": {
@@ -108,7 +107,10 @@
     "definitions": {
       "Coin": {
         "type": "object",
-        "required": ["amount", "denom"],
+        "required": [
+          "amount",
+          "denom"
+        ],
         "properties": {
           "amount": {
             "$ref": "#/definitions/Uint128"
@@ -121,7 +123,11 @@
       "ContributorMsg": {
         "description": "Represents a contributor to the collection.",
         "type": "object",
-        "required": ["address", "role", "shares"],
+        "required": [
+          "address",
+          "role",
+          "shares"
+        ],
         "properties": {
           "address": {
             "description": "Contributor's address.",
@@ -146,7 +152,9 @@
           {
             "description": "Maximum number of mintable tokens.",
             "type": "object",
-            "required": ["max_edition"],
+            "required": [
+              "max_edition"
+            ],
             "properties": {
               "max_edition": {
                 "type": "integer",
@@ -159,7 +167,9 @@
           {
             "description": "Number of blocks for which tokens are mintable.",
             "type": "object",
-            "required": ["duration"],
+            "required": [
+              "duration"
+            ],
             "properties": {
               "duration": {
                 "type": "integer",
@@ -197,11 +207,15 @@
       {
         "description": "Allows to mint a bs721 token and, optionally, to refer an address.",
         "type": "object",
-        "required": ["mint"],
+        "required": [
+          "mint"
+        ],
         "properties": {
           "mint": {
             "type": "object",
-            "required": ["amount"],
+            "required": [
+              "amount"
+            ],
             "properties": {
               "amount": {
                 "description": "Amount of token to mint. The maximum number an address can mint can be limited by the field `maximum_per_address` defined in the `Config`.",
@@ -211,7 +225,10 @@
               },
               "referral": {
                 "description": "Referral address used for minting.",
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
             },
             "additionalProperties": false
@@ -229,7 +246,9 @@
       {
         "description": "Retrieves contract's configuration",
         "type": "object",
-        "required": ["get_config"],
+        "required": [
+          "get_config"
+        ],
         "properties": {
           "get_config": {
             "type": "object",
@@ -295,7 +314,10 @@
         },
         "max_per_address": {
           "description": "Maximum amount of token an address can mint.",
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "format": "uint16",
           "minimum": 0.0
         },
@@ -357,7 +379,10 @@
         },
         "Coin": {
           "type": "object",
-          "required": ["amount", "denom"],
+          "required": [
+            "amount",
+            "denom"
+          ],
           "properties": {
             "amount": {
               "$ref": "#/definitions/Uint128"
@@ -373,7 +398,9 @@
             {
               "description": "Maximum number of mintable tokens.",
               "type": "object",
-              "required": ["max_edition"],
+              "required": [
+                "max_edition"
+              ],
               "properties": {
                 "max_edition": {
                   "type": "integer",
@@ -386,7 +413,9 @@
             {
               "description": "Number of blocks for which tokens are mintable.",
               "type": "object",
-              "required": ["duration"],
+              "required": [
+                "duration"
+              ],
               "properties": {
                 "duration": {
                   "type": "integer",
