@@ -4,6 +4,7 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
+export type MediaType = "image" | "audio" | "video";
 export type PartyType = {
   max_edition: number;
 } | {
@@ -16,10 +17,11 @@ export interface InstantiateMsg {
   base_token_uri: string;
   bs721_base_code_id: number;
   bs721_royalties_code_id: number;
-  collection_uri: string;
+  collection_cover_image?: string | null;
+  collection_image: string;
   contributors: ContributorMsg[];
   max_per_address?: number | null;
-  name: string;
+  metadata: Metadata;
   party_type: PartyType;
   price: Coin;
   referral_fee_bps: number;
@@ -31,6 +33,22 @@ export interface ContributorMsg {
   address: string;
   role: string;
   shares: number;
+}
+export interface Metadata {
+  animation_url?: string | null;
+  attributes?: Trait[] | null;
+  background_color?: string | null;
+  description: string;
+  external_url?: string | null;
+  image?: string | null;
+  image_data?: string | null;
+  media_type?: MediaType | null;
+  name: string;
+}
+export interface Trait {
+  display_type?: string | null;
+  trait_type: string;
+  value: string;
 }
 export interface Coin {
   amount: Uint128;
@@ -45,15 +63,18 @@ export type ExecuteMsg = {
 };
 export type QueryMsg = {
   get_config: {};
+} | {
+  max_per_address: {
+    address: string;
+  };
 };
 export type Addr = string;
 export interface ConfigResponse {
-  base_token_uri: string;
   bs721_base?: Addr | null;
   bs721_royalties?: Addr | null;
   creator: Addr;
   max_per_address?: number | null;
-  name: string;
+  metadata: Metadata;
   next_token_id: number;
   party_type: PartyType;
   price: Coin;
@@ -61,4 +82,7 @@ export interface ConfigResponse {
   seller_fee_bps: number;
   start_time: Timestamp;
   symbol: string;
+}
+export interface MaxPerAddressResponse {
+  remaining?: number | null;
 }

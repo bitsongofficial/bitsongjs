@@ -1,5 +1,5 @@
 {
-  "contract_name": "bs721-base",
+  "contract_name": "bs721-metadata-onchain",
   "contract_version": "0.1.0-alpha.1",
   "idl_version": "1.0.0",
   "instantiate": {
@@ -231,7 +231,7 @@
         ],
         "properties": {
           "mint": {
-            "$ref": "#/definitions/MintMsg_for_Empty"
+            "$ref": "#/definitions/MintMsg_for_Nullable_Metadata"
           }
         },
         "additionalProperties": false
@@ -337,19 +337,96 @@
           }
         ]
       },
-      "MintMsg_for_Empty": {
+      "MediaType": {
+        "type": "string",
+        "enum": [
+          "image",
+          "audio",
+          "video"
+        ]
+      },
+      "Metadata": {
+        "type": "object",
+        "properties": {
+          "animation_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "attributes": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/definitions/Trait"
+            }
+          },
+          "background_color": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "external_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "image_data": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "media_type": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/MediaType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "MintMsg_for_Nullable_Metadata": {
         "type": "object",
         "required": [
-          "extension",
           "owner",
           "token_id"
         ],
         "properties": {
           "extension": {
             "description": "Any custom extension used by this contract",
-            "allOf": [
+            "anyOf": [
               {
-                "$ref": "#/definitions/Empty"
+                "$ref": "#/definitions/Metadata"
+              },
+              {
+                "type": "null"
               }
             ]
           },
@@ -394,6 +471,28 @@
             "$ref": "#/definitions/Uint64"
           }
         ]
+      },
+      "Trait": {
+        "type": "object",
+        "required": [
+          "trait_type",
+          "value"
+        ],
+        "properties": {
+          "display_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "trait_type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
       },
       "Uint64": {
         "description": "A thin wrapper around u64 that is using strings for JSON encoding/decoding, such that the full u64 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq.\n\n# Examples\n\nUse `from` to create instances of this and `u64` to get the value out:\n\n``` # use cosmwasm_std::Uint64; let a = Uint64::from(42u64); assert_eq!(a.u64(), 42);\n\nlet b = Uint64::from(70u32); assert_eq!(b.u64(), 70); ```",

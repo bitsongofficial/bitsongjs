@@ -6,10 +6,15 @@
 
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
 import { StdFee } from "@cosmjs/amino";
-import { PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, ContributorMsg, Coin, ExecuteMsg, QueryMsg, Addr, ConfigResponse } from "./LaunchpartyFixed.types";
+import { MediaType, PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, ContributorMsg, Metadata, Trait, Coin, ExecuteMsg, QueryMsg, Addr, ConfigResponse, MaxPerAddressResponse } from "./LaunchpartyFixed.types";
 export interface LaunchpartyFixedReadOnlyInterface {
   contractAddress: string;
   getConfig: () => Promise<ConfigResponse>;
+  maxPerAddress: ({
+    address
+  }: {
+    address: string;
+  }) => Promise<MaxPerAddressResponse>;
 }
 export class LaunchpartyFixedQueryClient implements LaunchpartyFixedReadOnlyInterface {
   client: CosmWasmClient;
@@ -19,11 +24,23 @@ export class LaunchpartyFixedQueryClient implements LaunchpartyFixedReadOnlyInte
     this.client = client;
     this.contractAddress = contractAddress;
     this.getConfig = this.getConfig.bind(this);
+    this.maxPerAddress = this.maxPerAddress.bind(this);
   }
 
   getConfig = async (): Promise<ConfigResponse> => {
     return this.client.queryContractSmart(this.contractAddress, {
       get_config: {}
+    });
+  };
+  maxPerAddress = async ({
+    address
+  }: {
+    address: string;
+  }): Promise<MaxPerAddressResponse> => {
+    return this.client.queryContractSmart(this.contractAddress, {
+      max_per_address: {
+        address
+      }
     });
   };
 }

@@ -5,16 +5,22 @@
 */
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
 import { StdFee } from "@cosmjs/amino";
-import { Coin, ConfigResponse } from "./LaunchpartyFixed.types";
+import { Coin, ConfigResponse, MaxPerAddressResponse } from "./LaunchpartyFixed.types";
 export interface LaunchpartyFixedReadOnlyInterface {
     contractAddress: string;
     getConfig: () => Promise<ConfigResponse>;
+    maxPerAddress: ({ address }: {
+        address: string;
+    }) => Promise<MaxPerAddressResponse>;
 }
 export declare class LaunchpartyFixedQueryClient implements LaunchpartyFixedReadOnlyInterface {
     client: CosmWasmClient;
     contractAddress: string;
     constructor(client: CosmWasmClient, contractAddress: string);
     getConfig: () => Promise<ConfigResponse>;
+    maxPerAddress: ({ address }: {
+        address: string;
+    }) => Promise<MaxPerAddressResponse>;
 }
 export interface LaunchpartyFixedInterface extends LaunchpartyFixedReadOnlyInterface {
     contractAddress: string;

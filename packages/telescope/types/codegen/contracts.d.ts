@@ -4,14 +4,24 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 import * as _1 from "./Bs721Base.client";
-import * as _3 from "./LaunchpartyFixed.client";
+import * as _3 from "./Bs721MetadataOnchain.client";
+import * as _5 from "./Bs721Royalties.client";
+import * as _7 from "./LaunchpartyFixed.client";
 export declare namespace contracts {
     const Bs721Base: {
         Bs721BaseQueryClient: typeof _1.Bs721BaseQueryClient;
         Bs721BaseClient: typeof _1.Bs721BaseClient;
     };
+    const Bs721MetadataOnchain: {
+        Bs721MetadataOnchainQueryClient: typeof _3.Bs721MetadataOnchainQueryClient;
+        Bs721MetadataOnchainClient: typeof _3.Bs721MetadataOnchainClient;
+    };
+    const Bs721Royalties: {
+        Bs721RoyaltiesQueryClient: typeof _5.Bs721RoyaltiesQueryClient;
+        Bs721RoyaltiesClient: typeof _5.Bs721RoyaltiesClient;
+    };
     const LaunchpartyFixed: {
-        LaunchpartyFixedQueryClient: typeof _3.LaunchpartyFixedQueryClient;
-        LaunchpartyFixedClient: typeof _3.LaunchpartyFixedClient;
+        LaunchpartyFixedQueryClient: typeof _7.LaunchpartyFixedQueryClient;
+        LaunchpartyFixedClient: typeof _7.LaunchpartyFixedClient;
     };
 }

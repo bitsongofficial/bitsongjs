@@ -6,7 +6,10 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "InstantiateMsg",
     "type": "object",
-    "required": ["contributors", "denom"],
+    "required": [
+      "contributors",
+      "denom"
+    ],
     "properties": {
       "contributors": {
         "description": "NFT collection contibutors.",
@@ -25,7 +28,11 @@
       "ContributorMsg": {
         "description": "Represents a contributor to the collection.",
         "type": "object",
-        "required": ["address", "role", "shares"],
+        "required": [
+          "address",
+          "role",
+          "shares"
+        ],
         "properties": {
           "address": {
             "description": "Contributor's address.",
@@ -53,7 +60,9 @@
       {
         "description": "Update contributors withdrawable amount by computing each contributors percentage of the total distributable contract balance. This function will consider only coins of the stored denom.",
         "type": "object",
-        "required": ["distribute"],
+        "required": [
+          "distribute"
+        ],
         "properties": {
           "distribute": {
             "type": "object",
@@ -65,7 +74,9 @@
       {
         "description": "Withdraw accrued royalties. This message can only be sent by a contributor.",
         "type": "object",
-        "required": ["withdraw"],
+        "required": [
+          "withdraw"
+        ],
         "properties": {
           "withdraw": {
             "type": "object",
@@ -83,20 +94,28 @@
       {
         "description": "Retrieves the list of contributors.",
         "type": "object",
-        "required": ["list_contributors"],
+        "required": [
+          "list_contributors"
+        ],
         "properties": {
           "list_contributors": {
             "type": "object",
             "properties": {
               "limit": {
                 "description": "Number of contributors to receive.",
-                "type": ["integer", "null"],
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "format": "uint32",
                 "minimum": 0.0
               },
               "start_after": {
                 "description": "Address after which contributors are retrieved.",
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
             },
             "additionalProperties": false
@@ -107,7 +126,9 @@
       {
         "description": "Returns the total amount of royalties that can be withdrawn from the contract.",
         "type": "object",
-        "required": ["withdrawable_amount"],
+        "required": [
+          "withdrawable_amount"
+        ],
         "properties": {
           "withdrawable_amount": {
             "type": "object",
@@ -119,7 +140,9 @@
       {
         "description": "Retrieves amount of denom that can be distributed.",
         "type": "object",
-        "required": ["distributable_amount"],
+        "required": [
+          "distributable_amount"
+        ],
         "properties": {
           "distributable_amount": {
             "type": "object",
@@ -144,7 +167,9 @@
       "title": "ContributorListResponse",
       "description": "Retrieved contributors response.",
       "type": "object",
-      "required": ["contributors"],
+      "required": [
+        "contributors"
+      ],
       "properties": {
         "contributors": {
           "type": "array",

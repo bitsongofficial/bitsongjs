@@ -43,7 +43,7 @@ export type ExecuteMsg = {
         operator: string;
     };
 } | {
-    mint: MintMsgForEmpty;
+    mint: MintMsgForNullable_Metadata;
 } | {
     burn: {
         token_id: string;
@@ -63,13 +63,30 @@ export type Expiration = {
 };
 export type Timestamp = Uint64;
 export type Uint64 = string;
-export interface MintMsgForEmpty {
-    extension: Empty;
+export type MediaType = "image" | "audio" | "video";
+export interface MintMsgForNullable_Metadata {
+    extension?: Metadata | null;
     owner: string;
     payment_addr?: string | null;
     seller_fee_bps?: number | null;
     token_id: string;
     token_uri?: string | null;
+}
+export interface Metadata {
+    animation_url?: string | null;
+    attributes?: Trait[] | null;
+    background_color?: string | null;
+    description?: string | null;
+    external_url?: string | null;
+    image?: string | null;
+    image_data?: string | null;
+    media_type?: MediaType | null;
+    name?: string | null;
+}
+export interface Trait {
+    display_type?: string | null;
+    trait_type: string;
+    value: string;
 }
 export interface Empty {
     [k: string]: unknown;

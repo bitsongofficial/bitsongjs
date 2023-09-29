@@ -6,13 +6,23 @@
 
 import * as _0 from "./Bs721Base.types";
 import * as _1 from "./Bs721Base.client";
-import * as _2 from "./LaunchpartyFixed.types";
-import * as _3 from "./LaunchpartyFixed.client";
+import * as _2 from "./Bs721MetadataOnchain.types";
+import * as _3 from "./Bs721MetadataOnchain.client";
+import * as _4 from "./Bs721Royalties.types";
+import * as _5 from "./Bs721Royalties.client";
+import * as _6 from "./LaunchpartyFixed.types";
+import * as _7 from "./LaunchpartyFixed.client";
 export namespace contracts {
   export const Bs721Base = { ..._0,
     ..._1
   };
-  export const LaunchpartyFixed = { ..._2,
+  export const Bs721MetadataOnchain = { ..._2,
     ..._3
+  };
+  export const Bs721Royalties = { ..._4,
+    ..._5
+  };
+  export const LaunchpartyFixed = { ..._6,
+    ..._7
   };
 }
