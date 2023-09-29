@@ -13,8 +13,7 @@ export type Uint128 = string;
 export type Timestamp = Uint64;
 export type Uint64 = string;
 export interface InstantiateMsg {
-    base_token_uri: string;
-    bs721_base_code_id: number;
+    bs721_metadata_code_id: number;
     bs721_royalties_code_id: number;
     collection_cover_image?: string | null;
     collection_image: string;
@@ -69,7 +68,7 @@ export type QueryMsg = {
 };
 export type Addr = string;
 export interface ConfigResponse {
-    bs721_base?: Addr | null;
+    bs721_metadata?: Addr | null;
     bs721_royalties?: Addr | null;
     creator: Addr;
     max_per_address?: number | null;
