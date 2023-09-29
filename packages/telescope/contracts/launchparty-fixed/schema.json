@@ -8,8 +8,7 @@
     "description": "Structure required by the launchparty-fixed contract during its instantiation.",
     "type": "object",
     "required": [
-      "base_token_uri",
-      "bs721_base_code_id",
+      "bs721_metadata_code_id",
       "bs721_royalties_code_id",
       "collection_image",
       "contributors",
@@ -22,12 +21,8 @@
       "symbol"
     ],
     "properties": {
-      "base_token_uri": {
-        "description": "BS721 token uri.",
-        "type": "string"
-      },
-      "bs721_base_code_id": {
-        "description": "Code id used to instantiate a bs721 token contract.",
+      "bs721_metadata_code_id": {
+        "description": "Code id used to instantiate a bs721 metadata onchain token contract.",
         "type": "integer",
         "format": "uint64",
         "minimum": 0.0
@@ -57,7 +52,7 @@
         }
       },
       "max_per_address": {
-        "description": "Maximum amount of tokens an address can mint.",
+        "description": "BS721 token uri. Maximum amount of tokens an address can mint.",
         "type": [
           "integer",
           "null"
@@ -406,7 +401,7 @@
         "symbol"
       ],
       "properties": {
-        "bs721_base": {
+        "bs721_metadata": {
           "description": "Address of the bs721 token contract.",
           "anyOf": [
             {
