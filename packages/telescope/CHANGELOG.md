@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.16](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.15...@bitsongjs/telescope@3.0.0-dev.16) (2023-09-29)
+
+**Note:** Version bump only for package @bitsongjs/telescope
+
+
+
+
+
 # [3.0.0-dev.15](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.14...@bitsongjs/telescope@3.0.0-dev.15) (2023-09-29)
 
 **Note:** Version bump only for package @bitsongjs/telescope
