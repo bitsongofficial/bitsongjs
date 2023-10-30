@@ -6,7 +6,8 @@
 import * as _1 from "./Bs721Base.client";
 import * as _3 from "./Bs721MetadataOnchain.client";
 import * as _5 from "./Bs721Royalties.client";
-import * as _7 from "./LaunchpartyFixed.client";
+import * as _7 from "./Bs721Curve.client";
+import * as _9 from "./LaunchpartyFixed.client";
 export declare namespace contracts {
     const Bs721Base: {
         Bs721BaseQueryClient: typeof _1.Bs721BaseQueryClient;
@@ -20,8 +21,12 @@ export declare namespace contracts {
         Bs721RoyaltiesQueryClient: typeof _5.Bs721RoyaltiesQueryClient;
         Bs721RoyaltiesClient: typeof _5.Bs721RoyaltiesClient;
     };
+    const Bs721Curve: {
+        Bs721CurveQueryClient: typeof _7.Bs721CurveQueryClient;
+        Bs721CurveClient: typeof _7.Bs721CurveClient;
+    };
     const LaunchpartyFixed: {
-        LaunchpartyFixedQueryClient: typeof _7.LaunchpartyFixedQueryClient;
-        LaunchpartyFixedClient: typeof _7.LaunchpartyFixedClient;
+        LaunchpartyFixedQueryClient: typeof _9.LaunchpartyFixedQueryClient;
+        LaunchpartyFixedClient: typeof _9.LaunchpartyFixedClient;
     };
 }
