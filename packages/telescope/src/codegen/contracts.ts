@@ -10,8 +10,10 @@ import * as _2 from "./Bs721MetadataOnchain.types";
 import * as _3 from "./Bs721MetadataOnchain.client";
 import * as _4 from "./Bs721Royalties.types";
 import * as _5 from "./Bs721Royalties.client";
-import * as _6 from "./LaunchpartyFixed.types";
-import * as _7 from "./LaunchpartyFixed.client";
+import * as _6 from "./Bs721Curve.types";
+import * as _7 from "./Bs721Curve.client";
+import * as _8 from "./LaunchpartyFixed.types";
+import * as _9 from "./LaunchpartyFixed.client";
 export namespace contracts {
   export const Bs721Base = { ..._0,
     ..._1
@@ -22,7 +24,10 @@ export namespace contracts {
   export const Bs721Royalties = { ..._4,
     ..._5
   };
-  export const LaunchpartyFixed = { ..._6,
+  export const Bs721Curve = { ..._6,
     ..._7
+  };
+  export const LaunchpartyFixed = { ..._8,
+    ..._9
   };
 }

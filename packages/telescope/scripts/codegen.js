@@ -62,6 +62,10 @@ telescope({
           dir: join(__dirname, '../contracts/bs721-royalties/'),
         },
         {
+          name: 'bs721-curve',
+          dir: join(__dirname, '../contracts/bs721-curve/'),
+        },
+        {
           name: 'launchparty-fixed',
           dir: join(__dirname, '../contracts/launchparty-fixed/'),
         },
