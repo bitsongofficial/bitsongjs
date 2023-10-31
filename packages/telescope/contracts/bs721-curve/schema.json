@@ -35,10 +35,7 @@
       },
       "collection_cover_image": {
         "description": "BS721 collection cover image.",
-        "type": [
-          "string",
-          "null"
-        ]
+        "type": ["string", "null"]
       },
       "collection_image": {
         "description": "BS721 collection image.",
@@ -53,19 +50,13 @@
       },
       "max_edition": {
         "description": "Max edition of the collection launchparty.",
-        "type": [
-          "integer",
-          "null"
-        ],
+        "type": ["integer", "null"],
         "format": "uint32",
         "minimum": 0.0
       },
       "max_per_address": {
         "description": "Maximum amount of tokens an address can mint.",
-        "type": [
-          "integer",
-          "null"
-        ],
+        "type": ["integer", "null"],
         "format": "uint32",
         "minimum": 0.0
       },
@@ -117,11 +108,7 @@
       "ContributorMsg": {
         "description": "Represents a contributor to the collection.",
         "type": "object",
-        "required": [
-          "address",
-          "role",
-          "shares"
-        ],
+        "required": ["address", "role", "shares"],
         "properties": {
           "address": {
             "description": "Contributor's address.",
@@ -142,60 +129,35 @@
       },
       "MediaType": {
         "type": "string",
-        "enum": [
-          "image",
-          "audio",
-          "video"
-        ]
+        "enum": ["image", "audio", "video"]
       },
       "Metadata": {
         "type": "object",
-        "required": [
-          "description",
-          "name"
-        ],
+        "required": ["description", "name"],
         "properties": {
           "animation_url": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "attributes": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "$ref": "#/definitions/Trait"
             }
           },
           "background_color": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "description": {
             "type": "string"
           },
           "external_url": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "image": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "image_data": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "media_type": {
             "anyOf": [
@@ -223,16 +185,10 @@
       },
       "Trait": {
         "type": "object",
-        "required": [
-          "trait_type",
-          "value"
-        ],
+        "required": ["trait_type", "value"],
         "properties": {
           "display_type": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "trait_type": {
             "type": "string"
@@ -257,15 +213,11 @@
       {
         "description": "Allows to mint a bs721 token and, optionally, to refer an address.",
         "type": "object",
-        "required": [
-          "mint"
-        ],
+        "required": ["mint"],
         "properties": {
           "mint": {
             "type": "object",
-            "required": [
-              "amount"
-            ],
+            "required": ["amount"],
             "properties": {
               "amount": {
                 "description": "Amount of token to mint. The maximum number an address can mint can be limited by the field `maximum_per_address` defined in the `Config`.",
@@ -275,10 +227,7 @@
               },
               "referral": {
                 "description": "Referral address used for minting.",
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
             "additionalProperties": false
@@ -288,21 +237,19 @@
       },
       {
         "type": "object",
-        "required": [
-          "burn"
-        ],
+        "required": ["burn"],
         "properties": {
           "burn": {
             "type": "object",
-            "required": [
-              "token_ids"
-            ],
+            "required": ["min_out_amount", "token_ids"],
             "properties": {
+              "min_out_amount": {
+                "type": "integer",
+                "format": "uint128",
+                "minimum": 0.0
+              },
               "referral": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "token_ids": {
                 "type": "array",
@@ -328,9 +275,7 @@
       {
         "description": "Retrieves contract's configuration",
         "type": "object",
-        "required": [
-          "get_config"
-        ],
+        "required": ["get_config"],
         "properties": {
           "get_config": {
             "type": "object",
@@ -342,15 +287,11 @@
       {
         "description": "Returns the maximum amount of token an address can mint.",
         "type": "object",
-        "required": [
-          "max_per_address"
-        ],
+        "required": ["max_per_address"],
         "properties": {
           "max_per_address": {
             "type": "object",
-            "required": [
-              "address"
-            ],
+            "required": ["address"],
             "properties": {
               "address": {
                 "type": "string"
@@ -363,15 +304,11 @@
       },
       {
         "type": "object",
-        "required": [
-          "buy_price"
-        ],
+        "required": ["buy_price"],
         "properties": {
           "buy_price": {
             "type": "object",
-            "required": [
-              "amount"
-            ],
+            "required": ["amount"],
             "properties": {
               "amount": {
                 "type": "integer",
@@ -386,15 +323,11 @@
       },
       {
         "type": "object",
-        "required": [
-          "sell_price"
-        ],
+        "required": ["sell_price"],
         "properties": {
           "sell_price": {
             "type": "object",
-            "required": [
-              "amount"
-            ],
+            "required": ["amount"],
             "properties": {
               "amount": {
                 "type": "integer",
@@ -496,19 +429,13 @@
         },
         "max_edition": {
           "description": "Max edition of the collection launchparty.",
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "format": "uint32",
           "minimum": 0.0
         },
         "max_per_address": {
           "description": "Maximum amount of token an address can mint.",
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "format": "uint32",
           "minimum": 0.0
         },
@@ -568,60 +495,35 @@
         },
         "MediaType": {
           "type": "string",
-          "enum": [
-            "image",
-            "audio",
-            "video"
-          ]
+          "enum": ["image", "audio", "video"]
         },
         "Metadata": {
           "type": "object",
-          "required": [
-            "description",
-            "name"
-          ],
+          "required": ["description", "name"],
           "properties": {
             "animation_url": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "attributes": {
-              "type": [
-                "array",
-                "null"
-              ],
+              "type": ["array", "null"],
               "items": {
                 "$ref": "#/definitions/Trait"
               }
             },
             "background_color": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "description": {
               "type": "string"
             },
             "external_url": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "image": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "image_data": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "media_type": {
               "anyOf": [
@@ -649,16 +551,10 @@
         },
         "Trait": {
           "type": "object",
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "properties": {
             "display_type": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             },
             "trait_type": {
               "type": "string"
@@ -682,10 +578,7 @@
       "properties": {
         "remaining": {
           "description": "Returns the maximum amount of token an address can mint.",
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "format": "uint32",
           "minimum": 0.0
         }

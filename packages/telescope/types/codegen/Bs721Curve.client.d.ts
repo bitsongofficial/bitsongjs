@@ -41,7 +41,8 @@ export interface Bs721CurveInterface extends Bs721CurveReadOnlyInterface {
         amount: number;
         referral?: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
-    burn: ({ referral, tokenIds }: {
+    burn: ({ minOutAmount, referral, tokenIds }: {
+        minOutAmount: number;
         referral?: string;
         tokenIds: number[];
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
@@ -55,7 +56,8 @@ export declare class Bs721CurveClient extends Bs721CurveQueryClient implements B
         amount: number;
         referral?: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
-    burn: ({ referral, tokenIds }: {
+    burn: ({ minOutAmount, referral, tokenIds }: {
+        minOutAmount: number;
         referral?: string;
         tokenIds: number[];
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;

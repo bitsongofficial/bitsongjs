@@ -50,6 +50,7 @@ export type ExecuteMsg = {
     };
 } | {
     burn: {
+        min_out_amount: number;
         referral?: string | null;
         token_ids: number[];
     };
