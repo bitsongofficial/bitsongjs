@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given the track metadata when using Track Metadata should return a valid track metadata 1`] = `
+Object {
+  "$schema": "https://json-schemas.bitsong.io/metadata/track/1.0.0.json",
+  "animation_url": "https://bitsong.io/video.mp4",
+  "attributes": Array [
+    Object {
+      "display_type": "string",
+      "trait_type": "License",
+      "value": "No Rights Reserved (CC0)",
+    },
+    Object {
+      "display_type": "number",
+      "trait_type": "Duration",
+      "value": 100,
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Artists",
+      "value": "The best Artist, Artist 2",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Genre",
+      "value": "Dance",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Explicit",
+      "value": "Clean",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Version",
+      "value": "Radio Edit",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "P-Line",
+      "value": "2020 The Best Label",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "C-Line",
+      "value": "2020 The Best Label",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Country",
+      "value": "IT",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "ISRC",
+      "value": "IT-ABC-12345",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "ISWC",
+      "value": "IT-ABC-12345",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Label",
+      "value": "The Best Label",
+    },
+    Object {
+      "display_type": "string",
+      "trait_type": "Authors & Publishers",
+      "value": "Author 1, Author 2",
+    },
+  ],
+  "bitsong": Object {
+    "artists": Array [
+      Object {
+        "name": "The best Artist",
+        "role": "Main Artist",
+      },
+      Object {
+        "name": "Artist 2",
+        "role": "Featuring",
+      },
+    ],
+    "artwork": "https://bitsong.io/artwork.png",
+    "audio": "https://bitsong.io/audio.mp3",
+    "authors_publishers": Array [
+      Object {
+        "name": "Author 1",
+        "role": "Composer",
+      },
+      Object {
+        "name": "Author 2",
+        "role": "Lyricist",
+      },
+    ],
+    "cLine": "2020 The Best Label",
+    "contentType": "audio/vnd.wave",
+    "country": "IT",
+    "description": "this is a description",
+    "duration": 100,
+    "explicit": "Clean",
+    "genre": "Dance",
+    "id": Any<String>,
+    "isrc": "IT-ABC-12345",
+    "iswc": "IT-ABC-12345",
+    "label": "The Best Label",
+    "license": "No Rights Reserved (CC0)",
+    "liveRecording": false,
+    "lyrics": "this is a lyrics",
+    "lyricsLocale": "en",
+    "pLine": "2020 The Best Label",
+    "previewStartTime": 15,
+    "previousRelease": false,
+    "title": "title",
+    "titleLocale": "en",
+    "version": "Radio Edit",
+    "video": "https://bitsong.io/video.mp4",
+  },
+  "description": "this is a description",
+  "image": "https://bitsong.io/artwork.png",
+  "name": "title",
+}
+`;

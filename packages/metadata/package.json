@@ -1,0 +1,49 @@
+{
+  "name": "@bitsongjs/metadata",
+  "version": "0.1.0",
+  "author": "Angelo Recca <angelorc@users.noreply.github.com>",
+  "description": "A Javascript lib for BitSong Metadata",
+  "license": "Apache-2.0",
+  "main": "dist",
+  "publishConfig": {
+    "access": "public",
+    "@bitsongjs:registry": "https://registry.npmjs.com"
+  },
+  "bugs": {
+    "url": "https://github.com/bitsongofficial/bitsongjs/issues"
+  },
+  "files": [
+    "dist/",
+    "test/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs",
+    "directory": "packages/metadata"
+  },
+  "directories": {
+    "dist": "dist",
+    "test": "test"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^28.1.8",
+    "@types/uuid": "^9.0.7",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "ts-proto": "^1.104.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4",
+    "zod-to-json-schema": "^3.22.3"
+  }
+}
