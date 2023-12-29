@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Angelo Recca <angelorc@users.noreply.github.com>",
   "description": "A Javascript lib for BitSong Metadata",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "main": "dist",
   "publishConfig": {
     "access": "public",
