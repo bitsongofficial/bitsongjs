@@ -58,7 +58,6 @@ export enum TrackExpicit {
 
 export type TrackMetadataDetails = ContentMetadataCommon & {
   artwork: URI;
-  contentType: MediaAudioMimeType
   audio: URI;
   video?: URI;
   title: string;
@@ -106,7 +105,6 @@ const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, 
   metadataDetailsWith({
     title: nonEmptyStringSchema('The title of the track.'),
     titleLocale: LocaleSchema,
-    contentType: z.nativeEnum(MediaAudioMimeType, { description: 'The content-type of the track.' }),
     license: z.nativeEnum(LicenseType, { description: 'The license of the track.' }),
     artists: z.array(ArtistDetailsSchema, { description: 'The artists of the track.' }).min(1),
     artwork: uriSchema('The artwork of the track.'),
