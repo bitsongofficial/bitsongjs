@@ -4,34 +4,38 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
+export type PartyType = {
+  max_edition: number;
+} | {
+  duration: number;
+};
+export type Uint128 = string;
 export type Timestamp = Uint64;
 export type Uint64 = string;
 export interface InstantiateMsg {
   bs721_admin: string;
   bs721_code_id: number;
-  max_edition?: number | null;
   max_per_address?: number | null;
   name: string;
+  party_type: PartyType;
   payment_address: string;
-  payment_denom: string;
+  price: Coin;
   protocol_fee_bps: number;
-  ratio: number;
   referral_fee_bps: number;
   seller_fee_bps: number;
   start_time: Timestamp;
   symbol: string;
   uri: string;
 }
+export interface Coin {
+  amount: Uint128;
+  denom: string;
+  [k: string]: unknown;
+}
 export type ExecuteMsg = {
   mint: {
     amount: number;
     referral?: string | null;
-  };
-} | {
-  burn: {
-    min_out_amount: number;
-    referral?: string | null;
-    token_ids: number[];
   };
 };
 export type QueryMsg = {
@@ -40,35 +44,18 @@ export type QueryMsg = {
   max_per_address: {
     address: string;
   };
-} | {
-  buy_price: {
-    amount: number;
-  };
-} | {
-  sell_price: {
-    amount: number;
-  };
 };
-export type Uint128 = string;
-export interface PriceResponse {
-  base_price: Uint128;
-  protocol_fee: Uint128;
-  referral: Uint128;
-  royalties: Uint128;
-  total_price: Uint128;
-}
 export type Addr = string;
 export interface Config {
   bs721_address?: Addr | null;
   creator: Addr;
-  max_edition?: number | null;
   max_per_address?: number | null;
   name: string;
   next_token_id: number;
+  party_type: PartyType;
   payment_address: Addr;
-  payment_denom: string;
+  price: Coin;
   protocol_fee_bps: number;
-  ratio: number;
   referral_fee_bps: number;
   seller_fee_bps: number;
   start_time: Timestamp;

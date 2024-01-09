@@ -1,6 +1,6 @@
 {
   "contract_name": "bs721-curve",
-  "contract_version": "0.1.0-alpha.1",
+  "contract_version": "0.1.0-rc1",
   "idl_version": "1.0.0",
   "instantiate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
@@ -8,69 +8,64 @@
     "description": "Structure required by the launchparty-curve contract during its instantiation.",
     "type": "object",
     "required": [
-      "bs721_metadata_code_id",
-      "bs721_royalties_code_id",
-      "collection_image",
-      "contributors",
-      "metadata",
+      "bs721_admin",
+      "bs721_code_id",
+      "name",
+      "payment_address",
       "payment_denom",
+      "protocol_fee_bps",
       "ratio",
       "referral_fee_bps",
       "seller_fee_bps",
       "start_time",
-      "symbol"
+      "symbol",
+      "uri"
     ],
     "properties": {
-      "bs721_metadata_code_id": {
+      "bs721_admin": {
+        "type": "string"
+      },
+      "bs721_code_id": {
         "description": "Code id used to instantiate a bs721 metadata onchain token contract.",
         "type": "integer",
         "format": "uint64",
         "minimum": 0.0
       },
-      "bs721_royalties_code_id": {
-        "description": "Code id used to instantiate bs721 royalties contract. The address of this contract will be used as the payment address for the NFT mint.",
-        "type": "integer",
-        "format": "uint64",
-        "minimum": 0.0
-      },
-      "collection_cover_image": {
-        "description": "BS721 collection cover image.",
-        "type": ["string", "null"]
-      },
-      "collection_image": {
-        "description": "BS721 collection image.",
-        "type": "string"
-      },
-      "contributors": {
-        "description": "Contributors to the collection.",
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/ContributorMsg"
-        }
-      },
       "max_edition": {
         "description": "Max edition of the collection launchparty.",
-        "type": ["integer", "null"],
+        "type": [
+          "integer",
+          "null"
+        ],
         "format": "uint32",
         "minimum": 0.0
       },
       "max_per_address": {
         "description": "Maximum amount of tokens an address can mint.",
-        "type": ["integer", "null"],
+        "type": [
+          "integer",
+          "null"
+        ],
         "format": "uint32",
         "minimum": 0.0
       },
-      "metadata": {
-        "description": "On-chain Metadata",
-        "allOf": [
-          {
-            "$ref": "#/definitions/Metadata"
-          }
-        ]
+      "name": {
+        "description": "BS721 token name.",
+        "type": "string"
+      },
+      "payment_address": {
+        "description": "Payment address for the royalties.",
+        "type": "string"
       },
       "payment_denom": {
         "description": "Denom used to pay for the NFTs",
         "type": "string"
+      },
+      "protocol_fee_bps": {
+        "description": "Basis per point of the `price` sent to the community pool during mint or burn.",
+        "type": "integer",
+        "format": "uint16",
+        "minimum": 0.0
       },
       "ratio": {
         "description": "Ratio, is the cooeficient of the curve",
@@ -79,13 +74,13 @@
         "minimum": 0.0
       },
       "referral_fee_bps": {
-        "description": "Basis per point of the `price` sent to the referred address during mint. This payment is sent one-off.",
+        "description": "Basis per point of the `price` sent to the referred address during mint or burn.",
         "type": "integer",
         "format": "uint16",
         "minimum": 0.0
       },
       "seller_fee_bps": {
-        "description": "Basis per point of the `price` sent to the referred address during mint. This payment is sent one-off.",
+        "description": "Basis per point of the `price` sent to the royalties address during mint or burn.",
         "type": "integer",
         "format": "uint16",
         "minimum": 0.0
@@ -101,80 +96,14 @@
       "symbol": {
         "description": "BS721 token symbol.",
         "type": "string"
+      },
+      "uri": {
+        "description": "BS721 Uri",
+        "type": "string"
       }
     },
     "additionalProperties": false,
     "definitions": {
-      "ContributorMsg": {
-        "description": "Represents a contributor to the collection.",
-        "type": "object",
-        "required": ["address", "role", "shares"],
-        "properties": {
-          "address": {
-            "description": "Contributor's address.",
-            "type": "string"
-          },
-          "role": {
-            "description": "Contributor's role",
-            "type": "string"
-          },
-          "shares": {
-            "description": "Amount of share associated to the contributor.",
-            "type": "integer",
-            "format": "uint32",
-            "minimum": 0.0
-          }
-        },
-        "additionalProperties": false
-      },
-      "MediaType": {
-        "type": "string",
-        "enum": ["image", "audio", "video"]
-      },
-      "Metadata": {
-        "type": "object",
-        "required": ["description", "name"],
-        "properties": {
-          "animation_url": {
-            "type": ["string", "null"]
-          },
-          "attributes": {
-            "type": ["array", "null"],
-            "items": {
-              "$ref": "#/definitions/Trait"
-            }
-          },
-          "background_color": {
-            "type": ["string", "null"]
-          },
-          "description": {
-            "type": "string"
-          },
-          "external_url": {
-            "type": ["string", "null"]
-          },
-          "image": {
-            "type": ["string", "null"]
-          },
-          "image_data": {
-            "type": ["string", "null"]
-          },
-          "media_type": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/MediaType"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "Timestamp": {
         "description": "A point in time in nanosecond precision.\n\nThis type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.\n\n## Examples\n\n``` # use cosmwasm_std::Timestamp; let ts = Timestamp::from_nanos(1_000_000_202); assert_eq!(ts.nanos(), 1_000_000_202); assert_eq!(ts.seconds(), 1); assert_eq!(ts.subsec_nanos(), 202);\n\nlet ts = ts.plus_seconds(2); assert_eq!(ts.nanos(), 3_000_000_202); assert_eq!(ts.seconds(), 3); assert_eq!(ts.subsec_nanos(), 202); ```",
         "allOf": [
@@ -182,22 +111,6 @@
             "$ref": "#/definitions/Uint64"
           }
         ]
-      },
-      "Trait": {
-        "type": "object",
-        "required": ["trait_type", "value"],
-        "properties": {
-          "display_type": {
-            "type": ["string", "null"]
-          },
-          "trait_type": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
       },
       "Uint64": {
         "description": "A thin wrapper around u64 that is using strings for JSON encoding/decoding, such that the full u64 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq.\n\n# Examples\n\nUse `from` to create instances of this and `u64` to get the value out:\n\n``` # use cosmwasm_std::Uint64; let a = Uint64::from(42u64); assert_eq!(a.u64(), 42);\n\nlet b = Uint64::from(70u32); assert_eq!(b.u64(), 70); ```",
@@ -213,11 +126,15 @@
       {
         "description": "Allows to mint a bs721 token and, optionally, to refer an address.",
         "type": "object",
-        "required": ["mint"],
+        "required": [
+          "mint"
+        ],
         "properties": {
           "mint": {
             "type": "object",
-            "required": ["amount"],
+            "required": [
+              "amount"
+            ],
             "properties": {
               "amount": {
                 "description": "Amount of token to mint. The maximum number an address can mint can be limited by the field `maximum_per_address` defined in the `Config`.",
@@ -227,7 +144,10 @@
               },
               "referral": {
                 "description": "Referral address used for minting.",
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
             },
             "additionalProperties": false
@@ -237,11 +157,16 @@
       },
       {
         "type": "object",
-        "required": ["burn"],
+        "required": [
+          "burn"
+        ],
         "properties": {
           "burn": {
             "type": "object",
-            "required": ["min_out_amount", "token_ids"],
+            "required": [
+              "min_out_amount",
+              "token_ids"
+            ],
             "properties": {
               "min_out_amount": {
                 "type": "integer",
@@ -249,7 +174,10 @@
                 "minimum": 0.0
               },
               "referral": {
-                "type": ["string", "null"]
+                "type": [
+                  "string",
+                  "null"
+                ]
               },
               "token_ids": {
                 "type": "array",
@@ -275,7 +203,9 @@
       {
         "description": "Retrieves contract's configuration",
         "type": "object",
-        "required": ["get_config"],
+        "required": [
+          "get_config"
+        ],
         "properties": {
           "get_config": {
             "type": "object",
@@ -287,11 +217,15 @@
       {
         "description": "Returns the maximum amount of token an address can mint.",
         "type": "object",
-        "required": ["max_per_address"],
+        "required": [
+          "max_per_address"
+        ],
         "properties": {
           "max_per_address": {
             "type": "object",
-            "required": ["address"],
+            "required": [
+              "address"
+            ],
             "properties": {
               "address": {
                 "type": "string"
@@ -304,11 +238,15 @@
       },
       {
         "type": "object",
-        "required": ["buy_price"],
+        "required": [
+          "buy_price"
+        ],
         "properties": {
           "buy_price": {
             "type": "object",
-            "required": ["amount"],
+            "required": [
+              "amount"
+            ],
             "properties": {
               "amount": {
                 "type": "integer",
@@ -323,11 +261,15 @@
       },
       {
         "type": "object",
-        "required": ["sell_price"],
+        "required": [
+          "sell_price"
+        ],
         "properties": {
           "sell_price": {
             "type": "object",
-            "required": ["amount"],
+            "required": [
+              "amount"
+            ],
             "properties": {
               "amount": {
                 "type": "integer",
@@ -383,33 +325,26 @@
     },
     "get_config": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "ConfigResponse",
+      "title": "Config",
+      "description": "Smart contract configuration structure.",
       "type": "object",
       "required": [
         "creator",
-        "metadata",
+        "name",
         "next_token_id",
+        "payment_address",
         "payment_denom",
+        "protocol_fee_bps",
         "ratio",
         "referral_fee_bps",
         "seller_fee_bps",
         "start_time",
-        "symbol"
+        "symbol",
+        "uri"
       ],
       "properties": {
-        "bs721_metadata": {
-          "description": "Address of the bs721 token contract.",
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Addr"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "bs721_royalties": {
-          "description": "Address of the bs721 royalties contract.",
+        "bs721_address": {
+          "description": "Address of the bs721 metadata-onchain token contract.",
           "anyOf": [
             {
               "$ref": "#/definitions/Addr"
@@ -420,7 +355,7 @@
           ]
         },
         "creator": {
-          "description": "Creator of the collection. If not provided it will be the sender.",
+          "description": "Creator of the collection. If not provided it will be the sender. The minter is the only one who can create new NFTs.",
           "allOf": [
             {
               "$ref": "#/definitions/Addr"
@@ -429,33 +364,48 @@
         },
         "max_edition": {
           "description": "Max edition of the collection launchparty.",
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "format": "uint32",
           "minimum": 0.0
         },
         "max_per_address": {
           "description": "Maximum amount of token an address can mint.",
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "format": "uint32",
           "minimum": 0.0
         },
-        "metadata": {
-          "description": "On-chain Metadata",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Metadata"
-            }
-          ]
+        "name": {
+          "description": "Name of the NFT contract",
+          "type": "string"
         },
         "next_token_id": {
-          "description": "ID that will be associated to the next NFT minted.",
+          "description": "ID of the next NFT that will be minted. The first NFT will be minted with ID == 1.",
           "type": "integer",
           "format": "uint32",
           "minimum": 0.0
         },
+        "payment_address": {
+          "description": "Address of the bs721 royalties contract.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Addr"
+            }
+          ]
+        },
         "payment_denom": {
           "description": "Denom used to pay for the NFTs",
           "type": "string"
+        },
+        "protocol_fee_bps": {
+          "type": "integer",
+          "format": "uint16",
+          "minimum": 0.0
         },
         "ratio": {
           "description": "Ratio, is the cooeficient of the curve",
@@ -464,7 +414,6 @@
           "minimum": 0.0
         },
         "referral_fee_bps": {
-          "description": "BPS of the token price associated to the referral address.",
           "type": "integer",
           "format": "uint16",
           "minimum": 0.0
@@ -483,7 +432,11 @@
           ]
         },
         "symbol": {
-          "description": "BS721 token symbol.",
+          "description": "Symbol of the NFT contract",
+          "type": "string"
+        },
+        "uri": {
+          "description": "URI of the NFT contract",
           "type": "string"
         }
       },
@@ -493,54 +446,6 @@
           "description": "A human readable address.\n\nIn Cosmos, this is typically bech32 encoded. But for multi-chain smart contracts no assumptions should be made other than being UTF-8 encoded and of reasonable length.\n\nThis type represents a validated address. It can be created in the following ways 1. Use `Addr::unchecked(input)` 2. Use `let checked: Addr = deps.api.addr_validate(input)?` 3. Use `let checked: Addr = deps.api.addr_humanize(canonical_addr)?` 4. Deserialize from JSON. This must only be done from JSON that was validated before such as a contract's state. `Addr` must not be used in messages sent by the user because this would result in unvalidated instances.\n\nThis type is immutable. If you really need to mutate it (Really? Are you sure?), create a mutable copy using `let mut mutable = Addr::to_string()` and operate on that `String` instance.",
           "type": "string"
         },
-        "MediaType": {
-          "type": "string",
-          "enum": ["image", "audio", "video"]
-        },
-        "Metadata": {
-          "type": "object",
-          "required": ["description", "name"],
-          "properties": {
-            "animation_url": {
-              "type": ["string", "null"]
-            },
-            "attributes": {
-              "type": ["array", "null"],
-              "items": {
-                "$ref": "#/definitions/Trait"
-              }
-            },
-            "background_color": {
-              "type": ["string", "null"]
-            },
-            "description": {
-              "type": "string"
-            },
-            "external_url": {
-              "type": ["string", "null"]
-            },
-            "image": {
-              "type": ["string", "null"]
-            },
-            "image_data": {
-              "type": ["string", "null"]
-            },
-            "media_type": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/MediaType"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
-        },
         "Timestamp": {
           "description": "A point in time in nanosecond precision.\n\nThis type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.\n\n## Examples\n\n``` # use cosmwasm_std::Timestamp; let ts = Timestamp::from_nanos(1_000_000_202); assert_eq!(ts.nanos(), 1_000_000_202); assert_eq!(ts.seconds(), 1); assert_eq!(ts.subsec_nanos(), 202);\n\nlet ts = ts.plus_seconds(2); assert_eq!(ts.nanos(), 3_000_000_202); assert_eq!(ts.seconds(), 3); assert_eq!(ts.subsec_nanos(), 202); ```",
           "allOf": [
@@ -548,22 +453,6 @@
               "$ref": "#/definitions/Uint64"
             }
           ]
-        },
-        "Trait": {
-          "type": "object",
-          "required": ["trait_type", "value"],
-          "properties": {
-            "display_type": {
-              "type": ["string", "null"]
-            },
-            "trait_type": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
         },
         "Uint64": {
           "description": "A thin wrapper around u64 that is using strings for JSON encoding/decoding, such that the full u64 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq.\n\n# Examples\n\nUse `from` to create instances of this and `u64` to get the value out:\n\n``` # use cosmwasm_std::Uint64; let a = Uint64::from(42u64); assert_eq!(a.u64(), 42);\n\nlet b = Uint64::from(70u32); assert_eq!(b.u64(), 70); ```",
@@ -578,7 +467,10 @@
       "properties": {
         "remaining": {
           "description": "Returns the maximum amount of token an address can mint.",
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "format": "uint32",
           "minimum": 0.0
         }

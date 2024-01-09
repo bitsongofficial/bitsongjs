@@ -54,20 +54,20 @@ telescope({
           dir: join(__dirname, '../contracts/bs721-base/'),
         },
         {
-          name: 'bs721-metadata-onchain',
-          dir: join(__dirname, '../contracts/bs721-metadata-onchain/'),
-        },
-        {
-          name: 'bs721-royalties',
-          dir: join(__dirname, '../contracts/bs721-royalties/'),
-        },
-        {
           name: 'bs721-curve',
           dir: join(__dirname, '../contracts/bs721-curve/'),
         },
         {
-          name: 'launchparty-fixed',
-          dir: join(__dirname, '../contracts/launchparty-fixed/'),
+          name: 'bs721-factory',
+          dir: join(__dirname, '../contracts/bs721-factory/'),
+        },
+        {
+          name: 'bs721-launchparty',
+          dir: join(__dirname, '../contracts/bs721-launchparty/'),
+        },
+        {
+          name: 'bs721-royalties',
+          dir: join(__dirname, '../contracts/bs721-royalties/'),
         },
       ],
       outPath: join(__dirname, '../src/codegen'),

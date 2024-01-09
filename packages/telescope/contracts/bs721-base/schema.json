@@ -1,6 +1,6 @@
 {
   "contract_name": "bs721-base",
-  "contract_version": "0.1.0-alpha.1",
+  "contract_version": "0.1.0-rc1",
   "idl_version": "1.0.0",
   "instantiate": {
     "$schema": "http://json-schema.org/draft-07/schema#",
@@ -12,18 +12,6 @@
       "symbol"
     ],
     "properties": {
-      "cover_image": {
-        "type": [
-          "string",
-          "null"
-        ]
-      },
-      "image": {
-        "type": [
-          "string",
-          "null"
-        ]
-      },
       "minter": {
         "description": "The minter is the only one who can create new NFTs. This is designed for a base NFT that is controlled by an external program or contract. You will likely replace this with custom logic in custom NFTs",
         "type": "string"
@@ -232,6 +220,28 @@
         "properties": {
           "mint": {
             "$ref": "#/definitions/MintMsg_for_Empty"
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "description": "Set a new minter",
+        "type": "object",
+        "required": [
+          "set_minter"
+        ],
+        "properties": {
+          "set_minter": {
+            "type": "object",
+            "required": [
+              "new_minter"
+            ],
+            "properties": {
+              "new_minter": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false
@@ -1237,18 +1247,6 @@
         "symbol"
       ],
       "properties": {
-        "cover_image": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "image": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "name": {
           "type": "string"
         },

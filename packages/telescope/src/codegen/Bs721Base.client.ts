@@ -311,6 +311,11 @@ export interface Bs721BaseInterface extends Bs721BaseReadOnlyInterface {
     tokenId: string;
     tokenUri?: string;
   }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+  setMinter: ({
+    newMinter
+  }: {
+    newMinter: string;
+  }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
   burn: ({
     tokenId
   }: {
@@ -339,6 +344,7 @@ export class Bs721BaseClient extends Bs721BaseQueryClient implements Bs721BaseIn
     this.approveAll = this.approveAll.bind(this);
     this.revokeAll = this.revokeAll.bind(this);
     this.mint = this.mint.bind(this);
+    this.setMinter = this.setMinter.bind(this);
     this.burn = this.burn.bind(this);
     this.extension = this.extension.bind(this);
   }
@@ -453,6 +459,17 @@ export class Bs721BaseClient extends Bs721BaseQueryClient implements Bs721BaseIn
         seller_fee_bps: sellerFeeBps,
         token_id: tokenId,
         token_uri: tokenUri
+      }
+    }, fee, memo, funds);
+  };
+  setMinter = async ({
+    newMinter
+  }: {
+    newMinter: string;
+  }, fee: number | StdFee | "auto" = "auto", memo?: string, funds?: Coin[]): Promise<ExecuteResult> => {
+    return await this.client.execute(this.sender, this.contractAddress, {
+      set_minter: {
+        new_minter: newMinter
       }
     }, fee, memo, funds);
   };

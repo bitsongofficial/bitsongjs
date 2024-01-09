@@ -5,9 +5,9 @@
 */
 
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
-import { Timestamp, Uint64, InstantiateMsg, ExecuteMsg, QueryMsg, Uint128, PriceResponse, Addr, Config, MaxPerAddressResponse } from "./Bs721Curve.types";
-export interface Bs721CurveReadOnlyInterface {
+import { StdFee } from "@cosmjs/amino";
+import { PartyType, Uint128, Timestamp, Uint64, InstantiateMsg, Coin, ExecuteMsg, QueryMsg, Addr, Config, MaxPerAddressResponse } from "./Bs721Launchparty.types";
+export interface Bs721LaunchpartyReadOnlyInterface {
   contractAddress: string;
   getConfig: () => Promise<Config>;
   maxPerAddress: ({
@@ -15,18 +15,8 @@ export interface Bs721CurveReadOnlyInterface {
   }: {
     address: string;
   }) => Promise<MaxPerAddressResponse>;
-  buyPrice: ({
-    amount
-  }: {
-    amount: number;
-  }) => Promise<PriceResponse>;
-  sellPrice: ({
-    amount
-  }: {
-    amount: number;
-  }) => Promise<PriceResponse>;
 }
-export class Bs721CurveQueryClient implements Bs721CurveReadOnlyInterface {
+export class Bs721LaunchpartyQueryClient implements Bs721LaunchpartyReadOnlyInterface {
   client: CosmWasmClient;
   contractAddress: string;
 
@@ -35,8 +25,6 @@ export class Bs721CurveQueryClient implements Bs721CurveReadOnlyInterface {
     this.contractAddress = contractAddress;
     this.getConfig = this.getConfig.bind(this);
     this.maxPerAddress = this.maxPerAddress.bind(this);
-    this.buyPrice = this.buyPrice.bind(this);
-    this.sellPrice = this.sellPrice.bind(this);
   }
 
   getConfig = async (): Promise<Config> => {
@@ -55,30 +43,8 @@ export class Bs721CurveQueryClient implements Bs721CurveReadOnlyInterface {
       }
     });
   };
-  buyPrice = async ({
-    amount
-  }: {
-    amount: number;
-  }): Promise<PriceResponse> => {
-    return this.client.queryContractSmart(this.contractAddress, {
-      buy_price: {
-        amount
-      }
-    });
-  };
-  sellPrice = async ({
-    amount
-  }: {
-    amount: number;
-  }): Promise<PriceResponse> => {
-    return this.client.queryContractSmart(this.contractAddress, {
-      sell_price: {
-        amount
-      }
-    });
-  };
 }
-export interface Bs721CurveInterface extends Bs721CurveReadOnlyInterface {
+export interface Bs721LaunchpartyInterface extends Bs721LaunchpartyReadOnlyInterface {
   contractAddress: string;
   sender: string;
   mint: ({
@@ -88,17 +54,8 @@ export interface Bs721CurveInterface extends Bs721CurveReadOnlyInterface {
     amount: number;
     referral?: string;
   }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
-  burn: ({
-    minOutAmount,
-    referral,
-    tokenIds
-  }: {
-    minOutAmount: number;
-    referral?: string;
-    tokenIds: number[];
-  }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
-export class Bs721CurveClient extends Bs721CurveQueryClient implements Bs721CurveInterface {
+export class Bs721LaunchpartyClient extends Bs721LaunchpartyQueryClient implements Bs721LaunchpartyInterface {
   client: SigningCosmWasmClient;
   sender: string;
   contractAddress: string;
@@ -109,7 +66,6 @@ export class Bs721CurveClient extends Bs721CurveQueryClient implements Bs721Curv
     this.sender = sender;
     this.contractAddress = contractAddress;
     this.mint = this.mint.bind(this);
-    this.burn = this.burn.bind(this);
   }
 
   mint = async ({
@@ -123,23 +79,6 @@ export class Bs721CurveClient extends Bs721CurveQueryClient implements Bs721Curv
       mint: {
         amount,
         referral
-      }
-    }, fee, memo, funds);
-  };
-  burn = async ({
-    minOutAmount,
-    referral,
-    tokenIds
-  }: {
-    minOutAmount: number;
-    referral?: string;
-    tokenIds: number[];
-  }, fee: number | StdFee | "auto" = "auto", memo?: string, funds?: Coin[]): Promise<ExecuteResult> => {
-    return await this.client.execute(this.sender, this.contractAddress, {
-      burn: {
-        min_out_amount: minOutAmount,
-        referral,
-        token_ids: tokenIds
       }
     }, fee, memo, funds);
   };
