@@ -88,12 +88,19 @@ export type TrackMetadataDetails = ContentMetadataCommon & {
   previousRelease?: boolean;
   isrc?: string;
   iswc?: string;
+  /**
+   * Track duration in milliseconds.
+   */
   duration: number;
   license: LicenseType;
   /**
-   * Track preview is a 30-sec snippet of your track that will be used for previewing it
+   * Track preview start time in milliseconds, this is used to preview a track on a marketplace.
    */
   previewStartTime?: number;
+  /**
+   * Track preview duration in milliseconds, this is used to preview a track on a marketplace.
+   */
+  previewDuration?: number;
   lyrics?: Markdown;
   lyricsLocale?: Locale;
   explicit: TrackExpicit;
@@ -110,7 +117,7 @@ const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, 
     artwork: uriSchema('The artwork of the track.'),
     audio: uriSchema('The audio of the track.'),
     video: uriSchema('The video of the track.').optional(),
-    duration: z.number({ description: 'The duration of the track.' }).positive().int(),
+    duration: z.number({ description: 'The duration of the track in milliseconds.' }).nonnegative().int(),
     genre: z.nativeEnum(TrackGenre, { description: 'The genre of the track.' }),
     country: z.nativeEnum(Country, { description: 'The country of the track.' }),
     isrc: nonEmptyStringSchema('The ISRC of the track.').optional(),
@@ -124,7 +131,8 @@ const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, 
     lyrics: markdown(z.string({ description: 'The lyrics of the track.' })).optional(),
     lyricsLocale: LocaleSchema.optional(),
     previousRelease: z.boolean({ description: 'If the track was previously released.' }).optional(),
-    previewStartTime: z.number({ description: 'The preview start time of the track.' }).positive().int().optional(),
+    previewStartTime: z.number({ description: 'The preview start time of the track in milliseconds.' }).nonnegative().int().optional(),
+    previewDuration: z.number({ description: 'The preview duration of the track.' }).nonnegative().int().optional(),
     version: nonEmptyStringSchema('The version of the track.').optional(),
     label: nonEmptyStringSchema('The label of the track.').optional(),
   });

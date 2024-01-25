@@ -1,10 +1,9 @@
 {
   "name": "@bitsongjs/metadata",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Angelo Recca <angelorc@users.noreply.github.com>",
   "description": "A Javascript lib for BitSong Metadata",
   "license": "MIT",
-  "main": "dist",
   "publishConfig": {
     "access": "public",
     "@bitsongjs:registry": "https://registry.npmjs.com"
@@ -12,6 +11,17 @@
   "bugs": {
     "url": "https://github.com/bitsongofficial/bitsongjs/issues"
   },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/",
     "test/"
@@ -34,14 +44,18 @@
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "ts-proto": "^1.104.0",
-    "tsup": "^7.2.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "unbuild": "^2.0.0"
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "test": "jest"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "pnpm run dev && eslint .",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@cosmjs/encoding": "^0.32.2",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.3"

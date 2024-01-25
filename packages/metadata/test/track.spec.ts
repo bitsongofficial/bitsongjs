@@ -13,14 +13,14 @@ describe('Given the track metadata', () => {
         artists: [
           {
             name: 'The best Artist',
-            role: ArtistRole.MAIN_ARTIST,
+            role: "Main Artist",
           },
           {
             name: 'Artist 2',
-            role: ArtistRole.FEATURING,
+            role: "Featuring",
           },
         ],
-        contentType: MediaAudioMimeType.WAV_VND,
+        //contentType: MediaAudioMimeType.WAV_VND,
         artwork: 'https://bitsong.io/artwork.png',
         audio: 'https://bitsong.io/audio.mp3',
         duration: 100,

@@ -1,5 +1,6 @@
 import { Brand } from 'src/utils';
 import { z } from 'zod';
+import { fromBech32 } from "@cosmjs/encoding";
 
 /**
  * A locale identifier.
@@ -104,6 +105,36 @@ export function uriSchema(
 /**
  * The BitSong address.
  */
+export const isValidPrefix = (
+  address: string,
+  requiredPrefix: string
+): boolean => {
+  try {
+    const { prefix } = fromBech32(address);
+
+    return prefix === requiredPrefix;
+  } catch {
+    return false;
+  }
+};
+
+export const isValidLength = (address: string, length: number): boolean => {
+  try {
+    const { data } = fromBech32(address);
+
+    return data.length === length;
+  } catch {
+    return false;
+  }
+};
+
+export const isValidAddress = (
+  address: string,
+  requiredPrefix: string
+): boolean => {
+  return isValidPrefix(address, requiredPrefix) && isValidLength(address, 20);
+};
+
 export type BitsongAddress = Brand<string, 'BitsongAddress'>;
 
 export function toBitsongAddress(value: string): BitsongAddress {
@@ -115,12 +146,15 @@ export function bitsongAddressSchema(
 ): z.ZodType<BitsongAddress, z.ZodTypeDef, unknown> {
   return z
     .string({ description })
-    .min(1)
-    .max(50)
-    .regex(
-      /^bitsong[a-z0-9]{38}$/,
-      'Should be a valid BitSong address',
-    ) // TODO: implement correct validation through cosmjs
+    .refine((val) => isValidAddress(val, 'bitsong'), {
+      message: 'Should be a valid BitSong address',
+    })
+    // .min(1)
+    // .max(50)
+    // .regex(
+    //   /^bitsong[a-z0-9]{38}$/,
+    //   'Should be a valid BitSong address',
+    // ) // TODO: implement correct validation through cosmjs
     .transform(toBitsongAddress);
 }
 
