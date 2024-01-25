@@ -132,6 +132,9 @@ export interface Bs721BaseInterface extends Bs721BaseReadOnlyInterface {
         tokenId: string;
         tokenUri?: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+    setMinter: ({ newMinter }: {
+        newMinter: string;
+    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
     burn: ({ tokenId }: {
         tokenId: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
@@ -176,6 +179,9 @@ export declare class Bs721BaseClient extends Bs721BaseQueryClient implements Bs7
         sellerFeeBps?: number;
         tokenId: string;
         tokenUri?: string;
+    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
+    setMinter: ({ newMinter }: {
+        newMinter: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
     burn: ({ tokenId }: {
         tokenId: string;

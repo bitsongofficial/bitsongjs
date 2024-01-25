@@ -4,22 +4,16 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
-import { PriceResponse, Config, MaxPerAddressResponse } from "./Bs721Curve.types";
-export interface Bs721CurveReadOnlyInterface {
+import { StdFee } from "@cosmjs/amino";
+import { Coin, Config, MaxPerAddressResponse } from "./Bs721Launchparty.types";
+export interface Bs721LaunchpartyReadOnlyInterface {
     contractAddress: string;
     getConfig: () => Promise<Config>;
     maxPerAddress: ({ address }: {
         address: string;
     }) => Promise<MaxPerAddressResponse>;
-    buyPrice: ({ amount }: {
-        amount: number;
-    }) => Promise<PriceResponse>;
-    sellPrice: ({ amount }: {
-        amount: number;
-    }) => Promise<PriceResponse>;
 }
-export declare class Bs721CurveQueryClient implements Bs721CurveReadOnlyInterface {
+export declare class Bs721LaunchpartyQueryClient implements Bs721LaunchpartyReadOnlyInterface {
     client: CosmWasmClient;
     contractAddress: string;
     constructor(client: CosmWasmClient, contractAddress: string);
@@ -27,27 +21,16 @@ export declare class Bs721CurveQueryClient implements Bs721CurveReadOnlyInterfac
     maxPerAddress: ({ address }: {
         address: string;
     }) => Promise<MaxPerAddressResponse>;
-    buyPrice: ({ amount }: {
-        amount: number;
-    }) => Promise<PriceResponse>;
-    sellPrice: ({ amount }: {
-        amount: number;
-    }) => Promise<PriceResponse>;
 }
-export interface Bs721CurveInterface extends Bs721CurveReadOnlyInterface {
+export interface Bs721LaunchpartyInterface extends Bs721LaunchpartyReadOnlyInterface {
     contractAddress: string;
     sender: string;
     mint: ({ amount, referral }: {
         amount: number;
         referral?: string;
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
-    burn: ({ minOutAmount, referral, tokenIds }: {
-        minOutAmount: number;
-        referral?: string;
-        tokenIds: number[];
-    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }
-export declare class Bs721CurveClient extends Bs721CurveQueryClient implements Bs721CurveInterface {
+export declare class Bs721LaunchpartyClient extends Bs721LaunchpartyQueryClient implements Bs721LaunchpartyInterface {
     client: SigningCosmWasmClient;
     sender: string;
     contractAddress: string;
@@ -55,10 +38,5 @@ export declare class Bs721CurveClient extends Bs721CurveQueryClient implements B
     mint: ({ amount, referral }: {
         amount: number;
         referral?: string;
-    }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
-    burn: ({ minOutAmount, referral, tokenIds }: {
-        minOutAmount: number;
-        referral?: string;
-        tokenIds: number[];
     }, fee?: number | StdFee | "auto", memo?: string, funds?: Coin[]) => Promise<ExecuteResult>;
 }

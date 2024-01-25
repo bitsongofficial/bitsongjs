@@ -4,8 +4,6 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 export interface InstantiateMsg {
-    cover_image?: string | null;
-    image?: string | null;
     minter: string;
     name: string;
     symbol: string;
@@ -44,6 +42,10 @@ export type ExecuteMsg = {
     };
 } | {
     mint: MintMsgForEmpty;
+} | {
+    set_minter: {
+        new_minter: string;
+    };
 } | {
     burn: {
         token_id: string;
@@ -160,8 +162,6 @@ export interface ApprovalsResponse {
     approvals: Approval[];
 }
 export interface ContractInfoResponse {
-    cover_image?: string | null;
-    image?: string | null;
     name: string;
     symbol: string;
     uri?: string | null;
