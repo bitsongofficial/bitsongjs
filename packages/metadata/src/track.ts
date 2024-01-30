@@ -29,6 +29,7 @@ export enum TrackGenre {
   CLASSICAL = 'Classical',
   COUNTRY = 'Country',
   DANCE = 'Dance',
+  DRUM_AND_BASS = 'Drum & Bass',
   DUBSTEP = 'Dubstep',
   ELECTRONIC = 'Electronic',
   FOLK = 'Folk',
