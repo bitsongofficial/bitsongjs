@@ -49,6 +49,10 @@ export const GenreType = [{
   name: 'Funk',
   description: '',
 }, {
+  id: 'future_bass',
+  name: 'Future Bass',
+  description: '',
+}, {
   id: 'hip_hop',
   name: 'Hip-Hop',
   description: '',
@@ -87,6 +91,10 @@ export const GenreType = [{
 }, {
   id: 'reggae',
   name: 'Reggae',
+  description: '',
+}, {
+  id: 'rap',
+  name: 'Rap',
   description: '',
 }, {
   id: 'rock',
