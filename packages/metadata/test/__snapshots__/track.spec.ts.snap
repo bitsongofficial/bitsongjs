@@ -23,7 +23,7 @@ Object {
     Object {
       "display_type": "string",
       "trait_type": "Genre",
-      "value": "Dance",
+      "value": "Ambient",
     },
     Object {
       "display_type": "string",
@@ -95,12 +95,11 @@ Object {
       },
     ],
     "cLine": "2020 The Best Label",
-    "contentType": "audio/vnd.wave",
     "country": "IT",
     "description": "this is a description",
     "duration": 100,
     "explicit": "Clean",
-    "genre": "Dance",
+    "genre": "Ambient",
     "id": Any<String>,
     "isrc": "IT-ABC-12345",
     "iswc": "IT-ABC-12345",

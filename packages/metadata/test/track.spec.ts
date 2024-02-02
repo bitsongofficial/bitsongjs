@@ -1,7 +1,5 @@
-import { ArtistRole, LicenseType, TrackExpicit, TrackGenre, trackMetadata } from '../src'
-import { AuthorPublisherRole } from '../src/author_publisher'
-import { MediaAudioMimeType, toMarkdown } from '../src/common'
-import { Country } from '../src/common/country'
+import { toLicense, trackMetadata, toTrackGenre, toExplicit, toArtistRole } from '../src'
+import { toMarkdown, toCountry } from '../src/common'
 
 describe('Given the track metadata', () => {
   describe('when using Track Metadata', () => {
@@ -13,30 +11,29 @@ describe('Given the track metadata', () => {
         artists: [
           {
             name: 'The best Artist',
-            role: "Main Artist",
+            role: toArtistRole('Main Artist'),
           },
           {
             name: 'Artist 2',
-            role: "Featuring",
+            role: toArtistRole('Featuring'),
           },
         ],
-        //contentType: MediaAudioMimeType.WAV_VND,
         artwork: 'https://bitsong.io/artwork.png',
         audio: 'https://bitsong.io/audio.mp3',
         duration: 100,
-        license: LicenseType.NO_RIGHTS_RESERVED,
-        genre: TrackGenre.DANCE,
-        country: Country.ITALY,
-        explicit: TrackExpicit.CLEAN,
+        license: toLicense("No Rights Reserved (CC0)"), // or toLicense('no_rights_reserved')
+        genre: toTrackGenre('ambient'),
+        country: toCountry('IT'), // or toCountry('it') or toCountry('Italy') or toCountry('italy')
+        explicit: toExplicit('Clean'), // or toExplicit('clean') or toExplicit('Explicit') or toExplicit('explicit')
         isrc: 'IT-ABC-12345',
         authors_publishers: [
           {
             name: 'Author 1',
-            role: AuthorPublisherRole.COMPOSER,
+            role: toArtistRole('Composer'),
           },
           {
             name: 'Author 2',
-            role: AuthorPublisherRole.LYRICIST,
+            role: toArtistRole('Lyricist'),
           },
         ],
         cLine: '2020 The Best Label',

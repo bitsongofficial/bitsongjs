@@ -1,4 +1,4 @@
-import { Brand } from 'src/utils';
+import { Brand } from '../utils';
 import { z } from 'zod';
 import { fromBech32 } from "@cosmjs/encoding";
 

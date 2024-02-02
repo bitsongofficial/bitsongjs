@@ -1,13 +1,15 @@
 import { z } from "zod";
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 import { ArtistDetails, ArtistDetailsSchema } from "./artist";
 import { BaseDetails, BaseMetadata, BaseMetadataAttributeDisplayType, ContentMetadataCommon, Locale, LocaleSchema, Markdown, MediaAudioMimeType, URI, contentWith, markdown, metadataDetailsWith, nonEmptyStringSchema, uriSchema } from "./common";
-import { LicenseType } from "./license";
+import { License, licenseSchema } from "./license";
 import { ContentSchemaId } from "./schema";
 import { InputForContentMetadataDetails } from "./utils";
 import { evaluate } from "./common/validation";
-import { Country } from "./common/country";
+import { Country, countrySchema, toCountry } from "./common/country";
 import { AuthorPublisherDetails, AuthorPublisherDetailsSchema } from "./author_publisher";
+import { TrackGenre, trackGenreSchema } from "./genre";
+import { Explicit, explicitSchema } from "./explicit";
 
 export enum TrackSuggestedVersions {
   ACAPELLA = 'Acapella',
@@ -20,41 +22,6 @@ export enum TrackSuggestedVersions {
   RADIO_EDIT = 'Radio Edit',
   REMASTERED = 'Remastered',
   REMIX = 'Remix',
-}
-
-export enum TrackGenre {
-  ALTERNATIVE = 'Alternative',
-  AMBIENT = 'Ambient',
-  BLUES = 'Blues',
-  CLASSICAL = 'Classical',
-  COUNTRY = 'Country',
-  DANCE = 'Dance',
-  DRUM_AND_BASS = 'Drum & Bass',
-  DUBSTEP = 'Dubstep',
-  ELECTRONIC = 'Electronic',
-  FOLK = 'Folk',
-  FUNK = 'Funk',
-  HIP_HOP = 'Hip-Hop',
-  HOUSE = 'House',
-  INDIE = 'Indie',
-  JAZZ = 'Jazz',
-  LATIN = 'Latin',
-  METAL = 'Metal',
-  POP = 'Pop',
-  PUNK = 'Punk',
-  R_AND_B = 'R&B',
-  REGGAE = 'Reggae',
-  ROCK = 'Rock',
-  SOUL = 'Soul',
-  TECHNO = 'Techno',
-  TRANCE = 'Trance',
-  TRAP = 'Trap',
-  WORLD = 'World',
-}
-
-export enum TrackExpicit {
-  EXPLICIT = 'Explicit',
-  CLEAN = 'Clean',
 }
 
 export type TrackMetadataDetails = ContentMetadataCommon & {
@@ -93,7 +60,7 @@ export type TrackMetadataDetails = ContentMetadataCommon & {
    * Track duration in milliseconds.
    */
   duration: number;
-  license: LicenseType;
+  license: License;
   /**
    * Track preview start time in milliseconds, this is used to preview a track on a marketplace.
    */
@@ -104,7 +71,7 @@ export type TrackMetadataDetails = ContentMetadataCommon & {
   previewDuration?: number;
   lyrics?: Markdown;
   lyricsLocale?: Locale;
-  explicit: TrackExpicit;
+  explicit: Explicit;
   authors_publishers?: AuthorPublisherDetails[];
   label?: string;
 };
@@ -113,17 +80,17 @@ const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, 
   metadataDetailsWith({
     title: nonEmptyStringSchema('The title of the track.'),
     titleLocale: LocaleSchema,
-    license: z.nativeEnum(LicenseType, { description: 'The license of the track.' }),
+    license: licenseSchema('The license of the track.'),
     artists: z.array(ArtistDetailsSchema, { description: 'The artists of the track.' }).min(1),
     artwork: uriSchema('The artwork of the track.'),
     audio: uriSchema('The audio of the track.'),
     video: uriSchema('The video of the track.').optional(),
     duration: z.number({ description: 'The duration of the track in milliseconds.' }).nonnegative().int(),
-    genre: z.nativeEnum(TrackGenre, { description: 'The genre of the track.' }),
-    country: z.nativeEnum(Country, { description: 'The country of the track.' }),
+    genre: trackGenreSchema('The genre of the track.'),
+    country: countrySchema('The country of the track.'),
     isrc: nonEmptyStringSchema('The ISRC of the track.').optional(),
     iswc: nonEmptyStringSchema('The ISWC of the track.').optional(),
-    explicit: z.nativeEnum(TrackExpicit, { description: 'If the track is explicit' }),
+    explicit: explicitSchema('If the track is explicit or not.'),
     authors_publishers: z.array(AuthorPublisherDetailsSchema, { description: 'The authors and publishers of the track.' }).optional(),
     cLine: nonEmptyStringSchema('The c-line of the track.').optional(),
     pLine: nonEmptyStringSchema('The p-line of the track.').optional(),
