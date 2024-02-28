@@ -14,6 +14,8 @@ import * as _6 from "./Bs721Launchparty.types";
 import * as _7 from "./Bs721Launchparty.client";
 import * as _8 from "./Bs721Royalties.types";
 import * as _9 from "./Bs721Royalties.client";
+import * as _10 from "./Cw3FixedMultisig.types";
+import * as _11 from "./Cw3FixedMultisig.client";
 export namespace contracts {
   export const Bs721Base = { ..._0,
     ..._1
@@ -29,5 +31,8 @@ export namespace contracts {
   };
   export const Bs721Royalties = { ..._8,
     ..._9
+  };
+  export const Cw3FixedMultisig = { ..._10,
+    ..._11
   };
 }

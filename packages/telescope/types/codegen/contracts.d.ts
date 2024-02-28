@@ -8,6 +8,7 @@ import * as _3 from "./Bs721Curve.client";
 import * as _5 from "./Bs721Factory.client";
 import * as _7 from "./Bs721Launchparty.client";
 import * as _9 from "./Bs721Royalties.client";
+import * as _11 from "./Cw3FixedMultisig.client";
 export declare namespace contracts {
     const Bs721Base: {
         Bs721BaseQueryClient: typeof _1.Bs721BaseQueryClient;
@@ -28,5 +29,9 @@ export declare namespace contracts {
     const Bs721Royalties: {
         Bs721RoyaltiesQueryClient: typeof _9.Bs721RoyaltiesQueryClient;
         Bs721RoyaltiesClient: typeof _9.Bs721RoyaltiesClient;
+    };
+    const Cw3FixedMultisig: {
+        Cw3FixedMultisigQueryClient: typeof _11.Cw3FixedMultisigQueryClient;
+        Cw3FixedMultisigClient: typeof _11.Cw3FixedMultisigClient;
     };
 }

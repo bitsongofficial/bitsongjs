@@ -69,6 +69,10 @@ telescope({
           name: 'bs721-royalties',
           dir: join(__dirname, '../contracts/bs721-royalties/'),
         },
+        {
+          name: 'cw3-fixed-multisig',
+          dir: join(__dirname, '../contracts/cw3-fixed-multisig/'),
+        },
       ],
       outPath: join(__dirname, '../src/codegen'),
       options: {
