@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/metadata",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Angelo Recca <angelorc@users.noreply.github.com>",
   "description": "A Javascript lib for BitSong Metadata",
   "license": "MIT",
