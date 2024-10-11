@@ -36,6 +36,10 @@ export const LicenseType = [{
   id: 'cc_by_nc_sa',
   name: 'Creative Commons Attribution Non-Commercial Share Alike (CC-BY-NC-SA)',
   description: 'Anyone can remix, adapt, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms',
+}, {
+  id: 'public_domain',
+  name: 'Public Domain',
+  description: 'Your work is in the public domain, and anyone can use it for any purpose without restrictions',
 }];
 
 export type License = Brand<string, 'License'>;
