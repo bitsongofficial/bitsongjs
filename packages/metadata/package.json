@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@cosmjs/encoding": "^0.32.2",
+    "iso-3166-1": "^2.1.1",
     "uuid": "^9.0.1",
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.3"

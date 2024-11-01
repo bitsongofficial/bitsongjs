@@ -76,7 +76,7 @@ export type TrackMetadataDetails = ContentMetadataCommon & {
   label?: string;
 };
 
-const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, object> =
+export const TrackMetadataDetailsSchema: z.ZodType<TrackMetadataDetails, z.ZodTypeDef, object> =
   metadataDetailsWith({
     title: nonEmptyStringSchema('The title of the track.'),
     titleLocale: LocaleSchema,
