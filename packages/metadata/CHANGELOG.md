@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/metadata@0.2.3...@bitsongjs/metadata@0.2.4) (2024-11-02)
+
+
+### Bug Fixes
+
+* should fix an issue with recursive types in ts ([d0caf17](https://github.com/bitsongofficial/bitsongjs/commit/d0caf17a9566fa6bc488e2ce28ec1283fcde0972))
+
+
+
+
+
 ## [0.2.3](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/metadata@0.2.2...@bitsongjs/metadata@0.2.3) (2024-11-01)
 
 **Note:** Version bump only for package @bitsongjs/metadata
