@@ -8,13 +8,11 @@ type BrandOf<A> = [A] extends [Brand<unknown, infer R>] ? R : never;
 
 type UnbrandSingle<T> = T extends Brand<infer R, BrandOf<T>> ? R : T;
 
-export type RecursiveUnbrand<T> = UnbrandSingle<T> extends infer U
-  ? U extends object
-  ? {
-    [K in keyof U]: RecursiveUnbrand<U[K]>;
-  }
-  : U
-  : never;
+export type RecursiveUnbrand<T> = T extends Brand<infer R, BrandOf<T>>
+  ? R
+  : {
+    [K in keyof T]: RecursiveUnbrand<T[K]>;
+  };
 
 export type ShapeCheck<T> = T extends {
   $schema: string;

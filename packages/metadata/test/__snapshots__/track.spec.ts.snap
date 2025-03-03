@@ -8,7 +8,7 @@ Object {
     Object {
       "display_type": "string",
       "trait_type": "License",
-      "value": "No Rights Reserved (CC0)",
+      "value": "Public Domain",
     },
     Object {
       "display_type": "number",
@@ -104,7 +104,7 @@ Object {
     "isrc": "IT-ABC-12345",
     "iswc": "IT-ABC-12345",
     "label": "The Best Label",
-    "license": "No Rights Reserved (CC0)",
+    "license": "Public Domain",
     "liveRecording": false,
     "lyrics": "this is a lyrics",
     "lyricsLocale": "en",
