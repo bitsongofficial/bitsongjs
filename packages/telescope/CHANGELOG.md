@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-dev.24](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.23...@bitsongjs/telescope@3.0.0-dev.24) (2025-03-03)
+
+
+### Bug Fixes
+
+* update [@cosmjs](https://github.com/cosmjs) dependencies to version 0.33.0 ([8827ff9](https://github.com/bitsongofficial/bitsongjs/commit/8827ff95c8d677a8d82473fc934dd52a77bd7c43))
+
+
+
+
+
 # [3.0.0-dev.23](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/telescope@3.0.0-dev.22...@bitsongjs/telescope@3.0.0-dev.23) (2024-02-28)
 
 **Note:** Version bump only for package @bitsongjs/telescope

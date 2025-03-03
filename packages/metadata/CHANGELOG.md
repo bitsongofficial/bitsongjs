@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/metadata@0.2.4...@bitsongjs/metadata@0.2.5) (2025-03-03)
+
+
+### Bug Fixes
+
+* update zod dependency to version 3.23.8 and adjust recursive unbranding logic ([0c6630b](https://github.com/bitsongofficial/bitsongjs/commit/0c6630b76826fdf1b43b7cd3f58312215621f845))
+
+
+
+
+
 ## [0.2.4](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/metadata@0.2.3...@bitsongjs/metadata@0.2.4) (2024-11-02)
 
 
