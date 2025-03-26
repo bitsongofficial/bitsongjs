@@ -1,27 +1,16 @@
-import { Slip10RawIndex } from "@cosmjs/crypto";
-import type { BroadcastParams, OfflineSignerParams, SignParams } from "./types";
-import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import type { BroadcastParams, OfflineSignerParams, SignerType, SignParams } from "./types";
+import { DirectSecp256k1HdWallet, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
 import { getSigningBitsongClient } from '@bitsongjs/telescope'
+import { makeHdPath } from "./utils";
 
-export function makeHdPath(coinType = 118, account = 0) {
-  return [
-    Slip10RawIndex.hardened(44),
-    Slip10RawIndex.hardened(coinType),
-    Slip10RawIndex.hardened(0),
-    Slip10RawIndex.normal(0),
-    Slip10RawIndex.normal(account)
-  ];
-}
-
-export function bitsongHdPath(account = 0) {
-  return makeHdPath(639, account);
-}
-
-export const offlineSignerProto = async ({
+export const getOfflineSignerDirect = async ({
   mnemonic,
-  chain
+  chain = {
+    bech32_prefix: 'bitsong',
+    slip44: 639
+  }
 }: OfflineSignerParams): Promise<DirectSecp256k1HdWallet> => {
   return await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: chain.bech32_prefix,
@@ -29,9 +18,12 @@ export const offlineSignerProto = async ({
   });
 };
 
-export const offlineSignerAmino = async ({
+export const getOfflineSignerAmino = async ({
   mnemonic,
-  chain
+  chain = {
+    bech32_prefix: 'bitsong',
+    slip44: 639
+  }
 }: OfflineSignerParams): Promise<Secp256k1HdWallet> => {
   return await Secp256k1HdWallet.fromMnemonic(mnemonic, {
     prefix: chain.bech32_prefix,
@@ -39,14 +31,38 @@ export const offlineSignerAmino = async ({
   });
 };
 
+export const getOfflineSigner = async ({
+  mnemonic,
+  chain = {
+    bech32_prefix: 'bitsong',
+    slip44: 639
+  },
+  signerType = 'direct'
+}: OfflineSignerParams & { signerType: SignerType }): Promise<OfflineSigner> => {
+  switch (signerType) {
+    case 'amino': {
+      return await getOfflineSignerAmino({ mnemonic, chain });
+    }
+    case 'direct': {
+      return await getOfflineSignerDirect({ mnemonic, chain });
+    }
+    default: {
+      return await getOfflineSignerDirect({ mnemonic, chain });
+    }
+  }
+};
+
 export const sign = async ({
   client,
-  chainId,
   sender,
   msgs,
-  fee,
+  signerType = 'auto',
+  fee = 'auto',
+  feeMultiplier = 1.4,
   memo = ''
 }: SignParams) => {
+  const chainId = await client.getChainId();
+  
   const { accountNumber, sequence } = await client.getSequence(sender);
 
   const txRaw = await client.sign(sender, msgs, fee, memo, {

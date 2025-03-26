@@ -1,20 +1,28 @@
-import { SigningStargateClient } from '@cosmjs/stargate';
+import type { GasPrice, SignerData, SigningStargateClient } from '@cosmjs/stargate';
+import type { Chain } from '@chain-registry/types'
+import type { EncodeObject, StdFee } from '@bitsongjs/telescope';
+
+export type ChainNameParam = string | string[] | undefined
+
+export type SignerType = 'auto' | 'amino' | 'direct';
+
+export type GasPriceType = 'low' | 'average' | 'high';
 
 export interface OfflineSignerParams {
   mnemonic: string;
-  chain: {
-    bech32_prefix: string;
-    slip44: number;
-  }
+  chain?: Pick<Chain, 'bech32_prefix' | 'slip44'>;
 }
 
 export interface SignParams {
   client: SigningStargateClient;
-  chainId: string;
+  msgs: readonly EncodeObject[];
   sender: string;
-  msgs: readonly any[];
-  fee: any;
-  memo: string;
+  signerType?: SignerType;
+  fee?: StdFee | 'auto';
+  feeMultiplier?: number;
+  memo?: string;
+  explicitSignerData?: SignerData,
+  timeoutHeight?: bigint
 }
 
 export interface BroadcastParams {
@@ -22,4 +30,13 @@ export interface BroadcastParams {
   txBytes: Uint8Array;
   timeoutMs?: number;
   pollIntervalMs?: number;
+}
+
+export interface EstimateFeeParams {
+  client: SigningStargateClient;
+  sender: string;
+  msgs: readonly EncodeObject[];
+  gasPrice: string | GasPrice;
+  feeMultiplier?: number;
+  memo?: string;
 }
