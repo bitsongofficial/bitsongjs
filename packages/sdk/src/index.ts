@@ -139,14 +139,7 @@ export class Client {
     const chainId = await this.stargateClient.getChainId();
 
     if (!sender) {
-      const accounts = await this.getOfflineSigner().getAccounts();
-      if (!accounts || accounts.length === 0) {
-        throw new Error('No accounts found in the wallet');
-      }
-      sender = accounts[0]?.address;
-      if (!sender) {
-        throw new Error('Account address is undefined');
-      }
+      sender = await this.getSenderAddress();
     }
 
     const { accountNumber, sequence } = await this.stargateClient.getSequence(sender);
@@ -203,14 +196,7 @@ export class Client {
     }
 
     if (!sender) {
-      const accounts = await this.getOfflineSigner().getAccounts();
-      if (!accounts || accounts.length === 0) {
-        throw new Error('No accounts found in the wallet');
-      }
-      sender = accounts[0]?.address;
-      if (!sender) {
-        throw new Error('Account address is undefined');
-      }
+      sender = await this.getSenderAddress();
     }
 
     const gasEstimate = await this.stargateClient.simulate(sender, msgs, memo);
@@ -222,6 +208,6 @@ export class Client {
   }
 }
 
-// const test = await Client.create({ mnemonic: '...' })
-// test.bank.getAllBalances({ ... })
-// test.bank.send({ ... })
+// const client = await Client.create({ mnemonic: '...' })
+// client.bank.getAllBalances({ ... })
+// client.bank.send({ ... })
