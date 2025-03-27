@@ -1,4 +1,10 @@
-import type { BroadcastParams, CreateSigningClientParams, OfflineSignerParams, SignerType, SignParams } from "./types";
+import type {
+  BroadcastParams,
+  SignerType,
+  SignParams,
+  EstimateFeeParams,
+  GasPriceType,
+} from "./types";
 import { DirectSecp256k1HdWallet, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
@@ -6,143 +12,181 @@ import { getSigningBitsongClient } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";
 import type { SigningStargateClient } from '@cosmjs/stargate';
+import type { Chain } from "@chain-registry/types";
+import { GasPrice, calculateFee } from '@cosmjs/stargate';
+import { getGasPrice } from "./gas";
 
-export const getOfflineSignerDirect = async ({
-  mnemonic,
-  chain = {
-    bech32_prefix: 'bitsong',
-    slip44: 639
-  }
-}: OfflineSignerParams): Promise<DirectSecp256k1HdWallet> => {
-  if (typeof chain === 'string') {
-    chain = getChain(chain);
-  }
+export class Client {
+  private readonly chain: Chain;
+  private readonly offlineSigner: OfflineSigner;
+  private readonly stargateClient: SigningStargateClient;
 
-  return await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-    prefix: chain.bech32_prefix,
-    hdPaths: [makeHdPath(chain.slip44, 0)]
-  });
-};
-
-export const getOfflineSignerAmino = async ({
-  mnemonic,
-  chain = {
-    bech32_prefix: 'bitsong',
-    slip44: 639
-  }
-}: OfflineSignerParams): Promise<Secp256k1HdWallet> => {
-  if (typeof chain === 'string') {
-    chain = getChain(chain);
+  private constructor(
+    chain: Chain,
+    offlineSigner: OfflineSigner,
+    stargateClient: SigningStargateClient
+  ) {
+    this.chain = chain;
+    this.offlineSigner = offlineSigner;
+    this.stargateClient = stargateClient;
   }
 
-  return await Secp256k1HdWallet.fromMnemonic(mnemonic, {
-    prefix: chain.bech32_prefix,
-    hdPaths: [makeHdPath(chain.slip44, 0)]
-  });
-};
-
-export const createOfflineSigner = async ({
-  mnemonic,
-  chain = {
-    bech32_prefix: 'bitsong',
-    slip44: 639
-  },
-  signerType = 'direct'
-}: OfflineSignerParams & { signerType?: SignerType }): Promise<OfflineSigner> => {
-  if (typeof chain === 'string') {
-    chain = getChain(chain);
-  }
-
-  switch (signerType) {
-    case 'amino': {
-      return await getOfflineSignerAmino({ mnemonic, chain });
-    }
-    case 'direct': {
-      return await getOfflineSignerDirect({ mnemonic, chain });
-    }
-    default: {
-      return await getOfflineSignerDirect({ mnemonic, chain });
-    }
-  }
-};
-
-export const createSigningClient = async ({
-  chain = 'bitsong',
-  signer,
-  mnemonic
-}: CreateSigningClientParams): Promise<SigningStargateClient> => {
-  if (typeof chain === 'string') {
-    chain = getChain(chain);
-    if (chain.apis?.rpc?.length === 0 || !chain.apis?.rpc) {
-      throw new Error(`Chain ${chain} does not have rpc endpoints`);
-    }
-  }
-
-  if (signer && mnemonic) {
-    throw new Error('Either mnemonic or signer must be provided, not both');
-  }
-
-  if (!signer) {
-    if (!mnemonic) {
-      throw new Error('Either mnemonic or signer must be provided, not both');
+  public static async create({
+    chain,
+    mnemonic,
+    signerType = 'auto'
+  }: {
+    chain?: string | Chain;
+    mnemonic: string;
+    signerType?: SignerType;
+  }) {
+    if (!chain) {
+      chain = 'bitsong'
     }
 
-    signer = await createOfflineSigner({
-      mnemonic,
-      chain: {
-        bech32_prefix: chain.bech32_prefix,
-        slip44: chain.slip44
-      }
+    const _chain = typeof chain === 'string' ? getChain(chain) : chain;
+
+    const offlineSigner = await Client.createOfflineSigner(
+      mnemonic.trim(),
+      _chain,
+      signerType || 'auto'
+    );
+
+    const stargateClient = await getSigningBitsongClient({ 
+      rpcEndpoint: _chain.apis!.rpc![0]!.address,
+      signer: offlineSigner
     });
+
+    return new Client(_chain, offlineSigner, stargateClient);
   }
 
-  return await getSigningBitsongClient({ 
-    rpcEndpoint: chain.apis!.rpc![0]!.address,
-    signer
-  });
-}
+  private static async createOfflineSigner(
+    mnemonic: string,
+    chain: Chain,
+    signerType: SignerType
+  ): Promise<OfflineSigner> {
+    const options = {
+      prefix: chain.bech32_prefix,
+      hdPaths: [makeHdPath(chain.slip44, 0)]
+    };
 
-export const sign = async ({
-  signingClient,
-  sender,
-  msgs,
-  signerType = 'auto',
-  fee = 'auto',
-  feeMultiplier = 1.4,
-  memo = ''
-}: SignParams) => {
-  const chainId = await signingClient.getChainId();
-  
-  const { accountNumber, sequence } = await signingClient.getSequence(sender);
+    try {
+      switch (signerType) {
+        case 'amino': {
+          return await Secp256k1HdWallet.fromMnemonic(mnemonic, options);
+        }
+        // eslint-disable-next-line unicorn/no-useless-switch-case
+        case 'direct':
+        // eslint-disable-next-line unicorn/no-useless-switch-case, no-fallthrough
+        case 'auto':
+        default: {
+          return await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, options);
+        }
+      }
+    } catch (error) {
+      throw new Error(
+        `Failed to create offline signer: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
 
-  const txRaw = await signingClient.sign(sender, msgs, fee, memo, {
-    accountNumber: accountNumber,
-    sequence: sequence,
-    chainId
-  });
+  public getOfflineSigner(): OfflineSigner {
+    return this.offlineSigner;
+  }
 
-  return TxRaw.encode(txRaw).finish();
-};
+  public getStargateClient(): SigningStargateClient {
+    return this.stargateClient;
+  }
 
-export const broadcast = async ({
-  client,
-  txBytes,
-  timeoutMs,
-  pollIntervalMs
-}: BroadcastParams) => {
-  return await client.broadcastTx(txBytes, timeoutMs, pollIntervalMs);
-};
+  public async sign({
+    sender,
+    msgs,
+    fee = 'auto',
+    feeMultiplier = 1.4,
+    memo = ''
+  }: SignParams) {
+    const chainId = await this.stargateClient.getChainId();
 
-export const signAndBroadcast = async ({
-  client,
-  chainId,
-  sender,
-  msgs,
-  fee,
-  memo = '',
-  timeoutMs,
-  pollIntervalMs
-}: SignParams & BroadcastParams) => {
-  const txBytes = await sign({ client, chainId, sender, msgs, fee, memo });
-  return await broadcast({ client, txBytes, timeoutMs, pollIntervalMs });
+    if (!sender) {
+      const accounts = await this.getOfflineSigner().getAccounts();
+      if (!accounts || accounts.length === 0) {
+        throw new Error('No accounts found in the wallet');
+      }
+      sender = accounts[0]?.address;
+      if (!sender) {
+        throw new Error('Account address is undefined');
+      }
+    }
+
+    const { accountNumber, sequence } = await this.stargateClient.getSequence(sender);
+
+    const _fee = fee === 'auto' ? (await this.estimateFee({
+        sender,
+        msgs,
+        feeMultiplier,
+        memo
+      })) : fee;
+
+    const txRaw = await this.stargateClient.sign(sender, msgs, _fee, memo, {
+      accountNumber,
+      sequence,
+      chainId
+    });
+
+    return TxRaw.encode(txRaw).finish();
+  }
+
+  public async broadcast({
+    txBytes,
+    timeoutMs,
+    pollIntervalMs
+  }: BroadcastParams) {
+    return await this.stargateClient.broadcastTx(txBytes, timeoutMs, pollIntervalMs);
+  }
+
+  public async signAndBroadcast({
+    sender,
+    msgs,
+    fee,
+    memo = '',
+    timeoutMs,
+    pollIntervalMs
+  }: SignParams & BroadcastParams) {
+    const txBytes = await this.sign({ sender, msgs, fee, memo });
+    return await this.broadcast({ txBytes, timeoutMs, pollIntervalMs });
+  }
+
+  public async estimateFee({
+    sender,
+    msgs,
+    gasPrice,
+    feeMultiplier = 1.4,
+    memo = ''
+  }: EstimateFeeParams) {
+    if (typeof gasPrice === 'string') {
+      gasPrice = GasPrice.fromString(gasPrice)
+    }
+
+    if (!gasPrice) {
+      gasPrice = await this.getGasPrice();
+    }
+
+    if (!sender) {
+      const accounts = await this.getOfflineSigner().getAccounts();
+      if (!accounts || accounts.length === 0) {
+        throw new Error('No accounts found in the wallet');
+      }
+      sender = accounts[0]?.address;
+      if (!sender) {
+        throw new Error('Account address is undefined');
+      }
+    }
+
+    const gasEstimate = await this.stargateClient.simulate(sender, msgs, memo);
+    return calculateFee(Math.round(gasEstimate * feeMultiplier), gasPrice);
+  }
+
+  public async getGasPrice(gasPriceType: GasPriceType = 'low') {
+    return await getGasPrice(this.chain, gasPriceType);
+  }
 }

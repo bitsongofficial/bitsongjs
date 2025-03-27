@@ -1,4 +1,3 @@
-import { coin } from '@cosmjs/amino'
 import { Slip10RawIndex } from '@cosmjs/crypto';
 
 export function makeHdPath(coinType = 118, account = 0) {
@@ -15,6 +14,5 @@ export function bitsongHdPath(account = 0) {
   return makeHdPath(639, account);
 }
 
-export {
-  coin
-}
+
+export { coin } from '@cosmjs/amino'
