@@ -1,4 +1,4 @@
-import type { Client } from ".";
+import type { Client } from "./client";
 import { cosmos } from "@bitsongjs/telescope";
 import type { BankMultiSendParams, BankSendParams, BankSetSendEnabledParams, BankUpdateParams } from "./types";
 import type {
