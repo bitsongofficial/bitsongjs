@@ -16,6 +16,7 @@ import type { Chain } from "@chain-registry/types";
 import { GasPrice, calculateFee } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
 import { BankClient } from "./bank";
+import { off } from "process";
 
 export class Client {
   private readonly chain: Chain;
@@ -43,10 +44,12 @@ export class Client {
   public static async create({
     chain,
     mnemonic,
+    offlineSigner,
     signerType = 'auto'
   }: {
     chain?: string | Chain;
-    mnemonic: string;
+    mnemonic?: string;
+    offlineSigner?: OfflineSigner;
     signerType?: SignerType;
   }) {
     if (!chain) {
@@ -55,11 +58,19 @@ export class Client {
 
     const _chain = typeof chain === 'string' ? getChain(chain) : chain;
 
-    const offlineSigner = await Client.createOfflineSigner(
-      mnemonic.trim(),
-      _chain,
-      signerType || 'auto'
-    );
+    if (mnemonic && offlineSigner) {
+      throw new Error('You can only provide either mnemonic or offlineSigner, not both');
+    } else if (!mnemonic && !offlineSigner) {
+      throw new Error('You must provide either mnemonic or offlineSigner');
+    }
+
+    if (!offlineSigner) {
+      offlineSigner = await Client.createOfflineSigner(
+        mnemonic!.trim(),
+        _chain,
+        signerType || 'auto'
+      );
+    }
 
     const stargateClient = await getSigningBitsongClient({ 
       rpcEndpoint: _chain.apis!.rpc![0]!.address,
