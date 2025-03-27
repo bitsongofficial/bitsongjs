@@ -5,6 +5,7 @@ import type { EncodeObject } from '@bitsongjs/telescope';
 import type { OfflineSigner } from '@cosmjs/proto-signing';
 import type {
   MsgMultiSend,
+  MsgSend,
   MsgSetSendEnabled,
   MsgUpdateParams
 } from '@bitsongjs/telescope/cosmos/bank/v1beta1/tx';
@@ -51,10 +52,11 @@ export interface CreateSigningClientParams {
 }
 
 export type BankSendParams = {
-  recipient: string;
-  amount: Coin | readonly Coin[];
-} & Omit<SignParams, 'msgs'> & Omit<BroadcastParams, 'txBytes'>;
+  fromAddress?: string;
+} & Omit<MsgSend, 'fromAddress'> & Omit<SignParams, 'msgs'> & Omit<BroadcastParams, 'txBytes'>;
 
 export type BankMultiSendParams = MsgMultiSend & Omit<SignParams, 'msgs'> & Omit<BroadcastParams, 'txBytes'>;
+
 export type BankSetSendEnabledParams = MsgSetSendEnabled & Omit<SignParams, 'msgs'> & Omit<BroadcastParams, 'txBytes'>;
+
 export type BankUpdateParams = MsgUpdateParams & Omit<SignParams, 'msgs'> & Omit<BroadcastParams, 'txBytes'>;

@@ -222,9 +222,6 @@ export class Client {
   }
 }
 
-// const test = await Client.create({
-//   mnemonic: 'test'
-// })
+// const test = await Client.create({ mnemonic: '...' })
 // test.bank.getAllBalances({ ... })
-// test.bank.setSendEnabled({ ... })
-// test.bank.sendTokens({ recipient: '', amount: coin(1, 'ubtsg') })
+// test.bank.send({ ... })

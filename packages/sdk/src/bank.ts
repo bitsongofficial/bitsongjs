@@ -90,45 +90,42 @@ export class BankClient {
   }  
 
   public async send(params: BankSendParams) {
-    const coins = Array.isArray(params.amount) ? params.amount : [params.amount]
-    if (coins.length === 0) {
-      throw new Error('Must specify at least one coin to send')
-    }
-
     const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl
+    const { fromAddress, toAddress, amount } = params
 
-    const msgs = [
-      send({
-        fromAddress: params.sender || await this.client.getSenderAddress(),
-        toAddress: params.recipient,
-        amount: coins
-      })
-    ]
-
-    return await this.client.signAndBroadcast({ msgs, ...params })
+    return await this.client.signAndBroadcast({ 
+      msgs: [send({ fromAddress: fromAddress || await this.client.getSenderAddress(), toAddress, amount })],
+      ...params
+    })
   }
 
   public async multiSend(params: BankMultiSendParams) {
     const { multiSend } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl
     const { inputs, outputs } = params
 
-    const msgs = [multiSend({ inputs, outputs })]
-    return await this.client.signAndBroadcast({ msgs, ...params })
+    return await this.client.signAndBroadcast({
+      msgs: [multiSend({ inputs, outputs })],
+      ...params
+    })
   }
 
   public async setSendEnabled(params: BankSetSendEnabledParams) {
     const { setSendEnabled } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl
     const { authority, sendEnabled, useDefaultFor } = params
 
-    const msgs = [setSendEnabled({ authority, sendEnabled, useDefaultFor })]
-    return await this.client.signAndBroadcast({ msgs, ...params })
+    return await this.client.signAndBroadcast({
+      msgs: [setSendEnabled({ authority, sendEnabled, useDefaultFor })],
+      ...params
+    })
   }
 
   public async updateParams(params: BankUpdateParams) {
     const { updateParams } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl
     const { authority, params: _params } = params
 
-    const msgs = [updateParams({ authority, params: _params })]
-    return await this.client.signAndBroadcast({ msgs, ...params })
+    return await this.client.signAndBroadcast({
+      msgs: [updateParams({ authority, params: _params })],
+      ...params
+    })
   }
 }
