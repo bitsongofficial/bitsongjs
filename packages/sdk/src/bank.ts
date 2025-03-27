@@ -91,10 +91,14 @@ export class BankClient {
 
   public async send(params: BankSendParams) {
     const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl
-    const { fromAddress, toAddress, amount } = params
+    const { 
+      fromAddress = await this.client.getSenderAddress(),
+      toAddress,
+      amount
+    } = params
 
     return await this.client.signAndBroadcast({ 
-      msgs: [send({ fromAddress: fromAddress || await this.client.getSenderAddress(), toAddress, amount })],
+      msgs: [send({ fromAddress, toAddress, amount })],
       ...params
     })
   }
