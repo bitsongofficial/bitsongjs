@@ -16,7 +16,6 @@ import type { Chain } from "@chain-registry/types";
 import { GasPrice, calculateFee } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
 import { BankClient } from "./bank";
-import { off } from "process";
 
 export class Client {
   private readonly chain: Chain;
