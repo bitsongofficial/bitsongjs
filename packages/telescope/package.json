@@ -9,9 +9,23 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./bitsong/*": {
+      "types": "./dist/bitsong/*.d.ts",
+      "import": "./dist/bitsong/*.mjs",
+      "require": "./dist/bitsong/*.cjs"
+    },
+    "./cosmos/*": {
+      "types": "./dist/cosmos/*.d.ts",
+      "import": "./dist/cosmos/*.mjs",
+      "require": "./dist/cosmos/*.cjs"
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

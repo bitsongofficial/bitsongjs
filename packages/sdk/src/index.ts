@@ -8,27 +8,36 @@ import type {
 import { DirectSecp256k1HdWallet, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
-import { getSigningBitsongClient } from '@bitsongjs/telescope'
+import { getSigningBitsongClient, bitsong } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";
 import type { SigningStargateClient } from '@cosmjs/stargate';
 import type { Chain } from "@chain-registry/types";
 import { GasPrice, calculateFee } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
+import { BankClient } from "./bank";
 
 export class Client {
   private readonly chain: Chain;
   private readonly offlineSigner: OfflineSigner;
   private readonly stargateClient: SigningStargateClient;
 
+  public rpcQueryClient: Awaited<ReturnType<typeof bitsong.ClientFactory.createRPCQueryClient>>;
+
+  public bank: BankClient;
+
   private constructor(
     chain: Chain,
     offlineSigner: OfflineSigner,
-    stargateClient: SigningStargateClient
+    stargateClient: SigningStargateClient,
+    rpcQueryClient: Awaited<ReturnType<typeof bitsong.ClientFactory.createRPCQueryClient>>
   ) {
     this.chain = chain;
     this.offlineSigner = offlineSigner;
     this.stargateClient = stargateClient;
+    this.rpcQueryClient = rpcQueryClient;
+
+    this.bank = new BankClient(this);
   }
 
   public static async create({
@@ -57,7 +66,15 @@ export class Client {
       signer: offlineSigner
     });
 
-    return new Client(_chain, offlineSigner, stargateClient);
+    const { createRPCQueryClient } = bitsong.ClientFactory
+    const rpcQueryClient = await createRPCQueryClient({ rpcEndpoint: _chain.apis!.rpc![0]!.address })
+
+    return new Client(
+      _chain,
+      offlineSigner,
+      stargateClient,
+      rpcQueryClient
+    );
   }
 
   private static async createOfflineSigner(
@@ -96,6 +113,20 @@ export class Client {
 
   public getStargateClient(): SigningStargateClient {
     return this.stargateClient;
+  }
+
+  public async getSenderAddress(): Promise<string> {
+    const accounts = await this.getOfflineSigner().getAccounts();
+    if (!accounts || accounts.length === 0) {
+      throw new Error('No accounts found in the wallet');
+    }
+
+    const sender = accounts[0]?.address;
+    if (!sender) {
+      throw new Error('Account address is undefined');
+    }
+
+    return sender;
   }
 
   public async sign({
@@ -151,7 +182,7 @@ export class Client {
     memo = '',
     timeoutMs,
     pollIntervalMs
-  }: SignParams & BroadcastParams) {
+  }: SignParams & Omit<BroadcastParams, 'txBytes'>) {
     const txBytes = await this.sign({ sender, msgs, fee, memo });
     return await this.broadcast({ txBytes, timeoutMs, pollIntervalMs });
   }
@@ -190,3 +221,10 @@ export class Client {
     return await getGasPrice(this.chain, gasPriceType);
   }
 }
+
+// const test = await Client.create({
+//   mnemonic: 'test'
+// })
+// test.bank.getAllBalances({ ... })
+// test.bank.setSendEnabled({ ... })
+// test.bank.sendTokens({ recipient: '', amount: coin(1, 'ubtsg') })
