@@ -23,4 +23,7 @@ export function generateMnemonic(length: 12 | 15 | 18 | 21 | 24 = 12): string {
   return Bip39.encode(generateEntropy(length)).toString();
 }
 
-export { coin } from '@cosmjs/amino'
+export { 
+  coin,
+  coins,
+} from '@cosmjs/amino'
