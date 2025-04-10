@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - v2-dev
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    env:
+      COREPACK_DEFAULT_TO_LATEST: 0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm i -g --force corepack && corepack enable
+      - run: pnpm install
+      - name: Publish
+        run: pnpx pkg-pr-new publish --compact --no-template --pnpm
