@@ -2,7 +2,10 @@
   "name": "@bitsongjs/sdk",
   "version": "2.0.0-dev.0",
   "description": "",
-  "repository": "http://github.com/bitsongofficial/bitsongjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitsongofficial/bitsongjs.git"
+  },
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
