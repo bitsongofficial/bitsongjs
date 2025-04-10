@@ -27,7 +27,7 @@ export interface SignParams {
   fee?: StdFee | 'auto';
   feeMultiplier?: number;
   memo?: string;
-  explicitSignerData?: SignerData,
+  // explicitSignerData?: SignerData,
   timeoutHeight?: bigint
 }
 
