@@ -44,7 +44,7 @@
   },
   "packageManager": "pnpm@10.6.1",
   "dependencies": {
-    "@bitsongjs/telescope": "workspace:*",
+    "@bitsongjs/telescope": "2.0.0-dev.0",
     "@chain-registry/types": "^0.50.100",
     "@cosmjs/amino": "^0.33.1",
     "@cosmjs/crypto": "^0.33.1",
