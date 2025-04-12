@@ -5,6 +5,7 @@ import type { OfflineSigner } from "@cosmjs/proto-signing";
 
 export * from './errors'
 export * from './utils'
+export * from './types'
 
 export async function createClient({
   chain,
