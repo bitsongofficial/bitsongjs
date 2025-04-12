@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/sdk",
-  "version": "2.0.0-dev.0",
+  "version": "2.0.0-dev.1",
   "description": "",
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
   },
   "packageManager": "pnpm@10.6.1",
   "dependencies": {
-    "@bitsongjs/telescope": "2.0.0-dev.0",
+    "@bitsongjs/telescope": "workspace:*",
     "@chain-registry/types": "^0.50.100",
     "@cosmjs/amino": "^0.33.1",
     "@cosmjs/crypto": "^0.33.1",
