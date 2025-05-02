@@ -7,7 +7,7 @@ import type {
 } from "./types";
 import { DirectSecp256k1HdWallet, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
-import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js';
 import { getSigningBitsongClient, bitsong } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";

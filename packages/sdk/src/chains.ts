@@ -1,7 +1,7 @@
-import { chain as bitsong } from 'chain-registry/mainnet/bitsong'
-import { chain as cosmoshub } from 'chain-registry/mainnet/cosmoshub'
-import { chain as noble } from 'chain-registry/mainnet/noble'
-import { chain as osmosis } from 'chain-registry/mainnet/osmosis'
+import { chain as bitsong } from 'chain-registry/mainnet/bitsong/index.js'
+import { chain as cosmoshub } from 'chain-registry/mainnet/cosmoshub/index.js'
+import { chain as noble } from 'chain-registry/mainnet/noble/index.js'
+import { chain as osmosis } from 'chain-registry/mainnet/osmosis/index.js'
 import type { ChainNameParam } from './types'
 import type { Chain } from '@chain-registry/types'
 

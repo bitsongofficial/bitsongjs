@@ -1,0 +1,129 @@
+diff --git a/node_modules/@cosmjs/stargate/.bun-tag-2654500e763653f4 b/.bun-tag-2654500e763653f4
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/build/signingstargateclient.d.ts b/build/signingstargateclient.d.ts
+index f3368ae57e6bcf53c0c6aae42ecc57bd9b70c50a..3e4dc7118d6f14ed887315a7d54f088f48e56500 100644
+--- a/build/signingstargateclient.d.ts
++++ b/build/signingstargateclient.d.ts
+@@ -61,7 +61,7 @@ export declare class SigningStargateClient extends StargateClient {
+      */
+     static offline(signer: OfflineSigner, options?: SigningStargateClientOptions): Promise<SigningStargateClient>;
+     protected constructor(cometClient: CometClient | undefined, signer: OfflineSigner, options: SigningStargateClientOptions);
+-    simulate(signerAddress: string, messages: readonly EncodeObject[], memo: string | undefined): Promise<number>;
++    simulate(signerAddress: string, messages: readonly EncodeObject[], memo: string | undefined, explicitSignerData?: Partial<SignerData>): Promise<number>;
+     sendTokens(senderAddress: string, recipientAddress: string, amount: readonly Coin[], fee: StdFee | "auto" | number, memo?: string): Promise<DeliverTxResponse>;
+     delegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee | "auto" | number, memo?: string): Promise<DeliverTxResponse>;
+     undelegateTokens(delegatorAddress: string, validatorAddress: string, amount: Coin, fee: StdFee | "auto" | number, memo?: string): Promise<DeliverTxResponse>;
+@@ -75,14 +75,14 @@ export declare class SigningStargateClient extends StargateClient {
+     sendIbcTokens(senderAddress: string, recipientAddress: string, transferAmount: Coin, sourcePort: string, sourceChannel: string, timeoutHeight: Height | undefined, 
+     /** timeout in seconds */
+     timeoutTimestamp: number | undefined, fee: StdFee | "auto" | number, memo?: string): Promise<DeliverTxResponse>;
+-    signAndBroadcast(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee | "auto" | number, memo?: string, timeoutHeight?: bigint): Promise<DeliverTxResponse>;
++    signAndBroadcast(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee | "auto" | number, memo?: string, timeoutHeight?: bigint, explicitSignerData?: SignerData): Promise<DeliverTxResponse>;
+     /**
+      * This method is useful if you want to send a transaction in broadcast,
+      * without waiting for it to be placed inside a block, because for example
+      * I would like to receive the hash to later track the transaction with another tool.
+      * @returns Returns the hash of the transaction
+      */
+-    signAndBroadcastSync(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee | "auto" | number, memo?: string, timeoutHeight?: bigint): Promise<string>;
++    signAndBroadcastSync(signerAddress: string, messages: readonly EncodeObject[], fee: StdFee | "auto" | number, memo?: string, timeoutHeight?: bigint, explicitSignerData?: SignerData): Promise<string>;
+     /**
+      * Gets account number and sequence from the API, creates a sign doc,
+      * creates a single signature and assembles the signed transaction.
+diff --git a/build/signingstargateclient.js b/build/signingstargateclient.js
+index 0e74813590bb1c9fda1d24c9b1a8af2bccb27a48..1649defc3c62dc7ece034f96626dedaa3f2c0f9a 100644
+--- a/build/signingstargateclient.js
++++ b/build/signingstargateclient.js
+@@ -86,14 +86,19 @@ class SigningStargateClient extends stargateclient_1.StargateClient {
+         this.broadcastPollIntervalMs = options.broadcastPollIntervalMs;
+         this.gasPrice = options.gasPrice;
+     }
+-    async simulate(signerAddress, messages, memo) {
++    async simulate(signerAddress, messages, memo, explicitSignerData) {
+         const anyMsgs = messages.map((m) => this.registry.encodeAsAny(m));
+         const accountFromSigner = (await this.signer.getAccounts()).find((account) => account.address === signerAddress);
+         if (!accountFromSigner) {
+             throw new Error("Failed to retrieve account from signer");
+         }
+         const pubkey = (0, amino_1.encodeSecp256k1Pubkey)(accountFromSigner.pubkey);
+-        const { sequence } = await this.getSequence(signerAddress);
++        let sequence;
++        if (explicitSignerData?.sequence !== undefined) {
++            sequence = explicitSignerData.sequence;
++        } else {
++            sequence = (await this.getSequence(signerAddress)).sequence;
++        }
+         const { gasInfo } = await this.forceGetQueryClient().tx.simulate(anyMsgs, memo, pubkey, sequence);
+         (0, utils_1.assertDefined)(gasInfo);
+         return math_1.Uint53.fromString(gasInfo.gasUsed.toString()).toNumber();
+@@ -167,18 +172,30 @@ class SigningStargateClient extends stargateclient_1.StargateClient {
+         };
+         return this.signAndBroadcast(senderAddress, [transferMsg], fee, memo);
+     }
+-    async signAndBroadcast(signerAddress, messages, fee, memo = "", timeoutHeight) {
++    async signAndBroadcast(signerAddress, messages, fee, memo = "", timeoutHeight, explicitSignerData) {
+         let usedFee;
++        let signerData = explicitSignerData;
++        const { sequence, accountNumber } = explicitSignerData
++            ? explicitSignerData
++            : await this.getSequence(signerAddress);
+         if (fee == "auto" || typeof fee === "number") {
+             (0, utils_1.assertDefined)(this.gasPrice, "Gas price must be set in the client options when auto gas is used.");
+-            const gasEstimation = await this.simulate(signerAddress, messages, memo);
++            const gasEstimation = await this.simulate(signerAddress, messages, memo, { sequence });
+             const multiplier = typeof fee === "number" ? fee : this.defaultGasMultiplier;
+             usedFee = (0, fee_1.calculateFee)(Math.round(gasEstimation * multiplier), this.gasPrice);
+         }
+         else {
+             usedFee = fee;
+         }
+-        const txRaw = await this.sign(signerAddress, messages, usedFee, memo, undefined, timeoutHeight);
++        if (!signerData) {
++            const chainId = await this.getChainId();
++            signerData = {
++              accountNumber: accountNumber,
++              sequence: sequence,
++              chainId: chainId,
++            };
++        }
++        const txRaw = await this.sign(signerAddress, messages, usedFee, memo, signerData, timeoutHeight);
+         const txBytes = tx_3.TxRaw.encode(txRaw).finish();
+         return this.broadcastTx(txBytes, this.broadcastTimeoutMs, this.broadcastPollIntervalMs);
+     }
+@@ -188,18 +205,32 @@ class SigningStargateClient extends stargateclient_1.StargateClient {
+      * I would like to receive the hash to later track the transaction with another tool.
+      * @returns Returns the hash of the transaction
+      */
+-    async signAndBroadcastSync(signerAddress, messages, fee, memo = "", timeoutHeight) {
++    async signAndBroadcastSync(signerAddress, messages, fee, memo = "", timeoutHeight, explicitSignerData) {
+         let usedFee;
++        let signerData = explicitSignerData;
++        const { sequence, accountNumber } = explicitSignerData
++            ? explicitSignerData
++            : await this.getSequence(signerAddress);
+         if (fee == "auto" || typeof fee === "number") {
+             (0, utils_1.assertDefined)(this.gasPrice, "Gas price must be set in the client options when auto gas is used.");
+-            const gasEstimation = await this.simulate(signerAddress, messages, memo);
++            const gasEstimation = await this.simulate(signerAddress, messages, memo, { sequence });
+             const multiplier = typeof fee === "number" ? fee : this.defaultGasMultiplier;
+             usedFee = (0, fee_1.calculateFee)(Math.round(gasEstimation * multiplier), this.gasPrice);
+         }
+         else {
+             usedFee = fee;
+         }
+-        const txRaw = await this.sign(signerAddress, messages, usedFee, memo, undefined, timeoutHeight);
++        if (!signerData) {
++            const chainId = await this.getChainId();
++      
++            signerData = {
++                accountNumber: accountNumber,
++                sequence: sequence,
++                chainId: chainId,
++            };
++        }
++    
++        const txRaw = await this.sign(signerAddress, messages, usedFee, memo, signerData, timeoutHeight);
+         const txBytes = tx_3.TxRaw.encode(txRaw).finish();
+         return this.broadcastTxSync(txBytes);
+     }

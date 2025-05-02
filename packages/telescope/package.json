@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/telescope",
-  "version": "2.0.0-dev.1",
+  "version": "2.0.0-dev.9",
   "description": "BitsongJS Telescope",
   "repository": {
     "type": "git",
@@ -44,7 +44,6 @@
     "test:types": "tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
-    "@cosmology/lcd": "^0.14.4",
     "@cosmology/telescope": "^1.11.25",
     "@types/node": "^22.13.10",
     "@vitest/coverage-v8": "^3.0.8",
@@ -59,6 +58,7 @@
     "vitest": "^3.0.8"
   },
   "dependencies": {
+    "@cosmology/lcd": "^0.14.4",
     "@cosmjs/amino": "^0.33.1",
     "@cosmjs/math": "^0.33.1",
     "@cosmjs/proto-signing": "^0.33.1",

@@ -1,6 +1,6 @@
 {
   "name": "@bitsongjs/sdk",
-  "version": "2.0.0-dev.1",
+  "version": "2.0.0-dev.10",
   "description": "",
   "repository": {
     "type": "git",
@@ -12,10 +12,12 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
+      "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
     }
   },
   "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -49,7 +51,15 @@
     "@cosmjs/amino": "^0.33.1",
     "@cosmjs/crypto": "^0.33.1",
     "@cosmjs/proto-signing": "^0.33.1",
+    "@cosmjs/stargate": "^0.33.1",
+    "@cosmjs/tendermint-rpc": "^0.33.1",
+    "@cosmjs/cosmwasm-stargate": "^0.33.1",
     "chain-registry": "^1.69.164",
     "cosmjs-types": "^0.9.0"
+  },
+  "patchedDependencies": {
+    "@cosmjs/stargate@0.33.1": "patches/@cosmjs%2Fstargate@0.33.0.patch",
+    "@cosmjs/cosmwasm-stargate@0.33.1": "patches/@cosmjs%2Fcosmwasm-stargate@0.33.0.patch",
+    "@cosmjs/tendermint-rpc@0.33.1": "patches/@cosmjs%2Ftendermint-rpc@0.33.0.patch"
   }
 }

@@ -4,9 +4,12 @@ export default defineBuildConfig({
   declaration: true,
   rollup: {
     emitCJS: true,
+    inlineDependencies: true,
   },
   entries: [
     "src/index"
   ],
-  externals: ["@cosmjs/stargate"],
+  externals: [
+    "@cosmjs/stargate"
+  ],
 });

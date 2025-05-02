@@ -29,10 +29,19 @@ importers:
       '@cosmjs/amino':
         specifier: ^0.33.1
         version: 0.33.1
+      '@cosmjs/cosmwasm-stargate':
+        specifier: ^0.33.1
+        version: 0.33.1
       '@cosmjs/crypto':
         specifier: ^0.33.1
         version: 0.33.1
       '@cosmjs/proto-signing':
+        specifier: ^0.33.1
+        version: 0.33.1
+      '@cosmjs/stargate':
+        specifier: ^0.33.1
+        version: 0.33.1
+      '@cosmjs/tendermint-rpc':
         specifier: ^0.33.1
         version: 0.33.1
       chain-registry:
@@ -90,13 +99,13 @@ importers:
       '@cosmjs/tendermint-rpc':
         specifier: ^0.33.1
         version: 0.33.1
+      '@cosmology/lcd':
+        specifier: ^0.14.4
+        version: 0.14.4
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
     devDependencies:
-      '@cosmology/lcd':
-        specifier: ^0.14.4
-        version: 0.14.4
       '@cosmology/telescope':
         specifier: ^1.11.25
         version: 1.11.25
@@ -757,6 +766,9 @@ packages:
 
   '@cosmjs/amino@0.33.1':
     resolution: {integrity: sha512-WfWiBf2EbIWpwKG9AOcsIIkR717SY+JdlXM/SL/bI66BdrhniAF+/ZNis9Vo9HF6lP2UU5XrSmFA4snAvEgdrg==}
+
+  '@cosmjs/cosmwasm-stargate@0.33.1':
+    resolution: {integrity: sha512-bsEH8FmDHE0zc9WmJuyYEruV/HP7DU98FLP/BMxb1Egk/weH304m1AuIdibdVfFZKYVNq6PkD8+Xvg23qnecIg==}
 
   '@cosmjs/crypto@0.33.1':
     resolution: {integrity: sha512-U4kGIj/SNBzlb2FGgA0sMR0MapVgJUg8N+oIAiN5+vl4GZ3aefmoL1RDyTrFS/7HrB+M+MtHsxC0tvEu4ic/zA==}
@@ -3065,6 +3077,9 @@ packages:
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
+  pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -4766,6 +4781,23 @@ snapshots:
       '@cosmjs/encoding': 0.33.1
       '@cosmjs/math': 0.33.1
       '@cosmjs/utils': 0.33.1
+
+  '@cosmjs/cosmwasm-stargate@0.33.1':
+    dependencies:
+      '@cosmjs/amino': 0.33.1
+      '@cosmjs/crypto': 0.33.1
+      '@cosmjs/encoding': 0.33.1
+      '@cosmjs/math': 0.33.1
+      '@cosmjs/proto-signing': 0.33.1
+      '@cosmjs/stargate': 0.33.1
+      '@cosmjs/tendermint-rpc': 0.33.1
+      '@cosmjs/utils': 0.33.1
+      cosmjs-types: 0.9.0
+      pako: 2.1.0
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - utf-8-validate
 
   '@cosmjs/crypto@0.33.1':
     dependencies:
@@ -7226,6 +7258,8 @@ snapshots:
   p-try@2.2.0: {}
 
   package-json-from-dist@1.0.1: {}
+
+  pako@2.1.0: {}
 
   parent-module@1.0.1:
     dependencies:
