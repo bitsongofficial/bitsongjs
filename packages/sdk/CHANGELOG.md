@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- testing changeset
+- 1aeb5be: testing changeset
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [1aeb5be]
+  - @bitsongjs/telescope@2.0.0
 
 ## v2.0.0
 
@@ -17,4 +29,3 @@
 ### ❤️ Contributors
 
 - Angelorc <angelo@rcstart.it>
-
