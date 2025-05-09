@@ -39,7 +39,8 @@ export interface BroadcastParams {
 
 export interface EstimateFeeParams {
   msgs: readonly EncodeObject[];
-  sender?: string;
+  sender: string;
+  chain?: string | Chain;
   gasPrice?: string | GasPrice;
   feeMultiplier?: number;
   memo?: string;

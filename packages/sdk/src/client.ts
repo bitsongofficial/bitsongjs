@@ -8,7 +8,7 @@ import type {
 import { DirectSecp256k1HdWallet, encodePubkey, Registry, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js';
-import { getSigningBitsongClient, bitsong, type EncodeObject, bitsongProtoRegistry } from '@bitsongjs/telescope'
+import { getSigningBitsongClient, bitsong, type EncodeObject, bitsongProtoRegistry, type StdFee } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";
 import type { SigningStargateClient } from '@cosmjs/stargate';
@@ -92,96 +92,6 @@ export class Client {
       stargateClient,
       rpcQueryClient
     );
-  }
-
-  /**
-   * Simulates a transaction and returns the estimated gas used.
-   *
-   * This function constructs a simulated transaction using the provided messages and sender address,
-   * then queries the chain to estimate gas consumption without broadcasting the transaction.
-   *
-   * @param {Object} params - The parameters for the simulation.
-   * @param {string|Chain} [params.chain='bitsong'] - The target blockchain or its identifier. Defaults to 'bitsong'.
-   * @param {readonly EncodeObject[]} params.messages - The transaction messages to simulate.
-   * @param {string} [params.memo=''] - Optional memo to include in the transaction.
-   * @param {string} params.sender - Bech32 address of the sender/account initiating the transaction.
-   * 
-   * @returns {Promise<number>} The estimated gas used for the transaction.
-   *
-   * @example
-   * const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl;
-   * const msg = send({
-   *   fromAddress: 'bitsong1...',
-   *   toAddress: 'bitsong1...',
-   *   amount: [coin(1000, "ubtsg")],
-   * });
-   *
-   * const gasUsed = await Client.experimental_simulate({
-   *   sender: 'bitsong1...',
-   *   messages: [msg],
-   * });
-   */
-  public static async experimental_simulate({
-    chain,
-    messages,
-    memo = '',
-    sender,
-  }: {
-    chain?: string | Chain;
-    messages: readonly EncodeObject[],
-    memo?: string;
-    sender: string;
-  }): Promise<number> {
-    if (!chain) {
-      chain = 'bitsong'
-    }
-
-    const _chain = typeof chain === 'string' ? getChain(chain) : chain;
-
-    const { createRPCQueryClient } = bitsong.ClientFactory
-    const rpcQueryClient = await createRPCQueryClient({ rpcEndpoint: _chain.apis!.rpc![0]!.address })
-
-    const { account } = await rpcQueryClient.cosmos.auth.v1beta1.account(
-      QueryAccountRequest.fromPartial({
-        address: sender
-      })
-    )
-
-    const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
-    
-    const registry = new Registry([...defaultRegistryTypes, ...bitsongProtoRegistry]);
-    const anyMsgs = messages.map((m) => registry.encodeAsAny(m));
-
-    const tx = Tx.fromPartial({
-      authInfo: AuthInfo.fromPartial({
-        fee: Fee.fromPartial({}),
-        signerInfos: [{
-          publicKey: encodePubkey({
-            type: "tendermint/PubKeySecp256k1",
-            value: toBase64(fromBech32(sender).data),
-          }),
-          sequence,
-          modeInfo: {
-            single: {
-              mode: SignMode.SIGN_MODE_UNSPECIFIED
-            }
-          }
-        }]
-      }),
-      body: TxBody.fromPartial({
-        messages: anyMsgs,
-        memo: memo,
-      }),
-      signatures: [new Uint8Array()]
-    })
-
-    const request = SimulateRequest.fromPartial({
-      txBytes: Tx.encode(tx).finish(),
-    })
-
-    const { gasInfo } = await rpcQueryClient.cosmos.tx.v1beta1.simulate(request)
-    assertDefined(gasInfo)
-    return Uint53.fromString(gasInfo.gasUsed.toString()).toNumber()
   }
 
   private static async createOfflineSigner(
@@ -302,12 +212,103 @@ export class Client {
       gasPrice = await this.getGasPrice();
     }
 
-    if (!sender) {
-      sender = await this.getSenderAddress();
-    }
-
     const gasEstimate = await this.stargateClient.simulate(sender, msgs, memo);
     return calculateFee(Math.round(gasEstimate * feeMultiplier), gasPrice);
+  }
+
+  /**
+   * Estimates the gas consumption for a transaction without broadcasting it.
+   *
+   * This function constructs a simulated transaction using the provided messages and sender address,
+   * then queries the chain to estimate gas consumption without broadcasting the transaction.
+   *
+   * @param {Object} params - The parameters for the simulation.
+   * @param {string|Chain} [params.chain='bitsong'] - The target blockchain or its identifier. Defaults to 'bitsong'.
+   * @param {readonly EncodeObject[]} params.messages - The transaction messages to simulate.
+   * @param {string} [params.memo=''] - Optional memo to include in the transaction.
+   * @param {string} params.sender - Bech32 address of the sender/account initiating the transaction.
+   * 
+   * @returns {Promise<StdFee>} The estimated gas used for the transaction.
+   *
+   * @example
+   * const { send } = cosmos.bank.v1beta1.MessageComposer.withTypeUrl;
+   * const msg = send({
+   *   fromAddress: 'bitsong1...',
+   *   toAddress: 'bitsong1...',
+   *   amount: [coin(1000, "ubtsg")],
+   * });
+   *
+   * const gasUsed = await Client.experimental_simulate({
+   *   sender: 'bitsong1...',
+   *   messages: [msg],
+   * });
+   */
+  public static async experimental_estimateFee({
+    chain = 'bitsong',
+    sender,
+    msgs,
+    gasPrice,
+    feeMultiplier = 1.4,
+    memo = ''
+  }: EstimateFeeParams): Promise<StdFee> {
+    const _chain = typeof chain === 'string' ? getChain(chain) : chain;
+
+    if (typeof gasPrice === 'string') {
+      gasPrice = GasPrice.fromString(gasPrice)
+    }
+
+    if (!gasPrice) {
+      gasPrice = await getGasPrice(chain, 'low');
+    }
+
+    const { createRPCQueryClient } = bitsong.ClientFactory
+    const rpcQueryClient = await createRPCQueryClient({ rpcEndpoint: _chain.apis!.rpc![0]!.address })
+
+    const { account } = await rpcQueryClient.cosmos.auth.v1beta1.account(
+      QueryAccountRequest.fromPartial({
+        address: sender
+      })
+    )
+
+    const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
+    
+    const registry = new Registry([...defaultRegistryTypes, ...bitsongProtoRegistry]);
+    const anyMsgs = msgs.map((m) => registry.encodeAsAny(m));
+
+    const tx = Tx.fromPartial({
+      authInfo: AuthInfo.fromPartial({
+        fee: Fee.fromPartial({}),
+        signerInfos: [{
+          publicKey: encodePubkey({
+            type: "tendermint/PubKeySecp256k1",
+            value: toBase64(fromBech32(sender).data),
+          }),
+          sequence,
+          modeInfo: {
+            single: {
+              mode: SignMode.SIGN_MODE_UNSPECIFIED
+            }
+          }
+        }]
+      }),
+      body: TxBody.fromPartial({
+        messages: anyMsgs,
+        memo: memo,
+      }),
+      signatures: [new Uint8Array()]
+    })
+
+    const request = SimulateRequest.fromPartial({
+      txBytes: Tx.encode(tx).finish(),
+    })
+
+    const { gasInfo } = await rpcQueryClient.cosmos.tx.v1beta1.simulate(request)
+    assertDefined(gasInfo)
+    
+    const gasEstimate = Uint53.fromString(gasInfo.gasUsed.toString()).toNumber()
+    const fee = calculateFee(Math.round(gasEstimate * feeMultiplier), gasPrice);
+    
+    return { ...fee, amount: [...fee.amount] };
   }
 
   public async getGasPrice(gasPriceType: GasPriceType = 'low') {
