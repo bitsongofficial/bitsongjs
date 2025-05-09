@@ -7,8 +7,7 @@ import type {
 } from "./types";
 import { DirectSecp256k1HdWallet, encodePubkey, Registry, type OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
-import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js';
-import { getSigningBitsongClient, bitsong, type EncodeObject, bitsongProtoRegistry, type StdFee } from '@bitsongjs/telescope'
+import { getSigningBitsongClient, bitsong, bitsongProtoRegistry, type StdFee } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";
 import type { SigningStargateClient } from '@cosmjs/stargate';
@@ -16,7 +15,7 @@ import type { Chain } from "@chain-registry/types";
 import { GasPrice, calculateFee, defaultRegistryTypes } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
 import { BankClient } from "./bank";
-import { AuthInfo, Fee, Tx, TxBody } from "@bitsongjs/telescope/cosmos/tx/v1beta1/tx";
+import { AuthInfo, Fee, Tx, TxBody, TxRaw } from "@bitsongjs/telescope/cosmos/tx/v1beta1/tx";
 import { SignMode } from "@bitsongjs/telescope/cosmos/tx/signing/v1beta1/signing";
 import { SimulateRequest } from "@bitsongjs/telescope/cosmos/tx/v1beta1/service";
 import { fromBech32, toBase64 } from "@cosmjs/encoding";
