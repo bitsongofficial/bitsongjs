@@ -35,6 +35,9 @@ importers:
       '@cosmjs/crypto':
         specifier: ^0.33.1
         version: 0.33.1
+      '@cosmjs/math':
+        specifier: ^0.33.1
+        version: 0.33.1
       '@cosmjs/proto-signing':
         specifier: ^0.33.1
         version: 0.33.1
@@ -42,6 +45,9 @@ importers:
         specifier: ^0.33.1
         version: 0.33.1
       '@cosmjs/tendermint-rpc':
+        specifier: ^0.33.1
+        version: 0.33.1
+      '@cosmjs/utils':
         specifier: ^0.33.1
         version: 0.33.1
       chain-registry:
