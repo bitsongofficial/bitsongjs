@@ -5,14 +5,16 @@ import type {
   EstimateFeeParams,
   GasPriceType,
 } from "./types";
-import { DirectSecp256k1HdWallet, encodePubkey, Registry, type OfflineSigner } from "@cosmjs/proto-signing";
+import { DirectSecp256k1HdWallet, encodePubkey } from "@cosmjs/proto-signing";
+import type { OfflineSigner } from "@cosmjs/proto-signing";
 import { Secp256k1HdWallet } from "@cosmjs/amino";
-import { getSigningBitsongClient, bitsong, bitsongProtoRegistry, type StdFee } from '@bitsongjs/telescope'
+import { getSigningBitsongClient, bitsong, getSigningBitsongClientOptions } from '@bitsongjs/telescope'
+import type { StdFee } from '@bitsongjs/telescope'
 import { makeHdPath } from "./utils";
 import { getChain } from "./chains";
 import type { SigningStargateClient } from '@cosmjs/stargate';
 import type { Chain } from "@chain-registry/types";
-import { GasPrice, calculateFee, defaultRegistryTypes } from '@cosmjs/stargate';
+import { GasPrice, calculateFee } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
 import { BankClient } from "./bank";
 import { AuthInfo, Fee, Tx, TxBody, TxRaw } from "@bitsongjs/telescope/cosmos/tx/v1beta1/tx";
@@ -270,8 +272,9 @@ export class Client {
     )
 
     const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
+
+    const { registry } = getSigningBitsongClientOptions()
     
-    const registry = new Registry([...defaultRegistryTypes, ...bitsongProtoRegistry]);
     const anyMsgs = msgs.map((m) => registry.encodeAsAny(m));
 
     const tx = Tx.fromPartial({
