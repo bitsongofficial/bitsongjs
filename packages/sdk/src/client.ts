@@ -17,11 +17,11 @@ import type { Chain } from "@chain-registry/types";
 import { GasPrice, calculateFee } from '@cosmjs/stargate';
 import { getGasPrice } from "./gas";
 import { BankClient } from "./bank";
-import { AuthInfo, Fee, Tx, TxBody, TxRaw } from "@bitsongjs/telescope/cosmos/tx/v1beta1/tx";
-import { SignMode } from "@bitsongjs/telescope/cosmos/tx/signing/v1beta1/signing";
-import { SimulateRequest } from "@bitsongjs/telescope/cosmos/tx/v1beta1/service";
+import { AuthInfo, Fee, Tx, TxBody, TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx'
+import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing";
+import { SimulateRequest } from "cosmjs-types/cosmos/tx/v1beta1/service";
+import { QueryAccountRequest } from "cosmjs-types/cosmos/auth/v1beta1/query";
 import { fromBech32, toBase64 } from "@cosmjs/encoding";
-import { QueryAccountRequest } from "@bitsongjs/telescope/cosmos/auth/v1beta1/query";
 import { assertDefined } from "@cosmjs/utils";
 import { Uint53 } from "@cosmjs/math";
 
