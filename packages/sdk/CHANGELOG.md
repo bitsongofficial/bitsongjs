@@ -3,6 +3,10 @@
 
 ## v2.0.0
 
+[compare changes](https://github.com/bitsongofficial/bitsongjs/compare/v2.0.0...v2.0.0)
+
+## v2.0.0
+
 [compare changes](https://github.com/bitsongofficial/bitsongjs/compare/@bitsongjs/sdk@2.0.0-dev.8...v2.0.0)
 
 ### 🚀 Enhancements
