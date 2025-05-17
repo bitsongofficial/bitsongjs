@@ -48,6 +48,11 @@ export default defineBuildConfig({
       format: "esm",
     },
     {
+      input: "src/ibc/",
+      outDir: "dist/ibc",
+      format: "esm",
+    },
+    {
       input: "src/tendermint/",
       outDir: "dist/tendermint",
       format: "esm",
