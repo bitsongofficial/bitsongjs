@@ -272,31 +272,18 @@ export class Client {
     )
     
     // const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
-    const sequence = (() => {
-      if (!account) {
-        return BigInt(0);
+    let sequence = BigInt(0);
+    if (account) {
+      //@ts-expect-error, fix types
+      if (account['@type'] === '/cosmos.auth.v1beta1.BaseAccount') {
+        //@ts-expect-error, fix types
+        sequence = BigInt(account.sequence || 0);
+        //@ts-expect-error, fix types
+      } else if (account.base_vesting_account?.base_account?.sequence) {
+        //@ts-expect-error, fix types
+        sequence = BigInt(account.base_vesting_account.base_account.sequence);
       }
-
-      if ('sequence' in account) {
-        return BigInt(account.sequence);
-      }
-
-      if (
-        'base_vesting_account' in account &&
-        account.base_vesting_account &&
-        typeof account.base_vesting_account === 'object' &&
-        account.base_vesting_account !== null &&
-        'base_account' in account.base_vesting_account &&
-        account.base_vesting_account.base_account &&
-        typeof account.base_vesting_account.base_account === 'object' &&
-        account.base_vesting_account.base_account !== null &&
-        'sequence' in account.base_vesting_account.base_account
-      ) {
-        return BigInt(String(account.base_vesting_account.base_account.sequence));
-      }
-
-      return BigInt(0);
-    })();
+    }
 
     const { registry } = getSigningBitsongClientOptions()
     
