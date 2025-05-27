@@ -270,8 +270,33 @@ export class Client {
         address: sender
       })
     )
+    
+    // const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
+    const sequence = (() => {
+      if (!account) {
+        return BigInt(0);
+      }
 
-    const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
+      if ('sequence' in account) {
+        return BigInt(account.sequence);
+      }
+
+      if (
+        'base_vesting_account' in account &&
+        account.base_vesting_account &&
+        typeof account.base_vesting_account === 'object' &&
+        account.base_vesting_account !== null &&
+        'base_account' in account.base_vesting_account &&
+        account.base_vesting_account.base_account &&
+        typeof account.base_vesting_account.base_account === 'object' &&
+        account.base_vesting_account.base_account !== null &&
+        'sequence' in account.base_vesting_account.base_account
+      ) {
+        return BigInt(String(account.base_vesting_account.base_account.sequence));
+      }
+
+      return BigInt(0);
+    })();
 
     const { registry } = getSigningBitsongClientOptions()
     
