@@ -21,6 +21,7 @@ import { AuthInfo, Fee, Tx, TxBody, TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1
 import { SignMode } from "cosmjs-types/cosmos/tx/signing/v1beta1/signing.js";
 import { SimulateRequest } from "cosmjs-types/cosmos/tx/v1beta1/service.js";
 import { QueryAccountRequest } from "cosmjs-types/cosmos/auth/v1beta1/query.js";
+import { PeriodicVestingAccount } from 'cosmjs-types/cosmos/vesting/v1beta1/vesting.js'
 import { fromBech32, toBase64 } from "@cosmjs/encoding";
 import { assertDefined } from "@cosmjs/utils";
 import { Uint53 } from "@cosmjs/math";
@@ -270,19 +271,21 @@ export class Client {
         address: sender
       })
     )
+
+    if (!account) {
+      throw new Error(`Account not found for address ${sender}`)
+    }
     
-    // const sequence = (account && 'sequence' in account) ? account.sequence : BigInt(0);
     let sequence = BigInt(0);
-    if (account) {
-      //@ts-expect-error, fix types
-      if (account['@type'] === '/cosmos.auth.v1beta1.BaseAccount') {
-        //@ts-expect-error, fix types
-        sequence = BigInt(account.sequence || 0);
-        //@ts-expect-error, fix types
-      } else if (account.base_vesting_account?.base_account?.sequence) {
-        //@ts-expect-error, fix types
-        sequence = BigInt(account.base_vesting_account.base_account.sequence);
-      }
+    // @ts-expect-error fix types!
+    if (account.typeUrl === '/cosmos.vesting.v1beta1.PeriodicVestingAccount') {
+      // @ts-expect-error fix types!
+      const decodedAccount = PeriodicVestingAccount.decode(account.value)
+      sequence = decodedAccount.baseVestingAccount?.baseAccount?.sequence ?? BigInt(0)
+    }
+    else if (account.$typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+      // @ts-expect-error fix types!
+      sequence = account.sequence
     }
 
     const { registry } = getSigningBitsongClientOptions()
