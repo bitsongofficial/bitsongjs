@@ -46,7 +46,7 @@ export const getSigningBitsongClient = async ({
   } = getSigningBitsongClientOptions({
     defaultTypes
   });
-  console.log('Amino Converters:', aminoTypes);
+
   const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, signer, {
     registry: registry as any,
     aminoTypes
