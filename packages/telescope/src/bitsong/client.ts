@@ -1,5 +1,5 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { defaultRegistryTypes, createDefaultAminoConverters, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import * as bitsongCadanceV1TxRegistry from "./cadance/v1/tx.registry";
 import * as bitsongFantokenV1beta1TxRegistry from "./fantoken/v1beta1/tx.registry";
@@ -23,6 +23,7 @@ export const getSigningBitsongClientOptions = ({
 } => {
   const registry = new Registry([...defaultTypes, ...bitsongProtoRegistry]);
   const aminoTypes = new AminoTypes({
+    ...createDefaultAminoConverters(),
     ...bitsongAminoConverters
   });
   return {
