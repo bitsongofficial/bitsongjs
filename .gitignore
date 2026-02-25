@@ -40,3 +40,11 @@ yarn-error.log*
 __temp
 
 packages/template
+
+AGENTS.md
+CLAUDE.md
+.claude
+.agents
+
+# opensrc - source code for packages
+opensrc/
