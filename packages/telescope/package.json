@@ -1,0 +1,111 @@
+{
+  "name": "@bitsongjs/telescope",
+  "version": "3.0.0-next.0",
+  "description": "Auto-generated Protobuf types for BitSong chain",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs",
+    "directory": "packages/telescope"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./bitsong/*": {
+      "types": "./dist/bitsong/*.d.ts",
+      "import": "./dist/bitsong/*.mjs"
+    },
+    "./cosmos/*": {
+      "types": "./dist/cosmos/*.d.ts",
+      "import": "./dist/cosmos/*.mjs"
+    },
+    "./cosmwasm/*": {
+      "types": "./dist/cosmwasm/*.d.ts",
+      "import": "./dist/cosmwasm/*.mjs"
+    },
+    "./hyperlane/*": {
+      "types": "./dist/hyperlane/*.d.ts",
+      "import": "./dist/hyperlane/*.mjs"
+    },
+    "./ibc/*": {
+      "types": "./dist/ibc/*.d.ts",
+      "import": "./dist/ibc/*.mjs"
+    },
+    "./google/*": {
+      "types": "./dist/google/*.d.ts",
+      "import": "./dist/google/*.mjs"
+    },
+    "./tendermint/*": {
+      "types": "./dist/tendermint/*.d.ts",
+      "import": "./dist/tendermint/*.mjs"
+    },
+    "./amino/*": {
+      "types": "./dist/amino/*.d.ts",
+      "import": "./dist/amino/*.mjs"
+    },
+    "./gogoproto/*": {
+      "types": "./dist/gogoproto/*.d.ts",
+      "import": "./dist/gogoproto/*.mjs"
+    },
+    "./cosmos_proto/*": {
+      "types": "./dist/cosmos_proto/*.d.ts",
+      "import": "./dist/cosmos_proto/*.mjs"
+    },
+    "./binary": {
+      "types": "./dist/binary.d.ts",
+      "import": "./dist/binary.mjs"
+    },
+    "./registry": {
+      "types": "./dist/registry.d.ts",
+      "import": "./dist/registry.mjs"
+    },
+    "./helpers": {
+      "types": "./dist/helpers.d.ts",
+      "import": "./dist/helpers.mjs"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.mjs"
+    }
+  },
+  "scripts": {
+    "codegen:download": "tsx scripts/download-protos.ts",
+    "codegen": "tsx scripts/codegen.ts",
+    "build": "obuild && tsc --project tsconfig.build.json",
+    "dev": "vitest dev",
+    "fmt": "automd && oxlint . --fix && oxfmt .",
+    "lint": "oxlint . && oxfmt --check .",
+    "prepack": "pnpm build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@interchainjs/cosmos": "^1.19.3",
+    "@interchainjs/encoding": "^1.18.1",
+    "@interchainjs/math": "^1.18.1",
+    "@interchainjs/pubkey": "^1.19.1",
+    "@interchainjs/types": "^1.19.1"
+  },
+  "devDependencies": {
+    "@hyperweb/telescope": "^2.1.0",
+    "@types/node": "latest",
+    "@vitest/coverage-v8": "latest",
+    "deepmerge": "^4.3.1",
+    "obuild": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.0",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@10.29.3"
+}
