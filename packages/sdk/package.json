@@ -1,0 +1,55 @@
+{
+  "name": "@bitsongjs/sdk",
+  "version": "3.0.0-next.0",
+  "description": "Composable SDK for BitSong blockchain built on top of @bitsongjs/telescope",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitsongofficial/bitsongjs",
+    "directory": "packages/sdk"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./chains": "./dist/chains.mjs",
+    "./errors": "./dist/errors.mjs",
+    "./gas": "./dist/gas.mjs",
+    "./rpc": "./dist/rpc.mjs",
+    "./signer": "./dist/signer.mjs",
+    "./events": "./dist/events.mjs",
+    "./modules": "./dist/modules/index.mjs",
+    "./client": "./dist/client.mjs"
+  },
+  "scripts": {
+    "build": "obuild",
+    "dev": "vitest dev",
+    "fmt": "automd && oxlint . --fix && oxfmt .",
+    "lint": "oxlint . && oxfmt --check .",
+    "prepack": "pnpm build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@interchainjs/cosmos": "^1.19.3",
+    "@interchainjs/types": "^1.19.1"
+  },
+  "peerDependencies": {
+    "@bitsongjs/telescope": "workspace:*"
+  },
+  "devDependencies": {
+    "@bitsongjs/telescope": "workspace:*",
+    "@types/node": "latest",
+    "@vitest/coverage-v8": "latest",
+    "obuild": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@10.29.3"
+}

@@ -24,6 +24,40 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  packages/sdk:
+    dependencies:
+      '@interchainjs/cosmos':
+        specifier: ^1.19.3
+        version: 1.19.3(@chain-registry/v2-types@0.53.146)(@chain-registry/v2@1.71.237)
+      '@interchainjs/types':
+        specifier: ^1.19.1
+        version: 1.19.1
+    devDependencies:
+      '@bitsongjs/telescope':
+        specifier: workspace:*
+        version: link:../telescope
+      '@types/node':
+        specifier: latest
+        version: 25.3.0
+      '@vitest/coverage-v8':
+        specifier: latest
+        version: 4.0.18(vitest@4.0.18(@types/node@25.3.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+      obuild:
+        specifier: latest
+        version: 0.4.31(chokidar@5.0.0)(dotenv@17.3.1)(giget@2.0.0)(jiti@2.6.1)(magicast@0.5.2)(picomatch@4.0.3)(rollup@4.59.0)(typescript@5.9.3)
+      oxfmt:
+        specifier: latest
+        version: 0.35.0
+      oxlint:
+        specifier: latest
+        version: 1.50.0
+      typescript:
+        specifier: latest
+        version: 5.9.3
+      vitest:
+        specifier: latest
+        version: 4.0.18(@types/node@25.3.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
+
   packages/telescope:
     dependencies:
       '@interchainjs/cosmos':

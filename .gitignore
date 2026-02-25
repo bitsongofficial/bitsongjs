@@ -39,7 +39,7 @@ yarn-error.log*
 
 __temp
 
-packages/template
+packages/.template
 
 AGENTS.md
 CLAUDE.md

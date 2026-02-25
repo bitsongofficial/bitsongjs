@@ -1,0 +1,42 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getFanToken,
+  getFanTokens,
+  getParams,
+} from "@bitsongjs/telescope/bitsong/fantoken/v1beta1/query.rpc.func";
+import {
+  issue,
+  mint,
+  burn,
+  disableMint,
+  setMinter,
+  setAuthority,
+  setUri,
+} from "@bitsongjs/telescope/bitsong/fantoken/v1beta1/tx.rpc.func";
+
+export function fantokenQuery(rpc: EndpointOrRpc) {
+  return {
+    getFanToken: (request: Parameters<typeof getFanToken>[1]) => getFanToken(rpc, request),
+    getFanTokens: (request: Parameters<typeof getFanTokens>[1]) => getFanTokens(rpc, request),
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+  };
+}
+
+export function fantokenTx(client: ISigningClient, address: string) {
+  return {
+    issue: (message: Parameters<typeof issue>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      issue(client, address, message, fee, memo),
+    mint: (message: Parameters<typeof mint>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      mint(client, address, message, fee, memo),
+    burn: (message: Parameters<typeof burn>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      burn(client, address, message, fee, memo),
+    disableMint: (message: Parameters<typeof disableMint>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      disableMint(client, address, message, fee, memo),
+    setMinter: (message: Parameters<typeof setMinter>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setMinter(client, address, message, fee, memo),
+    setAuthority: (message: Parameters<typeof setAuthority>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setAuthority(client, address, message, fee, memo),
+    setUri: (message: Parameters<typeof setUri>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setUri(client, address, message, fee, memo),
+  };
+}

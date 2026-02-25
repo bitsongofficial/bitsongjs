@@ -1,0 +1,165 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+
+// Core v1
+import {
+  getMailbox,
+  getMailboxes,
+  getDelivered,
+  getRecipientIsm,
+  getRegisteredApps,
+  getRegisteredHooks,
+  getRegisteredISMs,
+  getVerifyDryRun,
+} from "@bitsongjs/telescope/hyperlane/core/v1/query.rpc.func";
+import {
+  createMailbox,
+  processMessage,
+  setMailbox,
+} from "@bitsongjs/telescope/hyperlane/core/v1/tx.rpc.func";
+
+// Interchain Security
+import {
+  getIsm,
+  getIsms,
+  getAnnouncedStorageLocations,
+  getLatestAnnouncedStorageLocation,
+} from "@bitsongjs/telescope/hyperlane/core/interchain_security/v1/query.rpc.func";
+import {
+  createMerkleRootMultisigIsm,
+  createMessageIdMultisigIsm,
+  createNoopIsm,
+  createRoutingIsm,
+  setRoutingIsmDomain,
+  removeRoutingIsmDomain,
+  updateRoutingIsmOwner,
+  announceValidator,
+} from "@bitsongjs/telescope/hyperlane/core/interchain_security/v1/tx.rpc.func";
+
+// Post Dispatch
+import {
+  getIgp,
+  getIgps,
+  getDestinationGasConfigs,
+  getQuoteGasPayment,
+  getMerkleTreeHook,
+  getMerkleTreeHooks,
+  getNoopHook,
+  getNoopHooks,
+} from "@bitsongjs/telescope/hyperlane/core/post_dispatch/v1/query.rpc.func";
+import {
+  createIgp,
+  setDestinationGasConfig,
+  setIgpOwner,
+  payForGas,
+  claim,
+  createMerkleTreeHook,
+  createNoopHook,
+} from "@bitsongjs/telescope/hyperlane/core/post_dispatch/v1/tx.rpc.func";
+
+// Warp
+import {
+  getToken,
+  getTokens,
+  getRemoteRouters,
+  getBridgedSupply,
+  getQuoteRemoteTransfer,
+} from "@bitsongjs/telescope/hyperlane/warp/v1/query.rpc.func";
+import {
+  createCollateralToken,
+  createSyntheticToken,
+  enrollRemoteRouter,
+  unrollRemoteRouter,
+  remoteTransfer,
+  setToken,
+} from "@bitsongjs/telescope/hyperlane/warp/v1/tx.rpc.func";
+
+export function hyperlaneQuery(rpc: EndpointOrRpc) {
+  return {
+    // Core
+    getMailbox: (request: Parameters<typeof getMailbox>[1]) => getMailbox(rpc, request),
+    getMailboxes: (request: Parameters<typeof getMailboxes>[1]) => getMailboxes(rpc, request),
+    getDelivered: (request: Parameters<typeof getDelivered>[1]) => getDelivered(rpc, request),
+    getRecipientIsm: (request: Parameters<typeof getRecipientIsm>[1]) => getRecipientIsm(rpc, request),
+    getRegisteredApps: (request: Parameters<typeof getRegisteredApps>[1]) => getRegisteredApps(rpc, request),
+    getRegisteredHooks: (request: Parameters<typeof getRegisteredHooks>[1]) => getRegisteredHooks(rpc, request),
+    getRegisteredISMs: (request: Parameters<typeof getRegisteredISMs>[1]) => getRegisteredISMs(rpc, request),
+    getVerifyDryRun: (request: Parameters<typeof getVerifyDryRun>[1]) => getVerifyDryRun(rpc, request),
+    // Interchain Security
+    getIsm: (request: Parameters<typeof getIsm>[1]) => getIsm(rpc, request),
+    getIsms: (request: Parameters<typeof getIsms>[1]) => getIsms(rpc, request),
+    getAnnouncedStorageLocations: (request: Parameters<typeof getAnnouncedStorageLocations>[1]) => getAnnouncedStorageLocations(rpc, request),
+    getLatestAnnouncedStorageLocation: (request: Parameters<typeof getLatestAnnouncedStorageLocation>[1]) => getLatestAnnouncedStorageLocation(rpc, request),
+    // Post Dispatch
+    getIgp: (request: Parameters<typeof getIgp>[1]) => getIgp(rpc, request),
+    getIgps: (request: Parameters<typeof getIgps>[1]) => getIgps(rpc, request),
+    getDestinationGasConfigs: (request: Parameters<typeof getDestinationGasConfigs>[1]) => getDestinationGasConfigs(rpc, request),
+    getQuoteGasPayment: (request: Parameters<typeof getQuoteGasPayment>[1]) => getQuoteGasPayment(rpc, request),
+    getMerkleTreeHook: (request: Parameters<typeof getMerkleTreeHook>[1]) => getMerkleTreeHook(rpc, request),
+    getMerkleTreeHooks: (request: Parameters<typeof getMerkleTreeHooks>[1]) => getMerkleTreeHooks(rpc, request),
+    getNoopHook: (request: Parameters<typeof getNoopHook>[1]) => getNoopHook(rpc, request),
+    getNoopHooks: (request: Parameters<typeof getNoopHooks>[1]) => getNoopHooks(rpc, request),
+    // Warp
+    getToken: (request: Parameters<typeof getToken>[1]) => getToken(rpc, request),
+    getTokens: (request: Parameters<typeof getTokens>[1]) => getTokens(rpc, request),
+    getRemoteRouters: (request: Parameters<typeof getRemoteRouters>[1]) => getRemoteRouters(rpc, request),
+    getBridgedSupply: (request: Parameters<typeof getBridgedSupply>[1]) => getBridgedSupply(rpc, request),
+    getQuoteRemoteTransfer: (request: Parameters<typeof getQuoteRemoteTransfer>[1]) => getQuoteRemoteTransfer(rpc, request),
+  };
+}
+
+export function hyperlaneTx(client: ISigningClient, address: string) {
+  return {
+    // Core
+    createMailbox: (message: Parameters<typeof createMailbox>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createMailbox(client, address, message, fee, memo),
+    processMessage: (message: Parameters<typeof processMessage>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      processMessage(client, address, message, fee, memo),
+    setMailbox: (message: Parameters<typeof setMailbox>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setMailbox(client, address, message, fee, memo),
+    // Interchain Security
+    createMerkleRootMultisigIsm: (message: Parameters<typeof createMerkleRootMultisigIsm>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createMerkleRootMultisigIsm(client, address, message, fee, memo),
+    createMessageIdMultisigIsm: (message: Parameters<typeof createMessageIdMultisigIsm>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createMessageIdMultisigIsm(client, address, message, fee, memo),
+    createNoopIsm: (message: Parameters<typeof createNoopIsm>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createNoopIsm(client, address, message, fee, memo),
+    createRoutingIsm: (message: Parameters<typeof createRoutingIsm>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createRoutingIsm(client, address, message, fee, memo),
+    setRoutingIsmDomain: (message: Parameters<typeof setRoutingIsmDomain>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setRoutingIsmDomain(client, address, message, fee, memo),
+    removeRoutingIsmDomain: (message: Parameters<typeof removeRoutingIsmDomain>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      removeRoutingIsmDomain(client, address, message, fee, memo),
+    updateRoutingIsmOwner: (message: Parameters<typeof updateRoutingIsmOwner>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateRoutingIsmOwner(client, address, message, fee, memo),
+    announceValidator: (message: Parameters<typeof announceValidator>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      announceValidator(client, address, message, fee, memo),
+    // Post Dispatch
+    createIgp: (message: Parameters<typeof createIgp>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createIgp(client, address, message, fee, memo),
+    setDestinationGasConfig: (message: Parameters<typeof setDestinationGasConfig>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setDestinationGasConfig(client, address, message, fee, memo),
+    setIgpOwner: (message: Parameters<typeof setIgpOwner>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setIgpOwner(client, address, message, fee, memo),
+    payForGas: (message: Parameters<typeof payForGas>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      payForGas(client, address, message, fee, memo),
+    claim: (message: Parameters<typeof claim>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      claim(client, address, message, fee, memo),
+    createMerkleTreeHook: (message: Parameters<typeof createMerkleTreeHook>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createMerkleTreeHook(client, address, message, fee, memo),
+    createNoopHook: (message: Parameters<typeof createNoopHook>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createNoopHook(client, address, message, fee, memo),
+    // Warp
+    createCollateralToken: (message: Parameters<typeof createCollateralToken>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createCollateralToken(client, address, message, fee, memo),
+    createSyntheticToken: (message: Parameters<typeof createSyntheticToken>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createSyntheticToken(client, address, message, fee, memo),
+    enrollRemoteRouter: (message: Parameters<typeof enrollRemoteRouter>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      enrollRemoteRouter(client, address, message, fee, memo),
+    unrollRemoteRouter: (message: Parameters<typeof unrollRemoteRouter>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      unrollRemoteRouter(client, address, message, fee, memo),
+    remoteTransfer: (message: Parameters<typeof remoteTransfer>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      remoteTransfer(client, address, message, fee, memo),
+    setToken: (message: Parameters<typeof setToken>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      setToken(client, address, message, fee, memo),
+  };
+}

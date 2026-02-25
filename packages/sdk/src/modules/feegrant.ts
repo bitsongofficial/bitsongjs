@@ -1,0 +1,30 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getAllowance,
+  getAllowances,
+  getAllowancesByGranter,
+} from "@bitsongjs/telescope/cosmos/feegrant/v1beta1/query.rpc.func";
+import {
+  grantAllowance,
+  revokeAllowance,
+  pruneAllowances,
+} from "@bitsongjs/telescope/cosmos/feegrant/v1beta1/tx.rpc.func";
+
+export function feegrantQuery(rpc: EndpointOrRpc) {
+  return {
+    getAllowance: (request: Parameters<typeof getAllowance>[1]) => getAllowance(rpc, request),
+    getAllowances: (request: Parameters<typeof getAllowances>[1]) => getAllowances(rpc, request),
+    getAllowancesByGranter: (request: Parameters<typeof getAllowancesByGranter>[1]) => getAllowancesByGranter(rpc, request),
+  };
+}
+
+export function feegrantTx(client: ISigningClient, address: string) {
+  return {
+    grantAllowance: (message: Parameters<typeof grantAllowance>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      grantAllowance(client, address, message, fee, memo),
+    revokeAllowance: (message: Parameters<typeof revokeAllowance>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      revokeAllowance(client, address, message, fee, memo),
+    pruneAllowances: (message: Parameters<typeof pruneAllowances>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      pruneAllowances(client, address, message, fee, memo),
+  };
+}

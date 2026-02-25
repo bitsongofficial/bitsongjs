@@ -1,0 +1,33 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getParams,
+  getCadenceContract,
+  getCadenceContracts,
+} from "@bitsongjs/telescope/bitsong/cadence/v1/query.rpc.func";
+import {
+  registerCadenceContract,
+  unregisterCadenceContract,
+  unjailCadenceContract,
+  updateParams,
+} from "@bitsongjs/telescope/bitsong/cadence/v1/tx.rpc.func";
+
+export function cadenceQuery(rpc: EndpointOrRpc) {
+  return {
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+    getCadenceContract: (request: Parameters<typeof getCadenceContract>[1]) => getCadenceContract(rpc, request),
+    getCadenceContracts: (request: Parameters<typeof getCadenceContracts>[1]) => getCadenceContracts(rpc, request),
+  };
+}
+
+export function cadenceTx(client: ISigningClient, address: string) {
+  return {
+    registerCadenceContract: (message: Parameters<typeof registerCadenceContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      registerCadenceContract(client, address, message, fee, memo),
+    unregisterCadenceContract: (message: Parameters<typeof unregisterCadenceContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      unregisterCadenceContract(client, address, message, fee, memo),
+    unjailCadenceContract: (message: Parameters<typeof unjailCadenceContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      unjailCadenceContract(client, address, message, fee, memo),
+    updateParams: (message: Parameters<typeof updateParams>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateParams(client, address, message, fee, memo),
+  };
+}

@@ -1,0 +1,33 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getDenomTraces,
+  getDenomTrace,
+  getParams,
+  getDenomHash,
+  getEscrowAddress,
+  getTotalEscrowForDenom,
+} from "@bitsongjs/telescope/ibc/applications/transfer/v1/query.rpc.func";
+import {
+  transfer,
+  updateParams,
+} from "@bitsongjs/telescope/ibc/applications/transfer/v1/tx.rpc.func";
+
+export function ibcTransferQuery(rpc: EndpointOrRpc) {
+  return {
+    getDenomTraces: (request: Parameters<typeof getDenomTraces>[1]) => getDenomTraces(rpc, request),
+    getDenomTrace: (request: Parameters<typeof getDenomTrace>[1]) => getDenomTrace(rpc, request),
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+    getDenomHash: (request: Parameters<typeof getDenomHash>[1]) => getDenomHash(rpc, request),
+    getEscrowAddress: (request: Parameters<typeof getEscrowAddress>[1]) => getEscrowAddress(rpc, request),
+    getTotalEscrowForDenom: (request: Parameters<typeof getTotalEscrowForDenom>[1]) => getTotalEscrowForDenom(rpc, request),
+  };
+}
+
+export function ibcTransferTx(client: ISigningClient, address: string) {
+  return {
+    transfer: (message: Parameters<typeof transfer>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      transfer(client, address, message, fee, memo),
+    updateParams: (message: Parameters<typeof updateParams>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateParams(client, address, message, fee, memo),
+  };
+}

@@ -1,0 +1,17 @@
+import type { ISigningClient, StdFee } from "../types";
+import {
+  createVestingAccount,
+  createPermanentLockedAccount,
+  createPeriodicVestingAccount,
+} from "@bitsongjs/telescope/cosmos/vesting/v1beta1/tx.rpc.func";
+
+export function vestingTx(client: ISigningClient, address: string) {
+  return {
+    createVestingAccount: (message: Parameters<typeof createVestingAccount>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createVestingAccount(client, address, message, fee, memo),
+    createPermanentLockedAccount: (message: Parameters<typeof createPermanentLockedAccount>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createPermanentLockedAccount(client, address, message, fee, memo),
+    createPeriodicVestingAccount: (message: Parameters<typeof createPeriodicVestingAccount>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createPeriodicVestingAccount(client, address, message, fee, memo),
+  };
+}

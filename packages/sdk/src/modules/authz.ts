@@ -1,0 +1,30 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getGrants,
+  getGranterGrants,
+  getGranteeGrants,
+} from "@bitsongjs/telescope/cosmos/authz/v1beta1/query.rpc.func";
+import {
+  grant,
+  exec,
+  revoke,
+} from "@bitsongjs/telescope/cosmos/authz/v1beta1/tx.rpc.func";
+
+export function authzQuery(rpc: EndpointOrRpc) {
+  return {
+    getGrants: (request: Parameters<typeof getGrants>[1]) => getGrants(rpc, request),
+    getGranterGrants: (request: Parameters<typeof getGranterGrants>[1]) => getGranterGrants(rpc, request),
+    getGranteeGrants: (request: Parameters<typeof getGranteeGrants>[1]) => getGranteeGrants(rpc, request),
+  };
+}
+
+export function authzTx(client: ISigningClient, address: string) {
+  return {
+    grant: (message: Parameters<typeof grant>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      grant(client, address, message, fee, memo),
+    exec: (message: Parameters<typeof exec>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      exec(client, address, message, fee, memo),
+    revoke: (message: Parameters<typeof revoke>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      revoke(client, address, message, fee, memo),
+  };
+}

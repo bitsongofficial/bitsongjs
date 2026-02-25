@@ -1,0 +1,90 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getContractInfo,
+  getContractHistory,
+  getContractsByCode,
+  getAllContractState,
+  getRawContractState,
+  getSmartContractState,
+  getCode,
+  getCodes,
+  getPinnedCodes,
+  getParams,
+  getContractsByCreator,
+  getBuildAddress,
+} from "@bitsongjs/telescope/cosmwasm/wasm/v1/query.rpc.func";
+import {
+  storeCode,
+  instantiateContract,
+  instantiateContract2,
+  executeContract,
+  migrateContract,
+  updateAdmin,
+  clearAdmin,
+  updateInstantiateConfig,
+  updateParams,
+  sudoContract,
+  pinCodes,
+  unpinCodes,
+  storeAndInstantiateContract,
+  storeAndMigrateContract,
+  addCodeUploadParamsAddresses,
+  removeCodeUploadParamsAddresses,
+  updateContractLabel,
+} from "@bitsongjs/telescope/cosmwasm/wasm/v1/tx.rpc.func";
+
+export function wasmQuery(rpc: EndpointOrRpc) {
+  return {
+    getContractInfo: (request: Parameters<typeof getContractInfo>[1]) => getContractInfo(rpc, request),
+    getContractHistory: (request: Parameters<typeof getContractHistory>[1]) => getContractHistory(rpc, request),
+    getContractsByCode: (request: Parameters<typeof getContractsByCode>[1]) => getContractsByCode(rpc, request),
+    getAllContractState: (request: Parameters<typeof getAllContractState>[1]) => getAllContractState(rpc, request),
+    getRawContractState: (request: Parameters<typeof getRawContractState>[1]) => getRawContractState(rpc, request),
+    getSmartContractState: (request: Parameters<typeof getSmartContractState>[1]) => getSmartContractState(rpc, request),
+    getCode: (request: Parameters<typeof getCode>[1]) => getCode(rpc, request),
+    getCodes: (request: Parameters<typeof getCodes>[1]) => getCodes(rpc, request),
+    getPinnedCodes: (request: Parameters<typeof getPinnedCodes>[1]) => getPinnedCodes(rpc, request),
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+    getContractsByCreator: (request: Parameters<typeof getContractsByCreator>[1]) => getContractsByCreator(rpc, request),
+    getBuildAddress: (request: Parameters<typeof getBuildAddress>[1]) => getBuildAddress(rpc, request),
+  };
+}
+
+export function wasmTx(client: ISigningClient, address: string) {
+  return {
+    storeCode: (message: Parameters<typeof storeCode>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      storeCode(client, address, message, fee, memo),
+    instantiateContract: (message: Parameters<typeof instantiateContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      instantiateContract(client, address, message, fee, memo),
+    instantiateContract2: (message: Parameters<typeof instantiateContract2>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      instantiateContract2(client, address, message, fee, memo),
+    executeContract: (message: Parameters<typeof executeContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      executeContract(client, address, message, fee, memo),
+    migrateContract: (message: Parameters<typeof migrateContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      migrateContract(client, address, message, fee, memo),
+    updateAdmin: (message: Parameters<typeof updateAdmin>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateAdmin(client, address, message, fee, memo),
+    clearAdmin: (message: Parameters<typeof clearAdmin>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      clearAdmin(client, address, message, fee, memo),
+    updateInstantiateConfig: (message: Parameters<typeof updateInstantiateConfig>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateInstantiateConfig(client, address, message, fee, memo),
+    updateParams: (message: Parameters<typeof updateParams>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateParams(client, address, message, fee, memo),
+    sudoContract: (message: Parameters<typeof sudoContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      sudoContract(client, address, message, fee, memo),
+    pinCodes: (message: Parameters<typeof pinCodes>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      pinCodes(client, address, message, fee, memo),
+    unpinCodes: (message: Parameters<typeof unpinCodes>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      unpinCodes(client, address, message, fee, memo),
+    storeAndInstantiateContract: (message: Parameters<typeof storeAndInstantiateContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      storeAndInstantiateContract(client, address, message, fee, memo),
+    storeAndMigrateContract: (message: Parameters<typeof storeAndMigrateContract>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      storeAndMigrateContract(client, address, message, fee, memo),
+    addCodeUploadParamsAddresses: (message: Parameters<typeof addCodeUploadParamsAddresses>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      addCodeUploadParamsAddresses(client, address, message, fee, memo),
+    removeCodeUploadParamsAddresses: (message: Parameters<typeof removeCodeUploadParamsAddresses>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      removeCodeUploadParamsAddresses(client, address, message, fee, memo),
+    updateContractLabel: (message: Parameters<typeof updateContractLabel>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateContractLabel(client, address, message, fee, memo),
+  };
+}

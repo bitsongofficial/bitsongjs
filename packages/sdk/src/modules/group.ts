@@ -1,0 +1,85 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getGroupInfo,
+  getGroupPolicyInfo,
+  getGroupMembers,
+  getGroupsByAdmin,
+  getGroupPoliciesByGroup,
+  getGroupPoliciesByAdmin,
+  getProposal,
+  getProposalsByGroupPolicy,
+  getVoteByProposalVoter,
+  getVotesByProposal,
+  getVotesByVoter,
+  getGroupsByMember,
+  getTallyResult,
+  getGroups,
+} from "@bitsongjs/telescope/cosmos/group/v1/query.rpc.func";
+import {
+  createGroup,
+  updateGroupMembers,
+  updateGroupAdmin,
+  updateGroupMetadata,
+  createGroupPolicy,
+  createGroupWithPolicy,
+  updateGroupPolicyAdmin,
+  updateGroupPolicyDecisionPolicy,
+  updateGroupPolicyMetadata,
+  submitProposal,
+  withdrawProposal,
+  vote,
+  exec,
+  leaveGroup,
+} from "@bitsongjs/telescope/cosmos/group/v1/tx.rpc.func";
+
+export function groupQuery(rpc: EndpointOrRpc) {
+  return {
+    getGroupInfo: (request: Parameters<typeof getGroupInfo>[1]) => getGroupInfo(rpc, request),
+    getGroupPolicyInfo: (request: Parameters<typeof getGroupPolicyInfo>[1]) => getGroupPolicyInfo(rpc, request),
+    getGroupMembers: (request: Parameters<typeof getGroupMembers>[1]) => getGroupMembers(rpc, request),
+    getGroupsByAdmin: (request: Parameters<typeof getGroupsByAdmin>[1]) => getGroupsByAdmin(rpc, request),
+    getGroupPoliciesByGroup: (request: Parameters<typeof getGroupPoliciesByGroup>[1]) => getGroupPoliciesByGroup(rpc, request),
+    getGroupPoliciesByAdmin: (request: Parameters<typeof getGroupPoliciesByAdmin>[1]) => getGroupPoliciesByAdmin(rpc, request),
+    getProposal: (request: Parameters<typeof getProposal>[1]) => getProposal(rpc, request),
+    getProposalsByGroupPolicy: (request: Parameters<typeof getProposalsByGroupPolicy>[1]) => getProposalsByGroupPolicy(rpc, request),
+    getVoteByProposalVoter: (request: Parameters<typeof getVoteByProposalVoter>[1]) => getVoteByProposalVoter(rpc, request),
+    getVotesByProposal: (request: Parameters<typeof getVotesByProposal>[1]) => getVotesByProposal(rpc, request),
+    getVotesByVoter: (request: Parameters<typeof getVotesByVoter>[1]) => getVotesByVoter(rpc, request),
+    getGroupsByMember: (request: Parameters<typeof getGroupsByMember>[1]) => getGroupsByMember(rpc, request),
+    getTallyResult: (request: Parameters<typeof getTallyResult>[1]) => getTallyResult(rpc, request),
+    getGroups: (request: Parameters<typeof getGroups>[1]) => getGroups(rpc, request),
+  };
+}
+
+export function groupTx(client: ISigningClient, address: string) {
+  return {
+    createGroup: (message: Parameters<typeof createGroup>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createGroup(client, address, message, fee, memo),
+    updateGroupMembers: (message: Parameters<typeof updateGroupMembers>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupMembers(client, address, message, fee, memo),
+    updateGroupAdmin: (message: Parameters<typeof updateGroupAdmin>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupAdmin(client, address, message, fee, memo),
+    updateGroupMetadata: (message: Parameters<typeof updateGroupMetadata>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupMetadata(client, address, message, fee, memo),
+    createGroupPolicy: (message: Parameters<typeof createGroupPolicy>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createGroupPolicy(client, address, message, fee, memo),
+    createGroupWithPolicy: (message: Parameters<typeof createGroupWithPolicy>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createGroupWithPolicy(client, address, message, fee, memo),
+    updateGroupPolicyAdmin: (message: Parameters<typeof updateGroupPolicyAdmin>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupPolicyAdmin(client, address, message, fee, memo),
+    updateGroupPolicyDecisionPolicy: (message: Parameters<typeof updateGroupPolicyDecisionPolicy>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupPolicyDecisionPolicy(client, address, message, fee, memo),
+    updateGroupPolicyMetadata: (message: Parameters<typeof updateGroupPolicyMetadata>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateGroupPolicyMetadata(client, address, message, fee, memo),
+    submitProposal: (message: Parameters<typeof submitProposal>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      submitProposal(client, address, message, fee, memo),
+    withdrawProposal: (message: Parameters<typeof withdrawProposal>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      withdrawProposal(client, address, message, fee, memo),
+    vote: (message: Parameters<typeof vote>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      vote(client, address, message, fee, memo),
+    exec: (message: Parameters<typeof exec>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      exec(client, address, message, fee, memo),
+    leaveGroup: (message: Parameters<typeof leaveGroup>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      leaveGroup(client, address, message, fee, memo),
+  };
+}

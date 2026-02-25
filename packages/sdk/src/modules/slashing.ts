@@ -1,0 +1,27 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getParams,
+  getSigningInfo,
+  getSigningInfos,
+} from "@bitsongjs/telescope/cosmos/slashing/v1beta1/query.rpc.func";
+import {
+  unjail,
+  updateParams,
+} from "@bitsongjs/telescope/cosmos/slashing/v1beta1/tx.rpc.func";
+
+export function slashingQuery(rpc: EndpointOrRpc) {
+  return {
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+    getSigningInfo: (request: Parameters<typeof getSigningInfo>[1]) => getSigningInfo(rpc, request),
+    getSigningInfos: (request: Parameters<typeof getSigningInfos>[1]) => getSigningInfos(rpc, request),
+  };
+}
+
+export function slashingTx(client: ISigningClient, address: string) {
+  return {
+    unjail: (message: Parameters<typeof unjail>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      unjail(client, address, message, fee, memo),
+    updateParams: (message: Parameters<typeof updateParams>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateParams(client, address, message, fee, memo),
+  };
+}

@@ -1,0 +1,28 @@
+import type { EndpointOrRpc } from "../types";
+import {
+  getAccounts,
+  getAccount,
+  getAccountAddressByID,
+  getParams,
+  getModuleAccounts,
+  getModuleAccountByName,
+  getBech32Prefix,
+  getAddressBytesToString,
+  getAddressStringToBytes,
+  getAccountInfo,
+} from "@bitsongjs/telescope/cosmos/auth/v1beta1/query.rpc.func";
+
+export function authQuery(rpc: EndpointOrRpc) {
+  return {
+    getAccounts: (request: Parameters<typeof getAccounts>[1]) => getAccounts(rpc, request),
+    getAccount: (request: Parameters<typeof getAccount>[1]) => getAccount(rpc, request),
+    getAccountAddressByID: (request: Parameters<typeof getAccountAddressByID>[1]) => getAccountAddressByID(rpc, request),
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+    getModuleAccounts: (request: Parameters<typeof getModuleAccounts>[1]) => getModuleAccounts(rpc, request),
+    getModuleAccountByName: (request: Parameters<typeof getModuleAccountByName>[1]) => getModuleAccountByName(rpc, request),
+    getBech32Prefix: (request: Parameters<typeof getBech32Prefix>[1]) => getBech32Prefix(rpc, request),
+    getAddressBytesToString: (request: Parameters<typeof getAddressBytesToString>[1]) => getAddressBytesToString(rpc, request),
+    getAddressStringToBytes: (request: Parameters<typeof getAddressStringToBytes>[1]) => getAddressStringToBytes(rpc, request),
+    getAccountInfo: (request: Parameters<typeof getAccountInfo>[1]) => getAccountInfo(rpc, request),
+  };
+}

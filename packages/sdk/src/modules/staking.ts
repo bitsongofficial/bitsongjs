@@ -1,0 +1,64 @@
+import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";
+import {
+  getValidators,
+  getValidator,
+  getValidatorDelegations,
+  getValidatorUnbondingDelegations,
+  getDelegation,
+  getUnbondingDelegation,
+  getDelegatorDelegations,
+  getDelegatorUnbondingDelegations,
+  getRedelegations,
+  getDelegatorValidator,
+  getDelegatorValidators,
+  getHistoricalInfo,
+  getPool,
+  getParams,
+} from "@bitsongjs/telescope/cosmos/staking/v1beta1/query.rpc.func";
+import {
+  createValidator,
+  editValidator,
+  delegate,
+  beginRedelegate,
+  undelegate,
+  cancelUnbondingDelegation,
+  updateParams,
+} from "@bitsongjs/telescope/cosmos/staking/v1beta1/tx.rpc.func";
+
+export function stakingQuery(rpc: EndpointOrRpc) {
+  return {
+    getValidators: (request: Parameters<typeof getValidators>[1]) => getValidators(rpc, request),
+    getValidator: (request: Parameters<typeof getValidator>[1]) => getValidator(rpc, request),
+    getValidatorDelegations: (request: Parameters<typeof getValidatorDelegations>[1]) => getValidatorDelegations(rpc, request),
+    getValidatorUnbondingDelegations: (request: Parameters<typeof getValidatorUnbondingDelegations>[1]) => getValidatorUnbondingDelegations(rpc, request),
+    getDelegation: (request: Parameters<typeof getDelegation>[1]) => getDelegation(rpc, request),
+    getUnbondingDelegation: (request: Parameters<typeof getUnbondingDelegation>[1]) => getUnbondingDelegation(rpc, request),
+    getDelegatorDelegations: (request: Parameters<typeof getDelegatorDelegations>[1]) => getDelegatorDelegations(rpc, request),
+    getDelegatorUnbondingDelegations: (request: Parameters<typeof getDelegatorUnbondingDelegations>[1]) => getDelegatorUnbondingDelegations(rpc, request),
+    getRedelegations: (request: Parameters<typeof getRedelegations>[1]) => getRedelegations(rpc, request),
+    getDelegatorValidator: (request: Parameters<typeof getDelegatorValidator>[1]) => getDelegatorValidator(rpc, request),
+    getDelegatorValidators: (request: Parameters<typeof getDelegatorValidators>[1]) => getDelegatorValidators(rpc, request),
+    getHistoricalInfo: (request: Parameters<typeof getHistoricalInfo>[1]) => getHistoricalInfo(rpc, request),
+    getPool: (request: Parameters<typeof getPool>[1]) => getPool(rpc, request),
+    getParams: (request: Parameters<typeof getParams>[1]) => getParams(rpc, request),
+  };
+}
+
+export function stakingTx(client: ISigningClient, address: string) {
+  return {
+    createValidator: (message: Parameters<typeof createValidator>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      createValidator(client, address, message, fee, memo),
+    editValidator: (message: Parameters<typeof editValidator>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      editValidator(client, address, message, fee, memo),
+    delegate: (message: Parameters<typeof delegate>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      delegate(client, address, message, fee, memo),
+    beginRedelegate: (message: Parameters<typeof beginRedelegate>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      beginRedelegate(client, address, message, fee, memo),
+    undelegate: (message: Parameters<typeof undelegate>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      undelegate(client, address, message, fee, memo),
+    cancelUnbondingDelegation: (message: Parameters<typeof cancelUnbondingDelegation>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      cancelUnbondingDelegation(client, address, message, fee, memo),
+    updateParams: (message: Parameters<typeof updateParams>[2], fee: StdFee | "auto" = "auto", memo = "") =>
+      updateParams(client, address, message, fee, memo),
+  };
+}
