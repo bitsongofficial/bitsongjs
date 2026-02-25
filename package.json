@@ -7,16 +7,16 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "publish": "pnpm publish -r --publish-branch v2-dev"
+    "publish": "pnpm publish -r --publish-branch next"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.3",
-    "prettier": "^3.5.3",
-    "turbo": "^2.4.4",
+    "@changesets/cli": "^2.29.8",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.11",
     "typescript": "5.8.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "packageManager": "pnpm@10.6.1"
 }
