@@ -7,10 +7,15 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "publish": "pnpm publish -r --publish-branch next"
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish:next": "changeset publish --tag next",
+    "snapshot": "changeset version --snapshot next && changeset publish --tag next",
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
+    "automd": "^0.4.3",
     "prettier": "^3.8.1",
     "turbo": "^2.8.11",
     "typescript": "5.8.2"
