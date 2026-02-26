@@ -244,7 +244,7 @@ const client2 = await createClient({
 });
 ```
 
-Built-in presets: `"mainnet"` (default), `"testnet"`, `"local"`.
+Built-in presets: `"mainnet"` (default), `"testnet"`, `"localnet"`.
 
 ## Custom Module Extension
 

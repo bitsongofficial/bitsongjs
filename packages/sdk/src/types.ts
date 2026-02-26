@@ -52,8 +52,10 @@ export interface CreateEventClientOptions {
   };
 }
 
+export type ChainPreset = "mainnet" | "testnet" | "localnet";
+
 export interface CreateClientOptions {
-  chain?: string | ChainConfig;
+  chain?: ChainPreset | (string & {}) | ChainConfig;
   signer?: string | OfflineSignerLike;
   signerType?: SignerType;
   gasPrice?: string;

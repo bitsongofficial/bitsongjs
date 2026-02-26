@@ -45,7 +45,7 @@ export const bitsongLocal: ChainConfig = {
 const presets: Record<string, ChainConfig> = {
   mainnet: bitsongMainnet,
   testnet: bitsongTestnet,
-  local: bitsongLocal,
+  localnet: bitsongLocal,
 };
 
 export function registerChain(name: string, config: ChainConfig): void {

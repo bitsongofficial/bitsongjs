@@ -1,6 +1,7 @@
 // Types
 export type {
   ChainConfig,
+  ChainPreset,
   SignerType,
   CreateRpcClientOptions,
   CreateSigningClientOptions,
