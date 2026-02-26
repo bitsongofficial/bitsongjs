@@ -3,7 +3,19 @@ export type {
   StdFee,
 } from "@bitsongjs/telescope";
 
-export type { ISigningClient } from "@interchainjs/cosmos";
+import type { ISigningClient as _ISigningClient } from "@interchainjs/cosmos";
+import type { ICosmosSigner as _ICosmosSigner } from "@interchainjs/cosmos";
+
+export type ISigningClient = _ISigningClient;
+export type ICosmosSigner = _ICosmosSigner;
+
+export type {
+  CosmosSignArgs,
+  CosmosSignedTransaction,
+  CosmosBroadcastOptions,
+  CosmosBroadcastResponse,
+  CosmosMessage,
+} from "@interchainjs/cosmos";
 export type { HttpEndpoint, DeliverTxResponse } from "@interchainjs/types";
 
 import type { OfflineSigner } from "@interchainjs/cosmos/signers/types";
@@ -11,6 +23,16 @@ export type { OfflineSigner };
 
 export type { ICosmosQueryClient } from "@interchainjs/cosmos";
 export type { ICosmosEventClient } from "@interchainjs/cosmos";
+
+/**
+ * Combined signer type representing the actual runtime objects
+ * (DirectSigner / AminoSigner via BaseCosmosSigner).
+ *
+ * Exposes both the ICosmosSigner interface (sign, broadcast, signArbitrary)
+ * and the ISigningClient interface (signAndBroadcast with positional args)
+ * that telescope-generated module functions expect.
+ */
+export type BitsongSigner = _ICosmosSigner & _ISigningClient;
 
 export interface ChainConfig {
   chainId: string;
@@ -61,7 +83,7 @@ export interface CreateClientOptions {
   gasPrice?: string;
   modules?: {
     query?: Record<string, (rpc: import("@interchainjs/cosmos").ICosmosQueryClient) => Record<string, (...args: any[]) => any>>;
-    tx?: Record<string, (client: import("@interchainjs/cosmos").ISigningClient, address: string) => Record<string, (...args: any[]) => any>>;
+    tx?: Record<string, (client: BitsongSigner, address: string) => Record<string, (...args: any[]) => any>>;
   };
 }
 

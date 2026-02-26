@@ -1,5 +1,5 @@
 import type {
-  ISigningClient,
+  BitsongSigner,
   ICosmosQueryClient,
   ICosmosEventClient,
   CreateClientOptions,
@@ -50,7 +50,7 @@ function buildQueryNamespaces(rpc: ICosmosQueryClient) {
   };
 }
 
-function buildTxNamespaces(client: ISigningClient, address: string) {
+function buildTxNamespaces(client: BitsongSigner, address: string) {
   return {
     bank: bankTx(client, address),
     staking: stakingTx(client, address),
@@ -75,14 +75,14 @@ export interface BitsongClient {
   readonly rpc: ICosmosQueryClient;
   readonly query: ReturnType<typeof buildQueryNamespaces>;
   readonly address?: string;
-  readonly signingClient?: ISigningClient;
+  readonly signingClient?: BitsongSigner;
   readonly tx?: ReturnType<typeof buildTxNamespaces>;
   connectEvents(): Promise<ICosmosEventClient>;
 }
 
 export type BitsongSigningClient = BitsongClient & {
   address: string;
-  signingClient: ISigningClient;
+  signingClient: BitsongSigner;
   tx: ReturnType<typeof buildTxNamespaces>;
 };
 
@@ -129,7 +129,7 @@ class ClientImpl implements BitsongClient {
     return this.signingResult?.address;
   }
 
-  get signingClient(): ISigningClient | undefined {
+  get signingClient(): BitsongSigner | undefined {
     return this.signingResult?.client;
   }
 

@@ -25,13 +25,13 @@ function buildTypeImport(mod: ModuleDefinition): string {
   const hasTx = mod.txFnName !== undefined;
 
   if (hasQuery && hasTx) {
-    return 'import type { EndpointOrRpc, ISigningClient, StdFee } from "../types";';
+    return 'import type { EndpointOrRpc, BitsongSigner, StdFee } from "../types";';
   }
   if (hasQuery) {
     return 'import type { EndpointOrRpc } from "../types";';
   }
   // tx-only
-  return 'import type { ISigningClient, StdFee } from "../types";';
+  return 'import type { BitsongSigner, StdFee } from "../types";';
 }
 
 /** Render an import block for a set of functions from a single telescope path. */
@@ -182,7 +182,7 @@ function generateModuleFile(mod: ModuleDefinition): string {
   if (mod.txFnName) {
     parts.push("");
     parts.push(
-      `export function ${mod.txFnName}(client: ISigningClient, address: string) {`,
+      `export function ${mod.txFnName}(client: BitsongSigner, address: string) {`,
     );
     parts.push("  return {");
 

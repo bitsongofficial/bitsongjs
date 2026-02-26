@@ -212,6 +212,39 @@ await client.signingClient.signAndBroadcast!(client.address, [
 ], fee);
 ```
 
+## Advanced Signing
+
+The `signingClient` exposes the full `ICosmosSigner` interface, giving you low-level control over signing and broadcasting:
+
+### Sign and broadcast separately
+
+```ts
+// Sign without broadcasting
+const signed = await client.signingClient.sign({
+  messages: [{ typeUrl: "/cosmos.bank.v1beta1.MsgSend", value: msg }],
+  fee: { amount: [{ denom: "ubtsg", amount: "5000" }], gas: "200000" },
+  memo: "offline-signed",
+});
+
+// Inspect signed tx bytes, store them, or broadcast later
+console.log(signed.txBytes);
+
+const result = await client.signingClient.broadcast(signed);
+console.log("Tx hash:", result.transactionHash);
+```
+
+### Sign arbitrary data
+
+Sign arbitrary bytes for off-chain authentication or message verification:
+
+```ts
+const sig = await client.signingClient.signArbitrary(
+  new TextEncoder().encode("Hello BitSong!"),
+);
+```
+
+> **Note:** `signArbitrary` only works with mnemonic-based signers (`IWallet`). With an `OfflineSigner` (e.g., Keplr) it throws because the `OfflineSigner` interface only exposes structured signing (`signAmino` / `signDirect`), not raw byte signing.
+
 ## Custom Chain Configuration
 
 ```ts

@@ -1,11 +1,4 @@
-import type { StdFee, ISigningClient } from "./types";
-import type { ICosmosSigner } from "@interchainjs/cosmos/signers/types";
-
-type SimulatableClient = ISigningClient & Pick<ICosmosSigner, "simulateByTxBody">;
-
-function isSimulatableClient(client: ISigningClient): client is SimulatableClient {
-  return typeof (client as SimulatableClient).simulateByTxBody === "function";
-}
+import type { StdFee, BitsongSigner } from "./types";
 
 export function calculateFee(gasLimit: number, gasPriceStr: string): StdFee {
   const match = gasPriceStr.match(/^([0-9.]+)(.+)$/);
@@ -25,15 +18,12 @@ export function calculateFee(gasLimit: number, gasPriceStr: string): StdFee {
 }
 
 export async function estimateGas(
-  client: ISigningClient,
+  client: BitsongSigner,
   signerAddress: string,
   messages: readonly { typeUrl: string; value: unknown }[],
   multiplier = 1.4,
 ): Promise<number> {
-  // When using interchainjs, signAndBroadcast with fee "auto" will
-  // internally simulate and estimate gas. For standalone simulation,
-  // we use the signer's simulateByTxBody if available.
-  if (isSimulatableClient(client)) {
+  if (typeof client.simulateByTxBody === "function") {
     const txBody = {
       messages: messages.map((m) => ({
         typeUrl: m.typeUrl,
@@ -64,7 +54,7 @@ export async function estimateGas(
 }
 
 export async function estimateFee(
-  client: ISigningClient,
+  client: BitsongSigner,
   signerAddress: string,
   messages: readonly { typeUrl: string; value: unknown }[],
   gasPriceStr: string,

@@ -2,7 +2,7 @@ import { DirectSigner, AminoSigner } from "@interchainjs/cosmos";
 import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/index";
 import type { OfflineSigner } from "@interchainjs/cosmos/signers/types";
 import type { IWallet } from "@interchainjs/types";
-import type { ISigningClient, ICosmosQueryClient } from "./types";
+import type { BitsongSigner, ICosmosQueryClient } from "./types";
 import type { CreateSigningClientOptions, OfflineSignerLike } from "./types";
 import { createRpcClient } from "./rpc";
 
@@ -10,7 +10,7 @@ const BITSONG_PREFIX = "bitsong";
 const BITSONG_HD_PATH = "m/44'/639'/0'/0/0";
 
 export interface SigningClientResult {
-  client: ISigningClient;
+  client: BitsongSigner;
   address: string;
   queryClient: ICosmosQueryClient;
 }
@@ -47,11 +47,14 @@ export async function createSigningClient(
   };
 
   const auth: OfflineSigner | IWallet = wallet ?? (offlineSigner as OfflineSigner);
-  let client: ISigningClient;
+  // Cast needed: BaseCosmosSigner implements both ICosmosSigner and ISigningClient
+  // at runtime, but interchainjs has a minor type discrepancy in getConverterFromTypeUrl
+  // return type (AminoConverter vs AminoConverter | undefined).
+  let client: BitsongSigner;
   if (signerType === "amino") {
-    client = new AminoSigner(auth, signerConfig);
+    client = new AminoSigner(auth, signerConfig) as BitsongSigner;
   } else {
-    client = new DirectSigner(auth, signerConfig);
+    client = new DirectSigner(auth, signerConfig) as BitsongSigner;
   }
 
   // Get address from wallet or offline signer
