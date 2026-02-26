@@ -6,6 +6,9 @@ export type {
 export type { ISigningClient } from "@interchainjs/cosmos";
 export type { HttpEndpoint, DeliverTxResponse } from "@interchainjs/types";
 
+import type { OfflineSigner } from "@interchainjs/cosmos/signers/types";
+export type { OfflineSigner };
+
 export type { ICosmosQueryClient } from "@interchainjs/cosmos";
 export type { ICosmosEventClient } from "@interchainjs/cosmos";
 
@@ -54,10 +57,10 @@ export interface CreateClientOptions {
   signer?: string | OfflineSignerLike;
   signerType?: SignerType;
   gasPrice?: string;
+  modules?: {
+    query?: Record<string, (rpc: import("@interchainjs/cosmos").ICosmosQueryClient) => Record<string, (...args: any[]) => any>>;
+    tx?: Record<string, (client: import("@interchainjs/cosmos").ISigningClient, address: string) => Record<string, (...args: any[]) => any>>;
+  };
 }
 
-export interface OfflineSignerLike {
-  getAccounts(): Promise<readonly { address: string; algo: string; pubkey: Uint8Array }[]>;
-  signDirect?(signerAddress: string, signDoc: unknown): Promise<unknown>;
-  signAmino?(signerAddress: string, signDoc: unknown): Promise<unknown>;
-}
+export type OfflineSignerLike = OfflineSigner;

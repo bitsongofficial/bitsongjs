@@ -71,31 +71,94 @@ function buildTxNamespaces(client: ISigningClient, address: string) {
 }
 
 export interface BitsongClient {
-  chain: ChainConfig;
-  rpc: ICosmosQueryClient;
-  query: ReturnType<typeof buildQueryNamespaces>;
-  address?: string;
-  signingClient?: ISigningClient;
-  tx?: ReturnType<typeof buildTxNamespaces>;
-  connectEvents: () => Promise<ICosmosEventClient>;
+  readonly chain: ChainConfig;
+  readonly rpc: ICosmosQueryClient;
+  readonly query: ReturnType<typeof buildQueryNamespaces>;
+  readonly address?: string;
+  readonly signingClient?: ISigningClient;
+  readonly tx?: ReturnType<typeof buildTxNamespaces>;
+  connectEvents(): Promise<ICosmosEventClient>;
 }
 
+export type BitsongSigningClient = BitsongClient & {
+  address: string;
+  signingClient: ISigningClient;
+  tx: ReturnType<typeof buildTxNamespaces>;
+};
+
+class ClientImpl implements BitsongClient {
+  private _query?: ReturnType<typeof buildQueryNamespaces>;
+  private _tx?: ReturnType<typeof buildTxNamespaces>;
+  private _eventClient?: ICosmosEventClient;
+
+  constructor(
+    readonly chain: ChainConfig,
+    readonly rpc: ICosmosQueryClient,
+    private signingResult?: SigningClientResult,
+    private customModules?: CreateClientOptions["modules"],
+  ) {}
+
+  get query() {
+    if (!this._query) {
+      const base = buildQueryNamespaces(this.rpc);
+      const custom = this.customModules?.query ?? {};
+      for (const [name, factory] of Object.entries(custom)) {
+        Object.assign(base, { [name]: factory(this.rpc) });
+      }
+      this._query = base;
+    }
+    return this._query!;
+  }
+
+  get tx() {
+    if (!this.signingResult) {
+      throw new Error("No signer provided. Pass a signer to createClient() to enable transactions.");
+    }
+    if (!this._tx) {
+      const base = buildTxNamespaces(this.signingResult.client, this.signingResult.address);
+      const custom = this.customModules?.tx ?? {};
+      for (const [name, factory] of Object.entries(custom)) {
+        Object.assign(base, { [name]: factory(this.signingResult.client, this.signingResult.address) });
+      }
+      this._tx = base;
+    }
+    return this._tx!;
+  }
+
+  get address(): string | undefined {
+    return this.signingResult?.address;
+  }
+
+  get signingClient(): ISigningClient | undefined {
+    return this.signingResult?.client;
+  }
+
+  async connectEvents(): Promise<ICosmosEventClient> {
+    if (!this._eventClient) {
+      const ws = this.chain.endpoints.ws ?? this.chain.endpoints.rpc.replace(/^http/, "ws") + "/websocket";
+      this._eventClient = await createEventClient(ws);
+    }
+    return this._eventClient;
+  }
+}
+
+// Overload: signer provided -> BitsongSigningClient
+export async function createClient(
+  options: CreateClientOptions & { signer: string | OfflineSignerLike },
+): Promise<BitsongSigningClient>;
+// Overload: no signer -> BitsongClient
+export async function createClient(options?: CreateClientOptions): Promise<BitsongClient>;
+// Implementation
 export async function createClient(
   options: CreateClientOptions = {},
 ): Promise<BitsongClient> {
   const chain = resolveChain(options.chain ?? "mainnet");
 
-  // Create query client
   const rpc = await createRpcClient({
     endpoint: chain.endpoints.rpc,
   });
 
-  // Build query namespaces
-  const query = buildQueryNamespaces(rpc);
-
-  // Optionally build signing/tx namespaces
   let signingResult: SigningClientResult | undefined;
-  let tx: ReturnType<typeof buildTxNamespaces> | undefined;
 
   if (options.signer) {
     signingResult = await createSigningClient({
@@ -106,26 +169,7 @@ export async function createClient(
       hdPath: chain.hdPath,
       gasPrice: options.gasPrice ?? chain.gasPrice,
     });
-    tx = buildTxNamespaces(signingResult.client, signingResult.address);
   }
 
-  // Lazy event client
-  let eventClient: ICosmosEventClient | undefined;
-  const connectEvents = async (): Promise<ICosmosEventClient> => {
-    if (!eventClient) {
-      const wsEndpoint = chain.endpoints.ws ?? chain.endpoints.rpc.replace(/^http/, "ws") + "/websocket";
-      eventClient = await createEventClient(wsEndpoint);
-    }
-    return eventClient;
-  };
-
-  return {
-    chain,
-    rpc,
-    query,
-    address: signingResult?.address,
-    signingClient: signingResult?.client,
-    tx,
-    connectEvents,
-  };
+  return new ClientImpl(chain, rpc, signingResult, options.modules);
 }

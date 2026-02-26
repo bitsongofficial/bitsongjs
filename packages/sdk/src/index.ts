@@ -7,6 +7,7 @@ export type {
   CreateEventClientOptions,
   CreateClientOptions,
   OfflineSignerLike,
+  OfflineSigner,
   EndpointOrRpc,
   ISigningClient,
   ICosmosQueryClient,
@@ -69,4 +70,4 @@ export {
 
 // Convenience client
 export { createClient } from "./client";
-export type { BitsongClient } from "./client";
+export type { BitsongClient, BitsongSigningClient } from "./client";

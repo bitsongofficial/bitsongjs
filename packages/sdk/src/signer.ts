@@ -1,5 +1,7 @@
 import { DirectSigner, AminoSigner } from "@interchainjs/cosmos";
 import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/index";
+import type { OfflineSigner } from "@interchainjs/cosmos/signers/types";
+import type { IWallet } from "@interchainjs/types";
 import type { ISigningClient, ICosmosQueryClient } from "./types";
 import type { CreateSigningClientOptions, OfflineSignerLike } from "./types";
 import { createRpcClient } from "./rpc";
@@ -44,8 +46,7 @@ export async function createSigningClient(
     ...(options.gasPrice ? { gasPrice: options.gasPrice } : {}),
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const auth = (wallet ?? offlineSigner) as any;
+  const auth: OfflineSigner | IWallet = wallet ?? (offlineSigner as OfflineSigner);
   let client: ISigningClient;
   if (signerType === "amino") {
     client = new AminoSigner(auth, signerConfig);

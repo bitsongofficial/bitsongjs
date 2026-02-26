@@ -71,22 +71,39 @@ export function isTxError(error: unknown): error is TxError {
   return error instanceof TxError;
 }
 
+interface RawTxResponse {
+  code: number;
+  codespace?: string;
+  rawLog?: string;
+  raw_log?: string;
+  txhash?: string;
+  transactionHash?: string;
+}
+
+function isRawTxResponse(value: unknown): value is RawTxResponse {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "code" in value &&
+    typeof (value as RawTxResponse).code === "number"
+  );
+}
+
 export function assertTxSuccess(result: {
   transactionHash?: string;
   rawResponse?: unknown;
 }): void {
-  const raw = result.rawResponse as Record<string, unknown> | undefined;
-  if (raw && typeof raw === "object" && "code" in raw) {
-    const code = Number(raw.code);
+  if (isRawTxResponse(result.rawResponse)) {
+    const code = result.rawResponse.code;
     if (code !== 0) {
       throw new TxError({
         code,
-        codespace: (raw.codespace as string) ?? "",
-        rawLog: (raw.rawLog as string) ?? (raw.raw_log as string) ?? "",
+        codespace: result.rawResponse.codespace ?? "",
+        rawLog: result.rawResponse.rawLog ?? result.rawResponse.raw_log ?? "",
         txHash:
           result.transactionHash ??
-          (raw.txhash as string) ??
-          (raw.transactionHash as string) ??
+          result.rawResponse.txhash ??
+          result.rawResponse.transactionHash ??
           "",
       });
     }
